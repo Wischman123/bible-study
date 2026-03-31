@@ -377,7 +377,6 @@
         .header-topics {
             text-align: center;
             margin: 0 auto 12px auto;
-            max-width: 900px;
         }
 
         .header-topics-row {
@@ -386,7 +385,38 @@
             gap: 5px;
             justify-content: center;
             align-items: center;
-            margin-bottom: 6px;
+            margin-bottom: 0;
+            max-height: 58px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .header-topics-row.expanded {
+            overflow: visible;
+        }
+
+        .topics-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 0.78em;
+            padding: 2px 14px;
+            background: none;
+            color: #999;
+            border: 1px dashed #ccc;
+            border-radius: 12px;
+            margin: 4px auto 6px;
+            font-style: italic;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .topics-toggle:hover {
+            color: #6b5b3e;
+            border-color: #c9a96e;
+        }
+
+        .topics-toggle.visible {
+            display: block;
         }
 
         .header-topics-label {
@@ -683,6 +713,7 @@
   <span class="theme-tag">commitment, to the world</span>
   <span class="theme-tag">love, and enemies</span>
 </div>
+<button class="topics-toggle">more</button>
 <div class="header-topics-row">
   <span class="header-topics-label">Topics:</span>
   <span class="topic-tag">13th generation</span>
@@ -705,8 +736,647 @@
   <span class="topic-tag">am i saved</span>
   <span class="topic-tag">america in the end times</span>
   <span class="topic-tag">animals not having souls</span>
-  <span class="topic-tag">+639 more</span>
+  <span class="topic-tag">anime</span>
+  <span class="topic-tag">anklets</span>
+  <span class="topic-tag">anniversaries</span>
+  <span class="topic-tag">anniversary</span>
+  <span class="topic-tag">ansest</span>
+  <span class="topic-tag">apologies</span>
+  <span class="topic-tag">apologizing to one another</span>
+  <span class="topic-tag">apology</span>
+  <span class="topic-tag">apple</span>
+  <span class="topic-tag">apples</span>
+  <span class="topic-tag">approaching god</span>
+  <span class="topic-tag">are there angels on earth</span>
+  <span class="topic-tag">arianism</span>
+  <span class="topic-tag">armor-bearer</span>
+  <span class="topic-tag">ash wednesday</span>
+  <span class="topic-tag">assumption</span>
+  <span class="topic-tag">assurance</span>
+  <span class="topic-tag">assurance of salvation</span>
+  <span class="topic-tag">asthma</span>
+  <span class="topic-tag">astral projection</span>
+  <span class="topic-tag">attraction</span>
+  <span class="topic-tag">autumn</span>
+  <span class="topic-tag">avoidance</span>
+  <span class="topic-tag">awareness</span>
+  <span class="topic-tag">bad luck</span>
+  <span class="topic-tag">bad things</span>
+  <span class="topic-tag">bad things that happen to good people</span>
+  <span class="topic-tag">basics</span>
+  <span class="topic-tag">bastard children</span>
+  <span class="topic-tag">beans</span>
+  <span class="topic-tag">bearing children</span>
+  <span class="topic-tag">becoming a christian</span>
+  <span class="topic-tag">becoming an adult</span>
+  <span class="topic-tag">being a father</span>
+  <span class="topic-tag">being a good christian</span>
+  <span class="topic-tag">being a pilgrim</span>
+  <span class="topic-tag">being afraid</span>
+  <span class="topic-tag">being an example</span>
+  <span class="topic-tag">being blessed</span>
+  <span class="topic-tag">being born again</span>
+  <span class="topic-tag">being brave</span>
+  <span class="topic-tag">being chosen</span>
+  <span class="topic-tag">being clean</span>
+  <span class="topic-tag">being emotionally whole</span>
+  <span class="topic-tag">being engaged</span>
+  <span class="topic-tag">being fit</span>
+  <span class="topic-tag">being hurt</span>
+  <span class="topic-tag">being ignored</span>
+  <span class="topic-tag">being in debt</span>
+  <span class="topic-tag">being left out</span>
+  <span class="topic-tag">being like the world</span>
+  <span class="topic-tag">being restored</span>
+  <span class="topic-tag">being sad</span>
+  <span class="topic-tag">being saved</span>
+  <span class="topic-tag">being special</span>
+  <span class="topic-tag">being stressed</span>
+  <span class="topic-tag">being strong</span>
+  <span class="topic-tag">being weary</span>
+  <span class="topic-tag">being with jesus</span>
+  <span class="topic-tag">belief</span>
+  <span class="topic-tag">believe</span>
+  <span class="topic-tag">believers</span>
+  <span class="topic-tag">believing</span>
+  <span class="topic-tag">believing in christ</span>
+  <span class="topic-tag">belittling</span>
+  <span class="topic-tag">benevolence</span>
+  <span class="topic-tag">bible maps</span>
+  <span class="topic-tag">birth of jesus</span>
+  <span class="topic-tag">blessed</span>
+  <span class="topic-tag">blessing people</span>
+  <span class="topic-tag">born again</span>
+  <span class="topic-tag">born again believers</span>
+  <span class="topic-tag">born again christians</span>
+  <span class="topic-tag">boys</span>
+  <span class="topic-tag">braiding your hair</span>
+  <span class="topic-tag">branding</span>
+  <span class="topic-tag">break up</span>
+  <span class="topic-tag">breaking promises</span>
+  <span class="topic-tag">brown</span>
+  <span class="topic-tag">building monuments</span>
+  <span class="topic-tag">building relationships</span>
+  <span class="topic-tag">bungee jumping</span>
+  <span class="topic-tag">burning candles</span>
+  <span class="topic-tag">butterflies</span>
+  <span class="topic-tag">buy your way into heaven</span>
+  <span class="topic-tag">care for your body</span>
+  <span class="topic-tag">care of your animal</span>
+  <span class="topic-tag">caring</span>
+  <span class="topic-tag">caring for children</span>
+  <span class="topic-tag">cast out santeria</span>
+  <span class="topic-tag">casting stones</span>
+  <span class="topic-tag">celebrate</span>
+  <span class="topic-tag">celebrating life</span>
+  <span class="topic-tag">certain topics</span>
+  <span class="topic-tag">challenges</span>
+  <span class="topic-tag">chaplain</span>
+  <span class="topic-tag">character</span>
+  <span class="topic-tag">character of god</span>
+  <span class="topic-tag">cheese</span>
+  <span class="topic-tag">cherish</span>
+  <span class="topic-tag">children and death</span>
+  <span class="topic-tag">children salvation</span>
+  <span class="topic-tag">childs sins</span>
+  <span class="topic-tag">chinese zodiac</span>
+  <span class="topic-tag">choose life</span>
+  <span class="topic-tag">christ</span>
+  <span class="topic-tag">christian being in love</span>
+  <span class="topic-tag">christianity</span>
+  <span class="topic-tag">christians not including others</span>
+  <span class="topic-tag">church uniforms</span>
+  <span class="topic-tag">circle</span>
+  <span class="topic-tag">cleaning up your life</span>
+  <span class="topic-tag">cleansing the body</span>
+  <span class="topic-tag">closer to god</span>
+  <span class="topic-tag">closing</span>
+  <span class="topic-tag">closure</span>
+  <span class="topic-tag">clubbing</span>
+  <span class="topic-tag">colors of the rainbow</span>
+  <span class="topic-tag">come as you are</span>
+  <span class="topic-tag">comfort the dying</span>
+  <span class="topic-tag">commitment</span>
+  <span class="topic-tag">confirmation</span>
+  <span class="topic-tag">conscientious objectors</span>
+  <span class="topic-tag">converting people</span>
+  <span class="topic-tag">crazy</span>
+  <span class="topic-tag">critical</span>
+  <span class="topic-tag">crop circles</span>
+  <span class="topic-tag">cross</span>
+  <span class="topic-tag">cross cultural ministry</span>
+  <span class="topic-tag">crude language</span>
+  <span class="topic-tag">crystals</span>
+  <span class="topic-tag">cultural difference</span>
+  <span class="topic-tag">cultural renewal</span>
+  <span class="topic-tag">cynicism</span>
+  <span class="topic-tag">dating age</span>
+  <span class="topic-tag">daycare</span>
+  <span class="topic-tag">dealing with death</span>
+  <span class="topic-tag">dealing with lifes crisis</span>
+  <span class="topic-tag">death</span>
+  <span class="topic-tag">death and birth</span>
+  <span class="topic-tag">death and dying</span>
+  <span class="topic-tag">death of a friend</span>
+  <span class="topic-tag">death of a loved one</span>
+  <span class="topic-tag">death of loved ones</span>
+  <span class="topic-tag">deceased loved ones</span>
+  <span class="topic-tag">defending god</span>
+  <span class="topic-tag">deja vu</span>
+  <span class="topic-tag">denying god</span>
+  <span class="topic-tag">departed loved ones</span>
+  <span class="topic-tag">departing</span>
+  <span class="topic-tag">dependence</span>
+  <span class="topic-tag">design</span>
+  <span class="topic-tag">despondent</span>
+  <span class="topic-tag">destruction</span>
+  <span class="topic-tag">developing christian character</span>
+  <span class="topic-tag">devotion to god</span>
+  <span class="topic-tag">difficult</span>
+  <span class="topic-tag">difficulty</span>
+  <span class="topic-tag">discovery</span>
+  <span class="topic-tag">dishonest people</span>
+  <span class="topic-tag">disobedient children</span>
+  <span class="topic-tag">disobeying parents</span>
+  <span class="topic-tag">divine protection</span>
+  <span class="topic-tag">does god forgive gays</span>
+  <span class="topic-tag">dogs going to heaven</span>
+  <span class="topic-tag">doing for others</span>
+  <span class="topic-tag">doing good</span>
+  <span class="topic-tag">doubts</span>
+  <span class="topic-tag">dowsing</span>
+  <span class="topic-tag">dreamcatchers</span>
+  <span class="topic-tag">duty</span>
+  <span class="topic-tag">dying</span>
+  <span class="topic-tag">early death</span>
+  <span class="topic-tag">easter</span>
+  <span class="topic-tag">effects of sin</span>
+  <span class="topic-tag">eggs</span>
+  <span class="topic-tag">elizabeth</span>
+  <span class="topic-tag">embracing</span>
+  <span class="topic-tag">emergent church</span>
+  <span class="topic-tag">emmaus</span>
+  <span class="topic-tag">emotional attachment</span>
+  <span class="topic-tag">emotional infidelity</span>
+  <span class="topic-tag">empty</span>
+  <span class="topic-tag">epilepsy</span>
+  <span class="topic-tag">eternal life</span>
+  <span class="topic-tag">eternal salvation</span>
+  <span class="topic-tag">eternal security</span>
+  <span class="topic-tag">eternal separation</span>
+  <span class="topic-tag">eternity</span>
+  <span class="topic-tag">everlasting life</span>
+  <span class="topic-tag">everyone is equal</span>
+  <span class="topic-tag">everyone is important</span>
+  <span class="topic-tag">evil in the world</span>
+  <span class="topic-tag">evil people</span>
+  <span class="topic-tag">evil thoughts</span>
+  <span class="topic-tag">evp</span>
+  <span class="topic-tag">example to others</span>
+  <span class="topic-tag">exhortation</span>
+  <span class="topic-tag">explaining death to children</span>
+  <span class="topic-tag">exploitation</span>
+  <span class="topic-tag">fairies</span>
+  <span class="topic-tag">faith in god</span>
+  <span class="topic-tag">faith in jesus</span>
+  <span class="topic-tag">family rejection</span>
+  <span class="topic-tag">fatigue</span>
+  <span class="topic-tag">fearfully and wonderfully made</span>
+  <span class="topic-tag">feng shui</span>
+  <span class="topic-tag">financial problems</span>
+  <span class="topic-tag">finding god</span>
+  <span class="topic-tag">finding lifes meaning</span>
+  <span class="topic-tag">firing</span>
+  <span class="topic-tag">first love</span>
+  <span class="topic-tag">fits of anger</span>
+  <span class="topic-tag">following christ</span>
+  <span class="topic-tag">forcing</span>
+  <span class="topic-tag">forcing someone against their will</span>
+  <span class="topic-tag">forcing someone sexually</span>
+  <span class="topic-tag">forgiveness and transformation</span>
+  <span class="topic-tag">forgiveness of past sins</span>
+  <span class="topic-tag">forgiving yourself</span>
+  <span class="topic-tag">friends and death</span>
+  <span class="topic-tag">funeral</span>
+  <span class="topic-tag">funerals</span>
+  <span class="topic-tag">george w bush</span>
+  <span class="topic-tag">getting a tattoo</span>
+  <span class="topic-tag">getting into heaven</span>
+  <span class="topic-tag">getting to heaven</span>
+  <span class="topic-tag">gift giving</span>
+  <span class="topic-tag">gifts from god</span>
+  <span class="topic-tag">giving gifts</span>
+  <span class="topic-tag">giving me a sign</span>
+  <span class="topic-tag">giving to others</span>
+  <span class="topic-tag">giving too much</span>
+  <span class="topic-tag">globalization</span>
+  <span class="topic-tag">god accepting me</span>
+  <span class="topic-tag">god being our husband</span>
+  <span class="topic-tag">god did not send the son into the world to condemn the world</span>
+  <span class="topic-tag">god forgives</span>
+  <span class="topic-tag">god in the new testament</span>
+  <span class="topic-tag">god is love</span>
+  <span class="topic-tag">god loves everyone</span>
+  <span class="topic-tag">god loves me</span>
+  <span class="topic-tag">god loving all of his children</span>
+  <span class="topic-tag">god on high</span>
+  <span class="topic-tag">god testing abraham</span>
+  <span class="topic-tag">gods</span>
+  <span class="topic-tag">gods character</span>
+  <span class="topic-tag">gods gift</span>
+  <span class="topic-tag">gods gifts</span>
+  <span class="topic-tag">gods help</span>
+  <span class="topic-tag">gods love</span>
+  <span class="topic-tag">gods love for us</span>
+  <span class="topic-tag">gods love for you</span>
+  <span class="topic-tag">gods people</span>
+  <span class="topic-tag">gods promises</span>
+  <span class="topic-tag">gods purpose for me</span>
+  <span class="topic-tag">going to concerts</span>
+  <span class="topic-tag">golden rule</span>
+  <span class="topic-tag">good deeds</span>
+  <span class="topic-tag">good deeds to go to heaven</span>
+  <span class="topic-tag">good friday</span>
+  <span class="topic-tag">good sense</span>
+  <span class="topic-tag">gospel</span>
+  <span class="topic-tag">grants</span>
+  <span class="topic-tag">grave</span>
+  <span class="topic-tag">great commission</span>
+  <span class="topic-tag">greeter</span>
+  <span class="topic-tag">grief</span>
+  <span class="topic-tag">grief and sorrow</span>
+  <span class="topic-tag">groups</span>
+  <span class="topic-tag">gypsies</span>
+  <span class="topic-tag">harmony</span>
+  <span class="topic-tag">hating your parents</span>
+  <span class="topic-tag">having a baby out of wedlock</span>
+  <span class="topic-tag">having a conservative pope</span>
+  <span class="topic-tag">having children outside of marriage</span>
+  <span class="topic-tag">having the right attitude</span>
+  <span class="topic-tag">hazing</span>
+  <span class="topic-tag">headaches</span>
+  <span class="topic-tag">healing the nation</span>
+  <span class="topic-tag">heavenly realms</span>
+  <span class="topic-tag">helmet of salvation</span>
+  <span class="topic-tag">help you through rough times for mothers</span>
+  <span class="topic-tag">heroes</span>
+  <span class="topic-tag">hindering</span>
+  <span class="topic-tag">hip hop</span>
+  <span class="topic-tag">hip hop music</span>
+  <span class="topic-tag">hitting</span>
+  <span class="topic-tag">holding your tongue</span>
+  <span class="topic-tag">homeless</span>
+  <span class="topic-tag">honoring the parents</span>
+  <span class="topic-tag">honoring thy mother and father</span>
+  <span class="topic-tag">hopeless</span>
+  <span class="topic-tag">hot and cold</span>
+  <span class="topic-tag">housekeeping</span>
+  <span class="topic-tag">how to act</span>
+  <span class="topic-tag">how to be saved</span>
+  <span class="topic-tag">how to become a christian</span>
+  <span class="topic-tag">how to get in heaven</span>
+  <span class="topic-tag">how to get saved</span>
+  <span class="topic-tag">how to treat people</span>
+  <span class="topic-tag">hugging in public</span>
+  <span class="topic-tag">human beings</span>
+  <span class="topic-tag">humanism</span>
+  <span class="topic-tag">humanity</span>
+  <span class="topic-tag">humans</span>
+  <span class="topic-tag">hurting the one you love</span>
+  <span class="topic-tag">images</span>
+  <span class="topic-tag">imagination</span>
+  <span class="topic-tag">impeachment</span>
+  <span class="topic-tag">industriousness</span>
+  <span class="topic-tag">interference</span>
+  <span class="topic-tag">international trade</span>
+  <span class="topic-tag">intimacy with god</span>
+  <span class="topic-tag">it is finished</span>
+  <span class="topic-tag">jesus</span>
+  <span class="topic-tag">jesus as image of god</span>
+  <span class="topic-tag">jesus being humble</span>
+  <span class="topic-tag">jesus birth</span>
+  <span class="topic-tag">jesus christ</span>
+  <span class="topic-tag">jesus death</span>
+  <span class="topic-tag">jesus is alive</span>
+  <span class="topic-tag">jesus love</span>
+  <span class="topic-tag">jesus mercy</span>
+  <span class="topic-tag">jesus parables</span>
+  <span class="topic-tag">jesus sacrifice</span>
+  <span class="topic-tag">jesus teenage years</span>
+  <span class="topic-tag">jesus wept</span>
+  <span class="topic-tag">jesus with us now</span>
+  <span class="topic-tag">john</span>
+  <span class="topic-tag">john being the author of the gospel of john</span>
+  <span class="topic-tag">judgment of christ</span>
+  <span class="topic-tag">julius caesar</span>
+  <span class="topic-tag">knowing jesus</span>
+  <span class="topic-tag">knowing your destiny</span>
+  <span class="topic-tag">kung pao</span>
+  <span class="topic-tag">leaving a church</span>
+  <span class="topic-tag">leisure</span>
+  <span class="topic-tag">lent</span>
+  <span class="topic-tag">lesbian</span>
+  <span class="topic-tag">life after death</span>
+  <span class="topic-tag">life of christ</span>
+  <span class="topic-tag">lifespan</span>
+  <span class="topic-tag">lifting up the name of jesus</span>
+  <span class="topic-tag">live</span>
+  <span class="topic-tag">living life to the fullest</span>
+  <span class="topic-tag">living together not married</span>
+  <span class="topic-tag">looking after the earth</span>
+  <span class="topic-tag">looking for love</span>
+  <span class="topic-tag">losing a loved one</span>
+  <span class="topic-tag">losing faith</span>
+  <span class="topic-tag">loss of a loved one</span>
+  <span class="topic-tag">lost</span>
+  <span class="topic-tag">love</span>
+  <span class="topic-tag">love and compassion</span>
+  <span class="topic-tag">love and forgiveness</span>
+  <span class="topic-tag">love and hate</span>
+  <span class="topic-tag">love and marriage</span>
+  <span class="topic-tag">love god</span>
+  <span class="topic-tag">love in the new testament</span>
+  <span class="topic-tag">love is</span>
+  <span class="topic-tag">love is patient</span>
+  <span class="topic-tag">love of god</span>
+  <span class="topic-tag">love offerings</span>
+  <span class="topic-tag">love others</span>
+  <span class="topic-tag">love the lord with all your heart</span>
+  <span class="topic-tag">love thy neighbor</span>
+  <span class="topic-tag">loved ones in heaven</span>
+  <span class="topic-tag">loving god</span>
+  <span class="topic-tag">loving one another</span>
+  <span class="topic-tag">loving others</span>
+  <span class="topic-tag">loving relationships</span>
+  <span class="topic-tag">loving someone</span>
+  <span class="topic-tag">loving unconditionally</span>
+  <span class="topic-tag">loving your children</span>
+  <span class="topic-tag">low self esteem</span>
+  <span class="topic-tag">loyalty</span>
+  <span class="topic-tag">making the world better</span>
+  <span class="topic-tag">mardi gras</span>
+  <span class="topic-tag">marriage after death</span>
+  <span class="topic-tag">married women having children</span>
+  <span class="topic-tag">mayan calendar</span>
+  <span class="topic-tag">me</span>
+  <span class="topic-tag">mediators</span>
+  <span class="topic-tag">memorial day</span>
+  <span class="topic-tag">memories</span>
+  <span class="topic-tag">memorizing scripture</span>
+  <span class="topic-tag">memory after death</span>
+  <span class="topic-tag">mental disability</span>
+  <span class="topic-tag">mermaids</span>
+  <span class="topic-tag">midnight</span>
+  <span class="topic-tag">minimum</span>
+  <span class="topic-tag">miracle</span>
+  <span class="topic-tag">misfortunes</span>
+  <span class="topic-tag">missing someone</span>
+  <span class="topic-tag">more than conquerors</span>
+  <span class="topic-tag">mother nature</span>
+  <span class="topic-tag">mt moriah</span>
+  <span class="topic-tag">mushrooms</span>
+  <span class="topic-tag">muslims</span>
+  <span class="topic-tag">my brothers keeper</span>
+  <span class="topic-tag">my purpose</span>
+  <span class="topic-tag">near death experiences</span>
+  <span class="topic-tag">necrophilia</span>
+  <span class="topic-tag">new beginning</span>
+  <span class="topic-tag">new life</span>
+  <span class="topic-tag">new members</span>
+  <span class="topic-tag">new testament</span>
+  <span class="topic-tag">nicodemus</span>
+  <span class="topic-tag">nightclubs</span>
+  <span class="topic-tag">no good deed will go unpunished</span>
+  <span class="topic-tag">no one is perfect</span>
+  <span class="topic-tag">non believers</span>
+  <span class="topic-tag">not good enough</span>
+  <span class="topic-tag">not hot not cold</span>
+  <span class="topic-tag">not paying your bills</span>
+  <span class="topic-tag">not to break you</span>
+  <span class="topic-tag">numerology</span>
+  <span class="topic-tag">once saved always saved</span>
+  <span class="topic-tag">optimism</span>
+  <span class="topic-tag">organizing</span>
+  <span class="topic-tag">other religions</span>
+  <span class="topic-tag">our deceased loved ones</span>
+  <span class="topic-tag">our environment</span>
+  <span class="topic-tag">our first love</span>
+  <span class="topic-tag">our savior</span>
+  <span class="topic-tag">our worth to god</span>
+  <span class="topic-tag">palm sunday</span>
+  <span class="topic-tag">parental love</span>
+  <span class="topic-tag">paris hilton</span>
+  <span class="topic-tag">pastors authority in the church</span>
+  <span class="topic-tag">payback</span>
+  <span class="topic-tag">paying off mortgage</span>
+  <span class="topic-tag">peace in the middle east</span>
+  <span class="topic-tag">peace love and faith</span>
+  <span class="topic-tag">people</span>
+  <span class="topic-tag">people hurting you</span>
+  <span class="topic-tag">performance</span>
+  <span class="topic-tag">perish</span>
+  <span class="topic-tag">personality</span>
+  <span class="topic-tag">pilgrimage</span>
+  <span class="topic-tag">pilgrims</span>
+  <span class="topic-tag">pillow</span>
+  <span class="topic-tag">planting your garden</span>
+  <span class="topic-tag">playing cards</span>
+  <span class="topic-tag">playing poker</span>
+  <span class="topic-tag">poker</span>
+  <span class="topic-tag">poker playing</span>
+  <span class="topic-tag">praying for the dead</span>
+  <span class="topic-tag">preaching the gospel</span>
+  <span class="topic-tag">predestined</span>
+  <span class="topic-tag">predetermination</span>
+  <span class="topic-tag">preferential treatment</span>
+  <span class="topic-tag">premonitions</span>
+  <span class="topic-tag">pricing</span>
+  <span class="topic-tag">principle of god</span>
+  <span class="topic-tag">problem solving</span>
+  <span class="topic-tag">proclamation</span>
+  <span class="topic-tag">promises of god</span>
+  <span class="topic-tag">propitiation</span>
+  <span class="topic-tag">provide</span>
+  <span class="topic-tag">provider</span>
+  <span class="topic-tag">psalms 23</span>
+  <span class="topic-tag">pyramids</span>
+  <span class="topic-tag">ramadan</span>
+  <span class="topic-tag">real love</span>
+  <span class="topic-tag">reality</span>
+  <span class="topic-tag">reason</span>
+  <span class="topic-tag">rebirth</span>
+  <span class="topic-tag">rebuilding</span>
+  <span class="topic-tag">recognition</span>
+  <span class="topic-tag">redemption</span>
+  <span class="topic-tag">refuge</span>
+  <span class="topic-tag">refusing to pay debt</span>
+  <span class="topic-tag">relationship</span>
+  <span class="topic-tag">relationship with god</span>
+  <span class="topic-tag">relativism</span>
+  <span class="topic-tag">relevance</span>
+  <span class="topic-tag">renewal</span>
+  <span class="topic-tag">repenance</span>
+  <span class="topic-tag">respecting others</span>
+  <span class="topic-tag">returning home</span>
+  <span class="topic-tag">revel</span>
+  <span class="topic-tag">revellers</span>
+  <span class="topic-tag">reverend</span>
+  <span class="topic-tag">robins</span>
+  <span class="topic-tag">sacrifice</span>
+  <span class="topic-tag">sanity</span>
+  <span class="topic-tag">santify</span>
+  <span class="topic-tag">saved</span>
+  <span class="topic-tag">saving souls</span>
+  <span class="topic-tag">savior</span>
+  <span class="topic-tag">saying i love you</span>
+  <span class="topic-tag">saying you are sorry</span>
+  <span class="topic-tag">second chances</span>
+  <span class="topic-tag">security</span>
+  <span class="topic-tag">seeing yourself</span>
+  <span class="topic-tag">self acceptance</span>
+  <span class="topic-tag">self centered</span>
+  <span class="topic-tag">self destruction</span>
+  <span class="topic-tag">self doubt</span>
+  <span class="topic-tag">self sacrifice</span>
+  <span class="topic-tag">self-importance</span>
+  <span class="topic-tag">selfless</span>
+  <span class="topic-tag">selfless love</span>
+  <span class="topic-tag">selling livestock</span>
+  <span class="topic-tag">sensitivity</span>
+  <span class="topic-tag">september 11</span>
+  <span class="topic-tag">serenity</span>
+  <span class="topic-tag">servers</span>
+  <span class="topic-tag">serving the lord</span>
+  <span class="topic-tag">sharing with others</span>
+  <span class="topic-tag">sharon</span>
+  <span class="topic-tag">showing kindness</span>
+  <span class="topic-tag">shy</span>
+  <span class="topic-tag">shy people</span>
+  <span class="topic-tag">sick child</span>
+  <span class="topic-tag">significance</span>
+  <span class="topic-tag">sincerity</span>
+  <span class="topic-tag">small things</span>
+  <span class="topic-tag">smart</span>
+  <span class="topic-tag">social</span>
+  <span class="topic-tag">solving problems</span>
+  <span class="topic-tag">son</span>
+  <span class="topic-tag">son of god</span>
+  <span class="topic-tag">sons</span>
+  <span class="topic-tag">sorority</span>
+  <span class="topic-tag">speeding</span>
+  <span class="topic-tag">spiritual energy</span>
+  <span class="topic-tag">spreading the word</span>
+  <span class="topic-tag">standing up for others</span>
+  <span class="topic-tag">starting a business</span>
+  <span class="topic-tag">starting over again</span>
+  <span class="topic-tag">step families</span>
+  <span class="topic-tag">step parents</span>
+  <span class="topic-tag">stepfamilies</span>
+  <span class="topic-tag">stepfathers</span>
+  <span class="topic-tag">steroids</span>
+  <span class="topic-tag">strength in god</span>
+  <span class="topic-tag">striving for perfection</span>
+  <span class="topic-tag">supernatural</span>
+  <span class="topic-tag">taking care of your children</span>
+  <span class="topic-tag">thanking god</span>
+  <span class="topic-tag">the apocalypse</span>
+  <span class="topic-tag">the black race</span>
+  <span class="topic-tag">the cross</span>
+  <span class="topic-tag">the crucifixion</span>
+  <span class="topic-tag">the da vinci code</span>
+  <span class="topic-tag">the dead</span>
+  <span class="topic-tag">the emotionally ill</span>
+  <span class="topic-tag">the end of days</span>
+  <span class="topic-tag">the environment</span>
+  <span class="topic-tag">the fall</span>
+  <span class="topic-tag">the flag</span>
+  <span class="topic-tag">the freedom of god</span>
+  <span class="topic-tag">the holy land</span>
+  <span class="topic-tag">the holy war</span>
+  <span class="topic-tag">the illuminati conspiracy</span>
+  <span class="topic-tag">the lost</span>
+  <span class="topic-tag">the lost sheep</span>
+  <span class="topic-tag">the love of god</span>
+  <span class="topic-tag">the meaning of life</span>
+  <span class="topic-tag">the number 9</span>
+  <span class="topic-tag">the requirements to follow jesus</span>
+  <span class="topic-tag">the reserection</span>
+  <span class="topic-tag">the rosary</span>
+  <span class="topic-tag">the rose of sharon</span>
+  <span class="topic-tag">the spirit of rejection</span>
+  <span class="topic-tag">the third eye</span>
+  <span class="topic-tag">the tsunami</span>
+  <span class="topic-tag">the unexpected</span>
+  <span class="topic-tag">the way the truth and the life</span>
+  <span class="topic-tag">the weather</span>
+  <span class="topic-tag">the world</span>
+  <span class="topic-tag">the world ending</span>
+  <span class="topic-tag">the year 2012</span>
+  <span class="topic-tag">theology</span>
+  <span class="topic-tag">there is no love</span>
+  <span class="topic-tag">those who dont believe</span>
+  <span class="topic-tag">those who hurt children</span>
+  <span class="topic-tag">three scores and ten</span>
+  <span class="topic-tag">tidings</span>
+  <span class="topic-tag">tiempo</span>
+  <span class="topic-tag">tigers</span>
+  <span class="topic-tag">time to die</span>
+  <span class="topic-tag">tombstones</span>
+  <span class="topic-tag">tort reform</span>
+  <span class="topic-tag">tough love</span>
+  <span class="topic-tag">treatment of spouse</span>
+  <span class="topic-tag">tribes</span>
+  <span class="topic-tag">tricks</span>
+  <span class="topic-tag">trouble in life</span>
+  <span class="topic-tag">troublemakers</span>
+  <span class="topic-tag">true happiness</span>
+  <span class="topic-tag">true love</span>
+  <span class="topic-tag">true love waits</span>
+  <span class="topic-tag">true religion</span>
+  <span class="topic-tag">true religion is</span>
+  <span class="topic-tag">trustees</span>
+  <span class="topic-tag">trusting and believing</span>
+  <span class="topic-tag">truth and self esteem</span>
+  <span class="topic-tag">tsunamis</span>
+  <span class="topic-tag">ugly people</span>
+  <span class="topic-tag">ultimate sacrifice</span>
+  <span class="topic-tag">unconditional love</span>
+  <span class="topic-tag">unevenly yoke</span>
+  <span class="topic-tag">ungratefulness</span>
+  <span class="topic-tag">unicorns</span>
+  <span class="topic-tag">uniforms</span>
+  <span class="topic-tag">uniforms in the church</span>
+  <span class="topic-tag">uplifting</span>
+  <span class="topic-tag">us</span>
+  <span class="topic-tag">valentine</span>
+  <span class="topic-tag">virtues</span>
+  <span class="topic-tag">wastefulness</span>
+  <span class="topic-tag">watching us</span>
+  <span class="topic-tag">web 20</span>
+  <span class="topic-tag">wellness</span>
+  <span class="topic-tag">what happens after death</span>
+  <span class="topic-tag">what happens when you die</span>
+  <span class="topic-tag">what is a christian</span>
+  <span class="topic-tag">what to do when you get message</span>
+  <span class="topic-tag">when non believers accept christ</span>
+  <span class="topic-tag">when someone dies</span>
+  <span class="topic-tag">when we die</span>
+  <span class="topic-tag">where two or more are gathered</span>
+  <span class="topic-tag">who goes to heaven</span>
+  <span class="topic-tag">who is going to heaven</span>
+  <span class="topic-tag">why we need god</span>
+  <span class="topic-tag">wickedness</span>
+  <span class="topic-tag">winning</span>
+  <span class="topic-tag">witnessing</span>
+  <span class="topic-tag">world</span>
+  <span class="topic-tag">world war 3</span>
+  <span class="topic-tag">worth</span>
+  <span class="topic-tag">worthy</span>
+  <span class="topic-tag">ww3</span>
+  <span class="topic-tag">your birthday</span>
+  <span class="topic-tag">your life</span>
 </div>
+<button class="topics-toggle">more</button>
 </div>
 
 <!-- ═══════════ BIBLE TRANSLATIONS ═══════════ -->
@@ -848,7 +1518,7 @@ expects an affirmat...</td></tr>
 </div>
 </details>
 
-<script type="application/json" id="verse-app-data">{"verseTexts": {"0": {"16": "“For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life."}, "1": {"16": "¶ For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."}, "2": {"16": "For God so loved the world that He gave His one and only Son, that everyone who believes in Him shall not perish but have eternal life."}}, "translationNames": ["ESV", "KJVPCE", "BSB"], "interlinear": {"16": [{"text": "so", "original": "Οὕτως", "strongs": "G3779"}, {"text": "For", "original": "γὰρ", "strongs": "G1063"}, {"text": "loved", "original": "ἠγάπησεν", "strongs": "G25"}, {"text": "", "original": "ὁ", "strongs": "G3588"}, {"text": "God", "original": "θεὸς", "strongs": "G2316"}, {"text": "", "original": "τὸν", "strongs": "G3588"}, {"text": "the world", "original": "κόσμον", "strongs": "G2889"}, {"text": "that", "original": "ὥστε", "strongs": "G5620"}, {"text": "", "original": "τὸν", "strongs": "G3588"}, {"text": "Son", "original": "υἱὸν", "strongs": "G5207"}, {"text": "him", "original": "αὐτὸν", "strongs": "G846"}, {"text": "", "original": "τὸν", "strongs": "G3588"}, {"text": "only begotten", "original": "μονογενῆ", "strongs": "G3439"}, {"text": "he gave", "original": "ἔδωκεν", "strongs": "G1325"}, {"text": "that", "original": "ἵνα", "strongs": "G2443"}, {"text": "whosoever", "original": "πᾶς", "strongs": "G3956"}, {"text": "", "original": "ὁ", "strongs": "G3588"}, {"text": "believeth", "original": "πιστεύων", "strongs": "G4100"}, {"text": "in", "original": "εἰς", "strongs": "G1519"}, {"text": "him", "original": "αὐτὸν", "strongs": "G846"}, {"text": "not", "original": "μὴ", "strongs": "G3361"}, {"text": "perish", "original": "ἀπόληται", "strongs": "G622"}, {"text": "but", "original": "ἀλλ'", "strongs": "G235"}, {"text": "have", "original": "ἔχῃ", "strongs": "G2192"}, {"text": "life", "original": "ζωὴν", "strongs": "G2222"}, {"text": "everlasting", "original": "αἰώνιον", "strongs": "G166"}]}, "lexicon": {"G2192": {"translit": "échō", "definition": "to hold (used in very various applications, literally or figuratively, direct or remote; such as possession; ability,..."}, "G3779": {"translit": "hoútō", "definition": "in this way (referring to what precedes or follows)"}, "G1325": {"translit": "dídōmi", "definition": "to give (used in a very wide application, properly, or by implication, literally or figuratively; greatly modified by..."}, "G2316": {"translit": "theós", "definition": "figuratively, a magistrate; by Hebraism, very"}, "G25": {"translit": "agapáō", "definition": "to love (in a social or moral sense)"}, "G3588": {"translit": "ho", "definition": "the (sometimes to be supplied, at others omitted, in English idiom)"}, "G166": {"translit": "aiṓnios", "definition": "perpetual (also used of past time, or past and future as well)"}, "G3956": {"translit": "pâs", "definition": "all, any, every, the whole"}, "G235": {"translit": "allá", "definition": "properly, other things, i.e. (adverbially) contrariwise (in many relations)"}, "G4100": {"translit": "pisteúō", "definition": "to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially ..."}, "G2889": {"translit": "kósmos", "definition": "orderly arrangement, i.e. decoration; by implication, the world (in a wide or narrow sense, including its inhabitants..."}, "G5620": {"translit": "hṓste", "definition": "so too, i.e. thus therefore (in various relations of consecution, as follow)"}, "G846": {"translit": "autós", "definition": "the reflexive pronoun self, used (alone or in the comparative\n\n\n) of the third person , and (with the proper personal..."}, "G3439": {"translit": "monogenḗs", "definition": "only-born, i.e. sole"}, "G3361": {"translit": "mḗ", "definition": "(adverb) not, (conjunction) lest; also (as an interrogative implying a negative answer (whereas\n\n\nexpects an affirmat..."}, "G5207": {"translit": "huiós", "definition": "a \"son\" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship"}, "G1063": {"translit": "gár", "definition": "properly, assigning a reason (used in argument, explanation or intensification; often with other particles)"}, "G2443": {"translit": "hína", "definition": "compare\n\n\n); in order that (denoting the purpose or the result)"}, "G2222": {"translit": "zōḗ", "definition": "life (literally or figuratively)"}, "G1519": {"translit": "eis", "definition": "to or into (indicating the point reached or entered), of place, time, or (figuratively) purpose (result, etc.); also ..."}, "G622": {"translit": "apóllymi", "definition": "to destroy fully (reflexively, to perish, or lose), literally or figuratively"}}, "langClass": "greek", "langLabel": "Greek"}</script>
+<script type="application/json" id="verse-app-data">{"verseTexts": {"0": {"16": "“For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life."}, "1": {"16": "¶ For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."}, "2": {"16": "For God so loved the world that He gave His one and only Son, that everyone who believes in Him shall not perish but have eternal life."}}, "translationNames": ["ESV", "KJVPCE", "BSB"], "interlinear": {"16": [{"text": "so", "original": "Οὕτως", "strongs": "G3779"}, {"text": "For", "original": "γὰρ", "strongs": "G1063"}, {"text": "loved", "original": "ἠγάπησεν", "strongs": "G25"}, {"text": "", "original": "ὁ", "strongs": "G3588"}, {"text": "God", "original": "θεὸς", "strongs": "G2316"}, {"text": "", "original": "τὸν", "strongs": "G3588"}, {"text": "the world", "original": "κόσμον", "strongs": "G2889"}, {"text": "that", "original": "ὥστε", "strongs": "G5620"}, {"text": "", "original": "τὸν", "strongs": "G3588"}, {"text": "Son", "original": "υἱὸν", "strongs": "G5207"}, {"text": "him", "original": "αὐτὸν", "strongs": "G846"}, {"text": "", "original": "τὸν", "strongs": "G3588"}, {"text": "only begotten", "original": "μονογενῆ", "strongs": "G3439"}, {"text": "he gave", "original": "ἔδωκεν", "strongs": "G1325"}, {"text": "that", "original": "ἵνα", "strongs": "G2443"}, {"text": "whosoever", "original": "πᾶς", "strongs": "G3956"}, {"text": "", "original": "ὁ", "strongs": "G3588"}, {"text": "believeth", "original": "πιστεύων", "strongs": "G4100"}, {"text": "in", "original": "εἰς", "strongs": "G1519"}, {"text": "him", "original": "αὐτὸν", "strongs": "G846"}, {"text": "not", "original": "μὴ", "strongs": "G3361"}, {"text": "perish", "original": "ἀπόληται", "strongs": "G622"}, {"text": "but", "original": "ἀλλ'", "strongs": "G235"}, {"text": "have", "original": "ἔχῃ", "strongs": "G2192"}, {"text": "life", "original": "ζωὴν", "strongs": "G2222"}, {"text": "everlasting", "original": "αἰώνιον", "strongs": "G166"}]}, "lexicon": {"G1325": {"translit": "dídōmi", "definition": "to give (used in a very wide application, properly, or by implication, literally or figuratively; greatly modified by..."}, "G3361": {"translit": "mḗ", "definition": "(adverb) not, (conjunction) lest; also (as an interrogative implying a negative answer (whereas\n\n\nexpects an affirmat..."}, "G5620": {"translit": "hṓste", "definition": "so too, i.e. thus therefore (in various relations of consecution, as follow)"}, "G4100": {"translit": "pisteúō", "definition": "to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially ..."}, "G3588": {"translit": "ho", "definition": "the (sometimes to be supplied, at others omitted, in English idiom)"}, "G846": {"translit": "autós", "definition": "the reflexive pronoun self, used (alone or in the comparative\n\n\n) of the third person , and (with the proper personal..."}, "G5207": {"translit": "huiós", "definition": "a \"son\" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship"}, "G3439": {"translit": "monogenḗs", "definition": "only-born, i.e. sole"}, "G3779": {"translit": "hoútō", "definition": "in this way (referring to what precedes or follows)"}, "G2443": {"translit": "hína", "definition": "compare\n\n\n); in order that (denoting the purpose or the result)"}, "G1519": {"translit": "eis", "definition": "to or into (indicating the point reached or entered), of place, time, or (figuratively) purpose (result, etc.); also ..."}, "G2316": {"translit": "theós", "definition": "figuratively, a magistrate; by Hebraism, very"}, "G235": {"translit": "allá", "definition": "properly, other things, i.e. (adverbially) contrariwise (in many relations)"}, "G2192": {"translit": "échō", "definition": "to hold (used in very various applications, literally or figuratively, direct or remote; such as possession; ability,..."}, "G3956": {"translit": "pâs", "definition": "all, any, every, the whole"}, "G2889": {"translit": "kósmos", "definition": "orderly arrangement, i.e. decoration; by implication, the world (in a wide or narrow sense, including its inhabitants..."}, "G166": {"translit": "aiṓnios", "definition": "perpetual (also used of past time, or past and future as well)"}, "G2222": {"translit": "zōḗ", "definition": "life (literally or figuratively)"}, "G25": {"translit": "agapáō", "definition": "to love (in a social or moral sense)"}, "G1063": {"translit": "gár", "definition": "properly, assigning a reason (used in argument, explanation or intensification; often with other particles)"}, "G622": {"translit": "apóllymi", "definition": "to destroy fully (reflexively, to perish, or lose), literally or figuratively"}}, "langClass": "greek", "langLabel": "Greek"}</script>
 
 <script>
 (function() {
@@ -949,6 +1619,35 @@ expects an affirmat...</td></tr>
             table.scrollIntoView({behavior: 'smooth', block: 'start'});
             setTimeout(function() { table.classList.remove('entering'); }, 300);
         }, 250);
+    }
+})();
+
+/* ── Topics / Themes overflow toggle ────────────── */
+(function() {
+    var toggles = document.querySelectorAll('.topics-toggle');
+    for (var i = 0; i < toggles.length; i++) {
+        var btn = toggles[i];
+        var row = btn.previousElementSibling;
+        if (!row) continue;
+
+        /* Show button only if content overflows the 2-line cap */
+        if (row.scrollHeight > row.clientHeight + 2) {
+            btn.classList.add('visible');
+        }
+
+        btn.addEventListener('click', (function(b, r) {
+            return function() {
+                if (r.classList.contains('expanded')) {
+                    r.style.maxHeight = '';
+                    r.classList.remove('expanded');
+                    b.textContent = 'more';
+                } else {
+                    r.style.maxHeight = r.scrollHeight + 'px';
+                    r.classList.add('expanded');
+                    b.textContent = 'less';
+                }
+            };
+        })(btn, row));
     }
 })();
 </script>
