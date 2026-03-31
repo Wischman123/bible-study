@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John 3:16</title>
+    <style>
+        /* ── Base styles ────────────────────────────────── */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        @page { size: landscape; margin: 0.5in; }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.7;
+            color: #2c2c2c;
+            background: #fafaf7;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+
+        /* ── Page title ─────────────────────────────────── */
+        h1 {
+            font-size: 2.2em;
+            font-weight: normal;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 0.95em;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        /* ── Section headers ────────────────────────────── */
+        h2 {
+            font-size: 1.5em;
+            font-weight: normal;
+            color: #444;
+            border-bottom: 2px solid #c9a96e;
+            padding-bottom: 8px;
+            margin: 30px 0 15px 0;
+            letter-spacing: 0.3px;
+        }
+
+        /* ── Parallel verse table ───────────────────────── */
+        .parallel-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .parallel-table th {
+            background: #f7f3eb;
+            color: #6b5b3e;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.95em;
+            font-weight: bold;
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 2px solid #c9a96e;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .parallel-table th.verse-col {
+            width: 40px;
+            text-align: center;
+            color: #999;
+        }
+
+        .parallel-table th .abbrev {
+            font-weight: normal;
+            color: #999;
+            font-size: 0.85em;
+        }
+
+        .parallel-table td {
+            padding: 12px 18px;
+            vertical-align: top;
+            border-bottom: 1px solid #eee;
+            font-size: 1em;
+            line-height: 1.65;
+        }
+
+        .parallel-table td.verse-num-cell {
+            text-align: center;
+            font-weight: bold;
+            color: #c9a96e;
+            font-size: 0.9em;
+            width: 40px;
+            vertical-align: top;
+            padding-top: 14px;
+        }
+
+        .parallel-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .parallel-table tr:hover td {
+            background: #fdfcf8;
+        }
+
+        .parallel-table th.diff-col {
+            background: #f0ebe0;
+            color: #6b5b3e;
+            min-width: 200px;
+        }
+
+        .parallel-table td.diff-cell {
+            font-size: 0.88em;
+            line-height: 1.55;
+            color: #6b5b3e;
+            background: #fdf9f0;
+            font-style: italic;
+            border-left: 2px solid #c9a96e;
+        }
+
+        .parallel-table td.diff-cell-none {
+            font-size: 0.85em;
+            color: #bbb;
+            background: #fdf9f0;
+            border-left: 2px solid #c9a96e;
+            text-align: center;
+        }
+
+        /* ── Inline cross-references (inside verse cell) ── */
+        .verse-crossrefs {
+            font-style: italic;
+            font-size: 0.8em;
+            color: #aaa;
+            margin-left: 6px;
+            line-height: 1.5;
+        }
+
+        /* ── Inline difference highlighting ─────────────── */
+        .diff-word {
+            text-decoration: underline dotted #c9a96e;
+            text-underline-offset: 3px;
+        }
+
+        /* ── Commentary blocks ──────────────────────────── */
+        .commentary-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .commentary {
+            margin-bottom: 40px;
+            padding: 25px 30px;
+            background: #fff;
+            border-left: 4px solid #5b7e9e;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .commentary-pair .commentary {
+            margin-bottom: 0;
+        }
+
+        .commentary-name {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #3d5a73;
+            margin-bottom: 4px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .commentary-author {
+            font-size: 0.85em;
+            color: #999;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .commentary-intro {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            background: #f5f5f0;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        .commentary-verse {
+            margin-bottom: 18px;
+        }
+
+        .commentary-verse-ref {
+            font-weight: bold;
+            color: #5b7e9e;
+            font-size: 0.9em;
+            margin-bottom: 4px;
+        }
+
+        .commentary-text {
+            font-size: 0.98em;
+            line-height: 1.75;
+            color: #3a3a3a;
+        }
+
+        .no-content {
+            color: #aaa;
+            font-style: italic;
+            padding: 15px 0;
+        }
+
+        /* ── Comparison section ─────────────────────────── */
+        .comparison-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .comparison-card {
+            padding: 25px 30px;
+            background: #fff;
+            border-left: 4px solid #c9a96e;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .comparison-card h3 {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #6b5b3e;
+            margin: 0 0 12px 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .comparison-card p {
+            font-size: 0.98em;
+            line-height: 1.75;
+            color: #3a3a3a;
+            margin-bottom: 12px;
+        }
+
+        .comparison-card strong {
+            color: #2c2c2c;
+        }
+
+        /* ── Interlinear section ────────────────────────── */
+        .interlinear-verse {
+            margin-bottom: 8px;
+        }
+
+        .interlinear-verse summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: #5b7e9e;
+            font-size: 0.95em;
+            padding: 6px 0;
+            list-style: none;
+        }
+
+        .interlinear-verse summary::before {
+            content: "▸ ";
+            color: #c9a96e;
+        }
+
+        .interlinear-verse[open] summary::before {
+            content: "▾ ";
+        }
+
+        .interlinear-layout {
+            display: grid;
+            grid-template-columns: 1fr 20fr;
+            gap: 20px;
+            margin: 8px 0 16px 0;
+        }
+
+        .interlinear-esv {
+            font-size: 0.95em;
+            line-height: 1.75;
+            color: #3a3a3a;
+            padding: 10px 16px;
+            background: #fdfcf8;
+            border-radius: 4px;
+            border-left: 3px solid #c9a96e;
+            align-self: start;
+        }
+
+        .interlinear-esv .esv-label {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.78em;
+            font-weight: bold;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .interlinear-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0 16px 0;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-radius: 4px;
+            overflow: hidden;
+            font-size: 0.9em;
+        }
+
+        .interlinear-table th {
+            background: #f0ebe0;
+            color: #6b5b3e;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.85em;
+            font-weight: bold;
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #d4c9a8;
+        }
+
+        .interlinear-table td {
+            padding: 6px 12px;
+            border-bottom: 1px solid #f0ece3;
+            vertical-align: top;
+        }
+
+        .interlinear-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .interlinear-table tr:hover td {
+            background: #fdfcf8;
+        }
+
+        .original-text {
+            font-size: 1.3em;
+            line-height: 1.4;
+        }
+
+        .original-text.hebrew {
+            direction: rtl;
+            font-family: 'SBL Hebrew', 'Ezra SIL', 'Times New Roman', serif;
+        }
+
+        .original-text.greek {
+            font-family: 'SBL Greek', 'Gentium Plus', 'Times New Roman', serif;
+        }
+
+        .strongs-num {
+            font-family: monospace;
+            font-size: 0.85em;
+            color: #8b6914;
+            background: #fdf6e3;
+            padding: 1px 5px;
+            border-radius: 3px;
+        }
+
+        .strongs-def {
+            font-size: 0.88em;
+            color: #666;
+            font-style: italic;
+        }
+
+        .transliteration {
+            color: #888;
+            font-style: italic;
+        }
+
+        /* ── Topics & themes (header-level) ────────────── */
+        .header-topics {
+            text-align: center;
+            margin: 0 auto 12px auto;
+            max-width: 900px;
+        }
+
+        .header-topics-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .header-topics-label {
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 2px;
+        }
+
+        .theme-tag {
+            display: inline-block;
+            font-size: 0.78em;
+            padding: 2px 9px;
+            background: #e8f0fe;
+            color: #1a56db;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+
+        .topic-tag {
+            display: inline-block;
+            font-size: 0.78em;
+            padding: 2px 9px;
+            background: #f0f5e8;
+            color: #3d7317;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+
+        /* ── Places section ─────────────────────────────── */
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 15px 0 30px 0;
+        }
+
+        .place-card {
+            padding: 20px 24px;
+            background: #fff;
+            border-left: 4px solid #6a9b68;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .place-name {
+            font-size: 1.05em;
+            font-weight: bold;
+            color: #2d6a2d;
+            margin-bottom: 4px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .place-type {
+            font-size: 0.82em;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .place-description {
+            font-size: 0.92em;
+            line-height: 1.65;
+            color: #3a3a3a;
+            margin-bottom: 8px;
+        }
+
+        .place-coords {
+            font-size: 0.8em;
+            color: #aaa;
+            font-family: monospace;
+        }
+
+        .place-refs {
+            font-size: 0.82em;
+            color: #6a9b68;
+            margin-top: 6px;
+        }
+
+        /* ── Cross-references section ──────────────────── */
+        .crossrefs-container {
+            margin: 15px 0 30px 0;
+        }
+
+        .crossrefs-verse {
+            margin-bottom: 14px;
+            padding: 12px 20px;
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .crossrefs-verse-ref {
+            font-weight: bold;
+            color: #5b7e9e;
+            font-size: 0.9em;
+            margin-bottom: 6px;
+        }
+
+        .crossref-tag {
+            display: inline-block;
+            font-size: 0.84em;
+            padding: 3px 10px;
+            background: #f5f0e8;
+            color: #8b6914;
+            border-radius: 12px;
+            margin: 2px 4px 2px 0;
+            white-space: nowrap;
+        }
+
+        /* ── Print styles ───────────────────────────────── */
+        @media print {
+            body { background: #fff; padding: 15px; }
+            .parallel-table, .commentary, .comparison-card,
+            .place-card, .topics-verse, .crossrefs-verse { box-shadow: none; }
+            .parallel-table th { position: static; }
+            .page-break { page-break-before: always; }
+            h2 { margin-top: 20px; }
+            .interlinear-verse { break-inside: avoid; }
+        }
+
+        /* ── Interactive verse expansion ────────────── */
+        .verse-cell-clickable {
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .verse-cell-clickable:hover {
+            background: #f5f0e0 !important;
+        }
+
+        #expanded-view {
+            display: none;
+            margin: 20px 0;
+        }
+
+        #expanded-view.active {
+            display: block;
+        }
+
+        .expanded-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .expanded-title {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #6b5b3e;
+        }
+
+        .expanded-close {
+            background: #f7f3eb;
+            border: 1px solid #d4c9a8;
+            color: #6b5b3e;
+            font-size: 1.3em;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .expanded-close:hover {
+            background: #ebe3d1;
+        }
+
+        .expanded-panel {
+            display: grid;
+            grid-template-columns: 1fr 10fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .expanded-text {
+            font-size: 1.15em;
+            line-height: 1.8;
+            color: #2c2c2c;
+            padding: 20px 24px;
+            background: #fff;
+            border-left: 4px solid #c9a96e;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 20px;
+        }
+
+        #expanded-view.active .expanded-text {
+            animation: slideInLeft 0.35s ease both;
+        }
+
+        #expanded-view.active .expanded-interlinear {
+            animation: slideInRight 0.35s ease both;
+            animation-delay: 0.08s;
+        }
+
+        #expanded-view.closing .expanded-text {
+            animation: slideOutLeft 0.25s ease both;
+        }
+
+        #expanded-view.closing .expanded-interlinear {
+            animation: slideOutRight 0.25s ease both;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideOutLeft {
+            from { opacity: 1; transform: translateX(0); }
+            to   { opacity: 0; transform: translateX(-50px); }
+        }
+
+        @keyframes slideOutRight {
+            from { opacity: 1; transform: translateX(0); }
+            to   { opacity: 0; transform: translateX(50px); }
+        }
+
+        .expanded-text .text-label {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.7em;
+            font-weight: bold;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        /* Table exit / enter animations */
+        .parallel-table {
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .parallel-table.collapsing {
+            opacity: 0;
+            transform: translateY(-15px);
+            pointer-events: none;
+        }
+
+        .parallel-table.collapsed {
+            display: none;
+        }
+
+        .parallel-table.entering {
+            animation: tableEnter 0.3s ease both;
+        }
+
+        @keyframes tableEnter {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .click-hint {
+            text-align: center;
+            font-size: 0.82em;
+            color: #bbb;
+            font-style: italic;
+            margin: 8px 0 0 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .click-hint.collapsing {
+            opacity: 0;
+        }
+
+        .click-hint.collapsed {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>John 3:16</h1>
+<div class="subtitle">NT &middot; John (Book 43 of 66)</div>
+<div class="header-topics">
+<div class="header-topics-row">
+  <span class="header-topics-label">Themes:</span>
+  <span class="theme-tag">attitudes, God's to people</span>
+  <span class="theme-tag">union with Christ, nature of</span>
+  <span class="theme-tag">commitment, to the world</span>
+  <span class="theme-tag">love, and enemies</span>
+</div>
+<div class="header-topics-row">
+  <span class="header-topics-label">Topics:</span>
+  <span class="topic-tag">13th generation</span>
+  <span class="topic-tag">7 deadly sins</span>
+  <span class="topic-tag">abandentment</span>
+  <span class="topic-tag">abundant life</span>
+  <span class="topic-tag">accepting christ</span>
+  <span class="topic-tag">acting</span>
+  <span class="topic-tag">adults</span>
+  <span class="topic-tag">advent</span>
+  <span class="topic-tag">adventure</span>
+  <span class="topic-tag">after death</span>
+  <span class="topic-tag">afterlife</span>
+  <span class="topic-tag">agape love</span>
+  <span class="topic-tag">age difference</span>
+  <span class="topic-tag">age difference when dating</span>
+  <span class="topic-tag">age differences in relationships</span>
+  <span class="topic-tag">agnostics</span>
+  <span class="topic-tag">all things are possible</span>
+  <span class="topic-tag">am i saved</span>
+  <span class="topic-tag">america in the end times</span>
+  <span class="topic-tag">animals not having souls</span>
+  <span class="topic-tag">+639 more</span>
+</div>
+</div>
+
+<!-- ═══════════ BIBLE TRANSLATIONS ═══════════ -->
+<table class="parallel-table">
+<thead>
+    <tr>
+        <th class="verse-col">v.</th>
+        <th>English Standard Version <span class="abbrev">(ESV)</span></th>
+        <th>King James Version, Pure Cambridge Edition <span class="abbrev">(KJVPCE)</span></th>
+        <th>Berean Standard Bible <span class="abbrev">(BSB)</span></th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td class="verse-num-cell">16</td>
+        <td class="verse-cell-clickable" data-verse="16" data-col="0">“For God so loved the world, that he gave his only Son, that <span class="diff-word">whoever believes</span> in him should not perish but have <span class="diff-word">eternal</span> life.<span class="verse-crossrefs">cf. Rom 5:8, 1Jn 4:9-10, Rom 8:32, Jhn 3:15, Jhn 11:25-26, Jhn 6:40, Jhn 3:36, 1Jn 4:19 +15 more</span></td>
+        <td class="verse-cell-clickable" data-verse="16" data-col="1">¶ For God so loved the world, that he gave his only <span class="diff-word">begotten</span> Son, that <span class="diff-word">whosoever believeth</span> in him should not perish, but have <span class="diff-word">everlasting</span> life.<span class="verse-crossrefs">cf. Rom 5:8, 1Jn 4:9-10, Rom 8:32, Jhn 3:15, Jhn 11:25-26, Jhn 6:40, Jhn 3:36, 1Jn 4:19 +15 more</span></td>
+        <td class="verse-cell-clickable" data-verse="16" data-col="2">For God so loved the world that He gave His <span class="diff-word">one</span> and only Son, that <span class="diff-word">everyone</span> who <span class="diff-word">believes</span> in Him shall not perish but have <span class="diff-word">eternal</span> life.<span class="verse-crossrefs">cf. Rom 5:8, 1Jn 4:9-10, Rom 8:32, Jhn 3:15, Jhn 11:25-26, Jhn 6:40, Jhn 3:36, 1Jn 4:19 +15 more</span></td>
+    </tr>
+</tbody>
+</table>
+
+<div id="expanded-view"></div>
+<div class="click-hint">Click any translation to explore the original language word-by-word</div>
+
+<div class="page-break"></div>
+
+<!-- ═══════════ COMMENTARY ═══════════ -->
+<h2>Commentary</h2>
+<div class="commentary-pair">
+
+<div class="commentary">
+    <div class="commentary-name">Jamieson-Fausset-Brown Bible Commentary</div>
+    <div class="commentary-author">Robert Jamieson, A.R. Fausset, David Brown</div>
+    <div class="commentary-intro">NIGHT INTERVIEW OF NICODEMUS WITH JESUS. (John 3:1-21)
+
+Nicodemus--In this member of the Sanhedrim sincerity and timidity are seen struggling together.</div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 16</div>
+        <div class="commentary-text">For God so loved, &amp;c.--What proclamation of the Gospel has been so oft on the lips of missionaries and preachers in every age since it was first uttered? What has sent such thrilling sensations through millions of mankind? What has been honored to bring such multitudes to the feet of Christ? What to kindle in the cold and selfish breasts of mortals the fires of self-sacrificing love to mankind, as these words of transparent simplicity, yet overpowering majesty? The picture embraces several distinct compartments: &quot;THE WORLD&quot;--in its widest sense--ready &quot;to perish&quot;; the immense &quot;LOVE OF GOD&quot; to that perishing world, measurable only, and conceivable only, by the gift which it drew forth from Him; THE GIFT itself--&quot;He so loved the world that He gave His only begotten Son,&quot; or, in the language of Paul, &quot;spared not His own Son&quot; (Rom 8:32), or in that addressed to Abraham when ready to offer Isaac on the altar, &quot;withheld not His Son, His only Son, whom He loved&quot; (Gen 22:16); the FRUIT of this stupendous gift--not only deliverance from impending &quot;perdition,&quot; but the bestowal of everlasting life; the MODE in which all takes effect--by &quot;believing&quot; on the Son. How would Nicodemus' narrow Judaism become invisible in the blaze of this Sun of righteousness seen rising on &quot;the world&quot; with healing in His wings! (Mal 4:2).</div>
+    </div>
+</div>
+
+<div class="commentary">
+    <div class="commentary-name">Tyndale Open Study Notes</div>
+    <div class="commentary-author">Tyndale House Publishers</div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 16</div>
+        <div class="commentary-text">3:16-21 Because there are no quotation marks around Jesus’ speech in the Greek text, translators debate where Jesus’ speech ends and John’s commentary begins; 3:16-21 might be John’s commentary. 3:16 The truth that God loved the world is basic to Christian understanding (1 Jn 4:9-10). God’s love extends beyond the limits of race and nation, even to those who oppose him (see “The World” Theme Note). • The Son came to save—not condemn (3:17)—men and women who habitually embrace the darkness (3:19-21).</div>
+    </div>
+</div>
+</div>
+
+<div class="commentary">
+    <div class="commentary-name">John Gill's Exposition of the Whole Bible</div>
+    <div class="commentary-author">John Gill</div>
+    <div class="commentary-intro">For John was not yet cast into prison. As he afterwards was by Herod, for the sake of Herodias, because he reproved Herod for taking her to be his wife, when she was wife to his brother Philip; see Mat 14:3; and this circumstance shows, that these things were done before that journey of Christ into Galilee, mentioned in Mat 4:12. 
+. 
+John 3:25
+
+joh 3:25
+joh 3:25
+joh 3:25Then there arose a question,.... A dispute, or controversy, occasioned by the baptism, of John and Christ: 
+
+between some of John's disciples, and the Jews. The Syriac and Persic versions read, &quot;between one of John's disciples, and a certain Jew&quot;; and Nonnus renders it, &quot;with an Hebrew man&quot;; and so the Alexandrian manuscript; many others read, &quot;with a Jew&quot;: the contention between them was 
+
+about purifying; either about the ceremonial purifications, and ablutions commanded in the law of Moses; or concerning the various washings of persons, and vessels, according to the traditions of the elders, which the Jews in common were very tenacious of; and which they thought were brought into neglect, and contempt, by the baptism of John: and this seems to have been occasioned by the baptism of Christ; which the Jew might improve against the disciple of John, and urge, that since another, besides his master, had set up baptizing, who could tell which was most right and safest to follow? and therefore it would have been much better, if no such rite at all had been used by any, but that the purifications required by the law of Moses, and by their elders, had been strictly and solely attended to.</div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 16</div>
+        <div class="commentary-text">For God sent not his Son into the world,.... God did send his Son into the world in the likeness of sinful flesh, being made of a woman, and made under the law; and which is an instance of his great love, and not of any disrespect to his Son, or of any inequality between them: but then this was not 
+
+to condemn the world; even any part of it, or any in it: not the Gentiles, as the Jews thought he would; for though God had suffered them to walk in their own ways, and had winked at, or overlooked the times of their ignorance, and had sent no prophet unto them, nor made any revelation of his will, or any discovery of his special grace unto them; yet he sent his Son now, not to destroy them for their idolatry, and wickedness, but to be the Saviour of them: nor the Jews; for as impenitent and unbelieving, and as wicked as they were, he did not accuse them to the Father, nor judge and condemn them; he was to come again in power and great glory, when he would take vengeance on them, and cause wrath to come upon them to the uttermost, for their disbelief and rejection of him; but this was not his business now: nor the wicked of the world in general; to judge, and condemn them, will be his work, when he comes a second time, in the day God has appointed to judge the world in righteousness. 
+
+But the end of his mission, and first coming is, 
+
+that the world through him might be saved; even the world of the elect in general, whom God determined to save, and has chosen, to obtain salvation by Jesus Christ, and has appointed Christ to be the salvation of; and who being sent, came into the world to seek and save them; and his chosen people among the Gentiles in particular: wherefore he is said to be God's salvation to the ends of the earth: and all the ends of the earth are called upon to look unto him, and be saved by him, Isa 49:6.</div>
+    </div>
+</div>
+
+<div class="commentary">
+    <div class="commentary-name">Matthew Henry's Complete Commentary</div>
+    <div class="commentary-author">Matthew Henry</div>
+    <div class="commentary-intro">In this chapter we have, I. Christ's discourse with Nicodemus, a Pharisee, concerning the great mysteries of the gospel, in which he here privately instructs him (v. 1-21). II. John Baptist's discourse with his disciples concerning Christ, upon occasion of his coming into the neighbourhood where John was (Joh 3:22-36), in which he fairly and faithfully resigns all his honour and interest to him.</div>
+    <div class="no-content">No commentary available for this reference.</div>
+</div>
+
+<!-- ═══════════ ORIGINAL LANGUAGE ═══════════ -->
+<h2>Original Language</h2>
+<details class="interlinear-verse">
+<summary>Verse 16 (26 words)</summary>
+<div class="interlinear-layout">
+<div class="interlinear-esv">
+  <div class="esv-label">ESV</div>
+  “For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.
+</div>
+<table class="interlinear-table">
+<thead><tr><th>English</th><th>Greek</th><th>Transliteration</th><th>Strong's</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td>so</td><td class="original-text greek">Οὕτως</td><td class="transliteration">hoútō</td><td><span class="strongs-num">G3779</span></td><td class="strongs-def">in this way (referring to what precedes or follows)</td></tr>
+<tr><td>For</td><td class="original-text greek">γὰρ</td><td class="transliteration">gár</td><td><span class="strongs-num">G1063</span></td><td class="strongs-def">properly, assigning a reason (used in argument, explanation or intensification; often with other particles)</td></tr>
+<tr><td>loved</td><td class="original-text greek">ἠγάπησεν</td><td class="transliteration">agapáō</td><td><span class="strongs-num">G25</span></td><td class="strongs-def">to love (in a social or moral sense)</td></tr>
+<tr><td></td><td class="original-text greek">ὁ</td><td class="transliteration">ho</td><td><span class="strongs-num">G3588</span></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
+<tr><td>God</td><td class="original-text greek">θεὸς</td><td class="transliteration">theós</td><td><span class="strongs-num">G2316</span></td><td class="strongs-def">figuratively, a magistrate; by Hebraism, very</td></tr>
+<tr><td></td><td class="original-text greek">τὸν</td><td class="transliteration">ho</td><td><span class="strongs-num">G3588</span></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
+<tr><td>the world</td><td class="original-text greek">κόσμον</td><td class="transliteration">kósmos</td><td><span class="strongs-num">G2889</span></td><td class="strongs-def">orderly arrangement, i.e. decoration; by implication, the world (in a wide or narrow sense, including its inhabitants...</td></tr>
+<tr><td>that</td><td class="original-text greek">ὥστε</td><td class="transliteration">hṓste</td><td><span class="strongs-num">G5620</span></td><td class="strongs-def">so too, i.e. thus therefore (in various relations of consecution, as follow)</td></tr>
+<tr><td></td><td class="original-text greek">τὸν</td><td class="transliteration">ho</td><td><span class="strongs-num">G3588</span></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
+<tr><td>Son</td><td class="original-text greek">υἱὸν</td><td class="transliteration">huiós</td><td><span class="strongs-num">G5207</span></td><td class="strongs-def">a &quot;son&quot; (sometimes of animals), used very widely of immediate, remote or figuratively, kinship</td></tr>
+<tr><td>him</td><td class="original-text greek">αὐτὸν</td><td class="transliteration">autós</td><td><span class="strongs-num">G846</span></td><td class="strongs-def">the reflexive pronoun self, used (alone or in the comparative
+
+
+) of the third person , and (with the proper personal...</td></tr>
+<tr><td></td><td class="original-text greek">τὸν</td><td class="transliteration">ho</td><td><span class="strongs-num">G3588</span></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
+<tr><td>only begotten</td><td class="original-text greek">μονογενῆ</td><td class="transliteration">monogenḗs</td><td><span class="strongs-num">G3439</span></td><td class="strongs-def">only-born, i.e. sole</td></tr>
+<tr><td>he gave</td><td class="original-text greek">ἔδωκεν</td><td class="transliteration">dídōmi</td><td><span class="strongs-num">G1325</span></td><td class="strongs-def">to give (used in a very wide application, properly, or by implication, literally or figuratively; greatly modified by...</td></tr>
+<tr><td>that</td><td class="original-text greek">ἵνα</td><td class="transliteration">hína</td><td><span class="strongs-num">G2443</span></td><td class="strongs-def">compare
+
+
+); in order that (denoting the purpose or the result)</td></tr>
+<tr><td>whosoever</td><td class="original-text greek">πᾶς</td><td class="transliteration">pâs</td><td><span class="strongs-num">G3956</span></td><td class="strongs-def">all, any, every, the whole</td></tr>
+<tr><td></td><td class="original-text greek">ὁ</td><td class="transliteration">ho</td><td><span class="strongs-num">G3588</span></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
+<tr><td>believeth</td><td class="original-text greek">πιστεύων</td><td class="transliteration">pisteúō</td><td><span class="strongs-num">G4100</span></td><td class="strongs-def">to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially ...</td></tr>
+<tr><td>in</td><td class="original-text greek">εἰς</td><td class="transliteration">eis</td><td><span class="strongs-num">G1519</span></td><td class="strongs-def">to or into (indicating the point reached or entered), of place, time, or (figuratively) purpose (result, etc.); also ...</td></tr>
+<tr><td>him</td><td class="original-text greek">αὐτὸν</td><td class="transliteration">autós</td><td><span class="strongs-num">G846</span></td><td class="strongs-def">the reflexive pronoun self, used (alone or in the comparative
+
+
+) of the third person , and (with the proper personal...</td></tr>
+<tr><td>not</td><td class="original-text greek">μὴ</td><td class="transliteration">mḗ</td><td><span class="strongs-num">G3361</span></td><td class="strongs-def">(adverb) not, (conjunction) lest; also (as an interrogative implying a negative answer (whereas
+
+
+expects an affirmat...</td></tr>
+<tr><td>perish</td><td class="original-text greek">ἀπόληται</td><td class="transliteration">apóllymi</td><td><span class="strongs-num">G622</span></td><td class="strongs-def">to destroy fully (reflexively, to perish, or lose), literally or figuratively</td></tr>
+<tr><td>but</td><td class="original-text greek">ἀλλ'</td><td class="transliteration">allá</td><td><span class="strongs-num">G235</span></td><td class="strongs-def">properly, other things, i.e. (adverbially) contrariwise (in many relations)</td></tr>
+<tr><td>have</td><td class="original-text greek">ἔχῃ</td><td class="transliteration">échō</td><td><span class="strongs-num">G2192</span></td><td class="strongs-def">to hold (used in very various applications, literally or figuratively, direct or remote; such as possession; ability,...</td></tr>
+<tr><td>life</td><td class="original-text greek">ζωὴν</td><td class="transliteration">zōḗ</td><td><span class="strongs-num">G2222</span></td><td class="strongs-def">life (literally or figuratively)</td></tr>
+<tr><td>everlasting</td><td class="original-text greek">αἰώνιον</td><td class="transliteration">aiṓnios</td><td><span class="strongs-num">G166</span></td><td class="strongs-def">perpetual (also used of past time, or past and future as well)</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+
+<script type="application/json" id="verse-app-data">{"verseTexts": {"0": {"16": "“For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life."}, "1": {"16": "¶ For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."}, "2": {"16": "For God so loved the world that He gave His one and only Son, that everyone who believes in Him shall not perish but have eternal life."}}, "translationNames": ["ESV", "KJVPCE", "BSB"], "interlinear": {"16": [{"text": "so", "original": "Οὕτως", "strongs": "G3779"}, {"text": "For", "original": "γὰρ", "strongs": "G1063"}, {"text": "loved", "original": "ἠγάπησεν", "strongs": "G25"}, {"text": "", "original": "ὁ", "strongs": "G3588"}, {"text": "God", "original": "θεὸς", "strongs": "G2316"}, {"text": "", "original": "τὸν", "strongs": "G3588"}, {"text": "the world", "original": "κόσμον", "strongs": "G2889"}, {"text": "that", "original": "ὥστε", "strongs": "G5620"}, {"text": "", "original": "τὸν", "strongs": "G3588"}, {"text": "Son", "original": "υἱὸν", "strongs": "G5207"}, {"text": "him", "original": "αὐτὸν", "strongs": "G846"}, {"text": "", "original": "τὸν", "strongs": "G3588"}, {"text": "only begotten", "original": "μονογενῆ", "strongs": "G3439"}, {"text": "he gave", "original": "ἔδωκεν", "strongs": "G1325"}, {"text": "that", "original": "ἵνα", "strongs": "G2443"}, {"text": "whosoever", "original": "πᾶς", "strongs": "G3956"}, {"text": "", "original": "ὁ", "strongs": "G3588"}, {"text": "believeth", "original": "πιστεύων", "strongs": "G4100"}, {"text": "in", "original": "εἰς", "strongs": "G1519"}, {"text": "him", "original": "αὐτὸν", "strongs": "G846"}, {"text": "not", "original": "μὴ", "strongs": "G3361"}, {"text": "perish", "original": "ἀπόληται", "strongs": "G622"}, {"text": "but", "original": "ἀλλ'", "strongs": "G235"}, {"text": "have", "original": "ἔχῃ", "strongs": "G2192"}, {"text": "life", "original": "ζωὴν", "strongs": "G2222"}, {"text": "everlasting", "original": "αἰώνιον", "strongs": "G166"}]}, "lexicon": {"G2192": {"translit": "échō", "definition": "to hold (used in very various applications, literally or figuratively, direct or remote; such as possession; ability,..."}, "G3779": {"translit": "hoútō", "definition": "in this way (referring to what precedes or follows)"}, "G1325": {"translit": "dídōmi", "definition": "to give (used in a very wide application, properly, or by implication, literally or figuratively; greatly modified by..."}, "G2316": {"translit": "theós", "definition": "figuratively, a magistrate; by Hebraism, very"}, "G25": {"translit": "agapáō", "definition": "to love (in a social or moral sense)"}, "G3588": {"translit": "ho", "definition": "the (sometimes to be supplied, at others omitted, in English idiom)"}, "G166": {"translit": "aiṓnios", "definition": "perpetual (also used of past time, or past and future as well)"}, "G3956": {"translit": "pâs", "definition": "all, any, every, the whole"}, "G235": {"translit": "allá", "definition": "properly, other things, i.e. (adverbially) contrariwise (in many relations)"}, "G4100": {"translit": "pisteúō", "definition": "to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially ..."}, "G2889": {"translit": "kósmos", "definition": "orderly arrangement, i.e. decoration; by implication, the world (in a wide or narrow sense, including its inhabitants..."}, "G5620": {"translit": "hṓste", "definition": "so too, i.e. thus therefore (in various relations of consecution, as follow)"}, "G846": {"translit": "autós", "definition": "the reflexive pronoun self, used (alone or in the comparative\n\n\n) of the third person , and (with the proper personal..."}, "G3439": {"translit": "monogenḗs", "definition": "only-born, i.e. sole"}, "G3361": {"translit": "mḗ", "definition": "(adverb) not, (conjunction) lest; also (as an interrogative implying a negative answer (whereas\n\n\nexpects an affirmat..."}, "G5207": {"translit": "huiós", "definition": "a \"son\" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship"}, "G1063": {"translit": "gár", "definition": "properly, assigning a reason (used in argument, explanation or intensification; often with other particles)"}, "G2443": {"translit": "hína", "definition": "compare\n\n\n); in order that (denoting the purpose or the result)"}, "G2222": {"translit": "zōḗ", "definition": "life (literally or figuratively)"}, "G1519": {"translit": "eis", "definition": "to or into (indicating the point reached or entered), of place, time, or (figuratively) purpose (result, etc.); also ..."}, "G622": {"translit": "apóllymi", "definition": "to destroy fully (reflexively, to perish, or lose), literally or figuratively"}}, "langClass": "greek", "langLabel": "Greek"}</script>
+
+<script>
+(function() {
+    var el = document.getElementById('verse-app-data');
+    if (!el) return;
+    var D = JSON.parse(el.textContent);
+
+    var table = document.querySelector('.parallel-table');
+    var expanded = document.getElementById('expanded-view');
+    var hint = document.querySelector('.click-hint');
+    if (!table || !expanded) return;
+
+    function esc(s) {
+        if (!s) return '';
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    table.addEventListener('click', function(e) {
+        var cell = e.target.closest('.verse-cell-clickable');
+        if (!cell) return;
+
+        var vnum  = cell.dataset.verse;
+        var col   = cell.dataset.col;
+        var name  = D.translationNames[col] || '';
+        var text  = (D.verseTexts[col] || {})[vnum] || '';
+        var words = D.interlinear[vnum] || [];
+
+        var h = '<div class="expanded-header">'
+              + '<div class="expanded-title">' + esc(name)
+              + ' &mdash; Verse ' + esc(vnum) + '</div>'
+              + '<button class="expanded-close" '
+              + 'title="Back to translations">'
+              + '&times;</button></div>'
+              + '<div class="expanded-panel">';
+
+        h += '<div class="expanded-text">'
+           + '<div class="text-label">' + esc(name) + '</div>'
+           + esc(text) + '</div>';
+
+        h += '<div class="expanded-interlinear">';
+        if (words.length) {
+            h += '<table class="interlinear-table"><thead><tr>'
+               + '<th>English</th><th>' + esc(D.langLabel) + '</th>'
+               + '<th>Transliteration</th><th>Strong\'s</th>'
+               + '<th>Definition</th></tr></thead><tbody>';
+            for (var i = 0; i < words.length; i++) {
+                var w = words[i];
+                var lx = D.lexicon[w.strongs] || {};
+                h += '<tr>'
+                   + '<td>' + esc(w.text) + '</td>'
+                   + '<td class="original-text ' + D.langClass + '">'
+                   + esc(w.original) + '</td>'
+                   + '<td class="transliteration">'
+                   + esc(lx.translit || '') + '</td>';
+                h += w.strongs
+                   ? '<td><span class="strongs-num">'
+                     + esc(w.strongs) + '</span></td>'
+                   : '<td></td>';
+                h += '<td class="strongs-def">'
+                   + esc(lx.definition || '') + '</td></tr>';
+            }
+            h += '</tbody></table>';
+        } else {
+            h += '<div class="no-content">'
+               + 'No interlinear data available for this verse.</div>';
+        }
+        h += '</div></div>';
+
+        expanded.innerHTML = h;
+
+        /* Animate: table slides out, then expanded view slides in */
+        table.classList.add('collapsing');
+        if (hint) hint.classList.add('collapsing');
+
+        setTimeout(function() {
+            table.classList.add('collapsed');
+            table.classList.remove('collapsing');
+            if (hint) { hint.classList.add('collapsed'); hint.classList.remove('collapsing'); }
+            expanded.classList.add('active');
+            expanded.querySelector('.expanded-close')
+                    .addEventListener('click', closeExpanded);
+            expanded.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }, 250);
+    });
+
+    function closeExpanded() {
+        /* Animate: expanded panels slide out, then table slides back in */
+        expanded.classList.add('closing');
+
+        setTimeout(function() {
+            expanded.classList.remove('active');
+            expanded.classList.remove('closing');
+            expanded.innerHTML = '';
+            table.classList.remove('collapsed');
+            table.classList.add('entering');
+            if (hint) { hint.classList.remove('collapsed'); }
+            table.scrollIntoView({behavior: 'smooth', block: 'start'});
+            setTimeout(function() { table.classList.remove('entering'); }, 300);
+        }, 250);
+    }
+})();
+</script>
+
+</body>
+</html>

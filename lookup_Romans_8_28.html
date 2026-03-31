@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romans 8:28</title>
+    <style>
+        /* ── Base styles ────────────────────────────────── */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        @page { size: landscape; margin: 0.5in; }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.7;
+            color: #2c2c2c;
+            background: #fafaf7;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+
+        /* ── Page title ─────────────────────────────────── */
+        h1 {
+            font-size: 2.2em;
+            font-weight: normal;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 0.95em;
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+
+        /* ── Section headers ────────────────────────────── */
+        h2 {
+            font-size: 1.5em;
+            font-weight: normal;
+            color: #444;
+            border-bottom: 2px solid #c9a96e;
+            padding-bottom: 8px;
+            margin: 50px 0 25px 0;
+            letter-spacing: 0.3px;
+        }
+
+        /* ── Parallel verse table ───────────────────────── */
+        .parallel-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .parallel-table th {
+            background: #f7f3eb;
+            color: #6b5b3e;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.95em;
+            font-weight: bold;
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 2px solid #c9a96e;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .parallel-table th.verse-col {
+            width: 40px;
+            text-align: center;
+            color: #999;
+        }
+
+        .parallel-table th .abbrev {
+            font-weight: normal;
+            color: #999;
+            font-size: 0.85em;
+        }
+
+        .parallel-table td {
+            padding: 12px 18px;
+            vertical-align: top;
+            border-bottom: 1px solid #eee;
+            font-size: 1em;
+            line-height: 1.65;
+        }
+
+        .parallel-table td.verse-num-cell {
+            text-align: center;
+            font-weight: bold;
+            color: #c9a96e;
+            font-size: 0.9em;
+            width: 40px;
+            vertical-align: top;
+            padding-top: 14px;
+        }
+
+        .parallel-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .parallel-table tr:hover td {
+            background: #fdfcf8;
+        }
+
+        /* ── Commentary blocks ──────────────────────────── */
+        .commentary-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .commentary {
+            margin-bottom: 40px;
+            padding: 25px 30px;
+            background: #fff;
+            border-left: 4px solid #5b7e9e;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .commentary-pair .commentary {
+            margin-bottom: 0;
+        }
+
+        .commentary-name {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #3d5a73;
+            margin-bottom: 4px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .commentary-author {
+            font-size: 0.85em;
+            color: #999;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .commentary-intro {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            background: #f5f5f0;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        .commentary-verse {
+            margin-bottom: 18px;
+        }
+
+        .commentary-verse-ref {
+            font-weight: bold;
+            color: #5b7e9e;
+            font-size: 0.9em;
+            margin-bottom: 4px;
+        }
+
+        .commentary-text {
+            font-size: 0.98em;
+            line-height: 1.75;
+            color: #3a3a3a;
+        }
+
+        .no-content {
+            color: #aaa;
+            font-style: italic;
+            padding: 15px 0;
+        }
+
+        /* ── Comparison section ─────────────────────────── */
+        .comparison {
+            margin-top: 20px;
+            padding: 30px 35px;
+            background: #fff;
+            border-left: 4px solid #c9a96e;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .comparison h3 {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #6b5b3e;
+            margin: 28px 0 12px 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .comparison h3:first-child {
+            margin-top: 0;
+        }
+
+        .comparison p {
+            font-size: 0.98em;
+            line-height: 1.75;
+            color: #3a3a3a;
+            margin-bottom: 12px;
+        }
+
+        .comparison strong {
+            color: #2c2c2c;
+        }
+
+        /* ── Print styles ───────────────────────────────── */
+        @media print {
+            body { background: #fff; padding: 15px; }
+            .parallel-table, .commentary, .comparison { box-shadow: none; }
+            .parallel-table th { position: static; }
+            .page-break { page-break-before: always; }
+            h2 { margin-top: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Romans 8:28</h1>
+<div class="subtitle">NT &middot; Romans (Book 45 of 66)</div>
+
+<!-- ═══════════ BIBLE TRANSLATIONS ═══════════ -->
+<h2>Bible Translations</h2>
+
+<table class="parallel-table">
+<thead>
+    <tr>
+        <th class="verse-col">v.</th>
+        <th>English Standard Version <span class="abbrev">(ESV)</span></th>
+        <th>King James Version, Pure Cambridge Edition <span class="abbrev">(KJVPCE)</span></th>
+        <th>Berean Standard Bible <span class="abbrev">(BSB)</span></th>
+        <th>New Heart English Bible <span class="abbrev">(NHEB)</span></th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td class="verse-num-cell">28</td>
+        <td>And we know that for those who love God all things work together for good, for those who are called according to his purpose.</td>
+        <td>And we know that all things work together for good to them that love God, to them who are the called according to his purpose.</td>
+        <td>And we know that God works all things together for the good of those who love Him, who are called according to His purpose.</td>
+        <td>We know that all things work together for good for those who love God, to those who are called according to his purpose.</td>
+    </tr>
+</tbody>
+</table>
+
+<div class="page-break"></div>
+
+<!-- ═══════════ COMMENTARY ═══════════ -->
+<h2>Commentary</h2>
+<div class="commentary-pair">
+
+<div class="commentary">
+    <div class="commentary-name">Jamieson-Fausset-Brown Bible Commentary</div>
+    <div class="commentary-author">Robert Jamieson, A.R. Fausset, David Brown</div>
+    <div class="commentary-intro">CONCLUSION OF THE WHOLE ARGUMENT--THE GLORIOUS COMPLETENESS OF THEM THAT ARE IN CHRIST JESUS. (Rom. 8:1-39)
+
+There is therefore now, &amp;c.--referring to the immediately preceding context [OLSHAUSEN, PHILIPPI, MEYER, ALFORD, &amp;c.]. The subject with which the seventh chapter concludes is still under consideration. The scope of Rom 8:1-4 is to show how &quot;the law of sin and death&quot; is deprived of its power to bring believers again into bondage, and how the holy law of God receives in them the homage of a living obedience [CALVIN, FRASER, PHILIPPI, MEYER, ALFORD, &amp;c.]. 
+
+no condemnation: to them which are in Christ Jesus--As Christ, who &quot;knew no sin,&quot; was, to all legal effects, &quot;made sin for us,&quot; so are we, who believe in Him, to all legal effects, &quot;made the righteousness of God in Him&quot; (Co2 5:21); and thus, one with Him in the divine reckoning. there is to such &quot;NO CONDEMNATION.&quot; (Compare Joh 3:18; Joh 5:24; Rom 5:18-19). But this is no mere legal arrangement: it is a union in life; believers, through the indwelling of Christ's Spirit in them, having one life with Him, as truly as the head and the members of the same body have one life. 
+
+who walk not after the flesh, but after the Spirit--The evidence of manuscripts seems to show that this clause formed no part of the original text of this verse, but that the first part of it was early introduced, and the second later, from Rom 8:4, probably as an explanatory comment, and to make the transition to Rom 8:2 easier.</div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 28</div>
+        <div class="commentary-text">And--or, &quot;Moreover,&quot; or &quot;Now&quot;; noting a transition to a new particular. 
+
+we know, &amp;c.--The order in the original is more striking: &quot;We know that to them that love God&quot; (compare Co1 2:9; Eph 6:24; Jam 1:12; Jam 2:5) &quot;all things work together for good [even] to them who are the called (rather, 'who are called') according to His (eternal) purpose.&quot; Glorious assurance! And this, it seems, was a &quot;household word,&quot; a &quot;known&quot; thing, among believers. This working of all things for good is done quite naturally to &quot;them that love God,&quot; because such souls, persuaded that He who gave His own Son for them cannot but mean them well in all His procedure, learn thus to take in good part whatever He sends them, however trying to flesh and blood: and to them who are the called, according to &quot;His purpose,&quot; all things do in the same intelligible way &quot;work together for good&quot;; for, even when &quot;He hath His way in the whirlwind,&quot; they see &quot;His chariot paved with love&quot; (Sol 3:10). And knowing that it is in pursuance of an eternal &quot;purpose&quot; of love that they have been &quot;called into the fellowship of His Son Jesus Christ&quot; (Co1 1:9), they naturally say within themselves, &quot;It cannot be that He 'of whom, and through whom, and to whom are all things,' should suffer that purpose to be thwarted by anything really adverse to us, or that He should not make all things, dark as well as light, crooked as well as straight, to co-operate to the furtherance and final completion of His high design.&quot;</div>
+    </div>
+</div>
+
+<div class="commentary">
+    <div class="commentary-name">Tyndale Open Study Notes</div>
+    <div class="commentary-author">Tyndale House Publishers</div>
+    <div class="no-content">No commentary available for this reference.</div>
+</div>
+</div>
+
+<div class="commentary">
+    <div class="commentary-name">John Gill's Exposition of the Whole Bible</div>
+    <div class="commentary-author">John Gill</div>
+    <div class="commentary-intro">INTRODUCTION TO ROMANS 8 
+
+As the former chapter shows that sanctified ones are not free from the being of sin in them, which is a ground of general complaint and uneasiness; this chapter shows, that justified ones are freed from the guilt of sin, and secure from punishment for it; and have the utmost reason to rejoice and be glad, and even to triumph in a plerophory and full assurance of faith, on account of the various privileges they enjoy, through the grace of the Father, of the Son, and of the Spirit; and which are distinctly, largely, and severally mentioned: it begins, Rom 8:1, with taking notice of a particular privilege saints have in Christ, and, by virtue of union to him, security from all condemnation; and which is inferred from their sure and certain deliverance from sin by Christ, Rom 8:25, the persons sharing in this privilege are described by their being in Christ, and by their walking after the Spirit of Christ, in consequence of it: a reason confirming this privilege is given, Rom 8:2, taken either from the Gospel, declaring the saints' freedom from the law; or from the power and efficacy of the Spirit, delivering them from the tyranny and dominion of sin; or rather from the holiness of Christ's human nature, as a branch of their justification: this privilege is made more fully to appear, and the saints' interest in it by the mission of Christ, to bring in everlasting righteousness for them, which is the foundation of it, Rom 8:3, the occasion of which was the weakness of the law, or rather the impotency of man, through the corruption of nature, to fulfil the law: the sender, or the efficient cause of this mission, is God the Father; the person sent, his own Son; the manner in which he was sent, in human nature, which had the appearance of being sinful; what God did in it, he condemned sin in it; which is a reason, why there is no condemnation to them, that are in him; and the end of all this, Rom 8:4, was, that the law of righteousness might be pe...</div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 28</div>
+        <div class="commentary-text">And we know that all things work together for good,.... There is a temporal good, and a spiritual good, and an eternal one. Temporal good is what the men of the world are seeking after, and generally have the greatest share of, and the saints the least; and yet they have as much as is needful for them, and what they have, they have with a blessing; and even sometimes afflictions work for the temporal good of God's children: spiritual good lies in a lively exercise of grace and a conformity of the soul to God; and is what the men of the world least regard, and the saints most; and sometimes afflictions issue in this sort of good, as they do also in eternal good, for they work for us an exceeding weight of glory: by &quot;all things&quot; may be meant, all beings good and bad: all good beings eternal or created: eternal, as Jehovah the Father, all his perfections, purposes, promises, provisions, and performances; Jehovah the Son, as the mighty God, and as Mediator, all that he is in himself, all that he has in himself, all that he has done, or is doing, all his titles, characters, and relations; Jehovah the Spirit, in his person, offices, and operations; these all have worked together in the council of peace, in the covenant of grace, and in redemption; and they do work together in sanctification, and so they will in glorification, and that for the good of the saints: all created ones, as good angels, good magistrates, good ministers of the Gospel: all evil beings, as devils, persecuting magistrates, heretics, and false teachers: all things, good and bad: all good things, outward peace and prosperity, external gifts, the ministry of the word, the administration of ordinances, church censures, admonitions, and excommunications; all evil things, sin the evil of evils: original sin, or the fall of Adam, which contains all other sins in it, was attended with aggravating circumstances, and followed with dismal consequences, yet has been overruled for good; hereby a Saviour became necessary, who was sent, came, and wrought out salvation; has brought in a better righteousness than Adam lost; entitled his people to a better life than his was, and makes them partakers of the riches both of grace and glory: actual sin, inward or outward; indwelling sin; which is made use of, when discovered, to abate pride, to lead to an entire dependence on Christ, to teach saints to be less censorious, to depend on the power and grace of God to keep them, and to wean them from this world, and to make them desirous of another, where they shall be free from it; outward sins, of others, or their own; the sins of others, of wicked men, which observed, raise an indignation in the saints against sin, and a concern for God's glory, and to look into their own hearts and ways, and admire the grace of God to them, that this is not their case; of good men, which are recorded, and may be observed, not for example and encouragement in sin, but for admonition, and to encourage faith and hope under a sense of it; of their own, for humiliation, which issues in weakening the power of sin in themselves, and the strengthening of the graces of others: but from all this it does not follow, that God is the author of sin, only that he overrules it to wise and gracious purposes; nor should any take encouragement to sin, to do evil that good may come; nor is sin itself a real good; nor is it to be said that it does no hurt; for though it cannot hinder the everlasting salvation of God's people, it does a great deal of hurt to their peace and comfort; and that it is made to work in any form or shape for good, is not owing to its own nature and influence, which is malignant enough, but to the unbounded power and unsearchable wisdom of God: all evils or afflictions, spiritual and temporal, work together for good; all spiritual ones, such as the temptations of Satan, which are made useful for humiliation, for the trial of grace, to show us our weakness, our need of Christ, and to conform us to him, and also to excite to prayer and watchfulness; the hidings of God's face, which make his presence the more prized when enjoyed, and the more desirable. Temporal afflictions, afflictions in body, name, or estate, nay even death itself, all work together for the good of God's people. The Jews tell us of one Nahum, the man Gamzu, who, they say, was (k) so called, because of everything that happened to him he used to say, , &quot;Gam zu letobah&quot;, &quot;this is also for good&quot;: and they give instances of several misfortunes which befell him, upon which account he used these words, and how they proved in the issue to his advantage: agreeably to this is the advice given by them, 
+
+&quot;for ever (say they (l)) let a man be used to say, all that the Lord does, , &quot;he does for good&quot;.'' 
+
+Now that all things do work together for good, the saints &quot;know&quot;, and are firmly persuaded of; both from the word and promises of God, and from the instances of Jacob, Joseph, Job, and others, and also from their own experience: and it is to be observed, that it is not said that all things &quot;have&quot; worked together, and so they may again, or that they &quot;shall&quot; work together, but all things work together for good; they &quot;now&quot; work together, they are always working together, whether it can be observed or not: prosperity and adversity, whether in things temporal or spiritual, work &quot;together&quot;, and make an intricate woven work in providence and grace; which will be viewed with admiration another day: one copy reads, &quot;God works together&quot;, or &quot;causes all things to work together for good&quot;; and so the Ethiopic version, &quot;we know that God helps them that love him, to every good thing&quot;: and to this agrees the Syriac version, &quot;we know that to them that love God, he in everything helps them to good&quot;; and certain it is, that God is the efficient cause, that makes all things work together for his people's good. The persons to whom all things work together for good, are described as such 
+
+that love God; a character, which does not agree with all the sons and daughters of Adam: love to God is not naturally in men; it is wrought in the soul in regeneration, and is an evidence of it; it grows up with faith, which works by it; without it, a profession of religion is vain; and where it is once wrought, it lasts for ever; it ought to be superlative and universal, constant, warm and ardent, hearty and sincere: such who have it, show it by a desire to be like to God, and therefore imitate him, by making his glory the supreme end of their actions; by being careful not to offend him; by delighting in his presence, in his people, word, ordinances, ways, and worship; and by undervaluing the world, and all things in it, in comparison of him; who is to be loved for the perfections of his being, the characters and relations he stands in and bears to his people, and on account of the love with which he has loved them, and which is indeed the spring and source of theirs. They are further described, as such 
+
+who are the called according to his purpose. The called of God and of Jesus Christ; not to any office, or by the external ministry of the word only, but by special grace; from darkness to light, from bondage to liberty, from the company of sinful men to fellowship with Christ, from a trust in their own righteousness to a dependence on his, to grace here, and glory hereafter; which is done according to the purpose of God: the persons called are fixed upon by God; none are called but whom God purposed to call; those who are called can assign no other reason of it than the will of God; and no other reason but that can be given why others are not called; the time when, the place where, the means whereby persons are called, are all settled and determined by the will, and according to the purpose of God. 
+
+(k) T. Bab. Taanith, fol. 21. 1. Sanhedrin, fol. 108. 2. Cosri, fol. 151. 1. (l) T. Bab. Beracot, fol. 60. 2.</div>
+    </div>
+</div>
+
+<div class="commentary">
+    <div class="commentary-name">Matthew Henry's Complete Commentary</div>
+    <div class="commentary-author">Matthew Henry</div>
+    <div class="commentary-intro">The apostle, having fully explained the doctrine of justification, and pressed the necessity of sanctification, in this chapter applies himself to the consolation of the Lord's people. Ministers are helpers of the joy of the saints. &quot;Comfort ye, comfort ye my people,&quot; so runs our commission, Isa 40:1. It is the will of God that his people should be a comforted people. And we have here such a draught of the gospel charter, such a display of the unspeakable privileges of true believers, as may furnish us with abundant matter for joy and peace in believing, that by all these immutable things, in which it is impossible for God to lie, we might have strong consolation. Many of the people of God have, accordingly, found this chapter a well-spring of comfort to their souls, living and dying, and have sucked and been satisfied from these breasts of consolation, and with joy drawn water out of these wells of salvation. There are three things in this chapter: I. The particular instances of Christians' privileges (v. 1-28). II. The ground thereof laid in predestination (Rom 8:29, Rom 8:30). III. The apostle's triumph herein, in the name of all the saints (Rom 8:31 to the end).</div>
+    <div class="no-content">No commentary available for this reference.</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ═══════════ COMPARISON ═══════════ -->
+<h2>Commentary Comparison</h2>
+<div class="comparison">
+<h3>Points of Agreement</h3>
+
+<p>Both Jamieson-Fausset-Brown and John Gill converge on several fundamental interpretive points regarding Romans 8:28. Most significantly, <strong>both commentaries emphasize the comprehensive scope of "all things"</strong> that work together for good, rejecting any limitation to only obviously beneficial circumstances. They agree that this includes both positive and negative experiences, trials and blessings alike.</p>
+
+<p>The commentaries also share a <strong>strong emphasis on divine sovereignty</strong> as the underlying mechanism that ensures all things work for good. Jamieson-Fausset-Brown speaks of God's "eternal purpose" that cannot be thwarted, while Gill explicitly notes that "God is the efficient cause, that makes all things work together for his people's good." Both reject the notion that this working together happens by chance or natural process.</p>
+
+<p>Additionally, both commentators agree that <strong>this truth was well-established knowledge among early believers</strong>. Jamieson-Fausset-Brown describes it as a "household word" and "known thing" among believers, while Gill emphasizes that the saints "know, and are firmly persuaded of" this truth through Scripture, biblical examples, and personal experience.</p>
+
+<h3>Points of Difference</h3>
+
+<p>The most striking difference lies in <strong>scope and comprehensiveness of treatment</strong>. Gill provides an exhaustive theological analysis that systematically categorizes different types of good (temporal, spiritual, eternal) and methodically works through various categories of "all things" including good beings, evil beings, and different types of afflictions. Jamieson-Fausset-Brown, while thorough, maintains a more focused approach that emphasizes the believer's response and trust.</p>
+
+<p>Their <strong>theological emphasis</strong> also differs significantly. Jamieson-Fausset-Brown places greater weight on the <strong>experiential and emotional aspects</strong> of faith, describing how believers "learn thus to take in good part whatever He sends them" and naturally develop trust in God's love. Gill, by contrast, provides a more <strong>systematic theological framework</strong>, carefully defining terms and addressing potential objections, such as clarifying that God is not the author of sin and that believers should not use this truth as encouragement to sin.</p>
+
+<p>The commentaries also differ in their <strong>treatment of the phrase "them that love God."</strong> While both acknowledge this as a description of believers, Gill provides extensive analysis of what love to God entails, describing it as something "not naturally in men" that "is wrought in the soul in regeneration." Jamieson-Fausset-Brown treats this more briefly as a given characteristic of those who trust in God's goodness.</p>
+
+<h3>Unique Contributions</h3>
+
+<p><strong>Jamieson-Fausset-Brown</strong> offers distinctive poetic and experiential insights, particularly in their vivid imagery of God having "His way in the whirlwind" while believers see "His chariot paved with love." Their commentary uniquely emphasizes the <strong>psychological and spiritual process</strong> by which believers come to trust God's providence, describing it as a natural outgrowth of understanding God's love demonstrated in giving His Son.</p>
+
+<p><strong>John Gill</strong> provides unparalleled systematic comprehensiveness, offering what amounts to a mini-treatise on providence and theodicy. His unique contributions include: detailed taxonomies of different types of good and different categories of "all things"; careful theological qualifications about God's relationship to sin; extensive treatment of how even original sin and actual sins work for good; and fascinating rabbinic parallels, including the story of Nahum "the man Gamzu" who said of every misfortune, "this is also for good."</p>
+
+<p>Gill also uniquely addresses <strong>textual variants</strong>, noting alternative manuscript readings that make God the explicit subject: "one copy reads, 'God works together', or 'causes all things to work together for good.'"</p>
+
+<h3>Historical & Theological Context</h3>
+
+<p>The commentaries reflect different eras and theological emphases within Protestant interpretation. <strong>Jamieson-Fausset-Brown</strong>, representing 19th-century Scottish Presbyterian scholarship, demonstrates the influence of Reformed experiential theology with its emphasis on the believer's inner experience and assurance. Their approach reflects a pastoral concern for how believers actually experience and appropriate this truth emotionally and spiritually.</p>
+
+<p><strong>John Gill</strong>, as an 18th-century English Particular Baptist, brings a distinctly systematic theological approach characteristic of high Calvinist scholasticism. His exhaustive categorizations and careful theological distinctions reflect the Baptist emphasis on precise doctrinal formulation and his own background in both Christian and Jewish learning, evident in his rabbinic citations.</p>
+
+<p>Both commentaries emerge from <strong>strongly Reformed theological traditions</strong> that emphasize divine sovereignty, but they represent different approaches within that tradition—Jamieson-Fausset-Brown leaning toward experiential application and Gill toward systematic exposition. The absence of Matthew Henry's commentary (which would typically offer more practical, devotional insights) and the Tyndale notes leaves these two as representing the more academic end of the interpretive spectrum, though with notably different scholarly styles and concerns.</p>
+</div>
+
+</body>
+</html>
