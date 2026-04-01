@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psalms 23:1-3</title>
+    <style>
+        /* ── Base styles ────────────────────────────────── */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        @page { size: landscape; margin: 0.5in; }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.7;
+            color: #2c2c2c;
+            background: #fafaf7;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+
+        /* ── Page title ─────────────────────────────────── */
+        h1 {
+            font-size: 2.2em;
+            font-weight: normal;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 0.95em;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        /* ── Section headers ────────────────────────────── */
+        h2 {
+            font-size: 1.5em;
+            font-weight: normal;
+            color: #444;
+            border-bottom: 2px solid #c9a96e;
+            padding-bottom: 8px;
+            margin: 30px 0 15px 0;
+            letter-spacing: 0.3px;
+        }
+
+        /* ── Parallel verse table ───────────────────────── */
+        .parallel-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .parallel-table th {
+            background: #f7f3eb;
+            color: #6b5b3e;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.95em;
+            font-weight: bold;
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 2px solid #c9a96e;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .parallel-table th.verse-col {
+            width: 40px;
+            text-align: center;
+            color: #999;
+        }
+
+        .parallel-table th .abbrev {
+            font-weight: normal;
+            color: #999;
+            font-size: 0.85em;
+        }
+
+        .parallel-table td {
+            padding: 12px 18px;
+            vertical-align: top;
+            border-bottom: 1px solid #eee;
+            font-size: 1em;
+            line-height: 1.65;
+        }
+
+        .parallel-table td.verse-num-cell {
+            text-align: center;
+            font-weight: bold;
+            color: #c9a96e;
+            font-size: 0.9em;
+            width: 40px;
+            vertical-align: top;
+            padding-top: 14px;
+        }
+
+        .parallel-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .parallel-table tr:hover td {
+            background: #fdfcf8;
+        }
+
+        .parallel-table th.diff-col {
+            background: #f0ebe0;
+            color: #6b5b3e;
+            min-width: 200px;
+        }
+
+        .parallel-table td.diff-cell {
+            font-size: 0.88em;
+            line-height: 1.55;
+            color: #6b5b3e;
+            background: #fdf9f0;
+            font-style: italic;
+            border-left: 2px solid #c9a96e;
+        }
+
+        .parallel-table td.diff-cell-none {
+            font-size: 0.85em;
+            color: #bbb;
+            background: #fdf9f0;
+            border-left: 2px solid #c9a96e;
+            text-align: center;
+        }
+
+        /* ── Inline cross-references (inside verse cell) ── */
+        .verse-crossrefs {
+            font-style: italic;
+            font-size: 0.8em;
+            color: #aaa;
+            margin-left: 6px;
+            line-height: 1.5;
+        }
+
+        /* ── Inline difference highlighting ─────────────── */
+        .diff-word {
+            text-decoration: underline dotted #c9a96e;
+            text-underline-offset: 3px;
+        }
+
+        /* ── Commentary blocks ──────────────────────────── */
+        .commentary-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .commentary {
+            margin-bottom: 40px;
+            padding: 25px 30px;
+            background: #fff;
+            border-left: 4px solid #5b7e9e;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .commentary-pair .commentary {
+            margin-bottom: 0;
+        }
+
+        .commentary-name {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #3d5a73;
+            margin-bottom: 4px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .commentary-author {
+            font-size: 0.85em;
+            color: #999;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .commentary-intro {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            background: #f5f5f0;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        .commentary-verse {
+            margin-bottom: 18px;
+        }
+
+        .commentary-verse-ref {
+            font-weight: bold;
+            color: #5b7e9e;
+            font-size: 0.9em;
+            margin-bottom: 4px;
+        }
+
+        .commentary-text {
+            font-size: 0.98em;
+            line-height: 1.75;
+            color: #3a3a3a;
+        }
+
+        .no-content {
+            color: #aaa;
+            font-style: italic;
+            padding: 15px 0;
+        }
+
+        /* ── Comparison section ─────────────────────────── */
+        .comparison-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .comparison-card {
+            padding: 25px 30px;
+            background: #fff;
+            border-left: 4px solid #c9a96e;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .comparison-card h3 {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #6b5b3e;
+            margin: 0 0 12px 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .comparison-card p {
+            font-size: 0.98em;
+            line-height: 1.75;
+            color: #3a3a3a;
+            margin-bottom: 12px;
+        }
+
+        .comparison-card strong {
+            color: #2c2c2c;
+        }
+
+        /* ── Interlinear section ────────────────────────── */
+        .interlinear-verse {
+            margin-bottom: 8px;
+        }
+
+        .interlinear-verse summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: #5b7e9e;
+            font-size: 0.95em;
+            padding: 6px 0;
+            list-style: none;
+        }
+
+        .interlinear-verse summary::before {
+            content: "▸ ";
+            color: #c9a96e;
+        }
+
+        .interlinear-verse[open] summary::before {
+            content: "▾ ";
+        }
+
+        .interlinear-layout {
+            display: grid;
+            grid-template-columns: 1fr 20fr;
+            gap: 20px;
+            margin: 8px 0 16px 0;
+        }
+
+        .interlinear-esv {
+            font-size: 0.95em;
+            line-height: 1.75;
+            color: #3a3a3a;
+            padding: 10px 16px;
+            background: #fdfcf8;
+            border-radius: 4px;
+            border-left: 3px solid #c9a96e;
+            align-self: start;
+        }
+
+        .interlinear-esv .esv-label {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.78em;
+            font-weight: bold;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .interlinear-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0 16px 0;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-radius: 4px;
+            overflow: hidden;
+            font-size: 0.9em;
+        }
+
+        .interlinear-table th {
+            background: #f0ebe0;
+            color: #6b5b3e;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.85em;
+            font-weight: bold;
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #d4c9a8;
+        }
+
+        .interlinear-table td {
+            padding: 6px 12px;
+            border-bottom: 1px solid #f0ece3;
+            vertical-align: top;
+        }
+
+        .interlinear-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .interlinear-table tr:hover td {
+            background: #fdfcf8;
+        }
+
+        .original-text {
+            font-size: 1.3em;
+            line-height: 1.4;
+        }
+
+        .original-text.hebrew {
+            direction: rtl;
+            font-family: 'SBL Hebrew', 'Ezra SIL', 'Times New Roman', serif;
+        }
+
+        .original-text.greek {
+            font-family: 'SBL Greek', 'Gentium Plus', 'Times New Roman', serif;
+        }
+
+        .strongs-num {
+            font-family: monospace;
+            font-size: 0.85em;
+            color: #8b6914;
+            background: #fdf6e3;
+            padding: 1px 5px;
+            border-radius: 3px;
+        }
+
+        .strongs-def {
+            font-size: 0.88em;
+            color: #666;
+            font-style: italic;
+        }
+
+        .transliteration {
+            color: #888;
+            font-style: italic;
+        }
+
+        /* ── Topics & themes (header-level) ────────────── */
+        .header-topics {
+            text-align: center;
+            margin: 0 auto 12px auto;
+        }
+
+        .header-topics-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 6px;
+            max-height: 58px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            position: relative;
+            padding-right: 65px;
+        }
+
+        .header-topics-row.expanded {
+            overflow: visible;
+            padding-right: 0;
+        }
+
+        .topics-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 0.78em;
+            padding: 2px 14px;
+            background: #fafaf7;
+            color: #999;
+            border: 1px dashed #ccc;
+            border-radius: 12px;
+            font-style: italic;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            transition: color 0.2s, border-color 0.2s;
+            position: absolute;
+            bottom: 2px;
+            right: 0;
+        }
+
+        .topics-toggle:hover {
+            color: #6b5b3e;
+            border-color: #c9a96e;
+        }
+
+        .topics-toggle.visible {
+            display: inline-block;
+        }
+
+        .header-topics-row.expanded .topics-toggle {
+            position: static;
+            background: none;
+        }
+
+        .header-topics-label {
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 2px;
+        }
+
+        .theme-tag {
+            display: inline-block;
+            font-size: 0.78em;
+            padding: 2px 9px;
+            background: #e8f0fe;
+            color: #1a56db;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+
+        .topic-tag {
+            display: inline-block;
+            font-size: 0.78em;
+            padding: 2px 9px;
+            background: #f0f5e8;
+            color: #3d7317;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+
+        /* ── Places section ─────────────────────────────── */
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 15px 0 30px 0;
+        }
+
+        .place-card {
+            padding: 20px 24px;
+            background: #fff;
+            border-left: 4px solid #6a9b68;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .place-name {
+            font-size: 1.05em;
+            font-weight: bold;
+            color: #2d6a2d;
+            margin-bottom: 4px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .place-type {
+            font-size: 0.82em;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .place-description {
+            font-size: 0.92em;
+            line-height: 1.65;
+            color: #3a3a3a;
+            margin-bottom: 8px;
+        }
+
+        .place-coords {
+            font-size: 0.8em;
+            color: #aaa;
+            font-family: monospace;
+        }
+
+        .place-refs {
+            font-size: 0.82em;
+            color: #6a9b68;
+            margin-top: 6px;
+        }
+
+        /* ── Cross-references section ──────────────────── */
+        .crossrefs-container {
+            margin: 15px 0 30px 0;
+        }
+
+        .crossrefs-verse {
+            margin-bottom: 14px;
+            padding: 12px 20px;
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .crossrefs-verse-ref {
+            font-weight: bold;
+            color: #5b7e9e;
+            font-size: 0.9em;
+            margin-bottom: 6px;
+        }
+
+        .crossref-tag {
+            display: inline-block;
+            font-size: 0.84em;
+            padding: 3px 10px;
+            background: #f5f0e8;
+            color: #8b6914;
+            border-radius: 12px;
+            margin: 2px 4px 2px 0;
+            white-space: nowrap;
+        }
+
+        /* ── Print styles ───────────────────────────────── */
+        @media print {
+            body { background: #fff; padding: 15px; }
+            .parallel-table, .commentary, .comparison-card,
+            .place-card, .topics-verse, .crossrefs-verse { box-shadow: none; }
+            .parallel-table th { position: static; }
+            .page-break { page-break-before: always; }
+            h2 { margin-top: 20px; }
+            .interlinear-verse { break-inside: avoid; }
+        }
+
+        /* ── Interactive verse expansion ────────────── */
+        .verse-cell-clickable {
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .verse-cell-clickable:hover {
+            background: #f5f0e0 !important;
+        }
+
+        #expanded-view {
+            display: none;
+            margin: 20px 0;
+        }
+
+        #expanded-view.active {
+            display: block;
+        }
+
+        .expanded-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .expanded-title {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #6b5b3e;
+        }
+
+        .expanded-close {
+            background: #f7f3eb;
+            border: 1px solid #d4c9a8;
+            color: #6b5b3e;
+            font-size: 1.3em;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .expanded-close:hover {
+            background: #ebe3d1;
+        }
+
+        .expanded-panel {
+            display: grid;
+            grid-template-columns: 1fr 10fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .expanded-text {
+            font-size: 1.15em;
+            line-height: 1.8;
+            color: #2c2c2c;
+            padding: 20px 24px;
+            background: #fff;
+            border-left: 4px solid #c9a96e;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 20px;
+        }
+
+        #expanded-view.active .expanded-text {
+            animation: slideInLeft 0.35s ease both;
+        }
+
+        #expanded-view.active .expanded-interlinear {
+            animation: slideInRight 0.35s ease both;
+            animation-delay: 0.08s;
+        }
+
+        #expanded-view.closing .expanded-text {
+            animation: slideOutLeft 0.25s ease both;
+        }
+
+        #expanded-view.closing .expanded-interlinear {
+            animation: slideOutRight 0.25s ease both;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideOutLeft {
+            from { opacity: 1; transform: translateX(0); }
+            to   { opacity: 0; transform: translateX(-50px); }
+        }
+
+        @keyframes slideOutRight {
+            from { opacity: 1; transform: translateX(0); }
+            to   { opacity: 0; transform: translateX(50px); }
+        }
+
+        .expanded-text .text-label {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.7em;
+            font-weight: bold;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        /* Table exit / enter animations */
+        .parallel-table {
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .parallel-table.collapsing {
+            opacity: 0;
+            transform: translateY(-15px);
+            pointer-events: none;
+        }
+
+        .parallel-table.collapsed {
+            display: none;
+        }
+
+        .parallel-table.entering {
+            animation: tableEnter 0.3s ease both;
+        }
+
+        @keyframes tableEnter {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .click-hint {
+            text-align: center;
+            font-size: 0.82em;
+            color: #bbb;
+            font-style: italic;
+            margin: 8px 0 0 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .click-hint.collapsing {
+            opacity: 0;
+        }
+
+        .click-hint.collapsed {
+            display: none;
+        }
+
+        /* ── Chapter navigation ────────────────────── */
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 12px 0 16px 0;
+            font-size: 0.9em;
+        }
+        .chapter-nav a {
+            color: #5b7e9e;
+            text-decoration: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+        .chapter-nav a:hover {
+            background: #f0f0f0;
+            text-decoration: underline;
+        }
+        .nav-prev::before { content: "\2190\00a0"; }
+        .nav-next::after  { content: "\00a0\2192"; }
+        .nav-current {
+            color: #888;
+            font-weight: 500;
+        }
+        .nav-spacer {
+            width: 120px;
+        }
+
+        /* ── Chapter context expansion ─────────────── */
+        .expand-chapter {
+            text-align: center;
+            margin: 4px 0 0 0;
+        }
+        .expand-chapter button {
+            background: none;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 6px 18px;
+            font-size: 0.85em;
+            color: #5b7e9e;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .expand-chapter button:hover {
+            background: #f0f0f0;
+            border-color: #bbb;
+        }
+        .expand-chapter .arrow {
+            display: inline-block;
+            transition: transform 0.25s ease;
+        }
+        .expand-chapter.expanded .arrow {
+            transform: rotate(180deg);
+        }
+        .context-table {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .context-table.visible {
+            max-height: none;
+        }
+        .context-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .context-table td {
+            padding: 10px 14px;
+            border: 1px solid #e0d8c8;
+            vertical-align: top;
+            color: #777;
+            font-style: italic;
+        }
+        .context-table .verse-num-cell {
+            text-align: center;
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Psalms 23:1-3</h1>
+<div class="subtitle">OT &middot; Psalms (Book 19 of 66)</div>
+<nav class="chapter-nav">
+  <a href="lookup_Psalms_22.html" class="nav-prev">Psalms 22</a>
+  <span class="nav-current">Psalms 23</span>
+  <a href="lookup_Psalms_24.html" class="nav-next">Psalms 24</a>
+</nav>
+<div class="header-topics">
+<div class="header-topics-row">
+  <span class="header-topics-label">Themes:</span>
+  <span class="theme-tag">confidence, results of</span>
+  <span class="theme-tag">leisure, nature and purpose of</span>
+  <button class="topics-toggle">more</button>
+</div>
+<div class="header-topics-row">
+  <span class="header-topics-label">Topics:</span>
+  <span class="topic-tag">affirmation</span>
+  <span class="topic-tag">anniversary</span>
+  <span class="topic-tag">anointing oil</span>
+  <span class="topic-tag">autumn</span>
+  <span class="topic-tag">bad dreams</span>
+  <span class="topic-tag">be still</span>
+  <span class="topic-tag">beatitudes</span>
+  <span class="topic-tag">becoming an adult</span>
+  <span class="topic-tag">begging</span>
+  <span class="topic-tag">being brave</span>
+  <span class="topic-tag">being ignored</span>
+  <span class="topic-tag">being nervous</span>
+  <span class="topic-tag">being restored</span>
+  <span class="topic-tag">being scared</span>
+  <span class="topic-tag">betrayal</span>
+  <span class="topic-tag">candy</span>
+  <span class="topic-tag">changing jobs</span>
+  <span class="topic-tag">cleansing the body</span>
+  <span class="topic-tag">comfort the dying</span>
+  <span class="topic-tag">david</span>
+  <span class="topic-tag">david and goliath</span>
+  <span class="topic-tag">dealing with death</span>
+  <span class="topic-tag">dealing with death of parent</span>
+  <span class="topic-tag">dealing with fear</span>
+  <span class="topic-tag">dealing with lifes crisis</span>
+  <span class="topic-tag">death and dying</span>
+  <span class="topic-tag">death of a child</span>
+  <span class="topic-tag">death of a friend</span>
+  <span class="topic-tag">death of a loved one</span>
+  <span class="topic-tag">deceased loved ones</span>
+  <span class="topic-tag">deliverance from enemies</span>
+  <span class="topic-tag">despair</span>
+  <span class="topic-tag">divine protection</span>
+  <span class="topic-tag">drama</span>
+  <span class="topic-tag">dying</span>
+  <span class="topic-tag">ecology</span>
+  <span class="topic-tag">ectopic pregnancy</span>
+  <span class="topic-tag">emptiness</span>
+  <span class="topic-tag">encourage</span>
+  <span class="topic-tag">entrepreneurship</span>
+  <span class="topic-tag">everything will be ok</span>
+  <span class="topic-tag">false accusations</span>
+  <span class="topic-tag">family problems</span>
+  <span class="topic-tag">fear</span>
+  <span class="topic-tag">fears</span>
+  <span class="topic-tag">feathers</span>
+  <span class="topic-tag">feeling lonely</span>
+  <span class="topic-tag">fighting friends</span>
+  <span class="topic-tag">financial problems</span>
+  <span class="topic-tag">finding strength</span>
+  <span class="topic-tag">funeral</span>
+  <span class="topic-tag">funerals</span>
+  <span class="topic-tag">getting rid of evil</span>
+  <span class="topic-tag">gods help</span>
+  <span class="topic-tag">gods provision</span>
+  <span class="topic-tag">grief and sorrow</span>
+  <span class="topic-tag">having faith</span>
+  <span class="topic-tag">healing a broken heart</span>
+  <span class="topic-tag">homecoming celebration</span>
+  <span class="topic-tag">homesickness</span>
+  <span class="topic-tag">hugging in public</span>
+  <span class="topic-tag">illegitimate children</span>
+  <span class="topic-tag">insecurity</span>
+  <span class="topic-tag">irritation</span>
+  <span class="topic-tag">isaac</span>
+  <span class="topic-tag">keep evil away</span>
+  <span class="topic-tag">king david</span>
+  <span class="topic-tag">knowing your destiny</span>
+  <span class="topic-tag">lack</span>
+  <span class="topic-tag">law enforcement</span>
+  <span class="topic-tag">living in fear</span>
+  <span class="topic-tag">lonely</span>
+  <span class="topic-tag">losing a loved one</span>
+  <span class="topic-tag">loss of a child</span>
+  <span class="topic-tag">lottery</span>
+  <span class="topic-tag">managing emotions</span>
+  <span class="topic-tag">mental health</span>
+  <span class="topic-tag">mental illness</span>
+  <span class="topic-tag">minister to old people</span>
+  <span class="topic-tag">names for god</span>
+  <span class="topic-tag">names of god</span>
+  <span class="topic-tag">needs</span>
+  <span class="topic-tag">negative thinking</span>
+  <span class="topic-tag">new years resolutions</span>
+  <span class="topic-tag">our enemies</span>
+  <span class="topic-tag">overcoming disappointment</span>
+  <span class="topic-tag">overcoming insecurity</span>
+  <span class="topic-tag">overcoming rejection</span>
+  <span class="topic-tag">overflow</span>
+  <span class="topic-tag">pain and hurt</span>
+  <span class="topic-tag">pastoral care</span>
+  <span class="topic-tag">paying bills</span>
+  <span class="topic-tag">pillow</span>
+  <span class="topic-tag">plans to prosper</span>
+  <span class="topic-tag">pregnancy</span>
+  <span class="topic-tag">protecting children</span>
+  <span class="topic-tag">protection</span>
+  <span class="topic-tag">protection from evil</span>
+  <span class="topic-tag">protection of god</span>
+  <span class="topic-tag">provider</span>
+  <span class="topic-tag">psalm</span>
+  <span class="topic-tag">psalms</span>
+  <span class="topic-tag">psalms 23</span>
+  <span class="topic-tag">rebuking evil</span>
+  <span class="topic-tag">relaxing</span>
+  <span class="topic-tag">rest</span>
+  <span class="topic-tag">retreats</span>
+  <span class="topic-tag">schizophrenia</span>
+  <span class="topic-tag">seminary</span>
+  <span class="topic-tag">senior citizens</span>
+  <span class="topic-tag">sheep</span>
+  <span class="topic-tag">sheperd</span>
+  <span class="topic-tag">shepherd</span>
+  <span class="topic-tag">shepherding</span>
+  <span class="topic-tag">shepherds</span>
+  <span class="topic-tag">soaring</span>
+  <span class="topic-tag">standing alone</span>
+  <span class="topic-tag">struggle</span>
+  <span class="topic-tag">thanking god</span>
+  <span class="topic-tag">the anointing</span>
+  <span class="topic-tag">the mustard seed</span>
+  <span class="topic-tag">the third eye</span>
+  <span class="topic-tag">tiempo</span>
+  <span class="topic-tag">trauma</span>
+  <span class="topic-tag">untimely death</span>
+  <span class="topic-tag">vacation</span>
+  <span class="topic-tag">valley of death</span>
+  <span class="topic-tag">valley of shadow of death</span>
+  <span class="topic-tag">visions of the future</span>
+  <span class="topic-tag">walking with jesus</span>
+  <span class="topic-tag">wanting</span>
+  <span class="topic-tag">when someone dies</span>
+  <span class="topic-tag">worry and anxiety</span>
+  <span class="topic-tag">worrying about end times</span>
+  <span class="topic-tag">writing</span>
+  <span class="topic-tag">beauty of the earth</span>
+  <span class="topic-tag">calm</span>
+  <span class="topic-tag">cheese</span>
+  <span class="topic-tag">getting rest</span>
+  <span class="topic-tag">quiet time</span>
+  <span class="topic-tag">soul</span>
+  <span class="topic-tag">swimming</span>
+  <span class="topic-tag">the environment</span>
+  <span class="topic-tag">being afraid</span>
+  <span class="topic-tag">direction</span>
+  <span class="topic-tag">emotional healing</span>
+  <span class="topic-tag">lead</span>
+  <span class="topic-tag">refreshing</span>
+  <span class="topic-tag">restore</span>
+  <span class="topic-tag">your soul</span>
+  <button class="topics-toggle">more</button>
+</div>
+</div>
+
+<!-- ═══════════ BIBLE TRANSLATIONS ═══════════ -->
+<table class="parallel-table">
+<thead>
+    <tr>
+        <th class="verse-col">v.</th>
+        <th>English Standard Version <span class="abbrev">(ESV)</span></th>
+        <th>King James Version, Pure Cambridge Edition <span class="abbrev">(KJVPCE)</span></th>
+        <th>Berean Standard Bible <span class="abbrev">(BSB)</span></th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td class="verse-num-cell">1</td>
+        <td class="verse-cell-clickable" data-verse="1" data-col="0">The LORD is my shepherd; I shall not want.<span class="verse-crossrefs">cf. Php 4:19, Jhn 10:11, Isa 40:11, Jhn 10:27-30, Jhn 10:14, Rev 7:17, Mat 6:33, 1Pe 2:25 +15 more</span></td>
+        <td class="verse-cell-clickable" data-verse="1" data-col="1">THE Lord is my shepherd; I shall not want.<span class="verse-crossrefs">cf. Php 4:19, Jhn 10:11, Isa 40:11, Jhn 10:27-30, Jhn 10:14, Rev 7:17, Mat 6:33, 1Pe 2:25 +15 more</span></td>
+        <td class="verse-cell-clickable" data-verse="1" data-col="2">The LORD is my shepherd; I shall not want.<span class="verse-crossrefs">cf. Php 4:19, Jhn 10:11, Isa 40:11, Jhn 10:27-30, Jhn 10:14, Rev 7:17, Mat 6:33, 1Pe 2:25 +15 more</span></td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">2</td>
+        <td class="verse-cell-clickable" data-verse="2" data-col="0">He <span class="diff-word">makes</span> me lie down in green pastures. He <span class="diff-word">leads</span> me beside <span class="diff-word">still</span> waters.<span class="verse-crossrefs">cf. Rev 7:17, Rev 22:1, Eze 34:13-14, Psa 46:4, Rev 21:6, Isa 49:9-10, Rev 22:17, Isa 30:23 +1 more</span></td>
+        <td class="verse-cell-clickable" data-verse="2" data-col="1">He <span class="diff-word">maketh</span> me to lie down in green pastures: he <span class="diff-word">leadeth</span> me beside the <span class="diff-word">still</span> waters.<span class="verse-crossrefs">cf. Rev 7:17, Rev 22:1, Eze 34:13-14, Psa 46:4, Rev 21:6, Isa 49:9-10, Rev 22:17, Isa 30:23 +1 more</span></td>
+        <td class="verse-cell-clickable" data-verse="2" data-col="2">He <span class="diff-word">makes</span> me lie down in green pastures; He <span class="diff-word">leads</span> me beside <span class="diff-word">quiet</span> waters.<span class="verse-crossrefs">cf. Rev 7:17, Rev 22:1, Eze 34:13-14, Psa 46:4, Rev 21:6, Isa 49:9-10, Rev 22:17, Isa 30:23 +1 more</span></td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">3</td>
+        <td class="verse-cell-clickable" data-verse="3" data-col="0">He <span class="diff-word">restores</span> my soul. He <span class="diff-word">leads</span> me in paths of righteousness for his <span class="diff-word">name's sake.</span><span class="verse-crossrefs">cf. Isa 42:16, Psa 31:3, Psa 51:10, Psa 19:7, Psa 143:8-10, Psa 5:8, Psa 51:12, Job 33:30 +16 more</span></td>
+        <td class="verse-cell-clickable" data-verse="3" data-col="1">He <span class="diff-word">restoreth</span> my soul: he <span class="diff-word">leadeth</span> me in the paths of righteousness for his <span class="diff-word">name’s sake.</span><span class="verse-crossrefs">cf. Isa 42:16, Psa 31:3, Psa 51:10, Psa 19:7, Psa 143:8-10, Psa 5:8, Psa 51:12, Job 33:30 +16 more</span></td>
+        <td class="verse-cell-clickable" data-verse="3" data-col="2">He <span class="diff-word">restores</span> my soul; He <span class="diff-word">guides</span> me in the paths of righteousness for the <span class="diff-word">sake</span> of His <span class="diff-word">name.</span><span class="verse-crossrefs">cf. Isa 42:16, Psa 31:3, Psa 51:10, Psa 19:7, Psa 143:8-10, Psa 5:8, Psa 51:12, Job 33:30 +16 more</span></td>
+    </tr>
+</tbody>
+</table>
+
+<div id="expanded-view"></div>
+<div class="click-hint">Click any translation to explore the original language word-by-word</div>
+<div class="expand-chapter" id="expand-chapter">
+  <button onclick="toggleContext()">Show rest of chapter (6 verses) <span class="arrow">&#9660;</span></button>
+</div>
+<div class="context-table" id="context-verses">
+<table class="parallel-table">
+<tbody>
+    <tr>
+        <td class="verse-num-cell">4</td>
+        <td>Even though I walk through the valley of the shadow of death, I will fear no evil, for you are with me; your rod and your staff, they comfort me.</td>
+        <td>Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me.</td>
+        <td>Even though I walk through the valley of the shadow of death, I will fear no evil, for You are with me; Your rod and Your staff, they comfort me.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">5</td>
+        <td>You prepare a table before me in the presence of my enemies; you anoint my head with oil; my cup overflows.</td>
+        <td>Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over.</td>
+        <td>You prepare a table before me in the presence of my enemies. You anoint my head with oil; my cup overflows.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">6</td>
+        <td>Surely goodness and mercy shall follow me all the days of my life, and I shall dwell in the house of the LORD forever.</td>
+        <td>Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the Lord for ever.</td>
+        <td>Surely goodness and mercy will follow me all the days of my life, and I will dwell in the house of the LORD forever.</td>
+    </tr>
+</tbody>
+</table>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ═══════════ COMMENTARY ═══════════ -->
+<h2>Commentary</h2>
+<div class="commentary-pair">
+
+<div class="commentary">
+    <div class="commentary-name">Jamieson-Fausset-Brown Bible Commentary</div>
+    <div class="commentary-author">Robert Jamieson, A.R. Fausset, David Brown</div>
+    <div class="commentary-intro">Under a metaphor borrowed from scenes of pastoral life, with which David was familiar, he describes God's providential care in providing refreshment, guidance, protection, and abundance, and so affording grounds of confidence in His perpetual favor. (Psa 23:1-6)
+
+Christ's relation to His people is often represented by the figure of a shepherd (Joh 10:14; Heb 13:20; Pe1 2:25; Pe1 5:4), and therefore the opinion that He is the Lord here so described, and in Gen 48:15; Psa 80:1; Isa 40:11, is not without some good reason.</div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 2</div>
+        <div class="commentary-text">green pastures--or, &quot;pastures of tender grass,&quot; are mentioned, not in respect to food, but as places of cool and refreshing rest. 
+
+the still waters--are, literally, &quot;waters of &quot;stillness,&quot; whose quiet flow invites to repose. They are contrasted with boisterous streams on the one hand, and stagnant, offensive pools on the other.</div>
+    </div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 3</div>
+        <div class="commentary-text">To restore the soul is to revive or quicken it (Psa 19:7), or relieve it (Lam 1:11, Lam 1:19). 
+
+paths of righteousness--those of safety, as directed by God, and pleasing to Him. 
+
+for his name's sake--or, regard for His perfections, pledged for His people's welfare.</div>
+    </div>
+</div>
+
+<div class="commentary">
+    <div class="commentary-name">Tyndale Open Study Notes</div>
+    <div class="commentary-author">Tyndale House Publishers</div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 1</div>
+        <div class="commentary-text">Pss 23–28 These psalms develop the importance of integrity (25:4-7, 12-14, 21; 26:6, 11; 27:7-12), God’s shepherding care (23:1; 28:9), God’s guidance (23:2-3; 25:5; 27:11), God’s goodness (23:6; 25:7-8; 27:13), and living in his house (23:6; 26:8; 27:4, 8). Ps 23 This psalm of trust and confidence in the Lord has been a favorite of God’s people for generations. It expresses assurance of God’s presence in the midst of adversity. It evokes images of the Good Shepherd (23:1-3; see Ezek 34:12; John 10:11) and of the messianic banquet (Ps 23:5-6; see Isa 25:6; Rev 19:9). 23:1-3 People in the ancient Near East commonly viewed their rulers as shepherds. 23:1 The Lord promises to take care of his children (34:9-10; Isa 51:14). He demonstrated this ability to Israel in the wilderness (Deut 2:7) and in the Promised Land (Deut 8:9).</div>
+    </div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 2</div>
+        <div class="commentary-text">23:2 Sheep rest after they have eaten their fill (Zeph 3:13; see Isa 11:7; cp. Isa 13:20; 27:10). • The Lord leads the sheep for their own benefit (see Ps 5:8). • Sheep only drink from still water, so the shepherd seeks out peaceful streams for his flock.</div>
+    </div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 3</div>
+        <div class="commentary-text">23:3 Cp. 19:7; the Lord’s word renews my strength. • The Lord guides by rescuing his people from evil (23:4-5; see 31:3), bringing them back to himself (5:8; 61:2), caring (48:14; 139:10), ruling (67:4), counseling (73:24), protecting (78:53; 107:30; 143:11), and instructing them in wisdom (27:11; see Prov 4:11). • The Lord’s name guarantees the relationship; he guards his reputation against any accusation of his abandoning his people or allowing them to sin (see Pss 25:11; 31:3; 106:8; 143:11).</div>
+    </div>
+</div>
+</div>
+
+<div class="commentary">
+    <div class="commentary-name">John Gill's Exposition of the Whole Bible</div>
+    <div class="commentary-author">John Gill</div>
+    <div class="commentary-intro">INTRODUCTION TO PSALM 23 
+
+A Psalm of David. Thus psalm was written by David, either when he was in distressed circumstances, being persecuted by Saul, and was in the forest of Hareth, Sa1 22:5; as some think (r); wherefore he comforts himself with the Lord's being his shepherd, so that he should not want; nor would he fear, was he in worse circumstances than he at present was; or rather, when he was settled upon the throne of Israel, and in the most prosperous and flourishing state of his reign, as the latter part of the psalm shows; he speaks not in his own person only, but in the name of all believers; for Christ, who is the shepherd spoken of, is a common shepherd to all the saints, who are all the sheep of his pasture, as well as David; and the prophet here makes use of similes very familiar with him; he having been a shepherd himself, and knew what it was to do all the parts of that office, which are herein expressed; and very pertinently does this psalm follow the former; for as there Christ is prophesied of as laying down his life for the sheep, as the good shepherd does; and of his being brought again from the dead, as the great shepherd of the sheep, as Christ has been; so here of his performing his office as such, in all its parts, to the great comfort, refreshment, and safety of his people. 
+
+(r) Jarchi &amp; Kimchi.</div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 1</div>
+        <div class="commentary-text">The Lord is my shepherd,.... This is to be understood not of Jehovah the Father, and of his feeding the people of Israel in the wilderness, as the Targum paraphrases it, though the character of a shepherd is sometimes given to him, Psa 77:20; but of Jehovah the Son, to whom it is most frequently ascribed, Gen 49:24. This office he was called and appointed to by his Father, and which through his condescending grace he undertook to execute, and for which he is abundantly qualified; being omniscient, and so knows all his sheep and their maladies, where to find them, what is their case, and what is to be done for them; and being omnipotent, he can do everything proper for them; and having all power in heaven and in earth, can protect, defend, and save them; and all the treasures of wisdom and knowledge being in him, he can guide and direct them in the best manner; wherefore he is called the great shepherd, and the chief shepherd, and the good shepherd. David calls him &quot;my shepherd&quot;; Christ having a right unto him, as he has to all the sheep of God, by virtue of his Father's gift, his own purchase, and the power of his grace; and as owning him as such, and yielding subjection to him, following him as the sheep of Christ do wheresoever he goes; and also as expressing his faith of interest in him, affection for him, and joy because of him: and from thence comfortably concludes, 
+
+I shall not want; not anything, as the Targum and Aben Ezra interpret it; not any temporal good thing, as none of Christ's sheep do, that he in his wisdom sees proper and convenient for them; nor any spiritual good things, since a fulness of them is in him, out of which all their wants are supplied; they cannot want food, for by him they go in and out and find pasture; in him their bread is given them, where they have enough and to spare, and their waters are sure unto them; nor clothing, for he is the Lord their righteousness, and they are clothed with the robe of his righteousness; nor rest, for he is their resting place, in whom they find rest for their souls, and are by him led to waters of rest, as in Psa 23:2, the words may be rendered, &quot;I shall not fail&quot;, or &quot;come short&quot; (s); that is, of eternal glory and happiness; for Christ's sheep are in his hands, out of which none can pluck them, and therefore shall not perish, but have everlasting life, Joh 10:27. 
+
+(s) &quot;non deficiam&quot;, Pagninus, Montanus.</div>
+    </div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 2</div>
+        <div class="commentary-text">He maketh me to lie down in green pastures,.... Or &quot;pastures of tender grass&quot; (t); this is one part of the shepherd's work, and which is performed by Christ, Eze 34:14; by these &quot;green pastures&quot; may be meant the covenant of grace, its blessings and promises, where there is delicious feeding; likewise the fulness of grace in Christ, from whence grace for grace is received; also the flesh and blood, righteousness and sacrifice, of Christ, which faith is led unto and lives upon, and is refreshed and invigorated by; to which may be added the doctrines of the Gospel, with which Christ's under-shepherds feed his lambs and sheep, there being in them milk for babes and meat for strong men; and likewise the ordinances of the Gospel, the goodness and fatness of the Lord's house, the feast of fat things, and breasts of consolation: here Christ's sheep are made to &quot;lie down&quot;, denoting their satiety and fulness; they having in these green pastures what is satisfying and replenishing; as also their rest and safety, these being sure dwellings and quiet resting places, even in the noon of temptation and persecution; see Sol 1:7; 
+
+he leadeth me beside the still waters, or &quot;waters of rest and quietness&quot; (u); not to rapid torrents, which by reason of the noise they make, and the swiftness of their motion, the sheep are frightened, and not able to drink of them; but to still waters, pure and clear, and motionless, or that go softly, like the waters of Shiloah, Isa 8:6; and the &quot;leading&quot; to them is in a gentle way, easily, as they are able to bear it; so Jacob led his flock, Gen 33:14; and Christ leads his, Isa 40:11; by these &quot;still waters&quot; may be designed the everlasting love of God, which is like a river, the streams whereof make glad the hearts of his people; these are the waters of the sanctuary, which rise to the ankles, knees, and loins, and are as a broad river to swim in; the pure river of water of life Christ leads his sheep to, and gives them to drink freely of: also communion with God, which the saints pant after, as the hart pants after the water brooks, and Christ gives access unto; moreover he himself is the fountain of gardens, and well of living waters, and streams from Lebanon; and the graces of his Spirit are also as rivers of living water, all which he makes his people partakers of; to which may be added, that the Scriptures, and the truths of the Gospel, are like still, quiet, and refreshing waters to them, and are the waters to which those that are athirst are invited to come, Isa 55:1; and in the immortal state Christ will still be a shepherd, and will feed his people, and lead them to fountains of living water, where they shall solace themselves for ever, and shall know no more sorrow and sighing, Rev 7:17. 
+
+(t) &quot;tenerae herbae&quot;, Piscator, Amama, Gejerus, Michaelis; &quot;in folds of budding grass&quot;, Ainsworth. (u) &quot;aquas requietum&quot;, Pagninus, Montanus; &quot;quietum&quot;, Vatablus, Michaelis; &quot;vel quietis&quot;, Gejerus; so Ainsworth; Apollinar.</div>
+    </div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 3</div>
+        <div class="commentary-text">He restoreth my soul,.... Either when backslidden, and brings it back again when led or driven away, and heals its backslidings; or rather, when fainting, swooning, and ready to die away, he fetches it back again, relieves, refreshes, and comforts with the discoveries of his love, with the promises of his word, and with the consolations of his Spirit, and such like reviving cordials; see Gill on Psa 19:7; 
+
+he leadeth, he in the paths of righteousness; in the plain paths of truth and holiness, in which men, though fools, shall not err; in right ones, though they sometimes seem rough and rugged to Christ's sheep, yet are not crooked; there is no turning to the right hand or the left; they lead straight on to the city of habitation; and they are righteous ones, as paths of duty are, and all the commandments and ordinances of the Lord be; moreover, Christ leads his by faith, to walk on in him and in his righteousness, looking through it, and on account of it, for eternal life; see Pro 8:20; and all this he does 
+
+for his name's sake; for his own glory and the praise of his grace, and not for any merits or deserts in men.</div>
+    </div>
+</div>
+
+<div class="commentary">
+    <div class="commentary-name">Matthew Henry's Complete Commentary</div>
+    <div class="commentary-author">Matthew Henry</div>
+    <div class="commentary-intro">Many of David's psalms are full of complaints, but this is full of comforts, and the expressions of delight in God's great goodness and dependence upon him. It is a psalm which has been sung by good Christians, and will be while the world stands, with a great deal of pleasure and satisfaction. I. The psalmist here claims relation to God, as his shepherd (Psa 23:1). II. He recounts his experience of the kind things God had done for him as his shepherd (Psa 23:2, Psa 23:3, Psa 23:5). III. Hence he infers that he should want no good (Psa 23:1), that he needed to fear no evil (Psa 23:4), that God would never leave nor forsake him in a way of mercy; and therefore he resolves never to leave nor forsake God in a way of duty (Psa 23:6). In this he had certainly an eye, not only to the blessings of God's providence, which made his outward condition prosperous, but to the communications of God's grace, received by a lively faith, and returned in a warm devotion, which filled his soul with joy unspeakable. And, as in the foregoing psalm he represented Christ dying for his sheep, so here he represents Christians receiving the benefit of all the care and tenderness of that great and good shepherd.
+A psalm of David.</div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 1</div>
+        <div class="commentary-text">From three very comfortable premises David, in this psalm, draws three very comfortable conclusions, and teaches us to do so too. We are saved by hope, and that hope will not make us ashamed, because it is well grounded. It is the duty of Christians to encourage themselves in the Lord their God; and we are here directed to take that encouragement both from the relation wherein he stands to us and from the experience we have had of his goodness according to that relation.
+I. From God's being his shepherd he infers that he shall not want anything that is good for him, Psa 23:1. See here, 1. The great care that God takes of believers. He is their shepherd, and they may call him so. Time was when David was himself a shepherd; he was taken from following the ewes great with young (Psa 78:70, Psa 78:71), and so he knew by experience the cares and tender affections of a good shepherd towards his flock. He remembered what need they had of a shepherd, and what a kindness it was to them to have one that was skilful and faithful; he once ventured his life to rescue a lamb. By this therefore he illustrates God's care of his people; and to this our Saviour seems to refer when he says, I am the shepherd of the sheep; the good shepherd, Joh 10:11. He that is the shepherd of Israel, of the whole church in general (Psa 80:1), is the shepherd of every particular believer; the meanest is not below his cognizance, Isa 40:11. He takes them into his fold, and then takes care of them, protects them, and provides for them, with more care and constancy than a shepherd can, that makes it his business to keep the flock. If God be as a shepherd to us, we must be as sheep, inoffensive, meek, and quiet, silent before the shearers, nay, and before the butcher too, useful and sociable; we must know the shepherd's voice, and follow him. 2. The great confidence which believers have in God: &quot;If the Lord is my shepherd, my feeder, I may conclude I shall not want any thing that is really necessary and good for me.&quot; If David penned this psalm before his coming to the crown, though destined to it, he had as much reason to fear wanting as any man. Once he sent his men a begging for him to Nabal, and another time went himself a begging to Ahimelech; and yet, when he considers that God is his shepherd, he can boldly say, I shall not want. Let not those fear starving that are at God's finding and have him for their feeder. More is implied than is expressed, not only, I shall not want, but, &quot;I shall be supplied with whatever I need; and, if I have not every thing I desire, I may conclude it is either not fit for me or not good for me or I shall have it in due time.&quot;
+II. From his performing the office of a good shepherd to him he infers that he needs not fear any evil in the greatest dangers and difficulties he could be in, Psa 23:2-4. He experiences the benefit of God's presence with him and care of him now, and therefore expects the benefit of them when he most needs it. See here,
+1. The comforts of a living saint. God is his shepherd and his God - a God all-sufficient to all intents and purposes. David found him so, and so have we. See the happiness of the saints as the sheep of God's pasture. (1.) They are well placed, well laid: He maketh me to lie down in green pastures. We have the supports and comforts of this life from God's good hand, our daily bread from him as our Father. The greatest abundance is but a dry pasture to a wicked man, who relishes that only in it which pleases the senses; but to a godly man, who tastes the goodness of God in all his enjoyments, and by faith relishes that, though he has but little of the world, it is a green pasture, Psa 37:16; Pro 15:16, Pro 15:17. God's ordinances are the green pastures in which food is provided for all believers; the word of life is the nourishment of the new man. It is milk for babes, pasture for sheep, never barren, never eaten bare, never parched, but always a green pasture for faith to feed in. God makes his saints to lie down; he gives them quiet and contentment in their own minds, what ever their lot is; their souls dwell at ease in him, and that makes every pasture green. Are we blessed with the green pastures of the ordinances? Let us not think it enough to pass through them, but let us lie down in them, abide in them; this is my rest for ever. It is by a constancy of the means of grace that the soul is fed. (2.) They are well guided, well led. The shepherd of Israel guides Joseph like a flock; and every believer is under the same guidance: He leadeth me beside the still waters. Those that feed on God's goodness must follow his direction; he leads them by his providence, by his word, by his Spirit, disposes of their affairs for the best, according to his counsel, disposes their affections and actions according to his command, directs their eye, their way, and their heart, into his love. The still waters by which he leads them yield them, not only a pleasant prospect, but many a cooling draught, many a reviving cordial, when they are thirsty and weary. God provides for his people not only food and rest, but refreshment also and pleasure. The consolations of God, the joys of the Holy Ghost, are these still waters, by which the saints are led, streams which flow from the fountain of living waters and make glad the city of our God. God leads his people, not to the standing waters which corrupt and gather filth, not to the troubled sea, nor to the rapid rolling floods, but to the silent purling waters; for the still but running waters agree best with those spirits that flow out towards God and yet do it silently. The divine guidance they are under is stripped of its metaphor (Psa 23:3): He leadeth me in the paths of righteousness, in the way of my duty; in that he instructs me by his word and directs me by conscience and providence. Theses are the paths in which all the saints desire to be led and kept, and never to turn aside out of them. And those only are led by the still waters of comfort that walk in the paths of righteousness. The way of duty is the truly pleasant way. It is the work of righteousness that is peace. In these paths we cannot walk unless God both lead us into them and lead us in them. (3.) They are well helped when any thing ails them: He restoreth my soul. [1.] &quot;He restores me when I wander.&quot; No creature will lose itself sooner than a sheep, so apt is it to go astray, and then so unapt to find the way back. The best saints are sensible of their proneness to go astray like lost sheep (Psa 119:176); they miss their way, and turn aside into by-paths; but when God shows them their error, gives them repentance, and brings them back to their duty again, he restores the soul; and, if he did not do so, they would wander endlessly and be undone. When, after one sin, David's heart smote him, and, after another, Nathan was sent to tell him, Thou art the man, God restored his soul. Though God may suffer his people to fall into sin, he will not suffer them to lie still in it. [2.] &quot;He recovers me when I am sick, and revives me when I am faint, and so restores the soul which was ready to depart.&quot; He is the Lord our God that heals us, Exo 15:26. Many a time we should have fainted unless we had believed; and it was the good shepherd that kept us from fainting.
+2. See here the courage of a dying saint (Psa 23:4): &quot;Having had such experience of God's goodness to me all my days, in six troubles and in seven, I will never distrust him, no, not in the last extremity; the rather because all he has done for me hitherto was not for any merit or desert of mine, but purely for his name's sake, in pursuance of his word, in performance of his promise, and for the glory of his own attributes and relations to his people. That name therefore shall still be my strong tower, and shall assure me that he who has led me, and fed me, all my life long, will not leave me at last.&quot; Here is,
+(1.) Imminent danger supposed: &quot;Though I walk through the valley of the shadow of death, that is, though I am in peril of death, though in the midst of dangers, deep as a valley, dark as a shadow, and dreadful as death itself,&quot; or rather, &quot;though I am under the arrests of death, have received the sentence of death within myself, and have all the reason in the world to look upon myself as a dying man, yet I am easy.&quot; Those that are sick, those that are old, have reason to look upon themselves as in the valley of the shadow of death. Here is one word indeed which sounds terrible; it is death, which we must all count upon; there is no discharge in that war. But, even in the supposition of the distress, there are four words which lessen the terror: - It is death indeed that is before us; but, [1.] It is but the shadow of death; there is no substantial evil in it; the shadow of a serpent will not sting nor the shadow of a sword kill. [2.] It is the valley of the shadow, deep indeed, and dark, and dirty; but the valleys are fruitful, and so is death itself fruitful of comforts to God's people. [3.] It is but a walk in this valley, a gentle pleasant walk. The wicked are chased out of the world, and their souls are required; but the saints take a walk to another world as cheerfully as they take their leave of this. [4.] It is a walk through it; they shall not be lost in this valley, but get safely to the mountain of spices on the other side of it.
+(2.) This danger made light of, and triumphed over, upon good grounds. Death is a king of terrors, but not to the sheep of Christ; they tremble at it no more than sheep do that are appointed for the slaughter. &quot;Even in the valley of the shadow of death I will fear no evil. None of these things move me.&quot; Note, A child of God may meet the messengers of death, and receive its summons with a holy security and serenity of mind. The sucking child may play upon the hole of this asp; and the weaned child, that, through grace, is weaned from this world, may put his hand upon this cockatrice's den, bidding a holy defiance to death, as Paul, O death! where is thy sting? And there is ground enough for this confidence, [1.] Because there is no evil in it to a child of God; death cannot separate us from the love of God, and therefore it can do us no real harm; it kills the body, but cannot touch the soul. Why should it be dreadful when there is nothing in it hurtful? [2.] Because the saints have God's gracious presence with them in their dying moments; he is then at their right hand, and therefore why should they be moved? The good shepherd will not only conduct, but convoy, his sheep through the valley, where they are in danger of being set upon by the beasts of prey, the ravening wolves; he will not only convoy them, but comfort then when they most need comfort. His presence shall comfort them: Thou art with me. His word and Spirit shall comfort them - his rod and staff, alluding to the shepherd's crook, or the rod under which the sheep passed when they were counted (Lev 27:32), or the staff with which the shepherds drove away the dogs that would scatter or worry the sheep. It is a comfort to the saints, when they come to die, that God takes cognizance of them (he knows those that are his), that he will rebuke the enemy, that he will guide them with his rod and sustain them with his staff. The gospel is called the rod of Christ's strength (Psa 110:2), and there is enough in that to comfort the saints when they come to die, and underneath them are the everlasting arms.
+III. From the good gifts of God's bounty to him now he infers the constancy and perpetuity of his mercy, Psa 23:5, Psa 23:6. Here we may observe,
+1. How highly he magnifies God's gracious vouchsafements to him (Psa 23:5): &quot;Thou preparest a table before me; thou hast provided for me all things pertaining both to life and godliness, all things requisite both for body and soul, for time and eternity:&quot; such a bountiful benefactor is God to all his people; and it becomes them abundantly to utter his great goodness, as David here, who acknowledges, (1.) That he had food convenient, a table spread, a cup filled, meat for his hunger, drink for his thirst. (2.) That he had it carefully and readily provided for him. His table was not spread with any thing that came next to hand, but prepared, and prepared before him. (3.) That he was not stinted, was not straitened, but had abundance: &quot;My cup runs over, enough for myself and my friends too.&quot; (4.) That he had not only for necessity, but for ornament and delight: Thou anointest my head with oil. Samuel anointed him king, which was a certain pledge of further favor; but this is rather an instance of the plenty with which God had blessed him, or an allusion to the extraordinary entertainment of special friends, whose heads they anointed with oil, Luk 7:46. Nay, some think he still looks upon himself as a sheep, but such a one as the poor man's ewe-lamb (Sa2 12:3), that did eat of his own meat, and drank of his own cup, and lay in his bosom; not only thus nobly, but thus tenderly, are the children of God looked after. Plentiful provision is made for their bodies, for their souls, for the life that now is and for that which is to come. If Providence do not bestow upon us thus plentifully for our natural life, it is our own fault if it be not made up to us in spiritual blessings.
+2. How confidently he counts upon the continuance of God's favours, Psa 23:6. He had said (Psa 23:1), I shall not want; but now he speaks more positively, more comprehensively: Surely goodness and mercy shall follow me all the days of my life. His hope rises, and his faith is strengthened, by being exercised. Observe, (1.) What he promises himself - goodness and mercy, all the streams of mercy flowing from the fountain, pardoning mercy, protecting mercy, sustaining mercy, supplying mercy. (2.) The manner of the conveyance of it: It shall follow me, as the water out of the rock followed the camp of Israel through the wilderness; it shall follow into all places and all conditions, shall be always ready. (3.) The continuance of it: It shall follow me all my life long, even to the last; for whom God loves he loves to the end. (4.) The constancy of it: All the days of my life, as duly as the day comes; it shall be new every morning (Lam 3:22, Lam 3:23) like the manna that was given to the Israelites daily. (5.) The certainty of it: Surely it shall. It is as sure as the promise of the God of truth can make it; and we know whom we have believed. (6.) Here is a prospect of the perfection of bliss in the future state. So some take the latter clause: &quot;Goodness and mercy having followed me all the days of my life on this earth, when that is ended I shall remove to a better world, to dwell in the house of the Lord for ever, in our Father's house above, where there are many mansions. With what I have I am pleased much; with what I hope for I am pleased more.&quot; All this, and heaven too! Then we serve a good Master.
+3. How resolutely he determines to cleave to God and to his duty. We read the last clause as David's covenant with God: &quot;I will dwell in the house of the Lord for ever (as long as I live), and I will praise him while I have any being.&quot; We must dwell in his house as servants, that desired to have their ears bored to the door-post, to serve him for ever. If God's goodness to us be like the morning light, which shines more and more to the perfect day, let not ours to him be like the morning cloud and the early dew that passeth away. Those that would be satisfied with the fatness of God's house must keep close to the duties of it.</div>
+    </div>
+</div>
+
+<!-- ═══════════ ORIGINAL LANGUAGE ═══════════ -->
+<h2>Original Language</h2>
+<details class="interlinear-verse">
+<summary>Verse 1 (4 words)</summary>
+<div class="interlinear-layout">
+<div class="interlinear-esv">
+  <div class="esv-label">ESV</div>
+  The LORD is my shepherd; I shall not want.
+</div>
+<table class="interlinear-table">
+<thead><tr><th>English</th><th>Hebrew</th><th>Transliteration</th><th>Strong's</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td>The LORD</td><td class="original-text hebrew">יְהוָ֥ה</td><td class="transliteration">Yᵉhôvâh</td><td><span class="strongs-num">H3068</span></td><td class="strongs-def">(the) self-Existent or Eternal; Jeho-vah, Jewish national name of God</td></tr>
+<tr><td>is my shepherd</td><td class="original-text hebrew">רֹ֝עִ֗י</td><td class="transliteration">râʻâh</td><td><span class="strongs-num">H7462</span></td><td class="strongs-def">to tend a flock; i.e. pasture it; intransitively, to graze (literally or figuratively); generally to rule; by extensi...</td></tr>
+<tr><td></td><td class="original-text hebrew">לֹ֣א</td><td class="transliteration">lôʼ</td><td><span class="strongs-num">H3808</span></td><td class="strongs-def">not (the simple or abs. negation); by implication, no; often used with other particles</td></tr>
+<tr><td>I shall not want</td><td class="original-text hebrew">אֶחְסָֽר׃</td><td class="transliteration">châçêr</td><td><span class="strongs-num">H2637</span></td><td class="strongs-def">to lack; by implication, to fail, want, lessen</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+<details class="interlinear-verse">
+<summary>Verse 2 (7 words)</summary>
+<div class="interlinear-layout">
+<div class="interlinear-esv">
+  <div class="esv-label">ESV</div>
+  He makes me lie down in green pastures. He leads me beside still waters.
+</div>
+<table class="interlinear-table">
+<thead><tr><th>English</th><th>Hebrew</th><th>Transliteration</th><th>Strong's</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td>pastures</td><td class="original-text hebrew">בִּנְא֣וֹת</td><td class="transliteration">nâʼâh</td><td><span class="strongs-num">H4999</span></td><td class="strongs-def">a home; figuratively, a pasture</td></tr>
+<tr><td>in green</td><td class="original-text hebrew">דֶּ֭שֶׁא</td><td class="transliteration">desheʼ</td><td><span class="strongs-num">H1877</span></td><td class="strongs-def">a sprout; by analogy, grass</td></tr>
+<tr><td>He maketh me to lie down</td><td class="original-text hebrew">יַרְבִּיצֵ֑נִי</td><td class="transliteration">râbats</td><td><span class="strongs-num">H7257</span></td><td class="strongs-def">to crouch (on all four legs folded, like a recumbent animal); by implication, to recline, repose, brood, lurk, imbed</td></tr>
+<tr><td></td><td class="original-text hebrew">עַל</td><td class="transliteration">ʻal</td><td><span class="strongs-num">H5921</span></td><td class="strongs-def">above, over, upon, or against (yet always in this last relation with a downward aspect) in a great variety of applica...</td></tr>
+<tr><td>waters</td><td class="original-text hebrew">מֵ֖י</td><td class="transliteration">mayim</td><td><span class="strongs-num">H4325</span></td><td class="strongs-def">water; figuratively, juice; by euphemism, urine, semen</td></tr>
+<tr><td>me beside the still</td><td class="original-text hebrew">מְנֻח֣וֹת</td><td class="transliteration">mᵉnûwchâh</td><td><span class="strongs-num">H4496</span></td><td class="strongs-def">repose or (adverbially) peacefully; figuratively, consolation (specifically, matrimony); hence (concretely) an abode</td></tr>
+<tr><td>he leadeth</td><td class="original-text hebrew">יְנַהֲלֵֽנִי׃</td><td class="transliteration">nâhal</td><td><span class="strongs-num">H5095</span></td><td class="strongs-def">properly, to run with a sparkle, i.e. flow; hence (transitively), to conduct, and (by inference) to protect, sustain</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+<details class="interlinear-verse">
+<summary>Verse 3 (7 words)</summary>
+<div class="interlinear-layout">
+<div class="interlinear-esv">
+  <div class="esv-label">ESV</div>
+  He restores my soul. He leads me in paths of righteousness for his name's sake.
+</div>
+<table class="interlinear-table">
+<thead><tr><th>English</th><th>Hebrew</th><th>Transliteration</th><th>Strong's</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td>my soul</td><td class="original-text hebrew">נַפְשִׁ֥י</td><td class="transliteration">nephesh</td><td><span class="strongs-num">H5315</span></td><td class="strongs-def">properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or ...</td></tr>
+<tr><td>He restoreth</td><td class="original-text hebrew">יְשׁוֹבֵ֑ב</td><td class="transliteration">shûwb</td><td><span class="strongs-num">H7725</span></td><td class="strongs-def">to turn back (hence, away) transitively or intransitively, literally or figuratively (not necessarily with the idea o...</td></tr>
+<tr><td>he leadeth</td><td class="original-text hebrew">יַֽנְחֵ֥נִי</td><td class="transliteration">nâchâh</td><td><span class="strongs-num">H5148</span></td><td class="strongs-def">to guide; by implication, to transport (into exile, or as colonists)</td></tr>
+<tr><td>me in the paths</td><td class="original-text hebrew">בְמַעְגְּלֵי</td><td class="transliteration">maʻgâl</td><td><span class="strongs-num">H4570</span></td><td class="strongs-def">a track (literally or figuratively); also a rampart (as circular)</td></tr>
+<tr><td>of righteousness</td><td class="original-text hebrew">צֶ֝֗דֶק</td><td class="transliteration">tsedeq</td><td><span class="strongs-num">H6664</span></td><td class="strongs-def">the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity</td></tr>
+<tr><td></td><td class="original-text hebrew">לְמַ֣עַן</td><td class="transliteration">maʻan</td><td><span class="strongs-num">H4616</span></td><td class="strongs-def">properly, heed, i.e. purpose; used only adverbially, on account of (as a motive or an aim), teleologically, in order ...</td></tr>
+<tr><td>for his name's</td><td class="original-text hebrew">שְׁמֽוֹ׃</td><td class="transliteration">shêm</td><td><span class="strongs-num">H8034</span></td><td class="strongs-def">an appellation, as a mark or memorial of individuality; by implication honor, authority, character</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+
+<script type="application/json" id="verse-app-data">{"verseTexts": {"0": {"1": "The LORD is my shepherd; I shall not want.", "2": "He makes me lie down in green pastures. He leads me beside still waters.", "3": "He restores my soul. He leads me in paths of righteousness for his name's sake."}, "1": {"1": "THE Lord is my shepherd; I shall not want.", "2": "He maketh me to lie down in green pastures: he leadeth me beside the still waters.", "3": "He restoreth my soul: he leadeth me in the paths of righteousness for his name’s sake."}, "2": {"1": "The LORD is my shepherd; I shall not want.", "2": "He makes me lie down in green pastures; He leads me beside quiet waters.", "3": "He restores my soul; He guides me in the paths of righteousness for the sake of His name."}}, "translationNames": ["ESV", "KJVPCE", "BSB"], "interlinear": {"1": [{"text": "The LORD", "original": "יְהוָ֥ה", "strongs": "H3068"}, {"text": "is my shepherd", "original": "רֹ֝עִ֗י", "strongs": "H7462"}, {"text": "", "original": "לֹ֣א", "strongs": "H3808"}, {"text": "I shall not want", "original": "אֶחְסָֽר׃", "strongs": "H2637"}], "2": [{"text": "pastures", "original": "בִּנְא֣וֹת", "strongs": "H4999"}, {"text": "in green", "original": "דֶּ֭שֶׁא", "strongs": "H1877"}, {"text": "He maketh me to lie down", "original": "יַרְבִּיצֵ֑נִי", "strongs": "H7257"}, {"text": "", "original": "עַל", "strongs": "H5921"}, {"text": "waters", "original": "מֵ֖י", "strongs": "H4325"}, {"text": "me beside the still", "original": "מְנֻח֣וֹת", "strongs": "H4496"}, {"text": "he leadeth", "original": "יְנַהֲלֵֽנִי׃", "strongs": "H5095"}], "3": [{"text": "my soul", "original": "נַפְשִׁ֥י", "strongs": "H5315"}, {"text": "He restoreth", "original": "יְשׁוֹבֵ֑ב", "strongs": "H7725"}, {"text": "he leadeth", "original": "יַֽנְחֵ֥נִי", "strongs": "H5148"}, {"text": "me in the paths", "original": "בְמַעְגְּלֵי", "strongs": "H4570"}, {"text": "of righteousness", "original": "צֶ֝֗דֶק", "strongs": "H6664"}, {"text": "", "original": "לְמַ֣עַן", "strongs": "H4616"}, {"text": "for his name's", "original": "שְׁמֽוֹ׃", "strongs": "H8034"}]}, "lexicon": {"H5315": {"translit": "nephesh", "definition": "properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or ..."}, "H6664": {"translit": "tsedeq", "definition": "the right (natural, moral or legal); also (abstractly) equity or (figuratively) prosperity"}, "H4616": {"translit": "maʻan", "definition": "properly, heed, i.e. purpose; used only adverbially, on account of (as a motive or an aim), teleologically, in order ..."}, "H7462": {"translit": "râʻâh", "definition": "to tend a flock; i.e. pasture it; intransitively, to graze (literally or figuratively); generally to rule; by extensi..."}, "H3808": {"translit": "lôʼ", "definition": "not (the simple or abs. negation); by implication, no; often used with other particles"}, "H4570": {"translit": "maʻgâl", "definition": "a track (literally or figuratively); also a rampart (as circular)"}, "H7257": {"translit": "râbats", "definition": "to crouch (on all four legs folded, like a recumbent animal); by implication, to recline, repose, brood, lurk, imbed"}, "H4999": {"translit": "nâʼâh", "definition": "a home; figuratively, a pasture"}, "H1877": {"translit": "desheʼ", "definition": "a sprout; by analogy, grass"}, "H5921": {"translit": "ʻal", "definition": "above, over, upon, or against (yet always in this last relation with a downward aspect) in a great variety of applica..."}, "H7725": {"translit": "shûwb", "definition": "to turn back (hence, away) transitively or intransitively, literally or figuratively (not necessarily with the idea o..."}, "H3068": {"translit": "Yᵉhôvâh", "definition": "(the) self-Existent or Eternal; Jeho-vah, Jewish national name of God"}, "H8034": {"translit": "shêm", "definition": "an appellation, as a mark or memorial of individuality; by implication honor, authority, character"}, "H5095": {"translit": "nâhal", "definition": "properly, to run with a sparkle, i.e. flow; hence (transitively), to conduct, and (by inference) to protect, sustain"}, "H4496": {"translit": "mᵉnûwchâh", "definition": "repose or (adverbially) peacefully; figuratively, consolation (specifically, matrimony); hence (concretely) an abode"}, "H2637": {"translit": "châçêr", "definition": "to lack; by implication, to fail, want, lessen"}, "H5148": {"translit": "nâchâh", "definition": "to guide; by implication, to transport (into exile, or as colonists)"}, "H4325": {"translit": "mayim", "definition": "water; figuratively, juice; by euphemism, urine, semen"}}, "langClass": "hebrew", "langLabel": "Hebrew"}</script>
+
+<script>
+(function() {
+    var el = document.getElementById('verse-app-data');
+    if (!el) return;
+    var D = JSON.parse(el.textContent);
+
+    var table = document.querySelector('.parallel-table');
+    var expanded = document.getElementById('expanded-view');
+    var hint = document.querySelector('.click-hint');
+    if (!table || !expanded) return;
+
+    function esc(s) {
+        if (!s) return '';
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    table.addEventListener('click', function(e) {
+        var cell = e.target.closest('.verse-cell-clickable');
+        if (!cell) return;
+
+        var vnum  = cell.dataset.verse;
+        var col   = cell.dataset.col;
+        var name  = D.translationNames[col] || '';
+        var text  = (D.verseTexts[col] || {})[vnum] || '';
+        var words = D.interlinear[vnum] || [];
+
+        var h = '<div class="expanded-header">'
+              + '<div class="expanded-title">' + esc(name)
+              + ' &mdash; Verse ' + esc(vnum) + '</div>'
+              + '<button class="expanded-close" '
+              + 'title="Back to translations">'
+              + '&times;</button></div>'
+              + '<div class="expanded-panel">';
+
+        h += '<div class="expanded-text">'
+           + '<div class="text-label">' + esc(name) + '</div>'
+           + esc(text) + '</div>';
+
+        h += '<div class="expanded-interlinear">';
+        if (words.length) {
+            h += '<table class="interlinear-table"><thead><tr>'
+               + '<th>English</th><th>' + esc(D.langLabel) + '</th>'
+               + '<th>Transliteration</th><th>Strong\'s</th>'
+               + '<th>Definition</th></tr></thead><tbody>';
+            for (var i = 0; i < words.length; i++) {
+                var w = words[i];
+                var lx = D.lexicon[w.strongs] || {};
+                h += '<tr>'
+                   + '<td>' + esc(w.text) + '</td>'
+                   + '<td class="original-text ' + D.langClass + '">'
+                   + esc(w.original) + '</td>'
+                   + '<td class="transliteration">'
+                   + esc(lx.translit || '') + '</td>';
+                h += w.strongs
+                   ? '<td><span class="strongs-num">'
+                     + esc(w.strongs) + '</span></td>'
+                   : '<td></td>';
+                h += '<td class="strongs-def">'
+                   + esc(lx.definition || '') + '</td></tr>';
+            }
+            h += '</tbody></table>';
+        } else {
+            h += '<div class="no-content">'
+               + 'No interlinear data available for this verse.</div>';
+        }
+        h += '</div></div>';
+
+        expanded.innerHTML = h;
+
+        /* Animate: table slides out, then expanded view slides in */
+        table.classList.add('collapsing');
+        if (hint) hint.classList.add('collapsing');
+
+        setTimeout(function() {
+            table.classList.add('collapsed');
+            table.classList.remove('collapsing');
+            if (hint) { hint.classList.add('collapsed'); hint.classList.remove('collapsing'); }
+            expanded.classList.add('active');
+            expanded.querySelector('.expanded-close')
+                    .addEventListener('click', closeExpanded);
+            expanded.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }, 250);
+    });
+
+    function closeExpanded() {
+        /* Animate: expanded panels slide out, then table slides back in */
+        expanded.classList.add('closing');
+
+        setTimeout(function() {
+            expanded.classList.remove('active');
+            expanded.classList.remove('closing');
+            expanded.innerHTML = '';
+            table.classList.remove('collapsed');
+            table.classList.add('entering');
+            if (hint) { hint.classList.remove('collapsed'); }
+            table.scrollIntoView({behavior: 'smooth', block: 'start'});
+            setTimeout(function() { table.classList.remove('entering'); }, 300);
+        }, 250);
+    }
+})();
+
+/* ── Chapter context expansion ─────────────────── */
+function toggleContext() {
+    var panel = document.getElementById('context-verses');
+    var wrap  = document.getElementById('expand-chapter');
+    if (!panel) return;
+    if (panel.classList.contains('visible')) {
+        panel.classList.remove('visible');
+        panel.style.maxHeight = '';
+        wrap.classList.remove('expanded');
+    } else {
+        panel.classList.add('visible');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        wrap.classList.add('expanded');
+    }
+}
+
+/* ── Topics / Themes overflow toggle ────────────── */
+(function() {
+    var toggles = document.querySelectorAll('.topics-toggle');
+    for (var i = 0; i < toggles.length; i++) {
+        var btn = toggles[i];
+        var row = btn.parentElement;
+        if (!row) continue;
+
+        /* Show button only if content overflows the 2-line cap */
+        if (row.scrollHeight > row.clientHeight + 2) {
+            btn.classList.add('visible');
+        }
+
+        btn.addEventListener('click', (function(b, r) {
+            return function() {
+                if (r.classList.contains('expanded')) {
+                    r.style.maxHeight = '';
+                    r.classList.remove('expanded');
+                    b.textContent = 'more';
+                } else {
+                    r.classList.add('expanded');
+                    r.style.maxHeight = r.scrollHeight + 'px';
+                    b.textContent = 'less';
+                }
+            };
+        })(btn, row));
+    }
+})();
+</script>
+
+<nav class="chapter-nav">
+  <a href="lookup_Psalms_22.html" class="nav-prev">Psalms 22</a>
+  <span class="nav-current">Psalms 23</span>
+  <a href="lookup_Psalms_24.html" class="nav-next">Psalms 24</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,272 @@
+/* study.css — Shared styles for Bible study tool pages */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    line-height: 1.7;
+    color: #2c2c2c;
+    background: #fafaf7;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 30px 60px 30px;
+}
+
+h1 {
+    font-size: 1.8em;
+    color: #3d5a73;
+    border-bottom: 2px solid #c9a96e;
+    padding-bottom: 8px;
+    margin-bottom: 6px;
+}
+
+.subtitle {
+    font-size: 0.9em;
+    color: #888;
+    margin-bottom: 16px;
+}
+
+a { color: #5b7e9e; }
+a:hover { color: #3d5a73; }
+
+/* ── Navigation ─────────────────────────────────── */
+.nav-bar {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+.nav-bar a {
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    transition: background 0.15s;
+}
+.nav-bar a:hover {
+    background: #f0f0f0;
+}
+
+/* ── Hierarchy breadcrumb ───────────────────────── */
+.breadcrumb {
+    font-size: 0.85em;
+    color: #888;
+    margin-bottom: 16px;
+}
+.breadcrumb a { color: #8a9fae; text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb .sep { margin: 0 6px; color: #ccc; }
+
+/* ── Info card ──────────────────────────────────── */
+.info-card {
+    background: #f5f5f0;
+    border: 1px solid #e0d8c8;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+}
+.info-card .label {
+    font-size: 0.8em;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.info-card .value {
+    font-size: 1.1em;
+    color: #3d5a73;
+    margin-top: 4px;
+}
+
+/* ── Child links (sub-themes) ───────────────────── */
+.children-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+.child-link {
+    display: inline-block;
+    font-size: 0.82em;
+    padding: 3px 12px;
+    background: #e8f0fe;
+    color: #1a56db;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background 0.15s;
+}
+.child-link:hover { background: #d0e2fc; }
+
+/* ── Verse list ─────────────────────────────────── */
+.verse-list {
+    list-style: none;
+}
+.verse-item {
+    border-bottom: 1px solid #eee;
+    padding: 12px 0;
+}
+.verse-item:last-child { border-bottom: none; }
+
+.verse-ref {
+    font-weight: 600;
+    color: #5b7e9e;
+    text-decoration: none;
+    font-size: 0.9em;
+    margin-right: 8px;
+}
+.verse-ref:hover { text-decoration: underline; }
+
+.verse-text {
+    color: #444;
+    line-height: 1.6;
+}
+
+.verse-score {
+    display: inline-block;
+    font-size: 0.75em;
+    padding: 1px 7px;
+    background: #f0f5e8;
+    color: #3d7317;
+    border-radius: 8px;
+    margin-left: 8px;
+}
+
+/* ── Loading / error states ─────────────────────── */
+.loading {
+    color: #888;
+    font-style: italic;
+    padding: 20px 0;
+}
+.error {
+    color: #c44;
+    padding: 20px 0;
+}
+
+/* ── Section headers ────────────────────────────── */
+h2 {
+    font-size: 1.2em;
+    color: #3d5a73;
+    margin: 24px 0 12px 0;
+}
+
+/* ── Word study page ───────────────────────────── */
+.word-original {
+    font-size: 2.2em;
+    line-height: 1.3;
+    color: #2c2c2c;
+    margin-bottom: 4px;
+}
+.word-translit {
+    font-style: italic;
+    color: #666;
+    font-size: 1.05em;
+    margin-bottom: 8px;
+}
+.word-definition {
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+.word-count {
+    font-size: 0.85em;
+    color: #888;
+}
+.occ-original {
+    font-size: 1.1em;
+    color: #666;
+    margin-right: 4px;
+}
+.occ-text {
+    color: #444;
+    font-style: italic;
+}
+
+/* ── Pagination ────────────────────────────────── */
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 20px 0;
+    padding-top: 12px;
+    border-top: 1px solid #eee;
+    font-size: 0.9em;
+    color: #888;
+}
+.pagination a {
+    text-decoration: none;
+    padding: 4px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background 0.15s;
+}
+.pagination a:hover {
+    background: #f0f0f0;
+}
+
+/* ── Search page ───────────────────────────────── */
+.search-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.search-form select {
+    font-family: inherit;
+    font-size: 0.95em;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+}
+.search-form input[type="text"] {
+    flex: 1;
+    min-width: 200px;
+    font-family: inherit;
+    font-size: 0.95em;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.search-form input[type="text"]:focus {
+    outline: none;
+    border-color: #5b7e9e;
+    box-shadow: 0 0 0 2px rgba(91,126,158,0.15);
+}
+.search-form button {
+    font-family: inherit;
+    font-size: 0.95em;
+    padding: 8px 20px;
+    background: #5b7e9e;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.search-form button:hover { background: #3d5a73; }
+
+.search-status {
+    font-size: 0.85em;
+    color: #888;
+    margin-bottom: 16px;
+}
+
+.search-result mark {
+    background: #fff3b0;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.show-more-btn {
+    display: inline-block;
+    margin: 16px 0;
+    padding: 8px 20px;
+    font-family: inherit;
+    font-size: 0.9em;
+    color: #5b7e9e;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.show-more-btn:hover { background: #f0f0f0; }

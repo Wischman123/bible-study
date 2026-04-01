@@ -25,7 +25,7 @@
             font-weight: normal;
             color: #1a1a1a;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 0;
             letter-spacing: 0.5px;
         }
 
@@ -34,7 +34,7 @@
             color: #888;
             font-size: 0.95em;
             font-style: italic;
-            margin-bottom: 40px;
+            margin-bottom: 8px;
         }
 
         /* ── Section headers ────────────────────────────── */
@@ -44,7 +44,7 @@
             color: #444;
             border-bottom: 2px solid #c9a96e;
             padding-bottom: 8px;
-            margin: 50px 0 25px 0;
+            margin: 30px 0 15px 0;
             letter-spacing: 0.3px;
         }
 
@@ -133,12 +133,19 @@
             text-align: center;
         }
 
+        /* ── Inline cross-references (inside verse cell) ── */
+        .verse-crossrefs {
+            font-style: italic;
+            font-size: 0.8em;
+            color: #aaa;
+            margin-left: 6px;
+            line-height: 1.5;
+        }
+
         /* ── Inline difference highlighting ─────────────── */
         .diff-word {
-            background: #fff3cd;
-            padding: 1px 3px;
-            border-radius: 3px;
-            border-bottom: 2px solid #e6c76a;
+            text-decoration: underline dotted #c9a96e;
+            text-underline-offset: 3px;
         }
 
         /* ── Commentary blocks ──────────────────────────── */
@@ -268,6 +275,34 @@
             content: "▾ ";
         }
 
+        .interlinear-layout {
+            display: grid;
+            grid-template-columns: 1fr 20fr;
+            gap: 20px;
+            margin: 8px 0 16px 0;
+        }
+
+        .interlinear-esv {
+            font-size: 0.95em;
+            line-height: 1.75;
+            color: #3a3a3a;
+            padding: 10px 16px;
+            background: #fdfcf8;
+            border-radius: 4px;
+            border-left: 3px solid #c9a96e;
+            align-self: start;
+        }
+
+        .interlinear-esv .esv-label {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.78em;
+            font-weight: bold;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
         .interlinear-table {
             width: 100%;
             border-collapse: collapse;
@@ -338,48 +373,75 @@
             font-style: italic;
         }
 
-        /* ── Topics & themes section ───────────────────── */
-        .topics-container {
-            margin: 15px 0 30px 0;
+        /* ── Topics & themes (header-level) ────────────── */
+        .header-topics {
+            text-align: center;
+            margin: 0 auto 12px auto;
         }
 
-        .topics-verse {
-            margin-bottom: 16px;
-            padding: 14px 20px;
-            background: #fff;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        .topics-verse-ref {
-            font-weight: bold;
-            color: #5b7e9e;
-            font-size: 0.9em;
-            margin-bottom: 8px;
-        }
-
-        .topics-row {
+        .header-topics-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 6px;
+            gap: 5px;
+            justify-content: center;
             align-items: center;
+            margin-bottom: 6px;
+            max-height: 58px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            position: relative;
+            padding-right: 65px;
         }
 
-        .topics-label {
+        .header-topics-row.expanded {
+            overflow: visible;
+            padding-right: 0;
+        }
+
+        .topics-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 0.78em;
+            padding: 2px 14px;
+            background: #fafaf7;
+            color: #999;
+            border: 1px dashed #ccc;
+            border-radius: 12px;
+            font-style: italic;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            transition: color 0.2s, border-color 0.2s;
+            position: absolute;
+            bottom: 2px;
+            right: 0;
+        }
+
+        .topics-toggle:hover {
+            color: #6b5b3e;
+            border-color: #c9a96e;
+        }
+
+        .topics-toggle.visible {
+            display: inline-block;
+        }
+
+        .header-topics-row.expanded .topics-toggle {
+            position: static;
+            background: none;
+        }
+
+        .header-topics-label {
             font-size: 0.8em;
             font-weight: bold;
-            color: #888;
+            color: #999;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-right: 4px;
-            min-width: 70px;
+            margin-right: 2px;
         }
 
         .theme-tag {
             display: inline-block;
-            font-size: 0.82em;
-            padding: 3px 10px;
+            font-size: 0.78em;
+            padding: 2px 9px;
             background: #e8f0fe;
             color: #1a56db;
             border-radius: 12px;
@@ -388,18 +450,12 @@
 
         .topic-tag {
             display: inline-block;
-            font-size: 0.82em;
-            padding: 3px 10px;
+            font-size: 0.78em;
+            padding: 2px 9px;
             background: #f0f5e8;
             color: #3d7317;
             border-radius: 12px;
             white-space: nowrap;
-        }
-
-        .no-topics {
-            color: #bbb;
-            font-style: italic;
-            font-size: 0.9em;
         }
 
         /* ── Places section ─────────────────────────────── */
@@ -492,16 +548,341 @@
             h2 { margin-top: 20px; }
             .interlinear-verse { break-inside: avoid; }
         }
+
+        /* ── Interactive verse expansion ────────────── */
+        .verse-cell-clickable {
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .verse-cell-clickable:hover {
+            background: #f5f0e0 !important;
+        }
+
+        #expanded-view {
+            display: none;
+            margin: 20px 0;
+        }
+
+        #expanded-view.active {
+            display: block;
+        }
+
+        .expanded-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .expanded-title {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #6b5b3e;
+        }
+
+        .expanded-close {
+            background: #f7f3eb;
+            border: 1px solid #d4c9a8;
+            color: #6b5b3e;
+            font-size: 1.3em;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .expanded-close:hover {
+            background: #ebe3d1;
+        }
+
+        .expanded-panel {
+            display: grid;
+            grid-template-columns: 1fr 10fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .expanded-text {
+            font-size: 1.15em;
+            line-height: 1.8;
+            color: #2c2c2c;
+            padding: 20px 24px;
+            background: #fff;
+            border-left: 4px solid #c9a96e;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 20px;
+        }
+
+        #expanded-view.active .expanded-text {
+            animation: slideInLeft 0.35s ease both;
+        }
+
+        #expanded-view.active .expanded-interlinear {
+            animation: slideInRight 0.35s ease both;
+            animation-delay: 0.08s;
+        }
+
+        #expanded-view.closing .expanded-text {
+            animation: slideOutLeft 0.25s ease both;
+        }
+
+        #expanded-view.closing .expanded-interlinear {
+            animation: slideOutRight 0.25s ease both;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideOutLeft {
+            from { opacity: 1; transform: translateX(0); }
+            to   { opacity: 0; transform: translateX(-50px); }
+        }
+
+        @keyframes slideOutRight {
+            from { opacity: 1; transform: translateX(0); }
+            to   { opacity: 0; transform: translateX(50px); }
+        }
+
+        .expanded-text .text-label {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.7em;
+            font-weight: bold;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        /* Table exit / enter animations */
+        .parallel-table {
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .parallel-table.collapsing {
+            opacity: 0;
+            transform: translateY(-15px);
+            pointer-events: none;
+        }
+
+        .parallel-table.collapsed {
+            display: none;
+        }
+
+        .parallel-table.entering {
+            animation: tableEnter 0.3s ease both;
+        }
+
+        @keyframes tableEnter {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .click-hint {
+            text-align: center;
+            font-size: 0.82em;
+            color: #bbb;
+            font-style: italic;
+            margin: 8px 0 0 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .click-hint.collapsing {
+            opacity: 0;
+        }
+
+        .click-hint.collapsed {
+            display: none;
+        }
+
+        /* ── Chapter navigation ────────────────────── */
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 12px 0 16px 0;
+            font-size: 0.9em;
+        }
+        .chapter-nav a {
+            color: #5b7e9e;
+            text-decoration: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+        .chapter-nav a:hover {
+            background: #f0f0f0;
+            text-decoration: underline;
+        }
+        .nav-prev::before { content: "\2190\00a0"; }
+        .nav-next::after  { content: "\00a0\2192"; }
+        .nav-current {
+            color: #888;
+            font-weight: 500;
+        }
+        .nav-spacer {
+            width: 120px;
+        }
     </style>
 </head>
 <body>
 
 <h1>Genesis 1:1-3</h1>
 <div class="subtitle">OT &middot; Genesis (Book 1 of 66)</div>
+<nav class="chapter-nav">
+  <span class="nav-spacer"></span>
+  <span class="nav-current">Genesis 1</span>
+  <a href="lookup_Genesis_2.html" class="nav-next">Genesis 2</a>
+</nav>
+<div class="header-topics">
+<div class="header-topics-row">
+  <span class="header-topics-label">Themes:</span>
+  <span class="theme-tag">creation, origin of</span>
+  <span class="theme-tag">eternity, nature of</span>
+  <span class="theme-tag">Holy Spirit, presence of</span>
+  <span class="theme-tag">Holy Spirit, in creation</span>
+  <span class="theme-tag">Holy Spirit, the life-giver</span>
+  <span class="theme-tag">revelation, in OT</span>
+  <button class="topics-toggle">more</button>
+</div>
+<div class="header-topics-row">
+  <span class="header-topics-label">Topics:</span>
+  <span class="topic-tag">acknowledging god</span>
+  <span class="topic-tag">age difference</span>
+  <span class="topic-tag">air</span>
+  <span class="topic-tag">artist</span>
+  <span class="topic-tag">basics</span>
+  <span class="topic-tag">beauty of the earth</span>
+  <span class="topic-tag">being a pilgrim</span>
+  <span class="topic-tag">being organized</span>
+  <span class="topic-tag">biology</span>
+  <span class="topic-tag">brown</span>
+  <span class="topic-tag">building monuments</span>
+  <span class="topic-tag">cavemen</span>
+  <span class="topic-tag">cells</span>
+  <span class="topic-tag">clairvoyance</span>
+  <span class="topic-tag">comforting</span>
+  <span class="topic-tag">craziness</span>
+  <span class="topic-tag">creating the world in 7 days</span>
+  <span class="topic-tag">creation</span>
+  <span class="topic-tag">creation and the fall</span>
+  <span class="topic-tag">creation groans</span>
+  <span class="topic-tag">creationism</span>
+  <span class="topic-tag">creativity</span>
+  <span class="topic-tag">crocodile</span>
+  <span class="topic-tag">darwin</span>
+  <span class="topic-tag">death before sin</span>
+  <span class="topic-tag">design</span>
+  <span class="topic-tag">dirt</span>
+  <span class="topic-tag">dna</span>
+  <span class="topic-tag">earth</span>
+  <span class="topic-tag">ecology</span>
+  <span class="topic-tag">eden</span>
+  <span class="topic-tag">elohim</span>
+  <span class="topic-tag">enviroment</span>
+  <span class="topic-tag">everyone is important</span>
+  <span class="topic-tag">evolution</span>
+  <span class="topic-tag">exaltation</span>
+  <span class="topic-tag">foreign money in missions</span>
+  <span class="topic-tag">gap theory</span>
+  <span class="topic-tag">genesis</span>
+  <span class="topic-tag">geography</span>
+  <span class="topic-tag">ghost</span>
+  <span class="topic-tag">god creating the world</span>
+  <span class="topic-tag">god made us</span>
+  <span class="topic-tag">gods creation</span>
+  <span class="topic-tag">heavenly realms</span>
+  <span class="topic-tag">heavens</span>
+  <span class="topic-tag">his creation</span>
+  <span class="topic-tag">housekeeping</span>
+  <span class="topic-tag">innovation</span>
+  <span class="topic-tag">intelligent design</span>
+  <span class="topic-tag">inventions</span>
+  <span class="topic-tag">inventors</span>
+  <span class="topic-tag">islam</span>
+  <span class="topic-tag">kabbalah</span>
+  <span class="topic-tag">life on other planets</span>
+  <span class="topic-tag">looking after the earth</span>
+  <span class="topic-tag">monotheism</span>
+  <span class="topic-tag">mt moriah</span>
+  <span class="topic-tag">mushrooms</span>
+  <span class="topic-tag">names of god</span>
+  <span class="topic-tag">new beginning</span>
+  <span class="topic-tag">new beginnings</span>
+  <span class="topic-tag">new day</span>
+  <span class="topic-tag">night</span>
+  <span class="topic-tag">ocean</span>
+  <span class="topic-tag">orderliness</span>
+  <span class="topic-tag">organized</span>
+  <span class="topic-tag">organizing</span>
+  <span class="topic-tag">outer space</span>
+  <span class="topic-tag">physics</span>
+  <span class="topic-tag">prosper</span>
+  <span class="topic-tag">quantum physics</span>
+  <span class="topic-tag">recession</span>
+  <span class="topic-tag">sanity</span>
+  <span class="topic-tag">science</span>
+  <span class="topic-tag">selling livestock</span>
+  <span class="topic-tag">significance</span>
+  <span class="topic-tag">smart</span>
+  <span class="topic-tag">space</span>
+  <span class="topic-tag">speaking things into existence</span>
+  <span class="topic-tag">sun</span>
+  <span class="topic-tag">sun shines</span>
+  <span class="topic-tag">sunday</span>
+  <span class="topic-tag">supernatural</span>
+  <span class="topic-tag">the age of earth</span>
+  <span class="topic-tag">the age of the earth</span>
+  <span class="topic-tag">the beginning</span>
+  <span class="topic-tag">the big bang theory</span>
+  <span class="topic-tag">the da vinci code</span>
+  <span class="topic-tag">the earth</span>
+  <span class="topic-tag">the earth orbiting the sun</span>
+  <span class="topic-tag">the end of the earth</span>
+  <span class="topic-tag">the four seasons</span>
+  <span class="topic-tag">the gap theory</span>
+  <span class="topic-tag">the holy land</span>
+  <span class="topic-tag">the human mind</span>
+  <span class="topic-tag">the planets</span>
+  <span class="topic-tag">the stars</span>
+  <span class="topic-tag">the sun</span>
+  <span class="topic-tag">the universe</span>
+  <span class="topic-tag">the weather</span>
+  <span class="topic-tag">theory</span>
+  <span class="topic-tag">transcendence</span>
+  <span class="topic-tag">transmutation</span>
+  <span class="topic-tag">uniforms</span>
+  <span class="topic-tag">universe</span>
+  <span class="topic-tag">zebra</span>
+  <span class="topic-tag">animals not having souls</span>
+  <span class="topic-tag">darkness</span>
+  <span class="topic-tag">first heaven</span>
+  <span class="topic-tag">footprints</span>
+  <span class="topic-tag">interference</span>
+  <span class="topic-tag">the flag</span>
+  <span class="topic-tag">the ocean</span>
+  <span class="topic-tag">light</span>
+  <span class="topic-tag">logos</span>
+  <button class="topics-toggle">more</button>
+</div>
+</div>
 
 <!-- ═══════════ BIBLE TRANSLATIONS ═══════════ -->
-<h2>Bible Translations</h2>
-
 <table class="parallel-table">
 <thead>
     <tr>
@@ -514,254 +895,27 @@
 <tbody>
     <tr>
         <td class="verse-num-cell">1</td>
-        <td>In the beginning, God created the <span class="diff-word">heavens</span> and the earth.</td>
-        <td>IN the beginning God created the <span class="diff-word">heaven</span> and the earth.</td>
-        <td>In the beginning God created the <span class="diff-word">heavens</span> and the earth.</td>
+        <td class="verse-cell-clickable" data-verse="1" data-col="0">In the beginning, God created the <span class="diff-word">heavens</span> and the earth.<span class="verse-crossrefs">cf. Jhn 1:1-3, Heb 11:3, Isa 45:18, Rev 4:11, Heb 1:10, Col 1:16-17, Isa 42:5, Exo 20:11 +53 more</span></td>
+        <td class="verse-cell-clickable" data-verse="1" data-col="1">IN the beginning God created the <span class="diff-word">heaven</span> and the earth.<span class="verse-crossrefs">cf. Jhn 1:1-3, Heb 11:3, Isa 45:18, Rev 4:11, Heb 1:10, Col 1:16-17, Isa 42:5, Exo 20:11 +53 more</span></td>
+        <td class="verse-cell-clickable" data-verse="1" data-col="2">In the beginning God created the <span class="diff-word">heavens</span> and the earth.<span class="verse-crossrefs">cf. Jhn 1:1-3, Heb 11:3, Isa 45:18, Rev 4:11, Heb 1:10, Col 1:16-17, Isa 42:5, Exo 20:11 +53 more</span></td>
     </tr>
     <tr>
         <td class="verse-num-cell">2</td>
-        <td>The earth was <span class="diff-word">without form</span> and void, and darkness was over the <span class="diff-word">face</span> of the deep. And the Spirit of God was <span class="diff-word">hovering</span> over the <span class="diff-word">face</span> of the waters.</td>
-        <td>And the earth was <span class="diff-word">without form,</span> and void; and darkness was upon the <span class="diff-word">face</span> of the deep. And the Spirit of God <span class="diff-word">moved</span> upon the <span class="diff-word">face</span> of the waters.</td>
-        <td><span class="diff-word">Now</span> the earth was <span class="diff-word">formless</span> and void, and darkness was over the <span class="diff-word">surface</span> of the deep. And the Spirit of God was <span class="diff-word">hovering</span> over the <span class="diff-word">surface</span> of the waters.</td>
+        <td class="verse-cell-clickable" data-verse="2" data-col="0">The earth was <span class="diff-word">without form</span> and void, and darkness was over the <span class="diff-word">face</span> of the deep. And the Spirit of God was <span class="diff-word">hovering</span> over the <span class="diff-word">face</span> of the waters.<span class="verse-crossrefs">cf. Jer 4:23, Psa 104:30, Isa 45:18, Psa 33:6, Job 26:7, Isa 40:12-14, Job 26:14</span></td>
+        <td class="verse-cell-clickable" data-verse="2" data-col="1">And the earth was <span class="diff-word">without form,</span> and void; and darkness was upon the <span class="diff-word">face</span> of the deep. And the Spirit of God <span class="diff-word">moved</span> upon the <span class="diff-word">face</span> of the waters.<span class="verse-crossrefs">cf. Jer 4:23, Psa 104:30, Isa 45:18, Psa 33:6, Job 26:7, Isa 40:12-14, Job 26:14</span></td>
+        <td class="verse-cell-clickable" data-verse="2" data-col="2"><span class="diff-word">Now</span> the earth was <span class="diff-word">formless</span> and void, and darkness was over the <span class="diff-word">surface</span> of the deep. And the Spirit of God was <span class="diff-word">hovering</span> over the <span class="diff-word">surface</span> of the waters.<span class="verse-crossrefs">cf. Jer 4:23, Psa 104:30, Isa 45:18, Psa 33:6, Job 26:7, Isa 40:12-14, Job 26:14</span></td>
     </tr>
     <tr>
         <td class="verse-num-cell">3</td>
-        <td>And God said, “Let there be light,” and there was light.</td>
-        <td>And God said, Let there be light: and there was light.</td>
-        <td>And God said, “Let there be light,” and there was light.</td>
+        <td class="verse-cell-clickable" data-verse="3" data-col="0">And God said, “Let there be light,” and there was light.<span class="verse-crossrefs">cf. 2Co 4:6, Jhn 1:5, Isa 45:7, Isa 60:19, 1Jn 1:5, Eph 5:8, Jhn 3:19, Psa 97:11 +11 more</span></td>
+        <td class="verse-cell-clickable" data-verse="3" data-col="1">And God said, Let there be light: and there was light.<span class="verse-crossrefs">cf. 2Co 4:6, Jhn 1:5, Isa 45:7, Isa 60:19, 1Jn 1:5, Eph 5:8, Jhn 3:19, Psa 97:11 +11 more</span></td>
+        <td class="verse-cell-clickable" data-verse="3" data-col="2">And God said, “Let there be light,” and there was light.<span class="verse-crossrefs">cf. 2Co 4:6, Jhn 1:5, Isa 45:7, Isa 60:19, 1Jn 1:5, Eph 5:8, Jhn 3:19, Psa 97:11 +11 more</span></td>
     </tr>
 </tbody>
 </table>
 
-<!-- ═══════════ ORIGINAL LANGUAGE ═══════════ -->
-<h2>Original Language</h2>
-<details class="interlinear-verse">
-<summary>Verse 1 (7 words)</summary>
-<table class="interlinear-table">
-<thead><tr><th>English</th><th>Hebrew</th><th>Transliteration</th><th>Strong's</th><th>Definition</th></tr></thead>
-<tbody>
-<tr><td>In the beginning</td><td class="original-text hebrew">בְּרֵאשִׁ֖ית</td><td class="transliteration">rêʼshîyth</td><td><span class="strongs-num">H7225</span></td><td class="strongs-def">the first, in place, time, order or rank (specifically, a firstfruit)</td></tr>
-<tr><td>created</td><td class="original-text hebrew">בָּרָ֣א</td><td class="transliteration">bârâʼ</td><td><span class="strongs-num">H1254</span></td><td class="strongs-def">(absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes)</td></tr>
-<tr><td>God</td><td class="original-text hebrew">אֱלֹהִ֑ים</td><td class="transliteration">ʼĕlôhîym</td><td><span class="strongs-num">H430</span></td><td class="strongs-def">gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme Go...</td></tr>
-<tr><td>and</td><td class="original-text hebrew">וְאֵ֥ת</td><td class="transliteration">ʼêth</td><td><span class="strongs-num">H853</span></td><td class="strongs-def">properly, self (but generally used to point out more definitely the object of a verb or preposition, even or namely)</td></tr>
-<tr><td>the heaven</td><td class="original-text hebrew">הַשָּׁמַ֖יִם</td><td class="transliteration">shâmayim</td><td><span class="strongs-num">H8064</span></td><td class="strongs-def">the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher e...</td></tr>
-<tr><td>and</td><td class="original-text hebrew">וְאֵ֥ת</td><td class="transliteration">ʼêth</td><td><span class="strongs-num">H853</span></td><td class="strongs-def">properly, self (but generally used to point out more definitely the object of a verb or preposition, even or namely)</td></tr>
-<tr><td>the earth</td><td class="original-text hebrew">הָאָֽרֶץ׃</td><td class="transliteration">ʼerets</td><td><span class="strongs-num">H776</span></td><td class="strongs-def">the earth (at large, or partitively a land)</td></tr>
-</tbody>
-</table>
-</details>
-<details class="interlinear-verse">
-<summary>Verse 2 (14 words)</summary>
-<table class="interlinear-table">
-<thead><tr><th>English</th><th>Hebrew</th><th>Transliteration</th><th>Strong's</th><th>Definition</th></tr></thead>
-<tbody>
-<tr><td>And the earth</td><td class="original-text hebrew">וְהָאָ֗רֶץ</td><td class="transliteration">ʼerets</td><td><span class="strongs-num">H776</span></td><td class="strongs-def">the earth (at large, or partitively a land)</td></tr>
-<tr><td>was</td><td class="original-text hebrew">הָיְתָ֥ה</td><td class="transliteration">hâyâh</td><td><span class="strongs-num">H1961</span></td><td class="strongs-def">to exist, i.e. be or become, come to pass (always emphatic, and not a mere copula or auxiliary)</td></tr>
-<tr><td>without form</td><td class="original-text hebrew">תֹ֙הוּ֙</td><td class="transliteration">tôhûw</td><td><span class="strongs-num">H8414</span></td><td class="strongs-def">a desolation (of surface), i.e. desert; figuratively, a worthless thing; adverbially, in vain</td></tr>
-<tr><td>and void</td><td class="original-text hebrew">וָבֹ֔הוּ</td><td class="transliteration">bôhûw</td><td><span class="strongs-num">H922</span></td><td class="strongs-def">a vacuity, i.e. (superficially) an undistinguishable ruin</td></tr>
-<tr><td>and darkness</td><td class="original-text hebrew">וְחֹ֖שֶׁךְ</td><td class="transliteration">chôshek</td><td><span class="strongs-num">H2822</span></td><td class="strongs-def">the dark; hence (literally) darkness; figuratively, misery, destruction, death, ignorance, sorrow, wickedness</td></tr>
-<tr><td>upon</td><td class="original-text hebrew">עַל</td><td class="transliteration">ʻal</td><td><span class="strongs-num">H5921</span></td><td class="strongs-def">above, over, upon, or against (yet always in this last relation with a downward aspect) in a great variety of applica...</td></tr>
-<tr><td>the face</td><td class="original-text hebrew">פְּנֵ֥י</td><td class="transliteration">pânîym</td><td><span class="strongs-num">H6440</span></td><td class="strongs-def">the face (as the part that turns); used in a great variety of applications (literally and figuratively); also (with p...</td></tr>
-<tr><td>of the deep</td><td class="original-text hebrew">תְה֑וֹם</td><td class="transliteration">tᵉhôwm</td><td><span class="strongs-num">H8415</span></td><td class="strongs-def">an abyss (as a surging mass of water), especially the deep (the main sea or the subterranean watersupply)</td></tr>
-<tr><td>And the Spirit</td><td class="original-text hebrew">וְר֣וּחַ</td><td class="transliteration">rûwach</td><td><span class="strongs-num">H7307</span></td><td class="strongs-def">wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantialit...</td></tr>
-<tr><td>of God</td><td class="original-text hebrew">אֱלֹהִ֔ים</td><td class="transliteration">ʼĕlôhîym</td><td><span class="strongs-num">H430</span></td><td class="strongs-def">gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme Go...</td></tr>
-<tr><td>moved</td><td class="original-text hebrew">מְרַחֶ֖פֶת</td><td class="transliteration">râchaph</td><td><span class="strongs-num">H7363</span></td><td class="strongs-def">to brood; by implication, to be relaxed</td></tr>
-<tr><td>upon</td><td class="original-text hebrew">עַל</td><td class="transliteration">ʻal</td><td><span class="strongs-num">H5921</span></td><td class="strongs-def">above, over, upon, or against (yet always in this last relation with a downward aspect) in a great variety of applica...</td></tr>
-<tr><td>the face</td><td class="original-text hebrew">פְּנֵ֥י</td><td class="transliteration">pânîym</td><td><span class="strongs-num">H6440</span></td><td class="strongs-def">the face (as the part that turns); used in a great variety of applications (literally and figuratively); also (with p...</td></tr>
-<tr><td>of the waters</td><td class="original-text hebrew">הַמָּֽיִם׃</td><td class="transliteration">mayim</td><td><span class="strongs-num">H4325</span></td><td class="strongs-def">water; figuratively, juice; by euphemism, urine, semen</td></tr>
-</tbody>
-</table>
-</details>
-<details class="interlinear-verse">
-<summary>Verse 3 (6 words)</summary>
-<table class="interlinear-table">
-<thead><tr><th>English</th><th>Hebrew</th><th>Transliteration</th><th>Strong's</th><th>Definition</th></tr></thead>
-<tbody>
-<tr><td>said</td><td class="original-text hebrew">וַיֹּ֥אמֶר</td><td class="transliteration">ʼâmar</td><td><span class="strongs-num">H559</span></td><td class="strongs-def">to say (used with great latitude)</td></tr>
-<tr><td>And God</td><td class="original-text hebrew">אֱלֹהִ֖ים</td><td class="transliteration">ʼĕlôhîym</td><td><span class="strongs-num">H430</span></td><td class="strongs-def">gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme Go...</td></tr>
-<tr><td>Let there be</td><td class="original-text hebrew">וַֽיְהִי</td><td class="transliteration">hâyâh</td><td><span class="strongs-num">H1961</span></td><td class="strongs-def">to exist, i.e. be or become, come to pass (always emphatic, and not a mere copula or auxiliary)</td></tr>
-<tr><td>and there was light</td><td class="original-text hebrew">אֽוֹר׃</td><td class="transliteration">ʼôwr</td><td><span class="strongs-num">H216</span></td><td class="strongs-def">illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.)</td></tr>
-<tr><td>Let there be</td><td class="original-text hebrew">וַֽיְהִי</td><td class="transliteration">hâyâh</td><td><span class="strongs-num">H1961</span></td><td class="strongs-def">to exist, i.e. be or become, come to pass (always emphatic, and not a mere copula or auxiliary)</td></tr>
-<tr><td>and there was light</td><td class="original-text hebrew">אֽוֹר׃</td><td class="transliteration">ʼôwr</td><td><span class="strongs-num">H216</span></td><td class="strongs-def">illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.)</td></tr>
-</tbody>
-</table>
-</details>
-
-<!-- ═══════════ TOPICS & THEMES ═══════════ -->
-<h2>Topics &amp; Themes</h2>
-<div class="topics-container">
-<div class="topics-verse">
-  <div class="topics-verse-ref">Verse 1</div>
-  <div class="topics-row">
-    <span class="topics-label">Themes</span>
-    <span class="theme-tag">creation, origin of</span>
-    <span class="theme-tag">eternity, nature of</span>
-  </div>
-  <div class="topics-row">
-    <span class="topics-label">Topics</span>
-    <span class="topic-tag">acknowledging god</span>
-    <span class="topic-tag">age difference</span>
-    <span class="topic-tag">air</span>
-    <span class="topic-tag">artist</span>
-    <span class="topic-tag">basics</span>
-    <span class="topic-tag">beauty of the earth</span>
-    <span class="topic-tag">being a pilgrim</span>
-    <span class="topic-tag">being organized</span>
-    <span class="topic-tag">biology</span>
-    <span class="topic-tag">brown</span>
-    <span class="topic-tag">building monuments</span>
-    <span class="topic-tag">cavemen</span>
-    <span class="topic-tag">cells</span>
-    <span class="topic-tag">clairvoyance</span>
-    <span class="topic-tag">comforting</span>
-    <span class="topic-tag">+92 more</span>
-  </div>
-</div>
-<div class="topics-verse">
-  <div class="topics-verse-ref">Verse 2</div>
-  <div class="topics-row">
-    <span class="topics-label">Themes</span>
-    <span class="theme-tag">Holy Spirit, presence of</span>
-    <span class="theme-tag">Holy Spirit, in creation</span>
-    <span class="theme-tag">Holy Spirit, the life-giver</span>
-  </div>
-  <div class="topics-row">
-    <span class="topics-label">Topics</span>
-    <span class="topic-tag">animals not having souls</span>
-    <span class="topic-tag">darkness</span>
-    <span class="topic-tag">first heaven</span>
-    <span class="topic-tag">footprints</span>
-    <span class="topic-tag">gap theory</span>
-    <span class="topic-tag">genesis</span>
-    <span class="topic-tag">interference</span>
-    <span class="topic-tag">selling livestock</span>
-    <span class="topic-tag">the flag</span>
-    <span class="topic-tag">the gap theory</span>
-    <span class="topic-tag">the ocean</span>
-    <span class="topic-tag">uniforms</span>
-  </div>
-</div>
-<div class="topics-verse">
-  <div class="topics-verse-ref">Verse 3</div>
-  <div class="topics-row">
-    <span class="topics-label">Themes</span>
-    <span class="theme-tag">revelation, in OT</span>
-  </div>
-  <div class="topics-row">
-    <span class="topics-label">Topics</span>
-    <span class="topic-tag">acknowledging god</span>
-    <span class="topic-tag">animals not having souls</span>
-    <span class="topic-tag">brown</span>
-    <span class="topic-tag">light</span>
-    <span class="topic-tag">logos</span>
-    <span class="topic-tag">organized</span>
-    <span class="topic-tag">sun shines</span>
-    <span class="topic-tag">the big bang theory</span>
-    <span class="topic-tag">uniforms</span>
-  </div>
-</div>
-</div>
-
-<!-- ═══════════ CROSS-REFERENCES ═══════════ -->
-<h2>Cross-References</h2>
-<div class="crossrefs-container">
-<div class="crossrefs-verse">
-  <div class="crossrefs-verse-ref">Verse 1</div>
-  <span class="crossref-tag">Jhn.1.1-Jhn.1.3</span>
-  <span class="crossref-tag">Heb.11.3</span>
-  <span class="crossref-tag">Isa.45.18</span>
-  <span class="crossref-tag">Rev.4.11</span>
-  <span class="crossref-tag">Heb.1.10</span>
-  <span class="crossref-tag">Col.1.16-Col.1.17</span>
-  <span class="crossref-tag">Isa.42.5</span>
-  <span class="crossref-tag">Exo.20.11</span>
-  <span class="crossref-tag">Job.38.4</span>
-  <span class="crossref-tag">Act.17.24</span>
-  <span class="crossref-tag">2Pe.3.5</span>
-  <span class="crossref-tag">Neh.9.6</span>
-  <span class="crossref-tag">Isa.44.24</span>
-  <span class="crossref-tag">Jer.32.17</span>
-  <span class="crossref-tag">Jer.51.15</span>
-  <span class="crossref-tag">Psa.33.9</span>
-  <span class="crossref-tag">Pro.3.19</span>
-  <span class="crossref-tag">Rev.14.7</span>
-  <span class="crossref-tag">Psa.115.15</span>
-  <span class="crossref-tag">Act.14.15</span>
-  <span class="crossref-tag">Psa.136.5</span>
-  <span class="crossref-tag">Pro.8.22-Pro.8.30</span>
-  <span class="crossref-tag">Jer.10.12</span>
-  <span class="crossref-tag">Psa.8.3</span>
-  <span class="crossref-tag">1Co.8.6</span>
-  <span class="crossref-tag">Psa.124.8</span>
-  <span class="crossref-tag">Psa.102.25</span>
-  <span class="crossref-tag">Psa.121.2</span>
-  <span class="crossref-tag">Heb.3.4</span>
-  <span class="crossref-tag">Heb.1.2</span>
-  <span class="crossref-tag">Psa.33.6</span>
-  <span class="crossref-tag">Zec.12.1</span>
-  <span class="crossref-tag">Psa.89.11-Psa.89.12</span>
-  <span class="crossref-tag">Isa.40.28</span>
-  <span class="crossref-tag">Psa.104.24</span>
-  <span class="crossref-tag">Pro.16.4</span>
-  <span class="crossref-tag">Psa.96.5</span>
-  <span class="crossref-tag">Act.4.24</span>
-  <span class="crossref-tag">Isa.37.16</span>
-  <span class="crossref-tag">Psa.90.2</span>
-  <span class="crossref-tag">Rev.10.6</span>
-  <span class="crossref-tag">Rom.11.36</span>
-  <span class="crossref-tag">Isa.51.16</span>
-  <span class="crossref-tag">Psa.134.3</span>
-  <span class="crossref-tag">Psa.146.6</span>
-  <span class="crossref-tag">Rev.22.13</span>
-  <span class="crossref-tag">Psa.104.30</span>
-  <span class="crossref-tag">Isa.40.26</span>
-  <span class="crossref-tag">Rom.1.19-Rom.1.20</span>
-  <span class="crossref-tag">1Jn.1.1</span>
-  <span class="crossref-tag">Rev.21.6</span>
-  <span class="crossref-tag">Psa.148.4-Psa.148.5</span>
-  <span class="crossref-tag">1Ch.16.26</span>
-  <span class="crossref-tag">Mar.13.19</span>
-  <span class="crossref-tag">Isa.65.17</span>
-  <span class="crossref-tag">Isa.51.13</span>
-  <span class="crossref-tag">Eph.3.9</span>
-  <span class="crossref-tag">Rev.3.14</span>
-  <span class="crossref-tag">Job.26.13</span>
-  <span class="crossref-tag">Ecc.12.1</span>
-  <span class="crossref-tag">Mat.11.25</span>
-</div>
-<div class="crossrefs-verse">
-  <div class="crossrefs-verse-ref">Verse 2</div>
-  <span class="crossref-tag">Jer.4.23</span>
-  <span class="crossref-tag">Psa.104.30</span>
-  <span class="crossref-tag">Isa.45.18</span>
-  <span class="crossref-tag">Psa.33.6</span>
-  <span class="crossref-tag">Job.26.7</span>
-  <span class="crossref-tag">Isa.40.12-Isa.40.14</span>
-  <span class="crossref-tag">Job.26.14</span>
-</div>
-<div class="crossrefs-verse">
-  <div class="crossrefs-verse-ref">Verse 3</div>
-  <span class="crossref-tag">2Co.4.6</span>
-  <span class="crossref-tag">Jhn.1.5</span>
-  <span class="crossref-tag">Isa.45.7</span>
-  <span class="crossref-tag">Isa.60.19</span>
-  <span class="crossref-tag">1Jn.1.5</span>
-  <span class="crossref-tag">Eph.5.8</span>
-  <span class="crossref-tag">Jhn.3.19</span>
-  <span class="crossref-tag">Psa.97.11</span>
-  <span class="crossref-tag">Jhn.1.9</span>
-  <span class="crossref-tag">Psa.33.6</span>
-  <span class="crossref-tag">Psa.33.9</span>
-  <span class="crossref-tag">Psa.148.5</span>
-  <span class="crossref-tag">Eph.5.14</span>
-  <span class="crossref-tag">1Jn.2.8</span>
-  <span class="crossref-tag">Job.38.19</span>
-  <span class="crossref-tag">Psa.104.2</span>
-  <span class="crossref-tag">1Ti.6.16</span>
-  <span class="crossref-tag">Psa.118.27</span>
-  <span class="crossref-tag">Job.36.30</span>
-</div>
-</div>
+<div id="expanded-view"></div>
+<div class="click-hint">Click any translation to explore the original language word-by-word</div>
 
 <div class="page-break"></div>
 
@@ -868,6 +1022,218 @@ II. Here is the work of creation in its embryo, Gen 1:2, where we have an accoun
         <div class="commentary-text">We have here a further account of the first day's work, in which observe, 1. That the first of all visible beings which God created was light; not that by it he himself might see to work (for the darkness and light are both alike to him), but that by it we might see his works and his glory in them, and might work our works while it is day. The works of Satan and his servants are works of darkness; but he that doeth truth, and doeth good, cometh to the light, and coveteth it, that his deeds may be made manifest, Joh 3:21. Light is the great beauty and blessing of the universe. Like the first-born, it does, of all visible beings, most resemble its great Parent in purity and power, brightness and beneficence; it is of great affinity with a spirit, and is next to it; though by it we see other things, and are sure that it is, yet we know not its nature, nor can describe what it is, or by what way the light is parted, Job 38:19, Job 38:24. By the sight of it let us be led to, and assisted in, the believing contemplation of him who is light, infinite and eternal light (Jo1 1:5), and the Father of lights (Jam 1:17), and who dwells in inaccessible light, Ti1 6:16. In the new creation, the first thing wrought in the soul is light: the blessed Spirit captives the will and affections by enlightening the understanding, so coming into the heart by the door, like the good shepherd whose own the sheep are, while sin and Satan, like thieves and robbers, climb up some other way. Those that by sin were darkness by grace become light in the world. 2. That the light was made by the word of God's power. He said, Let there be light; he willed and appointed it, and it was done immediately: there was light, such a copy as exactly answered the original idea in the Eternal Mind. O the power of the word of God! He spoke, and it was done, done really, effectually, and for perpetuity, not in show only, and to serve a present turn, for he commanded, and it stood fast: with him it was dictum, factum - a word, and a world. The world of God (that is, his will and the good pleasure of it) is quick and powerful. Christ is the Word, the essential eternal Word, and by him the light was produced, for in him was light, and he is the true light, the light of the world, Joh 1:9; Joh 9:5. The divine light which shines in sanctified souls is wrought by the power of God, the power of his word and of the Spirit of wisdom and revelation, opening the understanding, scattering the mists of ignorance and mistake, and giving the knowledge of the glory of God in the face of Christ, as at first, God commanded the light to shine out of darkness, Co2 4:6. Darkness would have been perpetually upon the face of fallen man if the Son of God had not come, and given us an understanding, Jo1 5:20. 3. That the light which God willed, when it was produced, he approved of: God saw the light that it was good. It was exactly as he designed it, and it was fit to answer the end for which he designed it. It was useful and profitable; the world, which now is a palace, would have been a dungeon without it. It was amiable and pleasant. Truly the light is sweet (Ecc 11:7); it rejoiceth the heart, Pro 15:30. What God commands he will approve and graciously accept; he will be well pleased with the work of his own hands. That is good indeed which is so in the sight of God, for he sees not as man sees. If the light is good, how good is he that is the fountain of light, from whom we receive it, and to whom we owe all praise for it and all the services we do by it! 4. That God divided the light from the darkness, so put them asunder as that they could never be joined together, or reconciled; for what fellowship has light with darkness? Co2 6:14. And yet he divided time between them, the day for light and the night for darkness, in a constant and regular succession to each other. Though the darkness was now scattered by the light, yet it was not condemned to a perpetual banishment, but takes its turn with the light, and has its place, because it has its use; for, as the light of the morning befriends the business of the day, so the shadows of the evening befriend the repose of the night, and draw the curtains about us, that we may sleep the better. See Job 7:2. God has thus divided time between light and darkness, because he would daily remind us that this is a world of mixtures and changes. In heaven there is perfect and perpetual light, and no darkness at all; in hell, utter darkness, and no gleam of light. In that world between these two there is a great gulf fixed; but, in this world, they are counterchanged, and we pass daily from one to another, that we may learn to expect the like vicissitudes in the providence of God, peace and trouble, joy and sorrow, and may set the one over-against the other, accommodating ourselves to both as we do to the light and darkness, bidding both welcome, and making the best of both. 5. That God divided them from each other by distinguishing names: He called the light day, and the darkness he called night. He gave them names, as the Lord of both; for the day is his, the night also is his, Psa 74:16. He is the Lord of time, and will be so, till day and night shall come to an end, and the stream of time be swallowed up in the ocean of eternity. Let us acknowledge God in the constant succession of day and night, and consecrate both to his honour, by working for him every day and resting in him every night, and meditating in his law day and night. 6. That this was the first day's work, and a good day's work it was. The evening and the morning were the first day. The darkness of the evening was before the light of the morning, that it might serve for a foil to it, to set it off, and make it shine the brighter. This was not only the first day of the world, but the first day of the week. I observe it to the honour of that day, because the new world began on the first day of the week likewise, in the resurrection of Christ, as the light of the world, early in the morning. In him the day-spring from on high has visited the world; and happy are we, for ever happy, if that day-star arise in our hearts.</div>
     </div>
 </div>
+
+<!-- ═══════════ ORIGINAL LANGUAGE ═══════════ -->
+<h2>Original Language</h2>
+<details class="interlinear-verse">
+<summary>Verse 1 (7 words)</summary>
+<div class="interlinear-layout">
+<div class="interlinear-esv">
+  <div class="esv-label">ESV</div>
+  In the beginning, God created the heavens and the earth.
+</div>
+<table class="interlinear-table">
+<thead><tr><th>English</th><th>Hebrew</th><th>Transliteration</th><th>Strong's</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td>In the beginning</td><td class="original-text hebrew">בְּרֵאשִׁ֖ית</td><td class="transliteration">rêʼshîyth</td><td><span class="strongs-num">H7225</span></td><td class="strongs-def">the first, in place, time, order or rank (specifically, a firstfruit)</td></tr>
+<tr><td>created</td><td class="original-text hebrew">בָּרָ֣א</td><td class="transliteration">bârâʼ</td><td><span class="strongs-num">H1254</span></td><td class="strongs-def">(absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes)</td></tr>
+<tr><td>God</td><td class="original-text hebrew">אֱלֹהִ֑ים</td><td class="transliteration">ʼĕlôhîym</td><td><span class="strongs-num">H430</span></td><td class="strongs-def">gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme Go...</td></tr>
+<tr><td>and</td><td class="original-text hebrew">וְאֵ֥ת</td><td class="transliteration">ʼêth</td><td><span class="strongs-num">H853</span></td><td class="strongs-def">properly, self (but generally used to point out more definitely the object of a verb or preposition, even or namely)</td></tr>
+<tr><td>the heaven</td><td class="original-text hebrew">הַשָּׁמַ֖יִם</td><td class="transliteration">shâmayim</td><td><span class="strongs-num">H8064</span></td><td class="strongs-def">the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher e...</td></tr>
+<tr><td>and</td><td class="original-text hebrew">וְאֵ֥ת</td><td class="transliteration">ʼêth</td><td><span class="strongs-num">H853</span></td><td class="strongs-def">properly, self (but generally used to point out more definitely the object of a verb or preposition, even or namely)</td></tr>
+<tr><td>the earth</td><td class="original-text hebrew">הָאָֽרֶץ׃</td><td class="transliteration">ʼerets</td><td><span class="strongs-num">H776</span></td><td class="strongs-def">the earth (at large, or partitively a land)</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+<details class="interlinear-verse">
+<summary>Verse 2 (14 words)</summary>
+<div class="interlinear-layout">
+<div class="interlinear-esv">
+  <div class="esv-label">ESV</div>
+  The earth was without form and void, and darkness was over the face of the deep. And the Spirit of God was hovering over the face of the waters.
+</div>
+<table class="interlinear-table">
+<thead><tr><th>English</th><th>Hebrew</th><th>Transliteration</th><th>Strong's</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td>And the earth</td><td class="original-text hebrew">וְהָאָ֗רֶץ</td><td class="transliteration">ʼerets</td><td><span class="strongs-num">H776</span></td><td class="strongs-def">the earth (at large, or partitively a land)</td></tr>
+<tr><td>was</td><td class="original-text hebrew">הָיְתָ֥ה</td><td class="transliteration">hâyâh</td><td><span class="strongs-num">H1961</span></td><td class="strongs-def">to exist, i.e. be or become, come to pass (always emphatic, and not a mere copula or auxiliary)</td></tr>
+<tr><td>without form</td><td class="original-text hebrew">תֹ֙הוּ֙</td><td class="transliteration">tôhûw</td><td><span class="strongs-num">H8414</span></td><td class="strongs-def">a desolation (of surface), i.e. desert; figuratively, a worthless thing; adverbially, in vain</td></tr>
+<tr><td>and void</td><td class="original-text hebrew">וָבֹ֔הוּ</td><td class="transliteration">bôhûw</td><td><span class="strongs-num">H922</span></td><td class="strongs-def">a vacuity, i.e. (superficially) an undistinguishable ruin</td></tr>
+<tr><td>and darkness</td><td class="original-text hebrew">וְחֹ֖שֶׁךְ</td><td class="transliteration">chôshek</td><td><span class="strongs-num">H2822</span></td><td class="strongs-def">the dark; hence (literally) darkness; figuratively, misery, destruction, death, ignorance, sorrow, wickedness</td></tr>
+<tr><td>upon</td><td class="original-text hebrew">עַל</td><td class="transliteration">ʻal</td><td><span class="strongs-num">H5921</span></td><td class="strongs-def">above, over, upon, or against (yet always in this last relation with a downward aspect) in a great variety of applica...</td></tr>
+<tr><td>the face</td><td class="original-text hebrew">פְּנֵ֥י</td><td class="transliteration">pânîym</td><td><span class="strongs-num">H6440</span></td><td class="strongs-def">the face (as the part that turns); used in a great variety of applications (literally and figuratively); also (with p...</td></tr>
+<tr><td>of the deep</td><td class="original-text hebrew">תְה֑וֹם</td><td class="transliteration">tᵉhôwm</td><td><span class="strongs-num">H8415</span></td><td class="strongs-def">an abyss (as a surging mass of water), especially the deep (the main sea or the subterranean watersupply)</td></tr>
+<tr><td>And the Spirit</td><td class="original-text hebrew">וְר֣וּחַ</td><td class="transliteration">rûwach</td><td><span class="strongs-num">H7307</span></td><td class="strongs-def">wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantialit...</td></tr>
+<tr><td>of God</td><td class="original-text hebrew">אֱלֹהִ֔ים</td><td class="transliteration">ʼĕlôhîym</td><td><span class="strongs-num">H430</span></td><td class="strongs-def">gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme Go...</td></tr>
+<tr><td>moved</td><td class="original-text hebrew">מְרַחֶ֖פֶת</td><td class="transliteration">râchaph</td><td><span class="strongs-num">H7363</span></td><td class="strongs-def">to brood; by implication, to be relaxed</td></tr>
+<tr><td>upon</td><td class="original-text hebrew">עַל</td><td class="transliteration">ʻal</td><td><span class="strongs-num">H5921</span></td><td class="strongs-def">above, over, upon, or against (yet always in this last relation with a downward aspect) in a great variety of applica...</td></tr>
+<tr><td>the face</td><td class="original-text hebrew">פְּנֵ֥י</td><td class="transliteration">pânîym</td><td><span class="strongs-num">H6440</span></td><td class="strongs-def">the face (as the part that turns); used in a great variety of applications (literally and figuratively); also (with p...</td></tr>
+<tr><td>of the waters</td><td class="original-text hebrew">הַמָּֽיִם׃</td><td class="transliteration">mayim</td><td><span class="strongs-num">H4325</span></td><td class="strongs-def">water; figuratively, juice; by euphemism, urine, semen</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+<details class="interlinear-verse">
+<summary>Verse 3 (6 words)</summary>
+<div class="interlinear-layout">
+<div class="interlinear-esv">
+  <div class="esv-label">ESV</div>
+  And God said, “Let there be light,” and there was light.
+</div>
+<table class="interlinear-table">
+<thead><tr><th>English</th><th>Hebrew</th><th>Transliteration</th><th>Strong's</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td>said</td><td class="original-text hebrew">וַיֹּ֥אמֶר</td><td class="transliteration">ʼâmar</td><td><span class="strongs-num">H559</span></td><td class="strongs-def">to say (used with great latitude)</td></tr>
+<tr><td>And God</td><td class="original-text hebrew">אֱלֹהִ֖ים</td><td class="transliteration">ʼĕlôhîym</td><td><span class="strongs-num">H430</span></td><td class="strongs-def">gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme Go...</td></tr>
+<tr><td>Let there be</td><td class="original-text hebrew">וַֽיְהִי</td><td class="transliteration">hâyâh</td><td><span class="strongs-num">H1961</span></td><td class="strongs-def">to exist, i.e. be or become, come to pass (always emphatic, and not a mere copula or auxiliary)</td></tr>
+<tr><td>and there was light</td><td class="original-text hebrew">אֽוֹר׃</td><td class="transliteration">ʼôwr</td><td><span class="strongs-num">H216</span></td><td class="strongs-def">illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.)</td></tr>
+<tr><td>Let there be</td><td class="original-text hebrew">וַֽיְהִי</td><td class="transliteration">hâyâh</td><td><span class="strongs-num">H1961</span></td><td class="strongs-def">to exist, i.e. be or become, come to pass (always emphatic, and not a mere copula or auxiliary)</td></tr>
+<tr><td>and there was light</td><td class="original-text hebrew">אֽוֹר׃</td><td class="transliteration">ʼôwr</td><td><span class="strongs-num">H216</span></td><td class="strongs-def">illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.)</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+
+<script type="application/json" id="verse-app-data">{"verseTexts": {"0": {"1": "In the beginning, God created the heavens and the earth.", "2": "The earth was without form and void, and darkness was over the face of the deep. And the Spirit of God was hovering over the face of the waters.", "3": "And God said, “Let there be light,” and there was light."}, "1": {"1": "IN the beginning God created the heaven and the earth.", "2": "And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters.", "3": "And God said, Let there be light: and there was light."}, "2": {"1": "In the beginning God created the heavens and the earth.", "2": "Now the earth was formless and void, and darkness was over the surface of the deep. And the Spirit of God was hovering over the surface of the waters.", "3": "And God said, “Let there be light,” and there was light."}}, "translationNames": ["ESV", "KJVPCE", "BSB"], "interlinear": {"1": [{"text": "In the beginning", "original": "בְּרֵאשִׁ֖ית", "strongs": "H7225"}, {"text": "created", "original": "בָּרָ֣א", "strongs": "H1254"}, {"text": "God", "original": "אֱלֹהִ֑ים", "strongs": "H430"}, {"text": "and", "original": "וְאֵ֥ת", "strongs": "H853"}, {"text": "the heaven", "original": "הַשָּׁמַ֖יִם", "strongs": "H8064"}, {"text": "and", "original": "וְאֵ֥ת", "strongs": "H853"}, {"text": "the earth", "original": "הָאָֽרֶץ׃", "strongs": "H776"}], "2": [{"text": "And the earth", "original": "וְהָאָ֗רֶץ", "strongs": "H776"}, {"text": "was", "original": "הָיְתָ֥ה", "strongs": "H1961"}, {"text": "without form", "original": "תֹ֙הוּ֙", "strongs": "H8414"}, {"text": "and void", "original": "וָבֹ֔הוּ", "strongs": "H922"}, {"text": "and darkness", "original": "וְחֹ֖שֶׁךְ", "strongs": "H2822"}, {"text": "upon", "original": "עַל", "strongs": "H5921"}, {"text": "the face", "original": "פְּנֵ֥י", "strongs": "H6440"}, {"text": "of the deep", "original": "תְה֑וֹם", "strongs": "H8415"}, {"text": "And the Spirit", "original": "וְר֣וּחַ", "strongs": "H7307"}, {"text": "of God", "original": "אֱלֹהִ֔ים", "strongs": "H430"}, {"text": "moved", "original": "מְרַחֶ֖פֶת", "strongs": "H7363"}, {"text": "upon", "original": "עַל", "strongs": "H5921"}, {"text": "the face", "original": "פְּנֵ֥י", "strongs": "H6440"}, {"text": "of the waters", "original": "הַמָּֽיִם׃", "strongs": "H4325"}], "3": [{"text": "said", "original": "וַיֹּ֥אמֶר", "strongs": "H559"}, {"text": "And God", "original": "אֱלֹהִ֖ים", "strongs": "H430"}, {"text": "Let there be", "original": "וַֽיְהִי", "strongs": "H1961"}, {"text": "and there was light", "original": "אֽוֹר׃", "strongs": "H216"}, {"text": "Let there be", "original": "וַֽיְהִי", "strongs": "H1961"}, {"text": "and there was light", "original": "אֽוֹר׃", "strongs": "H216"}]}, "lexicon": {"H922": {"translit": "bôhûw", "definition": "a vacuity, i.e. (superficially) an undistinguishable ruin"}, "H1961": {"translit": "hâyâh", "definition": "to exist, i.e. be or become, come to pass (always emphatic, and not a mere copula or auxiliary)"}, "H6440": {"translit": "pânîym", "definition": "the face (as the part that turns); used in a great variety of applications (literally and figuratively); also (with p..."}, "H7307": {"translit": "rûwach", "definition": "wind; by resemblance breath, i.e. a sensible (or even violent) exhalation; figuratively, life, anger, unsubstantialit..."}, "H7363": {"translit": "râchaph", "definition": "to brood; by implication, to be relaxed"}, "H4325": {"translit": "mayim", "definition": "water; figuratively, juice; by euphemism, urine, semen"}, "H216": {"translit": "ʼôwr", "definition": "illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.)"}, "H8414": {"translit": "tôhûw", "definition": "a desolation (of surface), i.e. desert; figuratively, a worthless thing; adverbially, in vain"}, "H853": {"translit": "ʼêth", "definition": "properly, self (but generally used to point out more definitely the object of a verb or preposition, even or namely)"}, "H2822": {"translit": "chôshek", "definition": "the dark; hence (literally) darkness; figuratively, misery, destruction, death, ignorance, sorrow, wickedness"}, "H8415": {"translit": "tᵉhôwm", "definition": "an abyss (as a surging mass of water), especially the deep (the main sea or the subterranean watersupply)"}, "H776": {"translit": "ʼerets", "definition": "the earth (at large, or partitively a land)"}, "H7225": {"translit": "rêʼshîyth", "definition": "the first, in place, time, order or rank (specifically, a firstfruit)"}, "H559": {"translit": "ʼâmar", "definition": "to say (used with great latitude)"}, "H430": {"translit": "ʼĕlôhîym", "definition": "gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme Go..."}, "H5921": {"translit": "ʻal", "definition": "above, over, upon, or against (yet always in this last relation with a downward aspect) in a great variety of applica..."}, "H8064": {"translit": "shâmayim", "definition": "the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher e..."}, "H1254": {"translit": "bârâʼ", "definition": "(absolutely) to create; (qualified) to cut down (a wood), select, feed (as formative processes)"}}, "langClass": "hebrew", "langLabel": "Hebrew"}</script>
+
+<script>
+(function() {
+    var el = document.getElementById('verse-app-data');
+    if (!el) return;
+    var D = JSON.parse(el.textContent);
+
+    var table = document.querySelector('.parallel-table');
+    var expanded = document.getElementById('expanded-view');
+    var hint = document.querySelector('.click-hint');
+    if (!table || !expanded) return;
+
+    function esc(s) {
+        if (!s) return '';
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    table.addEventListener('click', function(e) {
+        var cell = e.target.closest('.verse-cell-clickable');
+        if (!cell) return;
+
+        var vnum  = cell.dataset.verse;
+        var col   = cell.dataset.col;
+        var name  = D.translationNames[col] || '';
+        var text  = (D.verseTexts[col] || {})[vnum] || '';
+        var words = D.interlinear[vnum] || [];
+
+        var h = '<div class="expanded-header">'
+              + '<div class="expanded-title">' + esc(name)
+              + ' &mdash; Verse ' + esc(vnum) + '</div>'
+              + '<button class="expanded-close" '
+              + 'title="Back to translations">'
+              + '&times;</button></div>'
+              + '<div class="expanded-panel">';
+
+        h += '<div class="expanded-text">'
+           + '<div class="text-label">' + esc(name) + '</div>'
+           + esc(text) + '</div>';
+
+        h += '<div class="expanded-interlinear">';
+        if (words.length) {
+            h += '<table class="interlinear-table"><thead><tr>'
+               + '<th>English</th><th>' + esc(D.langLabel) + '</th>'
+               + '<th>Transliteration</th><th>Strong\'s</th>'
+               + '<th>Definition</th></tr></thead><tbody>';
+            for (var i = 0; i < words.length; i++) {
+                var w = words[i];
+                var lx = D.lexicon[w.strongs] || {};
+                h += '<tr>'
+                   + '<td>' + esc(w.text) + '</td>'
+                   + '<td class="original-text ' + D.langClass + '">'
+                   + esc(w.original) + '</td>'
+                   + '<td class="transliteration">'
+                   + esc(lx.translit || '') + '</td>';
+                h += w.strongs
+                   ? '<td><span class="strongs-num">'
+                     + esc(w.strongs) + '</span></td>'
+                   : '<td></td>';
+                h += '<td class="strongs-def">'
+                   + esc(lx.definition || '') + '</td></tr>';
+            }
+            h += '</tbody></table>';
+        } else {
+            h += '<div class="no-content">'
+               + 'No interlinear data available for this verse.</div>';
+        }
+        h += '</div></div>';
+
+        expanded.innerHTML = h;
+
+        /* Animate: table slides out, then expanded view slides in */
+        table.classList.add('collapsing');
+        if (hint) hint.classList.add('collapsing');
+
+        setTimeout(function() {
+            table.classList.add('collapsed');
+            table.classList.remove('collapsing');
+            if (hint) { hint.classList.add('collapsed'); hint.classList.remove('collapsing'); }
+            expanded.classList.add('active');
+            expanded.querySelector('.expanded-close')
+                    .addEventListener('click', closeExpanded);
+            expanded.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }, 250);
+    });
+
+    function closeExpanded() {
+        /* Animate: expanded panels slide out, then table slides back in */
+        expanded.classList.add('closing');
+
+        setTimeout(function() {
+            expanded.classList.remove('active');
+            expanded.classList.remove('closing');
+            expanded.innerHTML = '';
+            table.classList.remove('collapsed');
+            table.classList.add('entering');
+            if (hint) { hint.classList.remove('collapsed'); }
+            table.scrollIntoView({behavior: 'smooth', block: 'start'});
+            setTimeout(function() { table.classList.remove('entering'); }, 300);
+        }, 250);
+    }
+})();
+
+/* ── Topics / Themes overflow toggle ────────────── */
+(function() {
+    var toggles = document.querySelectorAll('.topics-toggle');
+    for (var i = 0; i < toggles.length; i++) {
+        var btn = toggles[i];
+        var row = btn.parentElement;
+        if (!row) continue;
+
+        /* Show button only if content overflows the 2-line cap */
+        if (row.scrollHeight > row.clientHeight + 2) {
+            btn.classList.add('visible');
+        }
+
+        btn.addEventListener('click', (function(b, r) {
+            return function() {
+                if (r.classList.contains('expanded')) {
+                    r.style.maxHeight = '';
+                    r.classList.remove('expanded');
+                    b.textContent = 'more';
+                } else {
+                    r.classList.add('expanded');
+                    r.style.maxHeight = r.scrollHeight + 'px';
+                    b.textContent = 'less';
+                }
+            };
+        })(btn, row));
+    }
+})();
+</script>
+
+<nav class="chapter-nav">
+  <span class="nav-spacer"></span>
+  <span class="nav-current">Genesis 1</span>
+  <a href="lookup_Genesis_2.html" class="nav-next">Genesis 2</a>
+</nav>
 
 </body>
 </html>

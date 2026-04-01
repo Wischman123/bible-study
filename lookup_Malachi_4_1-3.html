@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malachi 4:1-3</title>
+    <style>
+        /* ── Base styles ────────────────────────────────── */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        @page { size: landscape; margin: 0.5in; }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.7;
+            color: #2c2c2c;
+            background: #fafaf7;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+
+        /* ── Page title ─────────────────────────────────── */
+        h1 {
+            font-size: 2.2em;
+            font-weight: normal;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 0.95em;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        /* ── Section headers ────────────────────────────── */
+        h2 {
+            font-size: 1.5em;
+            font-weight: normal;
+            color: #444;
+            border-bottom: 2px solid #c9a96e;
+            padding-bottom: 8px;
+            margin: 30px 0 15px 0;
+            letter-spacing: 0.3px;
+        }
+
+        /* ── Parallel verse table ───────────────────────── */
+        .parallel-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .parallel-table th {
+            background: #f7f3eb;
+            color: #6b5b3e;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.95em;
+            font-weight: bold;
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 2px solid #c9a96e;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .parallel-table th.verse-col {
+            width: 40px;
+            text-align: center;
+            color: #999;
+        }
+
+        .parallel-table th .abbrev {
+            font-weight: normal;
+            color: #999;
+            font-size: 0.85em;
+        }
+
+        .parallel-table td {
+            padding: 12px 18px;
+            vertical-align: top;
+            border-bottom: 1px solid #eee;
+            font-size: 1em;
+            line-height: 1.65;
+        }
+
+        .parallel-table td.verse-num-cell {
+            text-align: center;
+            font-weight: bold;
+            color: #c9a96e;
+            font-size: 0.9em;
+            width: 40px;
+            vertical-align: top;
+            padding-top: 14px;
+        }
+
+        .parallel-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .parallel-table tr:hover td {
+            background: #fdfcf8;
+        }
+
+        .parallel-table th.diff-col {
+            background: #f0ebe0;
+            color: #6b5b3e;
+            min-width: 200px;
+        }
+
+        .parallel-table td.diff-cell {
+            font-size: 0.88em;
+            line-height: 1.55;
+            color: #6b5b3e;
+            background: #fdf9f0;
+            font-style: italic;
+            border-left: 2px solid #c9a96e;
+        }
+
+        .parallel-table td.diff-cell-none {
+            font-size: 0.85em;
+            color: #bbb;
+            background: #fdf9f0;
+            border-left: 2px solid #c9a96e;
+            text-align: center;
+        }
+
+        /* ── Inline cross-references (inside verse cell) ── */
+        .verse-crossrefs {
+            font-style: italic;
+            font-size: 0.8em;
+            color: #aaa;
+            margin-left: 6px;
+            line-height: 1.5;
+        }
+
+        /* ── Inline difference highlighting ─────────────── */
+        .diff-word {
+            text-decoration: underline dotted #c9a96e;
+            text-underline-offset: 3px;
+        }
+
+        /* ── Commentary blocks ──────────────────────────── */
+        .commentary-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .commentary {
+            margin-bottom: 40px;
+            padding: 25px 30px;
+            background: #fff;
+            border-left: 4px solid #5b7e9e;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .commentary-pair .commentary {
+            margin-bottom: 0;
+        }
+
+        .commentary-name {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #3d5a73;
+            margin-bottom: 4px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .commentary-author {
+            font-size: 0.85em;
+            color: #999;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .commentary-intro {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            background: #f5f5f0;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        .commentary-verse {
+            margin-bottom: 18px;
+        }
+
+        .commentary-verse-ref {
+            font-weight: bold;
+            color: #5b7e9e;
+            font-size: 0.9em;
+            margin-bottom: 4px;
+        }
+
+        .commentary-text {
+            font-size: 0.98em;
+            line-height: 1.75;
+            color: #3a3a3a;
+        }
+
+        .no-content {
+            color: #aaa;
+            font-style: italic;
+            padding: 15px 0;
+        }
+
+        /* ── Comparison section ─────────────────────────── */
+        .comparison-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .comparison-card {
+            padding: 25px 30px;
+            background: #fff;
+            border-left: 4px solid #c9a96e;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .comparison-card h3 {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #6b5b3e;
+            margin: 0 0 12px 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .comparison-card p {
+            font-size: 0.98em;
+            line-height: 1.75;
+            color: #3a3a3a;
+            margin-bottom: 12px;
+        }
+
+        .comparison-card strong {
+            color: #2c2c2c;
+        }
+
+        /* ── Interlinear section ────────────────────────── */
+        .interlinear-verse {
+            margin-bottom: 8px;
+        }
+
+        .interlinear-verse summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: #5b7e9e;
+            font-size: 0.95em;
+            padding: 6px 0;
+            list-style: none;
+        }
+
+        .interlinear-verse summary::before {
+            content: "▸ ";
+            color: #c9a96e;
+        }
+
+        .interlinear-verse[open] summary::before {
+            content: "▾ ";
+        }
+
+        .interlinear-layout {
+            display: grid;
+            grid-template-columns: 1fr 20fr;
+            gap: 20px;
+            margin: 8px 0 16px 0;
+        }
+
+        .interlinear-esv {
+            font-size: 0.95em;
+            line-height: 1.75;
+            color: #3a3a3a;
+            padding: 10px 16px;
+            background: #fdfcf8;
+            border-radius: 4px;
+            border-left: 3px solid #c9a96e;
+            align-self: start;
+        }
+
+        .interlinear-esv .esv-label {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.78em;
+            font-weight: bold;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .interlinear-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0 16px 0;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-radius: 4px;
+            overflow: hidden;
+            font-size: 0.9em;
+        }
+
+        .interlinear-table th {
+            background: #f0ebe0;
+            color: #6b5b3e;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.85em;
+            font-weight: bold;
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #d4c9a8;
+        }
+
+        .interlinear-table td {
+            padding: 6px 12px;
+            border-bottom: 1px solid #f0ece3;
+            vertical-align: top;
+        }
+
+        .interlinear-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .interlinear-table tr:hover td {
+            background: #fdfcf8;
+        }
+
+        .original-text {
+            font-size: 1.3em;
+            line-height: 1.4;
+        }
+
+        .original-text.hebrew {
+            direction: rtl;
+            font-family: 'SBL Hebrew', 'Ezra SIL', 'Times New Roman', serif;
+        }
+
+        .original-text.greek {
+            font-family: 'SBL Greek', 'Gentium Plus', 'Times New Roman', serif;
+        }
+
+        .strongs-num {
+            font-family: monospace;
+            font-size: 0.85em;
+            color: #8b6914;
+            background: #fdf6e3;
+            padding: 1px 5px;
+            border-radius: 3px;
+        }
+
+        .strongs-def {
+            font-size: 0.88em;
+            color: #666;
+            font-style: italic;
+        }
+
+        .transliteration {
+            color: #888;
+            font-style: italic;
+        }
+
+        /* ── Topics & themes (header-level) ────────────── */
+        .header-topics {
+            text-align: center;
+            margin: 0 auto 12px auto;
+        }
+
+        .header-topics-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 6px;
+            max-height: 58px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            position: relative;
+            padding-right: 65px;
+        }
+
+        .header-topics-row.expanded {
+            overflow: visible;
+            padding-right: 0;
+        }
+
+        .topics-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 0.78em;
+            padding: 2px 14px;
+            background: #fafaf7;
+            color: #999;
+            border: 1px dashed #ccc;
+            border-radius: 12px;
+            font-style: italic;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            transition: color 0.2s, border-color 0.2s;
+            position: absolute;
+            bottom: 2px;
+            right: 0;
+        }
+
+        .topics-toggle:hover {
+            color: #6b5b3e;
+            border-color: #c9a96e;
+        }
+
+        .topics-toggle.visible {
+            display: inline-block;
+        }
+
+        .header-topics-row.expanded .topics-toggle {
+            position: static;
+            background: none;
+        }
+
+        .header-topics-label {
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 2px;
+        }
+
+        .theme-tag {
+            display: inline-block;
+            font-size: 0.78em;
+            padding: 2px 9px;
+            background: #e8f0fe;
+            color: #1a56db;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+
+        .topic-tag {
+            display: inline-block;
+            font-size: 0.78em;
+            padding: 2px 9px;
+            background: #f0f5e8;
+            color: #3d7317;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+
+        /* ── Places section ─────────────────────────────── */
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 15px 0 30px 0;
+        }
+
+        .place-card {
+            padding: 20px 24px;
+            background: #fff;
+            border-left: 4px solid #6a9b68;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .place-name {
+            font-size: 1.05em;
+            font-weight: bold;
+            color: #2d6a2d;
+            margin-bottom: 4px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .place-type {
+            font-size: 0.82em;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .place-description {
+            font-size: 0.92em;
+            line-height: 1.65;
+            color: #3a3a3a;
+            margin-bottom: 8px;
+        }
+
+        .place-coords {
+            font-size: 0.8em;
+            color: #aaa;
+            font-family: monospace;
+        }
+
+        .place-refs {
+            font-size: 0.82em;
+            color: #6a9b68;
+            margin-top: 6px;
+        }
+
+        /* ── Cross-references section ──────────────────── */
+        .crossrefs-container {
+            margin: 15px 0 30px 0;
+        }
+
+        .crossrefs-verse {
+            margin-bottom: 14px;
+            padding: 12px 20px;
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .crossrefs-verse-ref {
+            font-weight: bold;
+            color: #5b7e9e;
+            font-size: 0.9em;
+            margin-bottom: 6px;
+        }
+
+        .crossref-tag {
+            display: inline-block;
+            font-size: 0.84em;
+            padding: 3px 10px;
+            background: #f5f0e8;
+            color: #8b6914;
+            border-radius: 12px;
+            margin: 2px 4px 2px 0;
+            white-space: nowrap;
+        }
+
+        /* ── Print styles ───────────────────────────────── */
+        @media print {
+            body { background: #fff; padding: 15px; }
+            .parallel-table, .commentary, .comparison-card,
+            .place-card, .topics-verse, .crossrefs-verse { box-shadow: none; }
+            .parallel-table th { position: static; }
+            .page-break { page-break-before: always; }
+            h2 { margin-top: 20px; }
+            .interlinear-verse { break-inside: avoid; }
+        }
+
+        /* ── Interactive verse expansion ────────────── */
+        .verse-cell-clickable {
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .verse-cell-clickable:hover {
+            background: #f5f0e0 !important;
+        }
+
+        #expanded-view {
+            display: none;
+            margin: 20px 0;
+        }
+
+        #expanded-view.active {
+            display: block;
+        }
+
+        .expanded-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .expanded-title {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #6b5b3e;
+        }
+
+        .expanded-close {
+            background: #f7f3eb;
+            border: 1px solid #d4c9a8;
+            color: #6b5b3e;
+            font-size: 1.3em;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .expanded-close:hover {
+            background: #ebe3d1;
+        }
+
+        .expanded-panel {
+            display: grid;
+            grid-template-columns: 1fr 10fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .expanded-text {
+            font-size: 1.15em;
+            line-height: 1.8;
+            color: #2c2c2c;
+            padding: 20px 24px;
+            background: #fff;
+            border-left: 4px solid #c9a96e;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 20px;
+        }
+
+        #expanded-view.active .expanded-text {
+            animation: slideInLeft 0.35s ease both;
+        }
+
+        #expanded-view.active .expanded-interlinear {
+            animation: slideInRight 0.35s ease both;
+            animation-delay: 0.08s;
+        }
+
+        #expanded-view.closing .expanded-text {
+            animation: slideOutLeft 0.25s ease both;
+        }
+
+        #expanded-view.closing .expanded-interlinear {
+            animation: slideOutRight 0.25s ease both;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideOutLeft {
+            from { opacity: 1; transform: translateX(0); }
+            to   { opacity: 0; transform: translateX(-50px); }
+        }
+
+        @keyframes slideOutRight {
+            from { opacity: 1; transform: translateX(0); }
+            to   { opacity: 0; transform: translateX(50px); }
+        }
+
+        .expanded-text .text-label {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.7em;
+            font-weight: bold;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        /* Table exit / enter animations */
+        .parallel-table {
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .parallel-table.collapsing {
+            opacity: 0;
+            transform: translateY(-15px);
+            pointer-events: none;
+        }
+
+        .parallel-table.collapsed {
+            display: none;
+        }
+
+        .parallel-table.entering {
+            animation: tableEnter 0.3s ease both;
+        }
+
+        @keyframes tableEnter {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .click-hint {
+            text-align: center;
+            font-size: 0.82em;
+            color: #bbb;
+            font-style: italic;
+            margin: 8px 0 0 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .click-hint.collapsing {
+            opacity: 0;
+        }
+
+        .click-hint.collapsed {
+            display: none;
+        }
+
+        /* ── Chapter navigation ────────────────────── */
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 12px 0 16px 0;
+            font-size: 0.9em;
+        }
+        .chapter-nav a {
+            color: #5b7e9e;
+            text-decoration: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+        .chapter-nav a:hover {
+            background: #f0f0f0;
+            text-decoration: underline;
+        }
+        .nav-prev::before { content: "\2190\00a0"; }
+        .nav-next::after  { content: "\00a0\2192"; }
+        .nav-current {
+            color: #888;
+            font-weight: 500;
+        }
+        .nav-spacer {
+            width: 120px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Malachi 4:1-3</h1>
+<div class="subtitle">OT &middot; Malachi (Book 39 of 66)</div>
+<nav class="chapter-nav">
+  <a href="lookup_Malachi_3.html" class="nav-prev">Malachi 3</a>
+  <span class="nav-current">Malachi 4</span>
+  <a href="lookup_Matthew_1.html" class="nav-next">Matthew 1</a>
+</nav>
+<div class="header-topics">
+<div class="header-topics-row">
+  <span class="header-topics-label">Themes:</span>
+  <span class="theme-tag">reverence, and God's nature</span>
+  <button class="topics-toggle">more</button>
+</div>
+<div class="header-topics-row">
+  <span class="header-topics-label">Topics:</span>
+  <span class="topic-tag">being vindictive</span>
+  <span class="topic-tag">global warming</span>
+  <span class="topic-tag">healing parables</span>
+  <span class="topic-tag">i want to mend you say lord</span>
+  <span class="topic-tag">malachi</span>
+  <span class="topic-tag">new beginning</span>
+  <span class="topic-tag">prayer cloths</span>
+  <span class="topic-tag">sick people</span>
+  <span class="topic-tag">sun</span>
+  <span class="topic-tag">the sun</span>
+  <span class="topic-tag">after death</span>
+  <span class="topic-tag">ashes</span>
+  <span class="topic-tag">the wicked</span>
+  <button class="topics-toggle">more</button>
+</div>
+</div>
+
+<!-- ═══════════ BIBLE TRANSLATIONS ═══════════ -->
+<table class="parallel-table">
+<thead>
+    <tr>
+        <th class="verse-col">v.</th>
+        <th>English Standard Version <span class="abbrev">(ESV)</span></th>
+        <th>King James Version, Pure Cambridge Edition <span class="abbrev">(KJVPCE)</span></th>
+        <th>Berean Standard Bible <span class="abbrev">(BSB)</span></th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td class="verse-num-cell">1</td>
+        <td class="verse-cell-clickable" data-verse="1" data-col="0">“For behold, the day is <span class="diff-word">coming, burning like</span> an <span class="diff-word">oven, when</span> all the <span class="diff-word">arrogant</span> and <span class="diff-word">all evildoers</span> will be stubble. The day that is <span class="diff-word">coming</span> shall <span class="diff-word">set</span> them <span class="diff-word">ablaze, says</span> the LORD of hosts, so that it will <span class="diff-word">leave</span> them <span class="diff-word">neither root</span> nor <span class="diff-word">branch.</span><span class="verse-crossrefs">cf. 2Th 1:8, 2Pe 3:7, Mal 3:2, Isa 47:14, Isa 5:24, Oba 1:18, Mal 3:15, Zep 1:18 +12 more</span></td>
+        <td class="verse-cell-clickable" data-verse="1" data-col="1">FOR, behold, the day <span class="diff-word">cometh,</span> that shall <span class="diff-word">burn</span> as an <span class="diff-word">oven;</span> and all the <span class="diff-word">proud, yea,</span> and <span class="diff-word">all</span> that do <span class="diff-word">wickedly,</span> shall be stubble: and the day that <span class="diff-word">cometh</span> shall <span class="diff-word">burn</span> them <span class="diff-word">up, saith</span> the Lord of hosts, that it shall <span class="diff-word">leave</span> them <span class="diff-word">neither root</span> nor <span class="diff-word">branch.</span><span class="verse-crossrefs">cf. 2Th 1:8, 2Pe 3:7, Mal 3:2, Isa 47:14, Isa 5:24, Oba 1:18, Mal 3:15, Zep 1:18 +12 more</span></td>
+        <td class="verse-cell-clickable" data-verse="1" data-col="2">“For behold, the day is <span class="diff-word">coming, burning like</span> a <span class="diff-word">furnace, when</span> all the <span class="diff-word">arrogant</span> and <span class="diff-word">every evildoer</span> will be stubble; the day is <span class="diff-word">coming when</span> I will <span class="diff-word">set</span> them <span class="diff-word">ablaze,” says</span> the LORD of Hosts. <span class="diff-word">“Not</span> a <span class="diff-word">root</span> or <span class="diff-word">branch</span> will be <span class="diff-word">left</span> to them.”<span class="verse-crossrefs">cf. 2Th 1:8, 2Pe 3:7, Mal 3:2, Isa 47:14, Isa 5:24, Oba 1:18, Mal 3:15, Zep 1:18 +12 more</span></td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">2</td>
+        <td class="verse-cell-clickable" data-verse="2" data-col="0">But for you who fear my name, the sun of righteousness shall <span class="diff-word">rise</span> with healing in its wings. <span class="diff-word">You</span> shall go out <span class="diff-word">leaping like</span> calves from the stall.<span class="verse-crossrefs">cf. Jer 33:6, Psa 84:11, Isa 30:26, Luk 1:78, Jhn 8:12, Isa 53:5, Rev 22:16, Mal 3:16 +47 more</span></td>
+        <td class="verse-cell-clickable" data-verse="2" data-col="1">¶ But unto you that fear my name shall the Sun of righteousness <span class="diff-word">arise</span> with healing in his wings; and ye shall go <span class="diff-word">forth,</span> and <span class="diff-word">grow up</span> as calves of the stall.<span class="verse-crossrefs">cf. Jer 33:6, Psa 84:11, Isa 30:26, Luk 1:78, Jhn 8:12, Isa 53:5, Rev 22:16, Mal 3:16 +47 more</span></td>
+        <td class="verse-cell-clickable" data-verse="2" data-col="2">“But for you who fear My name, the sun of righteousness will <span class="diff-word">rise</span> with healing in its wings, and <span class="diff-word">you</span> will go out and <span class="diff-word">leap like</span> calves from the stall.<span class="verse-crossrefs">cf. Jer 33:6, Psa 84:11, Isa 30:26, Luk 1:78, Jhn 8:12, Isa 53:5, Rev 22:16, Mal 3:16 +47 more</span></td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">3</td>
+        <td class="verse-cell-clickable" data-verse="3" data-col="0">And <span class="diff-word">you</span> shall <span class="diff-word">tread down</span> the wicked, for they will be ashes under the soles of your feet, on the day <span class="diff-word">when</span> I <span class="diff-word">act, says</span> the LORD of hosts.<span class="verse-crossrefs">cf. Job 40:12, Rom 16:20, Zec 10:5, Mic 7:10, Mal 3:17, Mic 5:8, Jos 10:24-25, Psa 91:13 +5 more</span></td>
+        <td class="verse-cell-clickable" data-verse="3" data-col="1">And ye shall <span class="diff-word">tread down</span> the wicked; for they shall be ashes under the soles of your feet in the day that I shall do this, <span class="diff-word">saith</span> the Lord of hosts.<span class="verse-crossrefs">cf. Job 40:12, Rom 16:20, Zec 10:5, Mic 7:10, Mal 3:17, Mic 5:8, Jos 10:24-25, Psa 91:13 +5 more</span></td>
+        <td class="verse-cell-clickable" data-verse="3" data-col="2">Then <span class="diff-word">you</span> will <span class="diff-word">trample</span> the wicked, for they will be ashes under the soles of your feet on the day I am <span class="diff-word">preparing,” says</span> the LORD of Hosts.<span class="verse-crossrefs">cf. Job 40:12, Rom 16:20, Zec 10:5, Mic 7:10, Mal 3:17, Mic 5:8, Jos 10:24-25, Psa 91:13 +5 more</span></td>
+    </tr>
+</tbody>
+</table>
+
+<div id="expanded-view"></div>
+<div class="click-hint">Click any translation to explore the original language word-by-word</div>
+
+<div class="page-break"></div>
+
+<!-- ═══════════ COMMENTARY ═══════════ -->
+<h2>Commentary</h2>
+<div class="commentary-pair">
+
+<div class="commentary">
+    <div class="commentary-name">Jamieson-Fausset-Brown Bible Commentary</div>
+    <div class="commentary-author">Robert Jamieson, A.R. Fausset, David Brown</div>
+    <div class="commentary-intro">GOD'S COMING JUDGMENT: TRIUMPH OF THE GODLY: RETURN TO THE LAW THE BEST PREPARATION FOR JEHOVAH'S COMING: ELIJAH'S PREPARATORY MISSION OF REFORMATION. (Mal 4:1-6)
+
+the day cometh . . . burn-- (Mal 3:2; Pe2 3:7). Primarily is meant the judgment coming on Jerusalem; but as this will not exhaust the meaning, without supposing what is inadmissible in Scripture--exaggeration--the final and full accomplishment, of which the former was the earnest, is the day of general judgment. This principle of interpretation is not double, but successive fulfilment. The language is abrupt, &quot;Behold, the day cometh! It burns like a furnace.&quot; The abruptness imparts terrible reality to the picture, as if it suddenly burst on the prophet's view. 
+
+all the proud--in opposition to the cavil above (Mal 3:15), &quot;now we call the proud (haughty despisers of God) happy.&quot; 
+
+stubble-- (Oba 1:18; Mat 3:12). As Canaan, the inheritance of the Israelites, was prepared for their possession by purging out the heathen, so judgment on the apostates shall usher in the entrance of the saints upon the Lord's inheritance, of which Canaan is the type--not heaven, but earth to its utmost bounds (Psa 2:8) purged of all things that offend (Mat 13:41), which are to be &quot;gathered out of His kingdom,&quot; the scene of the judgment being that also of the kingdom. The present dispensation is a spiritual kingdom, parenthetical between the Jews' literal kingdom and its antitype, the coming literal kingdom of the Lord Jesus. 
+
+neither root nor branch--proverbial for utter destruction (Amo 2:9).</div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 2</div>
+        <div class="commentary-text">The effect of the judgment on the righteous, as contrasted with its effect on the wicked (Mal 4:1). To the wicked it shall be as an oven that consumes the stubble (Mat 6:30); to the righteous it shall be the advent of the gladdening Sun, not of condemnation, but &quot;of righteousness&quot;; not destroying, but &quot;healing&quot; (Jer 23:6). 
+
+you that fear my name--The same as those in Mal 3:16, who confessed God amidst abounding blasphemy (Isa 66:5; Mat 10:32). The spiritual blessings brought by Him are summed up in the two, &quot;righteousness&quot; (Co1 1:30) and spiritual &quot;healing&quot; (Psa 103:3; Isa 57:19). Those who walk in the dark now may take comfort in the certainty that they shall walk hereafter in eternal light (Isa 50:10). 
+
+in his wings--implying the winged swiftness with which He shall appear (compare &quot;suddenly,&quot; Mal 3:1) for the relief of His people. The beams of the Sun are His &quot;wings.&quot; Compare &quot;wings of the morning,&quot; Psa 139:9. The &quot;Sun&quot; gladdening the righteous is suggested by the previous &quot;day&quot; of terror consuming the wicked. Compare as to Christ, Sa2 23:4; Psa 84:11; Luk 1:78; Joh 1:9; Joh 8:12; Eph 5:14; and in His second coming, Pe2 1:19. The Church is the moon reflecting His light (Rev 12:1). The righteous shall by His righteousness &quot;shine as the Sun in the kingdom of the Father&quot; (Mat 13:43). 
+
+ye shall go forth--from the straits in which you were, as it were, held captive. An earnest of this was given in the escape of the Christians to Pella before the destruction of Jerusalem. 
+
+grow up--rather, &quot;leap&quot; as frisking calves [CALVIN]; literally, &quot;spread,&quot; &quot;take a wide range.&quot; 
+
+as calves of the stall--which when set free from the stall disport with joy (Act 8:8; Act 13:52; Act 20:24; Rom 14:17; Gal 5:22; Phi 1:4; Pe1 1:8). Especially the godly shall rejoice at their final deliverance at Christ's second coming (Isa 61:10).</div>
+    </div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 3</div>
+        <div class="commentary-text">Solving the difficulty (Mal 3:15) that the wicked often now prosper. Their prosperity and the adversity of the godly shall soon be reversed. Yea, the righteous shall be the army attending Christ in His final destruction of the ungodly (Sa2 22:43; Psa 49:14; Psa 47:3; Mic 7:10; Zac 10:5; Co1 6:2; Rev 2:26-27; Rev 19:14-15). 
+
+ashes--after having been burnt with the fire of judgment (Mal 4:1).</div>
+    </div>
+</div>
+
+<div class="commentary">
+    <div class="commentary-name">Tyndale Open Study Notes</div>
+    <div class="commentary-author">Tyndale House Publishers</div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 1</div>
+        <div class="commentary-text">4:1-3 This message shifts away from the disputation format, directly warning the people that repentance is the only proper response to the Lord’s message because God’s judgment is inescapable.</div>
+    </div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 2</div>
+        <div class="commentary-text">4:2 The source for the title Sun of Righteousness might have been the winged sun disk that is ubiquitous in ancient Near Eastern iconography. Here it might be a title for the Messiah or a figurative description of a new era of righteousness in which God will overturn the curse of sin. Israel’s spiritual restoration, or healing, would be based on God’s cleansing the people and forgiving their sins (see Jer 33:6-8; cp. Jer 8:14-15). It would result from a collective confession of sin and their turning back to God (Mal 3:7; cp. Jer 14:19-20). • in his wings: Outstretched wings are a symbol of God’s protection and rescue (see Exod 19:4; Deut 32:10-11; Ps 17:8; 18:10).</div>
+    </div>
+</div>
+</div>
+
+<div class="commentary">
+    <div class="commentary-name">John Gill's Exposition of the Whole Bible</div>
+    <div class="commentary-author">John Gill</div>
+    <div class="commentary-intro">INTRODUCTION TO MALACHI 4 
+
+This chapter contains an account of the destruction of the wicked Jews, and the happiness of the righteous by the coming of the Messiah; an exhortation to regard the law of Moses; and a description of John the Baptist and his work. The day of Christ's coming, reaching to Jerusalem's destruction, is compared to a burning oven; the wicked Jews to stubble, whose ruin would be utter and complete, Mal 4:1 the appearance of Christ is signified by the arising of him, the sun of righteousness; the manner, with healing in his wings; the effects of which are, going forth in the exercise of grace, and the discharge of duty, and spiritual growth and triumph over their enemies, in which will lie the happiness of them that fear God, Mal 4:2 who are put in mind of the law of Moses on Horeb, Mal 4:4 the sending of John the Baptist under the name of Elijah, before the coming of Christ is prophesied of, Mal 4:5 and his work pointed out, with the end of it, Mal 4:6.</div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 1</div>
+        <div class="commentary-text">For, behold, the day cometh that shall burn as an oven,.... Not the day of judgment, as Kimchi and other interpreters, both Jewish and Christian, think; but the day of Christ's coming in his kingdom and power, to take vengeance on the Jewish nation, which burned like an oven, both figuratively and literally; when the wrath of God, which is compared to fire, came upon that people to the uttermost; and when their city and temple were burnt about their ears, and they were surrounded with fire, as if they had been in a burning oven: and this being so terrible, as can hardly be conceived and expressed, the word &quot;behold&quot; is prefixed to it, not only to excite attention, but horror and terror at so dreadful a calamity; which though future, when the prophet wrote, was certain: 
+
+and all the proud; yea, and all that do wickedly, shall be stubble; the proud Pharisees, that boasted of their own righteousness, trusted in themselves, and despised others; all workers of iniquity, in private or in public; all rejecters of Christ, contemners of his Gospel and ordinances, and persecutors of his people; as well as such who were guilty of the most flagitious crimes, as sedition, robbery, murder, &amp;c. of which there were notorious instances during the siege of Jerusalem; these were all like stubble before devouring fire, weak and easily destroyed: 
+
+and the day that cometh shall burn them up, saith the Lord of hosts: which is repeated, to show the certainty of it, and to apply it to the persons before described: 
+
+that it shall leave them neither root nor branch: which signifies an entire and complete destruction; the city and temple so utterly destroyed, that not one stone shall be left on another; both magistrates and subjects shall perish, priests and people, so that there shall be no form of government, civil nor ecclesiastical; tribes and families lost, they and their posterity: and so the Targum, 
+
+&quot;which shall not leave them son and nephew:'' 
+
+and, indeed, the numbers cut off were so many, and the destruction so general, that it may be wondered at that any remained: it is a proverbial expression, setting forth the greatness of the calamity; see Mat 3:10.</div>
+    </div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 2</div>
+        <div class="commentary-text">But unto you that fear my name,.... The few that were of this character among that wicked nation; See Gill on Mal 3:16, 
+
+shall the Sun of righteousness arise; not the Holy Ghost, who enlightens sinners, convinces of righteousness, and gives joy, peace, and comfort to the saints, but Christ: and thus it is interpreted of him by the ancient Jews, in one of their Midrashes or expositions (a); they say, Moses says not they shall be for ever pledged, that is, the clothes of a neighbour, but until the sun comes, until the Messiah comes, as it is said, &quot;unto you that fear my name shall the sun of righteousness arise&quot;, &amp;c.; and Philo the Jew (b) not only observes, that God, figuratively speaking, is the sun; but the divine &quot;Logos&quot; or Word of God, the image of the heavenly Being, is called the sun; who, coming to our earthly system, helps the kindred and followers of virtue, and affords ample refuge and salvation to them; referring, as it seems; to this passage: indeed, they generally interpret it of the sun, literally taken, which they suppose, at the end of the world, will have different effects on good and bad men; they say (c), 
+
+&quot;in the world to come, God will bring the sun out of its sheath, and burn the wicked; they will be judged by it, and the righteous will be healed by it:'' 
+
+for the proof of the former, they produce the words in the first verse of this chapter, &quot;behold, the day cometh that shall burn as an oven&quot;; and of the latter these words, &quot;but unto you that fear my name &amp;c.&quot;; and a very ridiculous notion they have, that Abraham their father had a precious stone or pearl hanging about his neck, and every sick person that saw it was healed by it immediately; and, when he departed out of the world, God took it, and fixed it to the orb of the sun; hence the proverb, the sun rises, and sickness decreases (d); and as it is elsewhere quoted (e), this passage is added to confirm it, as it is said, &quot;to you that fear my name shall the sun of righteousness arise with healing in his wings&quot;: unless this fable should be intended to mean, as Abarbinel (f) interprets it, that Abraham, while he lived, clearly proved the unity of God and his perfections; and that, after his death, the same truth was taught by the wonderful motion of the sun: but, be this as it will, those are undoubtedly in the right who understand these words figuratively of the Messiah; who is compared to the &quot;sun&quot;, because, as the sun is a luminous body, the light of the whole world, so is Christ of the world of men, and of the world of saints; particularly of the Gentiles, often called the world; and of the New Jerusalem church state, and of the world to come: and as the sun is the fountain of light, so is Christ the fountain of natural and moral light, as well as of the light of grace, and of the light of glory: as the sun communicates light to all the celestial bodies, so Christ to the moon, the church; to the stars, the ministers of the word; to the morning stars, the angels: as the sun dispels the darkness of the night, and makes the day, so Christ dispelled the darkness of the ceremonial law, and made the Gospel day; and he dispels the darkness of ignorance and unbelief, and makes the day of grace; and will dispel the darkness of imperfection, and will make the day of glory; as the sun is a pure, clear, and lucid body, so is Christ, without the least spot of sin; and so are his people, as they are clothed with his righteousness: as the sun is a glorious body, so is Christ both his natures, divine and human; in his office as Mediator; and will be in his second coming: as the sun is superior to all the celestial bodies, so is Christ to angels and saints: as the sun is but one, so there is but one Son of God; one Mediator between God and man; one Saviour and Redeemer; one Lord and Head of the church: its properties and effects are many; it lays things open and manifest, which before were hid; communicates heat as well as light; make the earth fruitful; is very exhilarating; has its risings and settings, and of great duration: so Christ declares the mind and will of his Father, the hidden mysteries of grace; lays open the thoughts of men's hearts in conversion; and will at the last day bring to light the hidden things of darkness: he warms the hearts of his people with his love, and causes them to burn within them, while they hear his Gospel, and he makes them fervent in spirit while they serve the Lord; he fills them with the fruits of righteousness, and with joy unspeakable, and full of glory; but he is not always seen, is sometimes under a cloud, and withdraws himself; yet his name is as the sun before the Lord, and wilt abide for ever. He is called &quot;the sun of righteousness&quot;, because of the glory of his essential righteousness as God; and because of the purity and perfection of his righteousness as man, which appeared in all his actions, and in the administration of all his offices; and because of the display of the righteousness of God in him, in his sufferings and death, in atonement, pardon, and justification by him; and because he is the author and bringer in of righteousness to his people, the glory of which outshines all others, is pure and spotless like the sun, and is everlasting; those who have it are said to be clothed with the sun, and on such he shines in his beams of divine love, grace, and mercy, which righteousness sometimes signifies; and his rays of grace transform men into righteousness and true holiness. The &quot;arising&quot; of this sun may denote the appearance of Christ in our nature; under the former dispensation this sun was not risen, it was then night with the world; John the Baptist was the morning star, the forerunner of it: Christ the sun is now risen; the dayspring from on high hath visited mankind, and has spread its light and heat, its benign influences, by the ministration of the Gospel, the grace of God, which has appeared and shone out, both in Judea, and in the Gentile world: it may be accommodated to his spiritual appearance: this sun is sometimes under a cloud, or seems to be set, which occasions trouble, and is for wise ends, but will and does arise again to them that fear the Lord. The manner is, 
+
+with healing in his wings; by which are meant its rays and beams, which are to the sun as wings to a bird, by which it swiftly spreads its light and heat; so we read of the wings of the morning, Psa 139:9. Christ came as a physician, to heal the diseases of men; he healed the bodily diseases of the Jews, and he heals the soul diseases of his people, their sins; which healing he has procured by his blood and stripes: pardon of sin by the blood of Christ is meant by healing, which is universal, infallible, and free, Psa 103:3 it may denote all that preservation, protection, prosperity, and happiness, inward and outward, which they that feared the Lord enjoyed through Christ, when the unbelieving Jews were destroyed; and which is further expressed by what follows: 
+
+and ye shall go forth; not out of the world, or out of their graves, as some think; but either out of Jerusalem, as the Christians did a little before its destruction, being warned so to do (g), whereby they were preserved from that calamity; or it intends a going forth with liberty in the exercise of grace and duty, in the exercise of faith on Christ, love to him, hope in him, repentance, humility, self-denial, &amp;c.; and in a cheerful obedience to his will; or else walking on in his ways; having health and strength, with great pleasure and comfort; and, as Aben Ezra says, by the light of this sun. 
+
+And grow up as calves of the stall; such as are fat, being put up there for that purpose; see Amo 6:4. Bochart (h) has proved, from many passages out of the Talmud (i), that the word which the Targum here makes use of, and answers to that in the Hebrew text, which is rendered &quot;stall&quot;, signifies a yoke or collar, with which oxen or heifers were bound together, while they were threshing or treading out of corn; so that the calves or heifers here referred to were such as were not put up in a stall, but were yoked together, and employed in treading out the corn; now as there was a law that such should not be muzzled while they were thus employed, but might eat of the corn on the floor freely and plentifully, Deu 25:4 these usually grew fat, and so were the choicest and most desirable, to which the allusion may be here, and in Jer 46:21 Amo 6:4 and are a fit emblem of saints joined together in holy fellowship, walking together in all the commandments and ordinances of the Lord; where they get spiritual food for their souls, and are in thriving circumstances; where they meet with the corn of heaven, with that corn which makes the young men cheerful, and that bread which nourishes up to everlasting life. The apostle alludes to the custom of oxen yoked together, either in ploughing, or in treading out the corn, when he says, speaking of church fellowship and communion in the ordinances of the Gospel, &quot;be ye not unequally yoked with unbelievers&quot;, Co2 6:14 for this hinders spiritual edification, as well as the promotion of the glory of God; but where they are equally yoked, and go hand in hand together in the work and ways of the Lord, they grow and flourish; they are comfortable in their souls, and lively in the exercise of grace; and they are the most thriving Christians, generally speaking, who are in church communion, and most constantly attend the means of grace, and keep closest to the word and ordinances: for the metaphor here used is designed to express a spiritual increase in all grace, and in the knowledge of Christ, and a growing up into him in all things, through the use of means, the word and ordinances; whereby saints become fat and flourishing, being fed with the milk of the word, and the breasts of ordinances, and having fellowship with one another; and, above all, this spiritual growth is owing to the dews of the grace of God, the shining of the Sun of righteousness, and the comfortable gales of the south wind of the Spirit of God, which cause the spices to flow out. The Septuagint version, and those that follow it, render it, &quot;ye shall leap&quot; or &quot;skip as calves loosed from bonds&quot;; as such creatures well fed do when at liberty; and may denote the spiritual joy of the saints upon their being healed, or because of their secure, safe, and prosperous estate: and so the word is explained in the Talmud (k), they shall delight themselves in it; and where the Rabbins interpret this and the preceding verse Mal 4:1 of the natural sun in the firmament, which will be the hell (l) in the world to come, and which will burn the wicked, and heal the righteous. 
+
+(a) Shemot Rabba, sect. 31. fol. 134. 2. (b) De Somniis, p. 578. (c) T. Bab. Nedarim, fol. 8. 2. &amp; Avoda Zara, fol. 3. 2. (d) T. Bab. Bava Bathra, fol. 16. 2. (e) Apud Yalkut in loc. (f) Comment. in Mal. i. 11. (g) Euseb. Hist. l. 3. c. 5. (h) Hierozoic. par. 1. l. 2. c. 31. col. 303. (i) T. Bab. Gittin, fol. 53. 1. Bava Metzia, fol. 30. 1. Pesachim, fol. 26. 1. Eruvin, fol. 17. 2. (k) T. Bab. Avoda Zara, fol. 4. 1. Nedarim, fol. 8. 2. (l) A notion they elsewhere frequently inculcate, and is not improbable; and which has been of late advanced and defended by a very learned man of our own country, Mr. Tobias Swinden, in a Treatise called &quot;An Inquirer into the Nature and Place of Hell.&quot;</div>
+    </div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 3</div>
+        <div class="commentary-text">And ye shall tread down the wicked,.... As grapes in the winepress, as Christ did before them, Isa 63:2 and they by virtue of him; who makes them more than conquerors through himself, over all their enemies, spiritual and temporal: 
+
+for they shall be ashes under the soles of your feet; this refers to the burning of them, Mal 4:1 and may be literally understood of their being burnt with the city and temple; when afterwards, as Grotius observes, the city of Jerusalem being in some measure rebuilt, and called Aelia, there was a Christian church in it, governed by bishops, who were converted Jews; and so might be literally said to trample upon the ashes of the wicked, who had persecuted them in times past, they being upon the very spot where these men were destroyed by fire: 
+
+in the day that I shall do this, saith the Lord of hosts: or &quot;in the day which I make&quot; (m); that is, by the rising of the sun of righteousness, the Gospel day. The Talmud (n) interprets this verse of the bodies of the wicked in hell, which after twelve months will be consumed, and the wind will scatter them under the soles of the feet of the righteous. 
+
+(m) &quot;eo die, quem ego facio&quot;, Cocceius. (n) T. Bab. Roshhashanah, fol. 17. 1.</div>
+    </div>
+</div>
+
+<div class="commentary">
+    <div class="commentary-name">Matthew Henry's Complete Commentary</div>
+    <div class="commentary-author">Matthew Henry</div>
+    <div class="commentary-intro">We have here proper instructions given us (very proper to close the canon of the Old Testament with), I. Concerning the state of recompence and retribution that is before us, the misery of the wicked and the happiness of the righteous in that state (Mal 4:1-3). And this is represented to us under a prophecy of the destruction of Jerusalem, and the unbelieving Jews with it, and of the comforts and triumphs of those among them that received the gospel. II. Concerning the state of trial and preparation we are now in, in which we are directed to have an eye to divine revelation, and to follow that; they then must keep to the law of Moses (Mal 4:4) and expect a further discovery of God's will by Elijah the prophet, that is, by John Baptist, the harbinger of the Messiah (Mal 4:5, Mal 4:6). The last chapter of the New Testament is much to the same purport, setting before us heaven and hell in the other world, and obliging us to adhere to the word of God in this world.</div>
+    <div class="commentary-verse">
+        <div class="commentary-verse-ref">Verse 1</div>
+        <div class="commentary-text">The great and terrible day of the Lord is here prophesied of. This, like the pillar of cloud and fire, shall have a dark side turned towards the Egyptians that fight against God, and a bright side towards the faithful Israelites that follow him: The day cometh, that is, the Lord cometh, the day of the Lord; and it has reference both to the first and to the second coming of Jesus Christ; the day of both was fixed, and should answer the character here given of it.
+I. In both Christ is a consuming fire to those that rebel against him. The day of his coming shall burn as an oven; it shall be a day of wrath, of fiery indignation. This was foretold concerning the Messiah, Psa 21:9, Thy hand shall find out all thy enemies, and shall make them as a fiery oven in the time of thy anger. It will be a day of terror and destruction like the burning of a city, or rather of a wood, the trees whereof are withered and dried, for to that the allusion seems to be, as Isa 10:17, Isa 10:18, The light of Israel shall be for a fire, and his Holy One for a flame, and it shall consume the glory of his forest and of his fruitful field. Now observe here, 1. Who shall be fuel to this fire - all the proud in heart, whose words have been stout against God, and their necks stiff and unapt to yield to the yoke of his commandments (all those that in the pride of their countenances will not seek after God, nor submit to the grace and government of Jesus Christ - all that proudly say they will not have Christ to reign over them), and all those that do wickedly in their affections and conversations, that wilfully persist in sin, in contempt of and contradiction to the law of God; they are such as do wickedly against the covenant, as another prophet had lately expressed it, Dan 11:32. God, that has perfect knowledge of every one's character, knows who are the proud, and of every one's actions, knows who they are that do wickedly; and they shall be as stubble to this fire; they shall be consumed by it, easily consumed, utterly consumed, and it is wholly owing to themselves that they shall be so, for they make themselves stubble, that is, combustible matter, to this fire. If they were not stubble, it would not burn them; for the fire will be to every man according as he and his works are found; if they be wood, hay, and stubble, they will be consumed; but if they be gold, solver, and precious stones, they will abide the fire and be purified by it, Co1 3:13-15. Those that by their unbelief oppose Christ thereby set themselves as briers and thorns before a devouring fire, Isa 27:4, Isa 27:5. 2. What shall be the force and what the fruit of this fire: The day that cometh shall burn them up, shall both terrify and ruin them, and shall leave them neither root nor branch, neither son nor nephew (so the Chaldee paraphrase): neither they nor their posterity shall be spared; they shall be wholly extirpated and cut off. Who knows the power of God's anger? The proud and those that do wickedly will not fear it, but they shall be made to feel it. Where are those now that called the proud happy, when thus they are made completely miserable, when there remains no branch of their happiness to be enjoyed for the present, nor any root of it out of which it might again spring up? Now this was fulfilled, (1.) When Christ, in his doctrine, spoke terror and condemnation to the proud Pharisees and the other Jews that did wickedly, when he sent that fire on the earth which burnt up the chaff of the traditions of the elders and the corrupt glosses they had put upon the law of God. (2.) When Jerusalem was destroyed by the Romans, and the nation of the Jews, as a nation, quite blotted out from under heaven, and neither root nor branch left them. This seems to be principally intended here; our Saviour says that those should be the days of vengeance, when all the things that were written to that purport should be fulfilled, Luk 21:22. Then the unbelieving Jews were as stubble to the devouring fire of God's judgments, which gathered together to them as the eagles to the carcase. (3.) It is certainly applicable, and is to be applied, to the day of judgment, to the particular judgment at death (some of the Jewish doctors refer it the punishment that seizes on the souls of the wicked immediately after they go out of the body), but especially to the general judgment, at the end of time, when Christ shall be revealed in flaming fire, to execute judgment on the proud, and all that do wickedly. The whole world shall then burn as an oven, and all the children of this world, that set their hearts upon it and choose their portion in it, shall take their ruin with it, and the fire then kindled shall never be quenched.
+II. In both Christ is a rejoicing light to those who serve him faithfully, to those who fear his name and give him the glory due to it (Mal 4:2), who stand in awe of that name of his which the wicked profane and trample upon. Here are mercy and comfort kept in store for all those who fear the Lord and think on his name. Observe,
+1. Whence this mercy and comfort shall flow to them: To you that fear my name shall the Sun of righteousness arise, with healing in his wings. The day that comes, as it will be a stormy day to the wicked, a day in which God will rain upon them fire and brimstone, and a horrible tempest, as he did on Sodom (Psa 11:6), a day of clouds and thick darkness (Amo 5:18, Amo 5:20), so it will be a fair and bright day to those who fear God, and reviving as the rising sun is to the earth; and particular notice is taken of the rising of the sun upon Zoar when that was mercifully distinguished from the cities of the plain, which the fire consumed; see Gen 19:23. So to those that fear God is comfort spoken. When the hearts of others fail for fear let them lift up their heads for joy, for their redemption draws nigh, Luk 21:28. But by the Sun of righteousness here we are certainly to understand Jesus Christ, who would undertake to secure the believing remnant, in the day of the general destruction of the Jews, from falling with the rest, and to comfort them in that day of distress and perplexity with his consolations; he directed those that were in Judea to flee to the mountains (Mat 24:16), and they did so, and were all safe and easy in Pella. But it is to be applied more generally, (1.) To the coming of Christ in the flesh to seek and save those that were lost; then the Sun of righteousness arose upon this dark world. Christ is the light of the world, the true light, the great light that makes day and rules the day (Joh 8:12), as the sun. He is the light of men (Joh 1:4), is to men's souls as the sun is to the visible world, which without the sun would be a dungeon; so would mankind be darkness itself without the light of the glory of God shining in the face of Christ. Christ is the Sun that has light in himself, and is the fountain of light (Psa 19:4-6); he is the Sun of righteousness, for he is himself a righteous Saviour. Righteousness is both the light and the heat of this Sun; the word of his righteousness is so; it guides, instructs, and quickens; so is the everlasting righteousness he has brought in. He is made of God to us righteousness; he is the Lord our righteousness, and therefore is fitly called the Sun of righteousness. Through him we are justified and sanctified, and so are brought to see light. This Sun of righteousness, in the fulness of time, arose upon the world, and with him light came into the world (Joh 3:19), a great light, Mat 4:16. In him the day-spring from on high visited us, to give light to those that sit in darkness, Luk 1:78, Luk 1:79. Righteousness sometimes signifies mercy or benignity, and it was in Christ that the tender mercy of our God visited us. (2.) It is applicable to the graces and comforts of the Holy Spirit, brought into the souls of men. Grotius understands it of Christ's giving the Spirit to those that are his, to shine in their hearts, and to be a comforter to them, a sun and a shield. Those that are possessed and governed by a holy fear of God and a dread of his majesty shall have his love also shed abroad in their hearts by the Holy Ghost; and then the sun may be said to arise there, and to bring both a delightful day and a fruitful spring along with it. (3.) Christ's second coming will be a glorious and welcome sun-rising to all that fear his name; it will be that morning of the resurrection in which the upright shall have dominion, Psa 49:14. That day which to the wicked will burn as an oven will to the righteous be bright as the morning; and it is what they wait for, more than those that wait for the morning.
+2. What this mercy and comfort shall bring to them: He shall arise with healing under his wings, or in his rays or beams, which are as the wings of the sun. Christ came, as the sun, to bring not only light to a dark world, but health to a diseased distempered world. The Jews (says Dr. Pocock) have a proverbial saying, As the sun riseth, infirmities decrease; the flowers which drooped and languished all night revive in the morning. Christ came into the world to be the great physician, yea, and the great medicine too, both the balm in Gilead and the physician there. When he was upon earth, he went about as the sun in his circuit, doing this good; he healed all manner of sicknesses and diseases among the people; he healed by wholesale, as the sun does. He shall arise with healing in his skirts; so some read it, and they apply it to the story of the woman's touching the hem of his garment, and being thereby made whole, and his finding that virtue went out of him, Mar 5:28-30. But his healing bodily diseases was a specimen of his great design in coming into the world to heal the diseases of men's souls, and to put them into a good state of health, that they may serve and enjoy both God and themselves.
+3. What good effect it shall have upon them. (1.) It shall make them vigorous in themselves: &quot;You shall go forth, as those that are healed go abroad and return to their business.&quot; The souls shall go forth out of their bodies at death, and the bodies out of their graves at the resurrection, as prisoners out of their dungeons, and both to see the light and be set at liberty. &quot;You shall go forth as plants out of the earth, when in the spring the sun returns.&quot; Some make it to mean the going forth of the Christians from Jerusalem, and the escape they thereby made from its destruction. And thus the souls on whom the Sun of righteousness arises go forth out of the world, go forth out of Babylon, as those that are made free indeed. &quot;You shall likewise grow up; being restored to health and liberty, you shall increase in knowledge, and grace, and spiritual strength.&quot; The souls on which the Sun of righteousness arises are growing up towards the perfect man; those that by the grace of God are made wise and good are by the same grace made wiser and better; and their path, like that of the rising sun, shines more and more to the perfect day, Pro 4:18. Their growth is compared to that of the calves of the stall, which is a quick, strong, and useful growth. &quot;You shall grow up, not as the flower of the field, which is slender, and weak, and of little use, and withers soon after it has grown up, but as the calves of the stall,&quot; that, as one of the rabbin expounds it, grow great in flesh and fatness, with which both God's altars and men's tables are replenished; so the growth of the saints, on whom the Sun of righteousness arises, honours both God and man. Some read it, instead of You shall grow up, You shall move yourselves, or leap for joy, shall be as frolicsome as calves of the stall, when they are let loose in the open field; it denotes the joy of the saints, who rejoice in Christ Jesus; they shall even leap for joy; they are always caused to triumph.
+(2.) It shall make them victorious over their enemies (Mal 4:3): You shall tread down the wicked. Time was when the wicked trod them down, said to their souls, Bow down, that we may go over; but the day will come when they shall tread down the wicked. The wicked, being made Christ's footstool, are made theirs also (Psa 110:1), and come and worship before the feet of the church, Rev 3:9. The elder shall serve the younger. When believers by faith overcome the world, when they suppress their own corrupt appetites and passions, when the God of peace bruises Satan under their feet, then they tread down the wicked. When it came to the turn of the Christians to triumph over the Jews that had insulted over them, then this promise was fulfilled: They shall be ashes under the soles of your feet; they shall not only be trodden down, but trodden to dirt. When the day that comes shall have burnt them up, they shall trample upon them as ashes. When the righteous shall rise to everlasting life, the wicked shall rise to everlasting contempt; and, though they shall not triumph over them, they shall triumph in that God whose justice is glorified in their destruction. The saints in glory are said to have power given them over the nations, to rule them with a rod of iron, Rev 2:26, Rev 2:27. This you shall do, in the day that I shall do this. Note, The saints' triumphs are all owing to God's victories; it is not they that do this, but God that does it for them, that says, Come set your feet on the necks of these kings. Some read it, &quot;In the day that I make, or shall make, the great day that I shall make remarkable, of which you will say with joy, This is the day which the Lord has made.&quot; The day of the destruction of Jerusalem is called the great and notable day of the Lord (Act 2:20), and our Saviour in foretelling that destruction made use of such expressions as, like these, might be applied likewise to the end of the world and the last judgment; for it was such a terrible revelation of the wrath of God from heaven, and caused such a scene of horror upon this earth, that it might fitly serve for a type of that glorious transaction which will be an outlet to the days of time and an inlet to the days of eternity. By the accomplishment of these prophecies in the ruin of the Jewish nation, we should have our faith confirmed in the assurances Christ has given us concerning the dissolution of all things. Surely I come quickly; so says Christ, the Lord of hosts, to whom all power in heaven and earth is committed.</div>
+    </div>
+</div>
+
+<!-- ═══════════ ORIGINAL LANGUAGE ═══════════ -->
+<h2>Original Language</h2>
+<details class="interlinear-verse">
+<summary>Verse 1 (26 words)</summary>
+<div class="interlinear-layout">
+<div class="interlinear-esv">
+  <div class="esv-label">ESV</div>
+  “For behold, the day is coming, burning like an oven, when all the arrogant and all evildoers will be stubble. The day that is coming shall set them ablaze, says the LORD of hosts, so that it will leave them neither root nor branch.
+</div>
+<table class="interlinear-table">
+<thead><tr><th>English</th><th>Hebrew</th><th>Transliteration</th><th>Strong's</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td></td><td class="original-text hebrew">כִּֽי</td><td class="transliteration">kîy</td><td><span class="strongs-num">H3588</span></td><td class="strongs-def">(by implication) very widely used as a relative conjunction or adverb (as below); often largely modified by other par...</td></tr>
+<tr><td></td><td class="original-text hebrew">הִנֵּ֤ה</td><td class="transliteration">hinnêh</td><td><span class="strongs-num">H2009</span></td><td class="strongs-def">lo!</td></tr>
+<tr><td>For behold the day</td><td class="original-text hebrew">הַיּ֣וֹם</td><td class="transliteration">yôwm</td><td><span class="strongs-num">H3117</span></td><td class="strongs-def">a day (as the warm hours), whether literal (from sunrise to sunset, or from one sunset to the next), or figurative (a...</td></tr>
+<tr><td>cometh</td><td class="original-text hebrew">הַבָּ֗א</td><td class="transliteration">bôwʼ</td><td><span class="strongs-num">H935</span></td><td class="strongs-def">to go or come (in a wide variety of applications)</td></tr>
+<tr><td>that shall burn</td><td class="original-text hebrew">בֹּעֵ֖ר</td><td class="transliteration">bâʻar</td><td><span class="strongs-num">H1197</span></td><td class="strongs-def">to kindle, i.e. consume (by fire or by eating); to be (-come) brutish</td></tr>
+<tr><td>as an oven</td><td class="original-text hebrew">כַּתַּנּ֑וּר</td><td class="transliteration">tannûwr</td><td><span class="strongs-num">H8574</span></td><td class="strongs-def">a fire-pot</td></tr>
+<tr><td></td><td class="original-text hebrew">וְהָי֨וּ</td><td class="transliteration">hâyâh</td><td><span class="strongs-num">H1961</span></td><td class="strongs-def">to exist, i.e. be or become, come to pass (always emphatic, and not a mere copula or auxiliary)</td></tr>
+<tr><td></td><td class="original-text hebrew">כָל</td><td class="transliteration">kôl</td><td><span class="strongs-num">H3605</span></td><td class="strongs-def">properly, the whole; hence, all, any or every (in the singular only, but often in a plural sense)</td></tr>
+<tr><td>and all the proud</td><td class="original-text hebrew">זֵדִ֜ים</td><td class="transliteration">zêd</td><td><span class="strongs-num">H2086</span></td><td class="strongs-def">arrogant</td></tr>
+<tr><td></td><td class="original-text hebrew">וְכָל</td><td class="transliteration">kôl</td><td><span class="strongs-num">H3605</span></td><td class="strongs-def">properly, the whole; hence, all, any or every (in the singular only, but often in a plural sense)</td></tr>
+<tr><td>yea and all that do</td><td class="original-text hebrew">עֹשֵׂ֤ה</td><td class="transliteration">ʻâsâh</td><td><span class="strongs-num">H6213</span></td><td class="strongs-def">to do or make, in the broadest sense and widest application</td></tr>
+<tr><td>wickedly</td><td class="original-text hebrew">רִשְׁעָה֙</td><td class="transliteration">rishʻâh</td><td><span class="strongs-num">H7564</span></td><td class="strongs-def">wrong (especially moral)</td></tr>
+<tr><td>shall be stubble</td><td class="original-text hebrew">קַ֔שׁ</td><td class="transliteration">qash</td><td><span class="strongs-num">H7179</span></td><td class="strongs-def">straw (as dry)</td></tr>
+<tr><td>shall burn them up</td><td class="original-text hebrew">וְלִהַ֨ט</td><td class="transliteration">lâhaṭ</td><td><span class="strongs-num">H3857</span></td><td class="strongs-def">properly, to lick, i.e. (by implication) to blaze</td></tr>
+<tr><td></td><td class="original-text hebrew">אֹתָ֜ם</td><td class="transliteration">ʼêth</td><td><span class="strongs-num">H853</span></td><td class="strongs-def">properly, self (but generally used to point out more definitely the object of a verb or preposition, even or namely)</td></tr>
+<tr><td>For behold the day</td><td class="original-text hebrew">הַיּ֣וֹם</td><td class="transliteration">yôwm</td><td><span class="strongs-num">H3117</span></td><td class="strongs-def">a day (as the warm hours), whether literal (from sunrise to sunset, or from one sunset to the next), or figurative (a...</td></tr>
+<tr><td>cometh</td><td class="original-text hebrew">הַבָּ֗א</td><td class="transliteration">bôwʼ</td><td><span class="strongs-num">H935</span></td><td class="strongs-def">to go or come (in a wide variety of applications)</td></tr>
+<tr><td>saith</td><td class="original-text hebrew">אָמַר֙</td><td class="transliteration">ʼâmar</td><td><span class="strongs-num">H559</span></td><td class="strongs-def">to say (used with great latitude)</td></tr>
+<tr><td>the LORD</td><td class="original-text hebrew">יְהוָ֣ה</td><td class="transliteration">Yᵉhôvâh</td><td><span class="strongs-num">H3068</span></td><td class="strongs-def">(the) self-Existent or Eternal; Jeho-vah, Jewish national name of God</td></tr>
+<tr><td>of hosts</td><td class="original-text hebrew">צְבָא֔וֹת</td><td class="transliteration">tsâbâʼ</td><td><span class="strongs-num">H6635</span></td><td class="strongs-def">a mass of persons (or figuratively, things), especially reg. organized for war (an army); by implication, a campaign,...</td></tr>
+<tr><td></td><td class="original-text hebrew">אֲשֶׁ֛ר</td><td class="transliteration">ʼăsher</td><td><span class="strongs-num">H834</span></td><td class="strongs-def">who, which, what, that; also (as an adverb and a conjunction) when, where, how, because, in order that, etc.</td></tr>
+<tr><td></td><td class="original-text hebrew">לֹא</td><td class="transliteration">lôʼ</td><td><span class="strongs-num">H3808</span></td><td class="strongs-def">not (the simple or abs. negation); by implication, no; often used with other particles</td></tr>
+<tr><td>that it shall leave</td><td class="original-text hebrew">יַעֲזֹ֥ב</td><td class="transliteration">ʻâzab</td><td><span class="strongs-num">H5800</span></td><td class="strongs-def">to loosen, i.e. relinquish, permit, etc.</td></tr>
+<tr><td></td><td class="original-text hebrew">לָהֶ֖ם</td><td class="transliteration">hêm</td><td><span class="strongs-num">H1992</span></td><td class="strongs-def">they (only used when emphatic)</td></tr>
+<tr><td>them neither root</td><td class="original-text hebrew">שֹׁ֥רֶשׁ</td><td class="transliteration">sheresh</td><td><span class="strongs-num">H8328</span></td><td class="strongs-def">a root (literally or figuratively)</td></tr>
+<tr><td>nor branch</td><td class="original-text hebrew">וְעָנָֽף׃</td><td class="transliteration">ʻânâph</td><td><span class="strongs-num">H6057</span></td><td class="strongs-def">a twig (as covering the limbs)</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+<details class="interlinear-verse">
+<summary>Verse 2 (12 words)</summary>
+<div class="interlinear-layout">
+<div class="interlinear-esv">
+  <div class="esv-label">ESV</div>
+  But for you who fear my name, the sun of righteousness shall rise with healing in its wings. You shall go out leaping like calves from the stall.
+</div>
+<table class="interlinear-table">
+<thead><tr><th>English</th><th>Hebrew</th><th>Transliteration</th><th>Strong's</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td>arise</td><td class="original-text hebrew">וְזָרְחָ֨ה</td><td class="transliteration">zârach</td><td><span class="strongs-num">H2224</span></td><td class="strongs-def">properly, to irradiate (or shoot forth beams), i.e. to rise (as the sun); specifically, to appear (as a symptom of le...</td></tr>
+<tr><td></td><td class="original-text hebrew">לָכֶ֜ם</td><td class="transliteration"></td><td><span class="strongs-num">H0</span></td><td class="strongs-def"></td></tr>
+<tr><td>But unto you that fear</td><td class="original-text hebrew">יִרְאֵ֤י</td><td class="transliteration">yârêʼ</td><td><span class="strongs-num">H3373</span></td><td class="strongs-def">fearing; morally, reverent</td></tr>
+<tr><td>my name</td><td class="original-text hebrew">שְׁמִי֙</td><td class="transliteration">shêm</td><td><span class="strongs-num">H8034</span></td><td class="strongs-def">an appellation, as a mark or memorial of individuality; by implication honor, authority, character</td></tr>
+<tr><td>shall the Sun</td><td class="original-text hebrew">שֶׁ֣מֶשׁ</td><td class="transliteration">shemesh</td><td><span class="strongs-num">H8121</span></td><td class="strongs-def">the sun; by implication, the east; figuratively, a ray, i.e. (architectural) a notched battlement</td></tr>
+<tr><td>of righteousness</td><td class="original-text hebrew">צְדָקָ֔ה</td><td class="transliteration">tsᵉdâqâh</td><td><span class="strongs-num">H6666</span></td><td class="strongs-def">rightness (abstractly), subjectively (rectitude), objectively (justice), morally (virtue) or figuratively (prosperity)</td></tr>
+<tr><td>with healing</td><td class="original-text hebrew">וּמַרְפֵּ֖א</td><td class="transliteration">marpêʼ</td><td><span class="strongs-num">H4832</span></td><td class="strongs-def">properly, curative, i.e. literally (concretely) a medicine, or (abstractly) a cure; figuratively (concretely) deliver...</td></tr>
+<tr><td>in his wings</td><td class="original-text hebrew">בִּכְנָפֶ֑יהָ</td><td class="transliteration">kânâph</td><td><span class="strongs-num">H3671</span></td><td class="strongs-def">an edge or extremity; specifically (of a bird or army) a wing, (of a garment or bedclothing) a flap, (of the earth) a...</td></tr>
+<tr><td>and ye shall go forth</td><td class="original-text hebrew">וִֽיצָאתֶ֥ם</td><td class="transliteration">yâtsâʼ</td><td><span class="strongs-num">H3318</span></td><td class="strongs-def">to go (causatively, bring) out, in a great variety of applications, literally and figuratively, direct and proxim.</td></tr>
+<tr><td>and grow up</td><td class="original-text hebrew">וּפִשְׁתֶּ֖ם</td><td class="transliteration">pûwsh</td><td><span class="strongs-num">H6335</span></td><td class="strongs-def">to spread; figuratively, act proudly</td></tr>
+<tr><td>as calves</td><td class="original-text hebrew">כְּעֶגְלֵ֥י</td><td class="transliteration">ʻêgel</td><td><span class="strongs-num">H5695</span></td><td class="strongs-def">a (male) calf (as frisking round), especially one nearly grown (i.e. a steer)</td></tr>
+<tr><td>of the stall</td><td class="original-text hebrew">מַרְבֵּֽק׃</td><td class="transliteration">marbêq</td><td><span class="strongs-num">H4770</span></td><td class="strongs-def">a stall (for cattle)</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+<details class="interlinear-verse">
+<summary>Verse 3 (15 words)</summary>
+<div class="interlinear-layout">
+<div class="interlinear-esv">
+  <div class="esv-label">ESV</div>
+  And you shall tread down the wicked, for they will be ashes under the soles of your feet, on the day when I act, says the LORD of hosts.
+</div>
+<table class="interlinear-table">
+<thead><tr><th>English</th><th>Hebrew</th><th>Transliteration</th><th>Strong's</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td>And ye shall tread down</td><td class="original-text hebrew">וְעַסּוֹתֶ֣ם</td><td class="transliteration">ʻâçaç</td><td><span class="strongs-num">H6072</span></td><td class="strongs-def">to squeeze out juice; figuratively, to trample</td></tr>
+<tr><td>the wicked</td><td class="original-text hebrew">רְשָׁעִ֔ים</td><td class="transliteration">râshâʻ</td><td><span class="strongs-num">H7563</span></td><td class="strongs-def">morally wrong; concretely, an (actively) bad person</td></tr>
+<tr><td></td><td class="original-text hebrew">כִּֽי</td><td class="transliteration">kîy</td><td><span class="strongs-num">H3588</span></td><td class="strongs-def">(by implication) very widely used as a relative conjunction or adverb (as below); often largely modified by other par...</td></tr>
+<tr><td></td><td class="original-text hebrew">יִהְי֣וּ</td><td class="transliteration">hâyâh</td><td><span class="strongs-num">H1961</span></td><td class="strongs-def">to exist, i.e. be or become, come to pass (always emphatic, and not a mere copula or auxiliary)</td></tr>
+<tr><td>for they shall be ashes</td><td class="original-text hebrew">אֵ֔פֶר</td><td class="transliteration">ʼêpher</td><td><span class="strongs-num">H665</span></td><td class="strongs-def">ashes</td></tr>
+<tr><td></td><td class="original-text hebrew">תַּ֖חַת</td><td class="transliteration">tachath</td><td><span class="strongs-num">H8478</span></td><td class="strongs-def">the bottom (as depressed); only adverbially, below (often with prepositional prefix underneath), in lieu of, etc.</td></tr>
+<tr><td>under the soles</td><td class="original-text hebrew">כַּפּ֣וֹת</td><td class="transliteration">kaph</td><td><span class="strongs-num">H3709</span></td><td class="strongs-def">the hollow hand or palm (so of the paw of an animal, of the sole, and even of the bowl of a dish or sling, the handle...</td></tr>
+<tr><td>of your feet</td><td class="original-text hebrew">רַגְלֵיכֶ֑ם</td><td class="transliteration">regel</td><td><span class="strongs-num">H7272</span></td><td class="strongs-def">a foot (as used in walking); by implication, a step; by euphemistically the pudenda</td></tr>
+<tr><td>in the day</td><td class="original-text hebrew">בַּיּוֹם֙</td><td class="transliteration">yôwm</td><td><span class="strongs-num">H3117</span></td><td class="strongs-def">a day (as the warm hours), whether literal (from sunrise to sunset, or from one sunset to the next), or figurative (a...</td></tr>
+<tr><td></td><td class="original-text hebrew">אֲשֶׁ֣ר</td><td class="transliteration">ʼăsher</td><td><span class="strongs-num">H834</span></td><td class="strongs-def">who, which, what, that; also (as an adverb and a conjunction) when, where, how, because, in order that, etc.</td></tr>
+<tr><td></td><td class="original-text hebrew">אֲנִ֣י</td><td class="transliteration">ʼănîy</td><td><span class="strongs-num">H589</span></td><td class="strongs-def">I</td></tr>
+<tr><td>that I shall do</td><td class="original-text hebrew">עֹשֶׂ֔ה</td><td class="transliteration">ʻâsâh</td><td><span class="strongs-num">H6213</span></td><td class="strongs-def">to do or make, in the broadest sense and widest application</td></tr>
+<tr><td>this saith</td><td class="original-text hebrew">אָמַ֖ר</td><td class="transliteration">ʼâmar</td><td><span class="strongs-num">H559</span></td><td class="strongs-def">to say (used with great latitude)</td></tr>
+<tr><td>the LORD</td><td class="original-text hebrew">יְהוָ֥ה</td><td class="transliteration">Yᵉhôvâh</td><td><span class="strongs-num">H3068</span></td><td class="strongs-def">(the) self-Existent or Eternal; Jeho-vah, Jewish national name of God</td></tr>
+<tr><td>of hosts</td><td class="original-text hebrew">צְבָאֽוֹת׃</td><td class="transliteration">tsâbâʼ</td><td><span class="strongs-num">H6635</span></td><td class="strongs-def">a mass of persons (or figuratively, things), especially reg. organized for war (an army); by implication, a campaign,...</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+
+<script type="application/json" id="verse-app-data">{"verseTexts": {"0": {"1": "“For behold, the day is coming, burning like an oven, when all the arrogant and all evildoers will be stubble. The day that is coming shall set them ablaze, says the LORD of hosts, so that it will leave them neither root nor branch.", "2": "But for you who fear my name, the sun of righteousness shall rise with healing in its wings. You shall go out leaping like calves from the stall.", "3": "And you shall tread down the wicked, for they will be ashes under the soles of your feet, on the day when I act, says the LORD of hosts."}, "1": {"1": "FOR, behold, the day cometh, that shall burn as an oven; and all the proud, yea, and all that do wickedly, shall be stubble: and the day that cometh shall burn them up, saith the Lord of hosts, that it shall leave them neither root nor branch.", "2": "¶ But unto you that fear my name shall the Sun of righteousness arise with healing in his wings; and ye shall go forth, and grow up as calves of the stall.", "3": "And ye shall tread down the wicked; for they shall be ashes under the soles of your feet in the day that I shall do this, saith the Lord of hosts."}, "2": {"1": "“For behold, the day is coming, burning like a furnace, when all the arrogant and every evildoer will be stubble; the day is coming when I will set them ablaze,” says the LORD of Hosts. “Not a root or branch will be left to them.”", "2": "“But for you who fear My name, the sun of righteousness will rise with healing in its wings, and you will go out and leap like calves from the stall.", "3": "Then you will trample the wicked, for they will be ashes under the soles of your feet on the day I am preparing,” says the LORD of Hosts."}}, "translationNames": ["ESV", "KJVPCE", "BSB"], "interlinear": {"1": [{"text": "", "original": "כִּֽי", "strongs": "H3588"}, {"text": "", "original": "הִנֵּ֤ה", "strongs": "H2009"}, {"text": "For behold the day", "original": "הַיּ֣וֹם", "strongs": "H3117"}, {"text": "cometh", "original": "הַבָּ֗א", "strongs": "H935"}, {"text": "that shall burn", "original": "בֹּעֵ֖ר", "strongs": "H1197"}, {"text": "as an oven", "original": "כַּתַּנּ֑וּר", "strongs": "H8574"}, {"text": "", "original": "וְהָי֨וּ", "strongs": "H1961"}, {"text": "", "original": "כָל", "strongs": "H3605"}, {"text": "and all the proud", "original": "זֵדִ֜ים", "strongs": "H2086"}, {"text": "", "original": "וְכָל", "strongs": "H3605"}, {"text": "yea and all that do", "original": "עֹשֵׂ֤ה", "strongs": "H6213"}, {"text": "wickedly", "original": "רִשְׁעָה֙", "strongs": "H7564"}, {"text": "shall be stubble", "original": "קַ֔שׁ", "strongs": "H7179"}, {"text": "shall burn them up", "original": "וְלִהַ֨ט", "strongs": "H3857"}, {"text": "", "original": "אֹתָ֜ם", "strongs": "H853"}, {"text": "For behold the day", "original": "הַיּ֣וֹם", "strongs": "H3117"}, {"text": "cometh", "original": "הַבָּ֗א", "strongs": "H935"}, {"text": "saith", "original": "אָמַר֙", "strongs": "H559"}, {"text": "the LORD", "original": "יְהוָ֣ה", "strongs": "H3068"}, {"text": "of hosts", "original": "צְבָא֔וֹת", "strongs": "H6635"}, {"text": "", "original": "אֲשֶׁ֛ר", "strongs": "H834"}, {"text": "", "original": "לֹא", "strongs": "H3808"}, {"text": "that it shall leave", "original": "יַעֲזֹ֥ב", "strongs": "H5800"}, {"text": "", "original": "לָהֶ֖ם", "strongs": "H1992"}, {"text": "them neither root", "original": "שֹׁ֥רֶשׁ", "strongs": "H8328"}, {"text": "nor branch", "original": "וְעָנָֽף׃", "strongs": "H6057"}], "2": [{"text": "arise", "original": "וְזָרְחָ֨ה", "strongs": "H2224"}, {"text": "", "original": "לָכֶ֜ם", "strongs": "H0"}, {"text": "But unto you that fear", "original": "יִרְאֵ֤י", "strongs": "H3373"}, {"text": "my name", "original": "שְׁמִי֙", "strongs": "H8034"}, {"text": "shall the Sun", "original": "שֶׁ֣מֶשׁ", "strongs": "H8121"}, {"text": "of righteousness", "original": "צְדָקָ֔ה", "strongs": "H6666"}, {"text": "with healing", "original": "וּמַרְפֵּ֖א", "strongs": "H4832"}, {"text": "in his wings", "original": "בִּכְנָפֶ֑יהָ", "strongs": "H3671"}, {"text": "and ye shall go forth", "original": "וִֽיצָאתֶ֥ם", "strongs": "H3318"}, {"text": "and grow up", "original": "וּפִשְׁתֶּ֖ם", "strongs": "H6335"}, {"text": "as calves", "original": "כְּעֶגְלֵ֥י", "strongs": "H5695"}, {"text": "of the stall", "original": "מַרְבֵּֽק׃", "strongs": "H4770"}], "3": [{"text": "And ye shall tread down", "original": "וְעַסּוֹתֶ֣ם", "strongs": "H6072"}, {"text": "the wicked", "original": "רְשָׁעִ֔ים", "strongs": "H7563"}, {"text": "", "original": "כִּֽי", "strongs": "H3588"}, {"text": "", "original": "יִהְי֣וּ", "strongs": "H1961"}, {"text": "for they shall be ashes", "original": "אֵ֔פֶר", "strongs": "H665"}, {"text": "", "original": "תַּ֖חַת", "strongs": "H8478"}, {"text": "under the soles", "original": "כַּפּ֣וֹת", "strongs": "H3709"}, {"text": "of your feet", "original": "רַגְלֵיכֶ֑ם", "strongs": "H7272"}, {"text": "in the day", "original": "בַּיּוֹם֙", "strongs": "H3117"}, {"text": "", "original": "אֲשֶׁ֣ר", "strongs": "H834"}, {"text": "", "original": "אֲנִ֣י", "strongs": "H589"}, {"text": "that I shall do", "original": "עֹשֶׂ֔ה", "strongs": "H6213"}, {"text": "this saith", "original": "אָמַ֖ר", "strongs": "H559"}, {"text": "the LORD", "original": "יְהוָ֥ה", "strongs": "H3068"}, {"text": "of hosts", "original": "צְבָאֽוֹת׃", "strongs": "H6635"}]}, "lexicon": {"H5800": {"translit": "ʻâzab", "definition": "to loosen, i.e. relinquish, permit, etc."}, "H834": {"translit": "ʼăsher", "definition": "who, which, what, that; also (as an adverb and a conjunction) when, where, how, because, in order that, etc."}, "H4770": {"translit": "marbêq", "definition": "a stall (for cattle)"}, "H6057": {"translit": "ʻânâph", "definition": "a twig (as covering the limbs)"}, "H3671": {"translit": "kânâph", "definition": "an edge or extremity; specifically (of a bird or army) a wing, (of a garment or bedclothing) a flap, (of the earth) a..."}, "H7272": {"translit": "regel", "definition": "a foot (as used in walking); by implication, a step; by euphemistically the pudenda"}, "H3117": {"translit": "yôwm", "definition": "a day (as the warm hours), whether literal (from sunrise to sunset, or from one sunset to the next), or figurative (a..."}, "H7564": {"translit": "rishʻâh", "definition": "wrong (especially moral)"}, "H3605": {"translit": "kôl", "definition": "properly, the whole; hence, all, any or every (in the singular only, but often in a plural sense)"}, "H665": {"translit": "ʼêpher", "definition": "ashes"}, "H2086": {"translit": "zêd", "definition": "arrogant"}, "H3373": {"translit": "yârêʼ", "definition": "fearing; morally, reverent"}, "H5695": {"translit": "ʻêgel", "definition": "a (male) calf (as frisking round), especially one nearly grown (i.e. a steer)"}, "H6335": {"translit": "pûwsh", "definition": "to spread; figuratively, act proudly"}, "H2224": {"translit": "zârach", "definition": "properly, to irradiate (or shoot forth beams), i.e. to rise (as the sun); specifically, to appear (as a symptom of le..."}, "H7563": {"translit": "râshâʻ", "definition": "morally wrong; concretely, an (actively) bad person"}, "H1197": {"translit": "bâʻar", "definition": "to kindle, i.e. consume (by fire or by eating); to be (-come) brutish"}, "H1992": {"translit": "hêm", "definition": "they (only used when emphatic)"}, "H3709": {"translit": "kaph", "definition": "the hollow hand or palm (so of the paw of an animal, of the sole, and even of the bowl of a dish or sling, the handle..."}, "H7179": {"translit": "qash", "definition": "straw (as dry)"}, "H2009": {"translit": "hinnêh", "definition": "lo!"}, "H3857": {"translit": "lâhaṭ", "definition": "properly, to lick, i.e. (by implication) to blaze"}, "H4832": {"translit": "marpêʼ", "definition": "properly, curative, i.e. literally (concretely) a medicine, or (abstractly) a cure; figuratively (concretely) deliver..."}, "H8328": {"translit": "sheresh", "definition": "a root (literally or figuratively)"}, "H6213": {"translit": "ʻâsâh", "definition": "to do or make, in the broadest sense and widest application"}, "H935": {"translit": "bôwʼ", "definition": "to go or come (in a wide variety of applications)"}, "H6072": {"translit": "ʻâçaç", "definition": "to squeeze out juice; figuratively, to trample"}, "H6635": {"translit": "tsâbâʼ", "definition": "a mass of persons (or figuratively, things), especially reg. organized for war (an army); by implication, a campaign,..."}, "H8574": {"translit": "tannûwr", "definition": "a fire-pot"}, "H8034": {"translit": "shêm", "definition": "an appellation, as a mark or memorial of individuality; by implication honor, authority, character"}, "H853": {"translit": "ʼêth", "definition": "properly, self (but generally used to point out more definitely the object of a verb or preposition, even or namely)"}, "H3318": {"translit": "yâtsâʼ", "definition": "to go (causatively, bring) out, in a great variety of applications, literally and figuratively, direct and proxim."}, "H8121": {"translit": "shemesh", "definition": "the sun; by implication, the east; figuratively, a ray, i.e. (architectural) a notched battlement"}, "H8478": {"translit": "tachath", "definition": "the bottom (as depressed); only adverbially, below (often with prepositional prefix underneath), in lieu of, etc."}, "H589": {"translit": "ʼănîy", "definition": "I"}, "H6666": {"translit": "tsᵉdâqâh", "definition": "rightness (abstractly), subjectively (rectitude), objectively (justice), morally (virtue) or figuratively (prosperity)"}, "H3808": {"translit": "lôʼ", "definition": "not (the simple or abs. negation); by implication, no; often used with other particles"}, "H3588": {"translit": "kîy", "definition": "(by implication) very widely used as a relative conjunction or adverb (as below); often largely modified by other par..."}, "H3068": {"translit": "Yᵉhôvâh", "definition": "(the) self-Existent or Eternal; Jeho-vah, Jewish national name of God"}, "H1961": {"translit": "hâyâh", "definition": "to exist, i.e. be or become, come to pass (always emphatic, and not a mere copula or auxiliary)"}, "H559": {"translit": "ʼâmar", "definition": "to say (used with great latitude)"}}, "langClass": "hebrew", "langLabel": "Hebrew"}</script>
+
+<script>
+(function() {
+    var el = document.getElementById('verse-app-data');
+    if (!el) return;
+    var D = JSON.parse(el.textContent);
+
+    var table = document.querySelector('.parallel-table');
+    var expanded = document.getElementById('expanded-view');
+    var hint = document.querySelector('.click-hint');
+    if (!table || !expanded) return;
+
+    function esc(s) {
+        if (!s) return '';
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    table.addEventListener('click', function(e) {
+        var cell = e.target.closest('.verse-cell-clickable');
+        if (!cell) return;
+
+        var vnum  = cell.dataset.verse;
+        var col   = cell.dataset.col;
+        var name  = D.translationNames[col] || '';
+        var text  = (D.verseTexts[col] || {})[vnum] || '';
+        var words = D.interlinear[vnum] || [];
+
+        var h = '<div class="expanded-header">'
+              + '<div class="expanded-title">' + esc(name)
+              + ' &mdash; Verse ' + esc(vnum) + '</div>'
+              + '<button class="expanded-close" '
+              + 'title="Back to translations">'
+              + '&times;</button></div>'
+              + '<div class="expanded-panel">';
+
+        h += '<div class="expanded-text">'
+           + '<div class="text-label">' + esc(name) + '</div>'
+           + esc(text) + '</div>';
+
+        h += '<div class="expanded-interlinear">';
+        if (words.length) {
+            h += '<table class="interlinear-table"><thead><tr>'
+               + '<th>English</th><th>' + esc(D.langLabel) + '</th>'
+               + '<th>Transliteration</th><th>Strong\'s</th>'
+               + '<th>Definition</th></tr></thead><tbody>';
+            for (var i = 0; i < words.length; i++) {
+                var w = words[i];
+                var lx = D.lexicon[w.strongs] || {};
+                h += '<tr>'
+                   + '<td>' + esc(w.text) + '</td>'
+                   + '<td class="original-text ' + D.langClass + '">'
+                   + esc(w.original) + '</td>'
+                   + '<td class="transliteration">'
+                   + esc(lx.translit || '') + '</td>';
+                h += w.strongs
+                   ? '<td><span class="strongs-num">'
+                     + esc(w.strongs) + '</span></td>'
+                   : '<td></td>';
+                h += '<td class="strongs-def">'
+                   + esc(lx.definition || '') + '</td></tr>';
+            }
+            h += '</tbody></table>';
+        } else {
+            h += '<div class="no-content">'
+               + 'No interlinear data available for this verse.</div>';
+        }
+        h += '</div></div>';
+
+        expanded.innerHTML = h;
+
+        /* Animate: table slides out, then expanded view slides in */
+        table.classList.add('collapsing');
+        if (hint) hint.classList.add('collapsing');
+
+        setTimeout(function() {
+            table.classList.add('collapsed');
+            table.classList.remove('collapsing');
+            if (hint) { hint.classList.add('collapsed'); hint.classList.remove('collapsing'); }
+            expanded.classList.add('active');
+            expanded.querySelector('.expanded-close')
+                    .addEventListener('click', closeExpanded);
+            expanded.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }, 250);
+    });
+
+    function closeExpanded() {
+        /* Animate: expanded panels slide out, then table slides back in */
+        expanded.classList.add('closing');
+
+        setTimeout(function() {
+            expanded.classList.remove('active');
+            expanded.classList.remove('closing');
+            expanded.innerHTML = '';
+            table.classList.remove('collapsed');
+            table.classList.add('entering');
+            if (hint) { hint.classList.remove('collapsed'); }
+            table.scrollIntoView({behavior: 'smooth', block: 'start'});
+            setTimeout(function() { table.classList.remove('entering'); }, 300);
+        }, 250);
+    }
+})();
+
+/* ── Topics / Themes overflow toggle ────────────── */
+(function() {
+    var toggles = document.querySelectorAll('.topics-toggle');
+    for (var i = 0; i < toggles.length; i++) {
+        var btn = toggles[i];
+        var row = btn.parentElement;
+        if (!row) continue;
+
+        /* Show button only if content overflows the 2-line cap */
+        if (row.scrollHeight > row.clientHeight + 2) {
+            btn.classList.add('visible');
+        }
+
+        btn.addEventListener('click', (function(b, r) {
+            return function() {
+                if (r.classList.contains('expanded')) {
+                    r.style.maxHeight = '';
+                    r.classList.remove('expanded');
+                    b.textContent = 'more';
+                } else {
+                    r.classList.add('expanded');
+                    r.style.maxHeight = r.scrollHeight + 'px';
+                    b.textContent = 'less';
+                }
+            };
+        })(btn, row));
+    }
+})();
+</script>
+
+<nav class="chapter-nav">
+  <a href="lookup_Malachi_3.html" class="nav-prev">Malachi 3</a>
+  <span class="nav-current">Malachi 4</span>
+  <a href="lookup_Matthew_1.html" class="nav-next">Matthew 1</a>
+</nav>
+
+</body>
+</html>

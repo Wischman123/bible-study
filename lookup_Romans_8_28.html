@@ -25,7 +25,7 @@
             font-weight: normal;
             color: #1a1a1a;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 0;
             letter-spacing: 0.5px;
         }
 
@@ -34,7 +34,7 @@
             color: #888;
             font-size: 0.95em;
             font-style: italic;
-            margin-bottom: 40px;
+            margin-bottom: 8px;
         }
 
         /* ── Section headers ────────────────────────────── */
@@ -44,7 +44,7 @@
             color: #444;
             border-bottom: 2px solid #c9a96e;
             padding-bottom: 8px;
-            margin: 50px 0 25px 0;
+            margin: 30px 0 15px 0;
             letter-spacing: 0.3px;
         }
 
@@ -108,6 +108,110 @@
 
         .parallel-table tr:hover td {
             background: #fdfcf8;
+        }
+
+        .parallel-table th.diff-col {
+            background: #f0ebe0;
+            color: #6b5b3e;
+            min-width: 200px;
+        }
+
+        .parallel-table td.diff-cell {
+            font-size: 0.88em;
+            line-height: 1.55;
+            color: #6b5b3e;
+            background: #fdf9f0;
+            font-style: italic;
+            border-left: 2px solid #c9a96e;
+        }
+
+        .parallel-table td.diff-cell-none {
+            font-size: 0.85em;
+            color: #bbb;
+            background: #fdf9f0;
+            border-left: 2px solid #c9a96e;
+            text-align: center;
+        }
+
+        /* ── Inline cross-references (inside verse cell) ── */
+        .verse-crossrefs {
+            font-style: italic;
+            font-size: 0.8em;
+            color: #aaa;
+            margin-left: 6px;
+            line-height: 1.5;
+        }
+        .xref-link {
+            color: #8a9fae;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.15s;
+        }
+        .xref-link:hover {
+            color: #5b7e9e;
+            text-decoration: underline;
+        }
+
+        /* ── Cross-reference preview panel ─────────────── */
+        .xref-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+            background: #faf9f5;
+            border: 1px solid #e0d8c8;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+        .xref-panel.visible {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .xref-panel-inner {
+            padding: 16px 20px;
+        }
+        .xref-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .xref-panel-ref {
+            font-weight: 600;
+            color: #3d5a73;
+            font-size: 1.05em;
+        }
+        .xref-panel-close {
+            background: none;
+            border: none;
+            font-size: 1.3em;
+            color: #999;
+            cursor: pointer;
+            padding: 2px 6px;
+        }
+        .xref-panel-close:hover {
+            color: #333;
+        }
+        .xref-panel-verse {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        .xref-panel-label {
+            font-weight: 600;
+            color: #5b7e9e;
+            font-size: 0.85em;
+            margin-right: 6px;
+        }
+        .xref-panel-link {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.85em;
+            color: #5b7e9e;
+        }
+
+        /* ── Inline difference highlighting ─────────────── */
+        .diff-word {
+            text-decoration: underline dotted #c9a96e;
+            text-underline-offset: 3px;
         }
 
         /* ── Commentary blocks ──────────────────────────── */
@@ -180,45 +284,633 @@
         }
 
         /* ── Comparison section ─────────────────────────── */
-        .comparison {
-            margin-top: 20px;
-            padding: 30px 35px;
+        .comparison-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .comparison-card {
+            padding: 25px 30px;
             background: #fff;
             border-left: 4px solid #c9a96e;
             border-radius: 0 6px 6px 0;
             box-shadow: 0 1px 4px rgba(0,0,0,0.06);
         }
 
-        .comparison h3 {
+        .comparison-card h3 {
             font-size: 1.15em;
             font-weight: bold;
             color: #6b5b3e;
-            margin: 28px 0 12px 0;
+            margin: 0 0 12px 0;
             font-family: 'Helvetica Neue', Arial, sans-serif;
         }
 
-        .comparison h3:first-child {
-            margin-top: 0;
-        }
-
-        .comparison p {
+        .comparison-card p {
             font-size: 0.98em;
             line-height: 1.75;
             color: #3a3a3a;
             margin-bottom: 12px;
         }
 
-        .comparison strong {
+        .comparison-card strong {
             color: #2c2c2c;
+        }
+
+        /* ── Interlinear section ────────────────────────── */
+        .interlinear-verse {
+            margin-bottom: 8px;
+        }
+
+        .interlinear-verse summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: #5b7e9e;
+            font-size: 0.95em;
+            padding: 6px 0;
+            list-style: none;
+        }
+
+        .interlinear-verse summary::before {
+            content: "▸ ";
+            color: #c9a96e;
+        }
+
+        .interlinear-verse[open] summary::before {
+            content: "▾ ";
+        }
+
+        .interlinear-layout {
+            display: grid;
+            grid-template-columns: 1fr 20fr;
+            gap: 20px;
+            margin: 8px 0 16px 0;
+        }
+
+        .interlinear-esv {
+            font-size: 0.95em;
+            line-height: 1.75;
+            color: #3a3a3a;
+            padding: 10px 16px;
+            background: #fdfcf8;
+            border-radius: 4px;
+            border-left: 3px solid #c9a96e;
+            align-self: start;
+        }
+
+        .interlinear-esv .esv-label {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.78em;
+            font-weight: bold;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .interlinear-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0 16px 0;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-radius: 4px;
+            overflow: hidden;
+            font-size: 0.9em;
+        }
+
+        .interlinear-table th {
+            background: #f0ebe0;
+            color: #6b5b3e;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.85em;
+            font-weight: bold;
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #d4c9a8;
+        }
+
+        .interlinear-table td {
+            padding: 6px 12px;
+            border-bottom: 1px solid #f0ece3;
+            vertical-align: top;
+        }
+
+        .interlinear-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .interlinear-table tr:hover td {
+            background: #fdfcf8;
+        }
+
+        .original-text {
+            font-size: 1.3em;
+            line-height: 1.4;
+        }
+
+        .original-text.hebrew {
+            direction: rtl;
+            font-family: 'SBL Hebrew', 'Ezra SIL', 'Times New Roman', serif;
+        }
+
+        .original-text.greek {
+            font-family: 'SBL Greek', 'Gentium Plus', 'Times New Roman', serif;
+        }
+
+        .strongs-num {
+            font-family: monospace;
+            font-size: 0.85em;
+            color: #8b6914;
+            background: #fdf6e3;
+            padding: 1px 5px;
+            border-radius: 3px;
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+        .strongs-num:hover {
+            background: #f5eacc;
+            text-decoration: underline;
+        }
+
+        .strongs-def {
+            font-size: 0.88em;
+            color: #666;
+            font-style: italic;
+        }
+
+        .transliteration {
+            color: #888;
+            font-style: italic;
+        }
+
+        /* ── Topics & themes (header-level) ────────────── */
+        .header-topics {
+            text-align: center;
+            margin: 0 auto 12px auto;
+        }
+
+        .header-topics-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 6px;
+            max-height: 58px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            position: relative;
+            padding-right: 65px;
+        }
+
+        .header-topics-row.expanded {
+            overflow: visible;
+            padding-right: 0;
+        }
+
+        .topics-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 0.78em;
+            padding: 2px 14px;
+            background: #fafaf7;
+            color: #999;
+            border: 1px dashed #ccc;
+            border-radius: 12px;
+            font-style: italic;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            transition: color 0.2s, border-color 0.2s;
+            position: absolute;
+            bottom: 2px;
+            right: 0;
+        }
+
+        .topics-toggle:hover {
+            color: #6b5b3e;
+            border-color: #c9a96e;
+        }
+
+        .topics-toggle.visible {
+            display: inline-block;
+        }
+
+        .header-topics-row.expanded .topics-toggle {
+            position: static;
+            background: none;
+        }
+
+        .header-topics-label {
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 2px;
+        }
+
+        .theme-tag {
+            display: inline-block;
+            font-size: 0.78em;
+            padding: 2px 9px;
+            background: #e8f0fe;
+            color: #1a56db;
+            border-radius: 12px;
+            white-space: nowrap;
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+        .theme-tag:hover {
+            background: #d0e2fc;
+        }
+
+        .topic-tag {
+            display: inline-block;
+            font-size: 0.78em;
+            padding: 2px 9px;
+            background: #f0f5e8;
+            color: #3d7317;
+            border-radius: 12px;
+            white-space: nowrap;
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+        .topic-tag:hover {
+            background: #e0ebd0;
+        }
+
+        /* ── Places section ─────────────────────────────── */
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 15px 0 30px 0;
+        }
+
+        .place-card {
+            padding: 20px 24px;
+            background: #fff;
+            border-left: 4px solid #6a9b68;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .place-name {
+            font-size: 1.05em;
+            font-weight: bold;
+            color: #2d6a2d;
+            margin-bottom: 4px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .place-type {
+            font-size: 0.82em;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .place-description {
+            font-size: 0.92em;
+            line-height: 1.65;
+            color: #3a3a3a;
+            margin-bottom: 8px;
+        }
+
+        .place-coords {
+            font-size: 0.8em;
+            color: #aaa;
+            font-family: monospace;
+        }
+
+        .place-refs {
+            font-size: 0.82em;
+            color: #6a9b68;
+            margin-top: 6px;
+        }
+
+        /* ── Cross-references section ──────────────────── */
+        .crossrefs-container {
+            margin: 15px 0 30px 0;
+        }
+
+        .crossrefs-verse {
+            margin-bottom: 14px;
+            padding: 12px 20px;
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .crossrefs-verse-ref {
+            font-weight: bold;
+            color: #5b7e9e;
+            font-size: 0.9em;
+            margin-bottom: 6px;
+        }
+
+        .crossref-tag {
+            display: inline-block;
+            font-size: 0.84em;
+            padding: 3px 10px;
+            background: #f5f0e8;
+            color: #8b6914;
+            border-radius: 12px;
+            margin: 2px 4px 2px 0;
+            white-space: nowrap;
         }
 
         /* ── Print styles ───────────────────────────────── */
         @media print {
             body { background: #fff; padding: 15px; }
-            .parallel-table, .commentary, .comparison { box-shadow: none; }
+            .parallel-table, .commentary, .comparison-card,
+            .place-card, .topics-verse, .crossrefs-verse { box-shadow: none; }
             .parallel-table th { position: static; }
             .page-break { page-break-before: always; }
             h2 { margin-top: 20px; }
+            .interlinear-verse { break-inside: avoid; }
+        }
+
+        /* ── Interactive verse expansion ────────────── */
+        .verse-cell-clickable {
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .verse-cell-clickable:hover {
+            background: #f5f0e0 !important;
+        }
+
+        #expanded-view {
+            display: none;
+            margin: 20px 0;
+        }
+
+        #expanded-view.active {
+            display: block;
+        }
+
+        .expanded-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .expanded-title {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #6b5b3e;
+        }
+
+        .expanded-close {
+            background: #f7f3eb;
+            border: 1px solid #d4c9a8;
+            color: #6b5b3e;
+            font-size: 1.3em;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .expanded-close:hover {
+            background: #ebe3d1;
+        }
+
+        .expanded-panel {
+            display: grid;
+            grid-template-columns: 1fr 10fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .expanded-text {
+            font-size: 1.15em;
+            line-height: 1.8;
+            color: #2c2c2c;
+            padding: 20px 24px;
+            background: #fff;
+            border-left: 4px solid #c9a96e;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 20px;
+        }
+
+        #expanded-view.active .expanded-text {
+            animation: slideInLeft 0.35s ease both;
+        }
+
+        #expanded-view.active .expanded-interlinear {
+            animation: slideInRight 0.35s ease both;
+            animation-delay: 0.08s;
+        }
+
+        #expanded-view.closing .expanded-text {
+            animation: slideOutLeft 0.25s ease both;
+        }
+
+        #expanded-view.closing .expanded-interlinear {
+            animation: slideOutRight 0.25s ease both;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideOutLeft {
+            from { opacity: 1; transform: translateX(0); }
+            to   { opacity: 0; transform: translateX(-50px); }
+        }
+
+        @keyframes slideOutRight {
+            from { opacity: 1; transform: translateX(0); }
+            to   { opacity: 0; transform: translateX(50px); }
+        }
+
+        .expanded-text .text-label {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.7em;
+            font-weight: bold;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        /* Table exit / enter animations */
+        .parallel-table {
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .parallel-table.collapsing {
+            opacity: 0;
+            transform: translateY(-15px);
+            pointer-events: none;
+        }
+
+        .parallel-table.collapsed {
+            display: none;
+        }
+
+        .parallel-table.entering {
+            animation: tableEnter 0.3s ease both;
+        }
+
+        @keyframes tableEnter {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .click-hint {
+            text-align: center;
+            font-size: 0.82em;
+            color: #bbb;
+            font-style: italic;
+            margin: 8px 0 0 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .click-hint.collapsing {
+            opacity: 0;
+        }
+
+        .click-hint.collapsed {
+            display: none;
+        }
+
+        /* ── Chapter navigation ────────────────────── */
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 12px 0 16px 0;
+            font-size: 0.9em;
+        }
+        .chapter-nav a {
+            color: #5b7e9e;
+            text-decoration: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+        .chapter-nav a:hover {
+            background: #f0f0f0;
+            text-decoration: underline;
+        }
+        .nav-prev::before { content: "\2190\00a0"; }
+        .nav-next::after  { content: "\00a0\2192"; }
+        .nav-current {
+            color: #888;
+            font-weight: 500;
+        }
+        .nav-spacer {
+            width: 120px;
+        }
+        .nav-tools {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .nav-tools a {
+            color: #5b7e9e;
+            text-decoration: none;
+            font-size: 0.85em;
+            padding: 3px 8px;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+        .nav-tools a:hover { background: #f0f0f0; }
+        .bookmark-btn {
+            background: none;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 3px 10px;
+            font-size: 0.85em;
+            color: #5b7e9e;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .bookmark-btn:hover { background: #f0f0f0; }
+        .bookmark-btn.active {
+            background: #fff3b0;
+            border-color: #c9a96e;
+            color: #8a6d3b;
+        }
+        .verse-num-cell {
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.15s;
+            border-radius: 3px;
+        }
+        .verse-num-cell:hover {
+            background: #f5f0e0;
+        }
+        .verse-row-highlighted {
+            background: #fffde7 !important;
+        }
+
+        /* ── Chapter context expansion ─────────────── */
+        .expand-chapter {
+            text-align: center;
+            margin: 4px 0 0 0;
+        }
+        .expand-chapter button {
+            background: none;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 6px 18px;
+            font-size: 0.85em;
+            color: #5b7e9e;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .expand-chapter button:hover {
+            background: #f0f0f0;
+            border-color: #bbb;
+        }
+        .expand-chapter .arrow {
+            display: inline-block;
+            transition: transform 0.25s ease;
+        }
+        .expand-chapter.expanded .arrow {
+            transform: rotate(180deg);
+        }
+        .context-table {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .context-table.visible {
+            max-height: none;
+        }
+        .context-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .context-table td {
+            padding: 10px 14px;
+            border: 1px solid #e0d8c8;
+            vertical-align: top;
+            color: #777;
+            font-style: italic;
+        }
+        .context-table .verse-num-cell {
+            text-align: center;
+            font-style: normal;
         }
     </style>
 </head>
@@ -226,10 +918,223 @@
 
 <h1>Romans 8:28</h1>
 <div class="subtitle">NT &middot; Romans (Book 45 of 66)</div>
+<nav class="chapter-nav">
+  <a href="lookup_Romans_7.html" class="nav-prev">Romans 7</a>
+  <span class="nav-current">Romans 8</span>
+  <span class="nav-tools">
+    <a href="search.html">Search</a>
+    <a href="bookmarks.html">Bookmarks</a>
+    <button class="bookmark-btn" id="bookmark-btn"      title="Bookmark this page">Bookmark</button>
+  </span>
+  <a href="lookup_Romans_9.html" class="nav-next">Romans 9</a>
+</nav>
+<div class="header-topics">
+<div class="header-topics-row">
+  <span class="header-topics-label">Themes:</span>
+  <a href="theme.html?id=4019" class="theme-tag">life, believers' experience of</a>
+  <a href="theme.html?id=8738" class="theme-tag">evil, victory over</a>
+  <button class="topics-toggle">more</button>
+</div>
+<div class="header-topics-row">
+  <span class="header-topics-label">Topics:</span>
+  <a href="topic.html?t=accidents" class="topic-tag">accidents</a>
+  <a href="topic.html?t=adhd" class="topic-tag">adhd</a>
+  <a href="topic.html?t=adulthood" class="topic-tag">adulthood</a>
+  <a href="topic.html?t=adults" class="topic-tag">adults</a>
+  <a href="topic.html?t=adventure" class="topic-tag">adventure</a>
+  <a href="topic.html?t=adversity" class="topic-tag">adversity</a>
+  <a href="topic.html?t=affliction" class="topic-tag">affliction</a>
+  <a href="topic.html?t=anger%20self%20control" class="topic-tag">anger self control</a>
+  <a href="topic.html?t=ankh" class="topic-tag">ankh</a>
+  <a href="topic.html?t=automobiles" class="topic-tag">automobiles</a>
+  <a href="topic.html?t=awesome%20god" class="topic-tag">awesome god</a>
+  <a href="topic.html?t=bad%20day" class="topic-tag">bad day</a>
+  <a href="topic.html?t=bad%20days" class="topic-tag">bad days</a>
+  <a href="topic.html?t=bad%20things" class="topic-tag">bad things</a>
+  <a href="topic.html?t=bad%20things%20that%20happen%20to%20good%20people" class="topic-tag">bad things that happen to good people</a>
+  <a href="topic.html?t=being%20a%20blessing%20to%20others" class="topic-tag">being a blessing to others</a>
+  <a href="topic.html?t=being%20a%20stepmom" class="topic-tag">being a stepmom</a>
+  <a href="topic.html?t=being%20anxious" class="topic-tag">being anxious</a>
+  <a href="topic.html?t=being%20delayed" class="topic-tag">being delayed</a>
+  <a href="topic.html?t=being%20depressed" class="topic-tag">being depressed</a>
+  <a href="topic.html?t=being%20discouraged" class="topic-tag">being discouraged</a>
+  <a href="topic.html?t=being%20helpful" class="topic-tag">being helpful</a>
+  <a href="topic.html?t=being%20kind%20and%20helpful" class="topic-tag">being kind and helpful</a>
+  <a href="topic.html?t=being%20lucky" class="topic-tag">being lucky</a>
+  <a href="topic.html?t=believing%20in%20christ" class="topic-tag">believing in christ</a>
+  <a href="topic.html?t=blaming%20others" class="topic-tag">blaming others</a>
+  <a href="topic.html?t=boys" class="topic-tag">boys</a>
+  <a href="topic.html?t=brave" class="topic-tag">brave</a>
+  <a href="topic.html?t=broken%20relationships" class="topic-tag">broken relationships</a>
+  <a href="topic.html?t=building%20monuments" class="topic-tag">building monuments</a>
+  <a href="topic.html?t=called%20by%20god" class="topic-tag">called by god</a>
+  <a href="topic.html?t=calling" class="topic-tag">calling</a>
+  <a href="topic.html?t=careers" class="topic-tag">careers</a>
+  <a href="topic.html?t=cast%20your%20cares" class="topic-tag">cast your cares</a>
+  <a href="topic.html?t=certain%20topics" class="topic-tag">certain topics</a>
+  <a href="topic.html?t=chance" class="topic-tag">chance</a>
+  <a href="topic.html?t=chi" class="topic-tag">chi</a>
+  <a href="topic.html?t=choice" class="topic-tag">choice</a>
+  <a href="topic.html?t=chosen" class="topic-tag">chosen</a>
+  <a href="topic.html?t=christian%20liberty" class="topic-tag">christian liberty</a>
+  <a href="topic.html?t=colors%20of%20the%20rainbow" class="topic-tag">colors of the rainbow</a>
+  <a href="topic.html?t=comfort%20the%20dying" class="topic-tag">comfort the dying</a>
+  <a href="topic.html?t=controlling%20our%20emotions" class="topic-tag">controlling our emotions</a>
+  <a href="topic.html?t=coping" class="topic-tag">coping</a>
+  <a href="topic.html?t=dealing%20with%20death%20of%20parent" class="topic-tag">dealing with death of parent</a>
+  <a href="topic.html?t=death%20of%20a%20friend" class="topic-tag">death of a friend</a>
+  <a href="topic.html?t=death%20of%20a%20loved%20one" class="topic-tag">death of a loved one</a>
+  <a href="topic.html?t=decree" class="topic-tag">decree</a>
+  <a href="topic.html?t=design" class="topic-tag">design</a>
+  <a href="topic.html?t=desires%20of%20your%20heart" class="topic-tag">desires of your heart</a>
+  <a href="topic.html?t=despair" class="topic-tag">despair</a>
+  <a href="topic.html?t=destiny" class="topic-tag">destiny</a>
+  <a href="topic.html?t=difficult" class="topic-tag">difficult</a>
+  <a href="topic.html?t=disappointment" class="topic-tag">disappointment</a>
+  <a href="topic.html?t=disappointments" class="topic-tag">disappointments</a>
+  <a href="topic.html?t=discontent" class="topic-tag">discontent</a>
+  <a href="topic.html?t=do%20not%20give%20up" class="topic-tag">do not give up</a>
+  <a href="topic.html?t=doing%20for%20others" class="topic-tag">doing for others</a>
+  <a href="topic.html?t=dont%20give%20up" class="topic-tag">dont give up</a>
+  <a href="topic.html?t=dont%20hide%20your%20light" class="topic-tag">dont hide your light</a>
+  <a href="topic.html?t=draw%20me%20close%20to%20you" class="topic-tag">draw me close to you</a>
+  <a href="topic.html?t=election" class="topic-tag">election</a>
+  <a href="topic.html?t=elevation" class="topic-tag">elevation</a>
+  <a href="topic.html?t=emotions" class="topic-tag">emotions</a>
+  <a href="topic.html?t=endurance" class="topic-tag">endurance</a>
+  <a href="topic.html?t=endure" class="topic-tag">endure</a>
+  <a href="topic.html?t=every%20good%20and%20perfect%20gift" class="topic-tag">every good and perfect gift</a>
+  <a href="topic.html?t=everything%20will%20be%20ok" class="topic-tag">everything will be ok</a>
+  <a href="topic.html?t=evil%20in%20the%20world" class="topic-tag">evil in the world</a>
+  <a href="topic.html?t=farewell" class="topic-tag">farewell</a>
+  <a href="topic.html?t=fate" class="topic-tag">fate</a>
+  <a href="topic.html?t=feeling%20alone" class="topic-tag">feeling alone</a>
+  <a href="topic.html?t=feeling%20sad" class="topic-tag">feeling sad</a>
+  <a href="topic.html?t=finding%20hope" class="topic-tag">finding hope</a>
+  <a href="topic.html?t=firing" class="topic-tag">firing</a>
+  <a href="topic.html?t=forgiveness%20for%20others" class="topic-tag">forgiveness for others</a>
+  <a href="topic.html?t=fretting" class="topic-tag">fretting</a>
+  <a href="topic.html?t=friends%20and%20death" class="topic-tag">friends and death</a>
+  <a href="topic.html?t=frustration" class="topic-tag">frustration</a>
+  <a href="topic.html?t=god%20calling%20people" class="topic-tag">god calling people</a>
+  <a href="topic.html?t=god%20is%20in%20control" class="topic-tag">god is in control</a>
+  <a href="topic.html?t=gods%20help" class="topic-tag">gods help</a>
+  <a href="topic.html?t=gods%20order" class="topic-tag">gods order</a>
+  <a href="topic.html?t=gods%20plan" class="topic-tag">gods plan</a>
+  <a href="topic.html?t=gods%20promises" class="topic-tag">gods promises</a>
+  <a href="topic.html?t=gods%20purpose" class="topic-tag">gods purpose</a>
+  <a href="topic.html?t=gods%20timing" class="topic-tag">gods timing</a>
+  <a href="topic.html?t=going%20to%20court" class="topic-tag">going to court</a>
+  <a href="topic.html?t=good" class="topic-tag">good</a>
+  <a href="topic.html?t=good%20intentions" class="topic-tag">good intentions</a>
+  <a href="topic.html?t=goodness" class="topic-tag">goodness</a>
+  <a href="topic.html?t=gratitude" class="topic-tag">gratitude</a>
+  <a href="topic.html?t=greatness" class="topic-tag">greatness</a>
+  <a href="topic.html?t=hard%20times" class="topic-tag">hard times</a>
+  <a href="topic.html?t=hardship" class="topic-tag">hardship</a>
+  <a href="topic.html?t=harming%20people" class="topic-tag">harming people</a>
+  <a href="topic.html?t=heartache" class="topic-tag">heartache</a>
+  <a href="topic.html?t=helping%20those%20who%20hurt" class="topic-tag">helping those who hurt</a>
+  <a href="topic.html?t=hindering" class="topic-tag">hindering</a>
+  <a href="topic.html?t=hot%20and%20cold" class="topic-tag">hot and cold</a>
+  <a href="topic.html?t=how%20to%20act" class="topic-tag">how to act</a>
+  <a href="topic.html?t=how%20to%20make%20peace" class="topic-tag">how to make peace</a>
+  <a href="topic.html?t=hugging%20in%20public" class="topic-tag">hugging in public</a>
+  <a href="topic.html?t=job%20hunting" class="topic-tag">job hunting</a>
+  <a href="topic.html?t=job%20loss" class="topic-tag">job loss</a>
+  <a href="topic.html?t=job%20security" class="topic-tag">job security</a>
+  <a href="topic.html?t=just" class="topic-tag">just</a>
+  <a href="topic.html?t=katrina" class="topic-tag">katrina</a>
+  <a href="topic.html?t=knowing%20the%20future" class="topic-tag">knowing the future</a>
+  <a href="topic.html?t=knowing%20your%20destiny" class="topic-tag">knowing your destiny</a>
+  <a href="topic.html?t=learning%20from%20mistakes" class="topic-tag">learning from mistakes</a>
+  <a href="topic.html?t=letting%20go" class="topic-tag">letting go</a>
+  <a href="topic.html?t=life%20insurance" class="topic-tag">life insurance</a>
+  <a href="topic.html?t=living%20for%20god" class="topic-tag">living for god</a>
+  <a href="topic.html?t=long%20suffering" class="topic-tag">long suffering</a>
+  <a href="topic.html?t=lost%20love" class="topic-tag">lost love</a>
+  <a href="topic.html?t=love%20lost" class="topic-tag">love lost</a>
+  <a href="topic.html?t=loving%20someone" class="topic-tag">loving someone</a>
+  <a href="topic.html?t=luck" class="topic-tag">luck</a>
+  <a href="topic.html?t=marriage%20and%20love" class="topic-tag">marriage and love</a>
+  <a href="topic.html?t=marriage%20troubles" class="topic-tag">marriage troubles</a>
+  <a href="topic.html?t=mental%20health" class="topic-tag">mental health</a>
+  <a href="topic.html?t=mental%20illness" class="topic-tag">mental illness</a>
+  <a href="topic.html?t=miscarriage" class="topic-tag">miscarriage</a>
+  <a href="topic.html?t=misfortunes" class="topic-tag">misfortunes</a>
+  <a href="topic.html?t=more%20than%20conquerors" class="topic-tag">more than conquerors</a>
+  <a href="topic.html?t=moving%20away" class="topic-tag">moving away</a>
+  <a href="topic.html?t=my%20purpose%20in%20life" class="topic-tag">my purpose in life</a>
+  <a href="topic.html?t=never%20give%20up" class="topic-tag">never give up</a>
+  <a href="topic.html?t=new%20years%20resolutions" class="topic-tag">new years resolutions</a>
+  <a href="topic.html?t=not%20fitting%20in" class="topic-tag">not fitting in</a>
+  <a href="topic.html?t=not%20giving%20up" class="topic-tag">not giving up</a>
+  <a href="topic.html?t=obstacles" class="topic-tag">obstacles</a>
+  <a href="topic.html?t=optimism" class="topic-tag">optimism</a>
+  <a href="topic.html?t=our%20purpose" class="topic-tag">our purpose</a>
+  <a href="topic.html?t=our%20worth%20to%20god" class="topic-tag">our worth to god</a>
+  <a href="topic.html?t=overcoming%20disappointment" class="topic-tag">overcoming disappointment</a>
+  <a href="topic.html?t=overcoming%20rejection" class="topic-tag">overcoming rejection</a>
+  <a href="topic.html?t=plan" class="topic-tag">plan</a>
+  <a href="topic.html?t=plans%20to%20prosper" class="topic-tag">plans to prosper</a>
+  <a href="topic.html?t=praying%20for%20the%20sick" class="topic-tag">praying for the sick</a>
+  <a href="topic.html?t=predestination" class="topic-tag">predestination</a>
+  <a href="topic.html?t=pressure" class="topic-tag">pressure</a>
+  <a href="topic.html?t=principle%20of%20god" class="topic-tag">principle of god</a>
+  <a href="topic.html?t=problems" class="topic-tag">problems</a>
+  <a href="topic.html?t=prosper" class="topic-tag">prosper</a>
+  <a href="topic.html?t=purpose" class="topic-tag">purpose</a>
+  <a href="topic.html?t=purpose%20in%20life" class="topic-tag">purpose in life</a>
+  <a href="topic.html?t=purpose%20of%20man" class="topic-tag">purpose of man</a>
+  <a href="topic.html?t=purposes" class="topic-tag">purposes</a>
+  <a href="topic.html?t=refiners%20fire" class="topic-tag">refiners fire</a>
+  <a href="topic.html?t=regret" class="topic-tag">regret</a>
+  <a href="topic.html?t=releasing%20your%20burdens%20and%20guilt" class="topic-tag">releasing your burdens and guilt</a>
+  <a href="topic.html?t=resentment" class="topic-tag">resentment</a>
+  <a href="topic.html?t=saving%20souls" class="topic-tag">saving souls</a>
+  <a href="topic.html?t=scared" class="topic-tag">scared</a>
+  <a href="topic.html?t=season%20change" class="topic-tag">season change</a>
+  <a href="topic.html?t=seeking%20gods%20will" class="topic-tag">seeking gods will</a>
+  <a href="topic.html?t=seminary" class="topic-tag">seminary</a>
+  <a href="topic.html?t=sick%20people" class="topic-tag">sick people</a>
+  <a href="topic.html?t=significance" class="topic-tag">significance</a>
+  <a href="topic.html?t=small%20things" class="topic-tag">small things</a>
+  <a href="topic.html?t=sovereignty" class="topic-tag">sovereignty</a>
+  <a href="topic.html?t=spending%20time%20with%20god" class="topic-tag">spending time with god</a>
+  <a href="topic.html?t=starting%20over%20again" class="topic-tag">starting over again</a>
+  <a href="topic.html?t=steroids" class="topic-tag">steroids</a>
+  <a href="topic.html?t=stress" class="topic-tag">stress</a>
+  <a href="topic.html?t=struggle" class="topic-tag">struggle</a>
+  <a href="topic.html?t=struggles" class="topic-tag">struggles</a>
+  <a href="topic.html?t=suffering" class="topic-tag">suffering</a>
+  <a href="topic.html?t=the%20battle%20is%20the%20lords" class="topic-tag">the battle is the lords</a>
+  <a href="topic.html?t=the%20death%20of%20a%20baby" class="topic-tag">the death of a baby</a>
+  <a href="topic.html?t=the%20emotionally%20ill" class="topic-tag">the emotionally ill</a>
+  <a href="topic.html?t=the%20marriage%20ceremony" class="topic-tag">the marriage ceremony</a>
+  <a href="topic.html?t=the%20plans%20god%20has%20for%20us" class="topic-tag">the plans god has for us</a>
+  <a href="topic.html?t=the%20purpose%20of%20life" class="topic-tag">the purpose of life</a>
+  <a href="topic.html?t=trials" class="topic-tag">trials</a>
+  <a href="topic.html?t=trials%20and%20tribulations" class="topic-tag">trials and tribulations</a>
+  <a href="topic.html?t=trouble%20in%20life" class="topic-tag">trouble in life</a>
+  <a href="topic.html?t=troubles%20and%20trials" class="topic-tag">troubles and trials</a>
+  <a href="topic.html?t=trust%20god" class="topic-tag">trust god</a>
+  <a href="topic.html?t=trusting%20god" class="topic-tag">trusting god</a>
+  <a href="topic.html?t=trusting%20in%20the%20lord" class="topic-tag">trusting in the lord</a>
+  <a href="topic.html?t=uncertainty" class="topic-tag">uncertainty</a>
+  <a href="topic.html?t=unemployment" class="topic-tag">unemployment</a>
+  <a href="topic.html?t=unhappiness%20in%20a%20marriage" class="topic-tag">unhappiness in a marriage</a>
+  <a href="topic.html?t=untimely%20death" class="topic-tag">untimely death</a>
+  <a href="topic.html?t=what%20to%20do%20when%20you%20get%20message" class="topic-tag">what to do when you get message</a>
+  <a href="topic.html?t=why%20me" class="topic-tag">why me</a>
+  <a href="topic.html?t=worry%20and%20stress" class="topic-tag">worry and stress</a>
+  <a href="topic.html?t=worrying" class="topic-tag">worrying</a>
+  <a href="topic.html?t=worrying%20about%20end%20times" class="topic-tag">worrying about end times</a>
+  <a href="topic.html?t=your%20past" class="topic-tag">your past</a>
+  <button class="topics-toggle">more</button>
+</div>
+</div>
 
 <!-- ═══════════ BIBLE TRANSLATIONS ═══════════ -->
-<h2>Bible Translations</h2>
-
 <table class="parallel-table">
 <thead>
     <tr>
@@ -237,19 +1142,258 @@
         <th>English Standard Version <span class="abbrev">(ESV)</span></th>
         <th>King James Version, Pure Cambridge Edition <span class="abbrev">(KJVPCE)</span></th>
         <th>Berean Standard Bible <span class="abbrev">(BSB)</span></th>
-        <th>New Heart English Bible <span class="abbrev">(NHEB)</span></th>
     </tr>
 </thead>
 <tbody>
-    <tr>
-        <td class="verse-num-cell">28</td>
-        <td>And we know that for those who love God all things work together for good, for those who are called according to his purpose.</td>
-        <td>And we know that all things work together for good to them that love God, to them who are the called according to his purpose.</td>
-        <td>And we know that God works all things together for the good of those who love Him, who are called according to His purpose.</td>
-        <td>We know that all things work together for good for those who love God, to those who are called according to his purpose.</td>
+    <tr id="v-28">
+        <td class="verse-num-cell" data-vnum="28">28</td>
+        <td class="verse-cell-clickable" data-verse="28" data-col="0">And we know that for those who <span class="diff-word">love God all things work together</span> for <span class="diff-word">good,</span> for those who are called according to his purpose.<span class="verse-crossrefs">cf. <a class="xref-link" data-ref="1Pe.5.10" href="#">1Pe 5:10</a>, <a class="xref-link" data-ref="Jas.1.12" href="#">Jas 1:12</a>, <a class="xref-link" data-ref="Gen.50.20" href="#">Gen 50:20</a>, <a class="xref-link" data-ref="Rom.5.3-Rom.5.5" href="#">Rom 5:3-5</a>, <a class="xref-link" data-ref="1Co.2.9" href="#">1Co 2:9</a>, <a class="xref-link" data-ref="Rom.8.35-Rom.8.39" href="#">Rom 8:35-39</a>, <a class="xref-link" data-ref="Jas.1.3-Jas.1.4" href="#">Jas 1:3-4</a>, <a class="xref-link" data-ref="Rom.8.30" href="#">Rom 8:30</a> +35 more</span></td>
+        <td class="verse-cell-clickable" data-verse="28" data-col="1">And we know that all things <span class="diff-word">work</span> together for good to them that <span class="diff-word">love God,</span> to them who are the called according to his purpose.<span class="verse-crossrefs">cf. <a class="xref-link" data-ref="1Pe.5.10" href="#">1Pe 5:10</a>, <a class="xref-link" data-ref="Jas.1.12" href="#">Jas 1:12</a>, <a class="xref-link" data-ref="Gen.50.20" href="#">Gen 50:20</a>, <a class="xref-link" data-ref="Rom.5.3-Rom.5.5" href="#">Rom 5:3-5</a>, <a class="xref-link" data-ref="1Co.2.9" href="#">1Co 2:9</a>, <a class="xref-link" data-ref="Rom.8.35-Rom.8.39" href="#">Rom 8:35-39</a>, <a class="xref-link" data-ref="Jas.1.3-Jas.1.4" href="#">Jas 1:3-4</a>, <a class="xref-link" data-ref="Rom.8.30" href="#">Rom 8:30</a> +35 more</span></td>
+        <td class="verse-cell-clickable" data-verse="28" data-col="2">And we know that <span class="diff-word">God works all things together</span> for the <span class="diff-word">good</span> of those who love Him, who are called according to His purpose.<span class="verse-crossrefs">cf. <a class="xref-link" data-ref="1Pe.5.10" href="#">1Pe 5:10</a>, <a class="xref-link" data-ref="Jas.1.12" href="#">Jas 1:12</a>, <a class="xref-link" data-ref="Gen.50.20" href="#">Gen 50:20</a>, <a class="xref-link" data-ref="Rom.5.3-Rom.5.5" href="#">Rom 5:3-5</a>, <a class="xref-link" data-ref="1Co.2.9" href="#">1Co 2:9</a>, <a class="xref-link" data-ref="Rom.8.35-Rom.8.39" href="#">Rom 8:35-39</a>, <a class="xref-link" data-ref="Jas.1.3-Jas.1.4" href="#">Jas 1:3-4</a>, <a class="xref-link" data-ref="Rom.8.30" href="#">Rom 8:30</a> +35 more</span></td>
     </tr>
 </tbody>
 </table>
+
+<div id="expanded-view"></div>
+<div class="xref-panel" id="xref-panel"></div>
+<div class="click-hint">Click any translation to explore the original language word-by-word</div>
+<div class="expand-chapter" id="expand-chapter">
+  <button onclick="toggleContext()">Show rest of chapter (39 verses) <span class="arrow">&#9660;</span></button>
+</div>
+<div class="context-table" id="context-verses">
+<table class="parallel-table">
+<tbody>
+    <tr>
+        <td class="verse-num-cell">1</td>
+        <td>There is therefore now no condemnation for those who are in Christ Jesus.</td>
+        <td class="no-content">&mdash;</td>
+        <td>Therefore, there is now no condemnation for those who are in Christ Jesus.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">2</td>
+        <td>For the law of the Spirit of life has set you free in Christ Jesus from the law of sin and death.</td>
+        <td>For the law of the Spirit of life in Christ Jesus hath made me free from the law of sin and death.</td>
+        <td>For in Christ Jesus the law of the Spirit of life set you free from the law of sin and death.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">3</td>
+        <td>For God has done what the law, weakened by the flesh, could not do. By sending his own Son in the likeness of sinful flesh and for sin, he condemned sin in the flesh,</td>
+        <td>For what the law could not do, in that it was weak through the flesh, God sending his own Son in the likeness of sinful flesh, and for sin, condemned sin in the flesh:</td>
+        <td>For what the law was powerless to do in that it was weakened by the flesh, God did by sending His own Son in the likeness of sinful man, as an offering for sin. He thus condemned sin in the flesh,</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">4</td>
+        <td>in order that the righteous requirement of the law might be fulfilled in us, who walk not according to the flesh but according to the Spirit.</td>
+        <td>That the righteousness of the law might be fulfilled in us, who walk not after the flesh, but after the Spirit.</td>
+        <td>so that the righteous standard of the law might be fulfilled in us, who do not walk according to the flesh but according to the Spirit.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">5</td>
+        <td>For those who live according to the flesh set their minds on the things of the flesh, but those who live according to the Spirit set their minds on the things of the Spirit.</td>
+        <td>For they that are after the flesh do mind the things of the flesh; but they that are after the Spirit the things of the Spirit.</td>
+        <td>Those who live according to the flesh set their minds on the things of the flesh; but those who live according to the Spirit set their minds on the things of the Spirit.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">6</td>
+        <td>For to set the mind on the flesh is death, but to set the mind on the Spirit is life and peace.</td>
+        <td>For to be carnally minded is death; but to be spiritually minded is life and peace.</td>
+        <td>The mind of the flesh is death, but the mind of the Spirit is life and peace,</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">7</td>
+        <td>For the mind that is set on the flesh is hostile to God, for it does not submit to God's law; indeed, it cannot.</td>
+        <td>Because the carnal mind is enmity against God: for it is not subject to the law of God, neither indeed can be.</td>
+        <td>because the mind of the flesh is hostile to God: It does not submit to God’s law, nor can it do so.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">8</td>
+        <td>Those who are in the flesh cannot please God.</td>
+        <td>So then they that are in the flesh cannot please God.</td>
+        <td>Those controlled by the flesh cannot please God.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">9</td>
+        <td>You, however, are not in the flesh but in the Spirit, if in fact the Spirit of God dwells in you. Anyone who does not have the Spirit of Christ does not belong to him.</td>
+        <td>But ye are not in the flesh, but in the Spirit, if so be that the Spirit of God dwell in you. Now if any man have not the Spirit of Christ, he is none of his.</td>
+        <td>You, however, are controlled not by the flesh, but by the Spirit, if the Spirit of God lives in you. And if anyone does not have the Spirit of Christ, he does not belong to Christ.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">10</td>
+        <td>But if Christ is in you, although the body is dead because of sin, the Spirit is life because of righteousness.</td>
+        <td>And if Christ be in you, the body is dead because of sin; but the Spirit is life because of righteousness.</td>
+        <td>But if Christ is in you, your body is dead because of sin, yet your spirit is alive because of righteousness.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">11</td>
+        <td>If the Spirit of him who raised Jesus from the dead dwells in you, he who raised Christ Jesus from the dead will also give life to your mortal bodies through his Spirit who dwells in you.</td>
+        <td>But if the Spirit of him that raised up Jesus from the dead dwell in you, he that raised up Christ from the dead shall also quicken your mortal bodies by his Spirit that dwelleth in you.</td>
+        <td>And if the Spirit of Him who raised Jesus from the dead is living in you, He who raised Christ Jesus from the dead will also give life to your mortal bodies through His Spirit, who lives in you.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">12</td>
+        <td>So then, brothers, we are debtors, not to the flesh, to live according to the flesh.</td>
+        <td>Therefore, brethren, we are debtors, not to the flesh, to live after the flesh.</td>
+        <td>Therefore, brothers, we have an obligation, but it is not to the flesh, to live according to it.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">13</td>
+        <td>For if you live according to the flesh you will die, but if by the Spirit you put to death the deeds of the body, you will live.</td>
+        <td>For if ye live after the flesh, ye shall die: but if ye through the Spirit do mortify the deeds of the body, ye shall live.</td>
+        <td>For if you live according to the flesh, you will die; but if by the Spirit you put to death the deeds of the body, you will live.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">14</td>
+        <td>For all who are led by the Spirit of God are sons of God.</td>
+        <td>For as many as are led by the Spirit of God, they are the sons of God.</td>
+        <td>For all who are led by the Spirit of God are sons of God.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">15</td>
+        <td>For you did not receive the spirit of slavery to fall back into fear, but you have received the Spirit of adoption as sons, by whom we cry, “Abba! Father!”</td>
+        <td>For ye have not received the spirit of bondage again to fear; but ye have received the Spirit of adoption, whereby we cry, Abba, Father.</td>
+        <td>For you did not receive a spirit of slavery that returns you to fear, but you received the Spirit of sonship, by whom we cry, “Abba! Father!”</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">16</td>
+        <td>The Spirit himself bears witness with our spirit that we are children of God,</td>
+        <td>The Spirit itself beareth witness with our spirit, that we are the children of God:</td>
+        <td>The Spirit Himself testifies with our spirit that we are God’s children.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">17</td>
+        <td>and if children, then heirs—heirs of God and fellow heirs with Christ, provided we suffer with him in order that we may also be glorified with him.</td>
+        <td>And if children, then heirs; heirs of God, and joint-heirs with Christ; if so be that we suffer with him, that we may be also glorified together.</td>
+        <td>And if we are children, then we are heirs: heirs of God and co-heirs with Christ—if indeed we suffer with Him, so that we may also be glorified with Him.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">18</td>
+        <td>For I consider that the sufferings of this present time are not worth comparing with the glory that is to be revealed to us.</td>
+        <td>For I reckon that the sufferings of this present time are not worthy to be compared with the glory which shall be revealed in us.</td>
+        <td>I consider that our present sufferings are not comparable to the glory that will be revealed in us.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">19</td>
+        <td>For the creation waits with eager longing for the revealing of the sons of God.</td>
+        <td>For the earnest expectation of the creature waiteth for the manifestation of the sons of God.</td>
+        <td>The creation waits in eager expectation for the revelation of the sons of God.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">20</td>
+        <td>For the creation was subjected to futility, not willingly, but because of him who subjected it, in hope</td>
+        <td>For the creature was made subject to vanity, not willingly, but by reason of him who hath subjected the same in hope,</td>
+        <td>For the creation was subjected to futility, not by its own will, but because of the One who subjected it, in hope</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">21</td>
+        <td>that the creation itself will be set free from its bondage to corruption and obtain the freedom of the glory of the children of God.</td>
+        <td>Because the creature itself also shall be delivered from the bondage of corruption into the glorious liberty of the children of God.</td>
+        <td>that the creation itself will be set free from its bondage to decay and brought into the glorious freedom of the children of God.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">22</td>
+        <td>For we know that the whole creation has been groaning together in the pains of childbirth until now.</td>
+        <td>For we know that the whole creation groaneth and travaileth in pain together until now.</td>
+        <td>We know that the whole creation has been groaning together in the pains of childbirth until the present time.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">23</td>
+        <td>And not only the creation, but we ourselves, who have the firstfruits of the Spirit, groan inwardly as we wait eagerly for adoption as sons, the redemption of our bodies.</td>
+        <td>And not only they, but ourselves also, which have the firstfruits of the Spirit, even we ourselves groan within ourselves, waiting for the adoption, to wit, the redemption of our body.</td>
+        <td>Not only that, but we ourselves, who have the firstfruits of the Spirit, groan inwardly as we wait eagerly for our adoption as sons, the redemption of our bodies.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">24</td>
+        <td>For in this hope we were saved. Now hope that is seen is not hope. For who hopes for what he sees?</td>
+        <td>For we are saved by hope: but hope that is seen is not hope: for what a man seeth, why doth he yet hope for?</td>
+        <td>For in this hope we were saved; but hope that is seen is no hope at all. Who hopes for what he can already see?</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">25</td>
+        <td>But if we hope for what we do not see, we wait for it with patience.</td>
+        <td>But if we hope for that we see not, then do we with patience wait for it.</td>
+        <td>But if we hope for what we do not yet see, we wait for it patiently.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">26</td>
+        <td>Likewise the Spirit helps us in our weakness. For we do not know what to pray for as we ought, but the Spirit himself intercedes for us with groanings too deep for words.</td>
+        <td>Likewise the Spirit also helpeth our infirmities: for we know not what we should pray for as we ought: but the Spirit itself maketh intercession for us with groanings which cannot be uttered.</td>
+        <td>In the same way, the Spirit helps us in our weakness. For we do not know how we ought to pray, but the Spirit Himself intercedes for us with groans too deep for words.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">27</td>
+        <td>And he who searches hearts knows what is the mind of the Spirit, because the Spirit intercedes for the saints according to the will of God.</td>
+        <td>And he that searcheth the hearts knoweth what is the mind of the Spirit, because he maketh intercession for the saints according to the will of God.</td>
+        <td>And He who searches our hearts knows the mind of the Spirit, because the Spirit intercedes for the saints according to the will of God.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">29</td>
+        <td>For those whom he foreknew he also predestined to be conformed to the image of his Son, in order that he might be the firstborn among many brothers.</td>
+        <td>For whom he did foreknow, he also did predestinate to be conformed to the image of his Son, that he might be the firstborn among many brethren.</td>
+        <td>For those God foreknew, He also predestined to be conformed to the image of His Son, so that He would be the firstborn among many brothers.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">30</td>
+        <td>And those whom he predestined he also called, and those whom he called he also justified, and those whom he justified he also glorified.</td>
+        <td>Moreover whom he did predestinate, them he also called: and whom he called, them he also justified: and whom he justified, them he also glorified.</td>
+        <td>And those He predestined, He also called; those He called, He also justified; those He justified, He also glorified.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">31</td>
+        <td>What then shall we say to these things? If God is for us, who can be against us?</td>
+        <td>What shall we then say to these things? If God be for us, who can be against us?</td>
+        <td>What then shall we say in response to these things? If God is for us, who can be against us?</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">32</td>
+        <td>He who did not spare his own Son but gave him up for us all, how will he not also with him graciously give us all things?</td>
+        <td>He that spared not his own Son, but delivered him up for us all, how shall he not with him also freely give us all things?</td>
+        <td>He who did not spare His own Son but gave Him up for us all, how will He not also, along with Him, freely give us all things?</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">33</td>
+        <td>Who shall bring any charge against God's elect? It is God who justifies.</td>
+        <td>Who shall lay any thing to the charge of God’s elect? It is God that justifieth.</td>
+        <td>Who will bring any charge against God’s elect? It is God who justifies.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">34</td>
+        <td>Who is to condemn? Christ Jesus is the one who died—more than that, who was raised—who is at the right hand of God, who indeed is interceding for us.</td>
+        <td>Who is he that condemneth? It is Christ that died, yea rather, that is risen again, who is even at the right hand of God, who also maketh intercession for us.</td>
+        <td>Who is there to condemn us? For Christ Jesus, who died, and more than that was raised to life, is at the right hand of God—and He is interceding for us.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">35</td>
+        <td>Who shall separate us from the love of Christ? Shall tribulation, or distress, or persecution, or famine, or nakedness, or danger, or sword?</td>
+        <td>Who shall separate us from the love of Christ? shall tribulation, or distress, or persecution, or famine, or nakedness, or peril, or sword?</td>
+        <td>Who shall separate us from the love of Christ? Shall trouble or distress or persecution or famine or nakedness or danger or sword?</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">36</td>
+        <td>As it is written, “For your sake we are being killed all the day long; we are regarded as sheep to be slaughtered.”</td>
+        <td>As it is written, For thy sake we are killed all the day long; we are accounted as sheep for the slaughter.</td>
+        <td>As it is written:  “For Your sake we face death all day long; we are considered as sheep to be slaughtered.”</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">37</td>
+        <td>No, in all these things we are more than conquerors through him who loved us.</td>
+        <td>Nay, in all these things we are more than conquerors through him that loved us.</td>
+        <td>No, in all these things we are more than conquerors through Him who loved us.</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">38</td>
+        <td>For I am sure that neither death nor life, nor angels nor rulers, nor things present nor things to come, nor powers,</td>
+        <td>For I am persuaded, that neither death, nor life, nor angels, nor principalities, nor powers, nor things present, nor things to come,</td>
+        <td>For I am convinced that neither death nor life, neither angels nor principalities, neither the present nor the future, nor any powers,</td>
+    </tr>
+    <tr>
+        <td class="verse-num-cell">39</td>
+        <td>nor height nor depth, nor anything else in all creation, will be able to separate us from the love of God in Christ Jesus our Lord.</td>
+        <td>Nor height, nor depth, nor any other creature, shall be able to separate us from the love of God, which is in Christ Jesus our Lord.</td>
+        <td>neither height nor depth, nor anything else in all creation, will be able to separate us from the love of God that is in Christ Jesus our Lord.</td>
+    </tr>
+</tbody>
+</table>
+</div>
 
 <div class="page-break"></div>
 
@@ -311,43 +1455,465 @@ who are the called according to his purpose. The called of God and of Jesus Chri
     <div class="no-content">No commentary available for this reference.</div>
 </div>
 
-<div class="page-break"></div>
-
-<!-- ═══════════ COMPARISON ═══════════ -->
-<h2>Commentary Comparison</h2>
-<div class="comparison">
-<h3>Points of Agreement</h3>
-
-<p>Both Jamieson-Fausset-Brown and John Gill converge on several fundamental interpretive points regarding Romans 8:28. Most significantly, <strong>both commentaries emphasize the comprehensive scope of "all things"</strong> that work together for good, rejecting any limitation to only obviously beneficial circumstances. They agree that this includes both positive and negative experiences, trials and blessings alike.</p>
-
-<p>The commentaries also share a <strong>strong emphasis on divine sovereignty</strong> as the underlying mechanism that ensures all things work for good. Jamieson-Fausset-Brown speaks of God's "eternal purpose" that cannot be thwarted, while Gill explicitly notes that "God is the efficient cause, that makes all things work together for his people's good." Both reject the notion that this working together happens by chance or natural process.</p>
-
-<p>Additionally, both commentators agree that <strong>this truth was well-established knowledge among early believers</strong>. Jamieson-Fausset-Brown describes it as a "household word" and "known thing" among believers, while Gill emphasizes that the saints "know, and are firmly persuaded of" this truth through Scripture, biblical examples, and personal experience.</p>
-
-<h3>Points of Difference</h3>
-
-<p>The most striking difference lies in <strong>scope and comprehensiveness of treatment</strong>. Gill provides an exhaustive theological analysis that systematically categorizes different types of good (temporal, spiritual, eternal) and methodically works through various categories of "all things" including good beings, evil beings, and different types of afflictions. Jamieson-Fausset-Brown, while thorough, maintains a more focused approach that emphasizes the believer's response and trust.</p>
-
-<p>Their <strong>theological emphasis</strong> also differs significantly. Jamieson-Fausset-Brown places greater weight on the <strong>experiential and emotional aspects</strong> of faith, describing how believers "learn thus to take in good part whatever He sends them" and naturally develop trust in God's love. Gill, by contrast, provides a more <strong>systematic theological framework</strong>, carefully defining terms and addressing potential objections, such as clarifying that God is not the author of sin and that believers should not use this truth as encouragement to sin.</p>
-
-<p>The commentaries also differ in their <strong>treatment of the phrase "them that love God."</strong> While both acknowledge this as a description of believers, Gill provides extensive analysis of what love to God entails, describing it as something "not naturally in men" that "is wrought in the soul in regeneration." Jamieson-Fausset-Brown treats this more briefly as a given characteristic of those who trust in God's goodness.</p>
-
-<h3>Unique Contributions</h3>
-
-<p><strong>Jamieson-Fausset-Brown</strong> offers distinctive poetic and experiential insights, particularly in their vivid imagery of God having "His way in the whirlwind" while believers see "His chariot paved with love." Their commentary uniquely emphasizes the <strong>psychological and spiritual process</strong> by which believers come to trust God's providence, describing it as a natural outgrowth of understanding God's love demonstrated in giving His Son.</p>
-
-<p><strong>John Gill</strong> provides unparalleled systematic comprehensiveness, offering what amounts to a mini-treatise on providence and theodicy. His unique contributions include: detailed taxonomies of different types of good and different categories of "all things"; careful theological qualifications about God's relationship to sin; extensive treatment of how even original sin and actual sins work for good; and fascinating rabbinic parallels, including the story of Nahum "the man Gamzu" who said of every misfortune, "this is also for good."</p>
-
-<p>Gill also uniquely addresses <strong>textual variants</strong>, noting alternative manuscript readings that make God the explicit subject: "one copy reads, 'God works together', or 'causes all things to work together for good.'"</p>
-
-<h3>Historical & Theological Context</h3>
-
-<p>The commentaries reflect different eras and theological emphases within Protestant interpretation. <strong>Jamieson-Fausset-Brown</strong>, representing 19th-century Scottish Presbyterian scholarship, demonstrates the influence of Reformed experiential theology with its emphasis on the believer's inner experience and assurance. Their approach reflects a pastoral concern for how believers actually experience and appropriate this truth emotionally and spiritually.</p>
-
-<p><strong>John Gill</strong>, as an 18th-century English Particular Baptist, brings a distinctly systematic theological approach characteristic of high Calvinist scholasticism. His exhaustive categorizations and careful theological distinctions reflect the Baptist emphasis on precise doctrinal formulation and his own background in both Christian and Jewish learning, evident in his rabbinic citations.</p>
-
-<p>Both commentaries emerge from <strong>strongly Reformed theological traditions</strong> that emphasize divine sovereignty, but they represent different approaches within that tradition—Jamieson-Fausset-Brown leaning toward experiential application and Gill toward systematic exposition. The absence of Matthew Henry's commentary (which would typically offer more practical, devotional insights) and the Tyndale notes leaves these two as representing the more academic end of the interpretive spectrum, though with notably different scholarly styles and concerns.</p>
+<!-- ═══════════ ORIGINAL LANGUAGE ═══════════ -->
+<h2>Original Language</h2>
+<details class="interlinear-verse">
+<summary>Verse 28 (16 words)</summary>
+<div class="interlinear-layout">
+<div class="interlinear-esv">
+  <div class="esv-label">ESV</div>
+  And we know that for those who love God all things work together for good, for those who are called according to his purpose.
 </div>
+<table class="interlinear-table">
+<thead><tr><th>English</th><th>Greek</th><th>Transliteration</th><th>Strong's</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td>we know</td><td class="original-text greek">οἴδαμεν</td><td class="transliteration">eídō</td><td><a href="word.html?s=G1492" class="strongs-num">G1492</a></td><td class="strongs-def">used only in certain past tenses, the others being borrowed from the equivalent
+
+
+and
+
+
+; properly, to see (literally...</td></tr>
+<tr><td>And</td><td class="original-text greek">δὲ</td><td class="transliteration">dé</td><td><a href="word.html?s=G1161" class="strongs-num">G1161</a></td><td class="strongs-def">but, and, etc.</td></tr>
+<tr><td>to them that</td><td class="original-text greek">ὅτι</td><td class="transliteration">hóti</td><td><a href="word.html?s=G3754" class="strongs-num">G3754</a></td><td class="strongs-def">demonstrative, that (sometimes redundant); causative, because</td></tr>
+<tr><td></td><td class="original-text greek">τοῖς</td><td class="transliteration">ho</td><td><a href="word.html?s=G3588" class="strongs-num">G3588</a></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
+<tr><td>love</td><td class="original-text greek">ἀγαπῶσιν</td><td class="transliteration">agapáō</td><td><a href="word.html?s=G25" class="strongs-num">G25</a></td><td class="strongs-def">to love (in a social or moral sense)</td></tr>
+<tr><td></td><td class="original-text greek">τὸν</td><td class="transliteration">ho</td><td><a href="word.html?s=G3588" class="strongs-num">G3588</a></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
+<tr><td>God</td><td class="original-text greek">θεὸν</td><td class="transliteration">theós</td><td><a href="word.html?s=G2316" class="strongs-num">G2316</a></td><td class="strongs-def">figuratively, a magistrate; by Hebraism, very</td></tr>
+<tr><td>that all things</td><td class="original-text greek">πάντα</td><td class="transliteration">pâs</td><td><a href="word.html?s=G3956" class="strongs-num">G3956</a></td><td class="strongs-def">all, any, every, the whole</td></tr>
+<tr><td>work together</td><td class="original-text greek">συνεργεῖ</td><td class="transliteration">synergéō</td><td><a href="word.html?s=G4903" class="strongs-num">G4903</a></td><td class="strongs-def">to be a fellow-worker, i.e. co-operate</td></tr>
+<tr><td>for</td><td class="original-text greek">εἰς</td><td class="transliteration">eis</td><td><a href="word.html?s=G1519" class="strongs-num">G1519</a></td><td class="strongs-def">to or into (indicating the point reached or entered), of place, time, or (figuratively) purpose (result, etc.); also ...</td></tr>
+<tr><td>good</td><td class="original-text greek">ἀγαθόν</td><td class="transliteration">agathós</td><td><a href="word.html?s=G18" class="strongs-num">G18</a></td><td class="strongs-def">&quot;good&quot; (in any sense, often as noun)</td></tr>
+<tr><td></td><td class="original-text greek">τοῖς</td><td class="transliteration">ho</td><td><a href="word.html?s=G3588" class="strongs-num">G3588</a></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
+<tr><td>according</td><td class="original-text greek">κατὰ</td><td class="transliteration">katá</td><td><a href="word.html?s=G2596" class="strongs-num">G2596</a></td><td class="strongs-def">(prepositionally) down (in place or time), in varied relations (according to the case (genitive, dative or accusative...</td></tr>
+<tr><td>to his purpose</td><td class="original-text greek">πρόθεσιν</td><td class="transliteration">próthesis</td><td><a href="word.html?s=G4286" class="strongs-num">G4286</a></td><td class="strongs-def">a setting forth, i.e. (figuratively) proposal (intention); specially, the show-bread (in the Temple) as exposed befor...</td></tr>
+<tr><td>the called</td><td class="original-text greek">κλητοῖς</td><td class="transliteration">klētós</td><td><a href="word.html?s=G2822" class="strongs-num">G2822</a></td><td class="strongs-def">invited, i.e. appointed, or (specially), a saint</td></tr>
+<tr><td>to them who are</td><td class="original-text greek">οὖσιν</td><td class="transliteration">ṓn</td><td><a href="word.html?s=G5607" class="strongs-num">G5607</a></td><td class="strongs-def">being</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+
+<script type="application/json" id="verse-app-data">{"verseTexts": {"0": {"28": "And we know that for those who love God all things work together for good, for those who are called according to his purpose."}, "1": {"28": "And we know that all things work together for good to them that love God, to them who are the called according to his purpose."}, "2": {"28": "And we know that God works all things together for the good of those who love Him, who are called according to His purpose."}}, "translationNames": ["ESV", "KJVPCE", "BSB"], "interlinear": {"28": [{"text": "we know", "original": "οἴδαμεν", "strongs": "G1492"}, {"text": "And", "original": "δὲ", "strongs": "G1161"}, {"text": "to them that", "original": "ὅτι", "strongs": "G3754"}, {"text": "", "original": "τοῖς", "strongs": "G3588"}, {"text": "love", "original": "ἀγαπῶσιν", "strongs": "G25"}, {"text": "", "original": "τὸν", "strongs": "G3588"}, {"text": "God", "original": "θεὸν", "strongs": "G2316"}, {"text": "that all things", "original": "πάντα", "strongs": "G3956"}, {"text": "work together", "original": "συνεργεῖ", "strongs": "G4903"}, {"text": "for", "original": "εἰς", "strongs": "G1519"}, {"text": "good", "original": "ἀγαθόν", "strongs": "G18"}, {"text": "", "original": "τοῖς", "strongs": "G3588"}, {"text": "according", "original": "κατὰ", "strongs": "G2596"}, {"text": "to his purpose", "original": "πρόθεσιν", "strongs": "G4286"}, {"text": "the called", "original": "κλητοῖς", "strongs": "G2822"}, {"text": "to them who are", "original": "οὖσιν", "strongs": "G5607"}]}, "lexicon": {"G2596": {"translit": "katá", "definition": "(prepositionally) down (in place or time), in varied relations (according to the case (genitive, dative or accusative..."}, "G4286": {"translit": "próthesis", "definition": "a setting forth, i.e. (figuratively) proposal (intention); specially, the show-bread (in the Temple) as exposed befor..."}, "G3754": {"translit": "hóti", "definition": "demonstrative, that (sometimes redundant); causative, because"}, "G3588": {"translit": "ho", "definition": "the (sometimes to be supplied, at others omitted, in English idiom)"}, "G1519": {"translit": "eis", "definition": "to or into (indicating the point reached or entered), of place, time, or (figuratively) purpose (result, etc.); also ..."}, "G18": {"translit": "agathós", "definition": "\"good\" (in any sense, often as noun)"}, "G2822": {"translit": "klētós", "definition": "invited, i.e. appointed, or (specially), a saint"}, "G25": {"translit": "agapáō", "definition": "to love (in a social or moral sense)"}, "G2316": {"translit": "theós", "definition": "figuratively, a magistrate; by Hebraism, very"}, "G3956": {"translit": "pâs", "definition": "all, any, every, the whole"}, "G1161": {"translit": "dé", "definition": "but, and, etc."}, "G4903": {"translit": "synergéō", "definition": "to be a fellow-worker, i.e. co-operate"}, "G5607": {"translit": "ṓn", "definition": "being"}, "G1492": {"translit": "eídō", "definition": "used only in certain past tenses, the others being borrowed from the equivalent\n\n\nand\n\n\n; properly, to see (literally..."}}, "langClass": "greek", "langLabel": "Greek"}</script>
+
+<script>
+(function() {
+    var el = document.getElementById('verse-app-data');
+    if (!el) return;
+    var D = JSON.parse(el.textContent);
+
+    var table = document.querySelector('.parallel-table');
+    var expanded = document.getElementById('expanded-view');
+    var hint = document.querySelector('.click-hint');
+    if (!table || !expanded) return;
+
+    function esc(s) {
+        if (!s) return '';
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    table.addEventListener('click', function(e) {
+        var cell = e.target.closest('.verse-cell-clickable');
+        if (!cell) return;
+
+        var vnum  = cell.dataset.verse;
+        var col   = cell.dataset.col;
+        var name  = D.translationNames[col] || '';
+        var text  = (D.verseTexts[col] || {})[vnum] || '';
+        var words = D.interlinear[vnum] || [];
+
+        var h = '<div class="expanded-header">'
+              + '<div class="expanded-title">' + esc(name)
+              + ' &mdash; Verse ' + esc(vnum) + '</div>'
+              + '<button class="expanded-close" '
+              + 'title="Back to translations">'
+              + '&times;</button></div>'
+              + '<div class="expanded-panel">';
+
+        h += '<div class="expanded-text">'
+           + '<div class="text-label">' + esc(name) + '</div>'
+           + esc(text) + '</div>';
+
+        h += '<div class="expanded-interlinear">';
+        if (words.length) {
+            h += '<table class="interlinear-table"><thead><tr>'
+               + '<th>English</th><th>' + esc(D.langLabel) + '</th>'
+               + '<th>Transliteration</th><th>Strong\'s</th>'
+               + '<th>Definition</th></tr></thead><tbody>';
+            for (var i = 0; i < words.length; i++) {
+                var w = words[i];
+                var lx = D.lexicon[w.strongs] || {};
+                h += '<tr>'
+                   + '<td>' + esc(w.text) + '</td>'
+                   + '<td class="original-text ' + D.langClass + '">'
+                   + esc(w.original) + '</td>'
+                   + '<td class="transliteration">'
+                   + esc(lx.translit || '') + '</td>';
+                h += w.strongs
+                   ? '<td><a href="word.html?s=' + encodeURIComponent(w.strongs) + '" class="strongs-num">'
+                     + esc(w.strongs) + '</a></td>'
+                   : '<td></td>';
+                h += '<td class="strongs-def">'
+                   + esc(lx.definition || '') + '</td></tr>';
+            }
+            h += '</tbody></table>';
+        } else {
+            h += '<div class="no-content">'
+               + 'No interlinear data available for this verse.</div>';
+        }
+        h += '</div></div>';
+
+        expanded.innerHTML = h;
+
+        /* Animate: table slides out, then expanded view slides in */
+        table.classList.add('collapsing');
+        if (hint) hint.classList.add('collapsing');
+
+        setTimeout(function() {
+            table.classList.add('collapsed');
+            table.classList.remove('collapsing');
+            if (hint) { hint.classList.add('collapsed'); hint.classList.remove('collapsing'); }
+            expanded.classList.add('active');
+            expanded.querySelector('.expanded-close')
+                    .addEventListener('click', closeExpanded);
+            expanded.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }, 250);
+    });
+
+    function closeExpanded() {
+        /* Animate: expanded panels slide out, then table slides back in */
+        expanded.classList.add('closing');
+
+        setTimeout(function() {
+            expanded.classList.remove('active');
+            expanded.classList.remove('closing');
+            expanded.innerHTML = '';
+            table.classList.remove('collapsed');
+            table.classList.add('entering');
+            if (hint) { hint.classList.remove('collapsed'); }
+            table.scrollIntoView({behavior: 'smooth', block: 'start'});
+            setTimeout(function() { table.classList.remove('entering'); }, 300);
+        }, 250);
+    }
+})();
+
+/* ── Chapter context expansion ─────────────────── */
+function toggleContext() {
+    var panel = document.getElementById('context-verses');
+    var wrap  = document.getElementById('expand-chapter');
+    if (!panel) return;
+    if (panel.classList.contains('visible')) {
+        panel.classList.remove('visible');
+        panel.style.maxHeight = '';
+        wrap.classList.remove('expanded');
+    } else {
+        panel.classList.add('visible');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        wrap.classList.add('expanded');
+    }
+}
+
+/* ── Cross-reference inline preview ────────────── */
+(function() {
+    var xrefPanel = document.getElementById('xref-panel');
+    var links = document.querySelectorAll('.xref-link');
+    if (!xrefPanel || !links.length) return;
+
+    /* Cache fetched book data so we only download each book once */
+    var bookCache = {};
+    var isFileProtocol = location.protocol === 'file:';
+
+    /* Translation labels matching BIBLE_ORDER in the Python script */
+    var LABELS = ['ESV', 'KJV', 'BSB'];
+    var KEYS   = ['esv', 'kjv', 'bsb'];
+
+    /* Parse an OSIS ref like "Rom.5.8" into {abbrev, chapter, verse}.
+       For ranges like "Rom.5.8-Rom.5.10", returns start only. */
+    function parseRef(ref) {
+        var parts = ref.split('-')[0].split('.');
+        return {abbrev: parts[0], chapter: parseInt(parts[1]), verse: parseInt(parts[2])};
+    }
+
+    /* Build the lookup page filename for a reference */
+    function lookupUrl(ref) {
+        var p = parseRef(ref);
+        /* Find the book's full name from bible-meta if loaded,
+           otherwise use the abbreviation as-is */
+        return 'lookup_' + p.abbrev + '_' + p.chapter + '.html';
+    }
+
+    /* Convert OSIS ref to readable: "Rom.5.8" -> "Romans 5:8" */
+    function readableRef(ref) {
+        var parts = ref.split('.');
+        if (parts.length === 3) return parts[0] + ' ' + parts[1] + ':' + parts[2];
+        if (parts.length === 2) return parts[0] + ' ' + parts[1];
+        return ref;
+    }
+
+    function esc(s) {
+        var d = document.createElement('div');
+        d.textContent = s;
+        return d.innerHTML;
+    }
+
+    function showPanel(ref) {
+        var parsed = parseRef(ref);
+        var dataUrl = 'data/verses/' + parsed.abbrev + '.json';
+
+        /* If file:// protocol, fetch won't work — show link instead */
+        if (isFileProtocol) {
+            var h = '<div class="xref-panel-inner">'
+                  + '<div class="xref-panel-header">'
+                  + '<span class="xref-panel-ref">' + esc(readableRef(ref)) + '</span>'
+                  + '<button class="xref-panel-close" onclick="closeXref()">&times;</button>'
+                  + '</div>'
+                  + '<p style="color:#888;font-style:italic">Inline preview requires a '
+                  + 'web server. <a href="' + lookupUrl(ref) + '">Open full page &rarr;</a></p>'
+                  + '</div>';
+            xrefPanel.innerHTML = h;
+            xrefPanel.classList.add('visible');
+            xrefPanel.style.maxHeight = xrefPanel.scrollHeight + 'px';
+            return;
+        }
+
+        /* Check cache first */
+        if (bookCache[parsed.abbrev]) {
+            renderVerse(bookCache[parsed.abbrev], ref);
+            return;
+        }
+
+        /* Show loading state */
+        xrefPanel.innerHTML = '<div class="xref-panel-inner">'
+            + '<span style="color:#888;font-style:italic">Loading...</span></div>';
+        xrefPanel.classList.add('visible');
+        xrefPanel.style.maxHeight = '60px';
+
+        fetch(dataUrl)
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                bookCache[parsed.abbrev] = data;
+                renderVerse(data, ref);
+            })
+            .catch(function() {
+                xrefPanel.innerHTML = '<div class="xref-panel-inner">'
+                    + '<span style="color:#c44">Could not load verse data.</span>'
+                    + ' <a href="' + lookupUrl(ref) + '">Open full page &rarr;</a></div>';
+                xrefPanel.style.maxHeight = xrefPanel.scrollHeight + 'px';
+            });
+    }
+
+    function renderVerse(bookData, ref) {
+        var parsed = parseRef(ref);
+        /* Handle ranges: "Rom.5.8-Rom.5.10" means verses 8,9,10 */
+        var rangeParts = ref.split('-');
+        var startV = parsed.verse;
+        var endV = startV;
+        if (rangeParts.length > 1) {
+            var endParts = rangeParts[1].split('.');
+            endV = parseInt(endParts[endParts.length - 1]);
+        }
+
+        /* Find the chapter in the book data */
+        var chData = null;
+        for (var i = 0; i < bookData.chapters.length; i++) {
+            if (bookData.chapters[i].chapter === parsed.chapter) {
+                chData = bookData.chapters[i];
+                break;
+            }
+        }
+
+        var h = '<div class="xref-panel-inner">'
+              + '<div class="xref-panel-header">'
+              + '<span class="xref-panel-ref">' + esc(readableRef(ref)) + '</span>'
+              + '<button class="xref-panel-close" onclick="closeXref()">&times;</button>'
+              + '</div>';
+
+        if (!chData) {
+            h += '<p style="color:#888">Verse data not available.</p>';
+        } else {
+            for (var v = startV; v <= endV; v++) {
+                /* Find this verse in the chapter */
+                var verseData = null;
+                for (var j = 0; j < chData.verses.length; j++) {
+                    if (chData.verses[j].verse === v) {
+                        verseData = chData.verses[j];
+                        break;
+                    }
+                }
+                if (!verseData) continue;
+
+                var vLabel = (startV !== endV) ? ' (v' + v + ')' : '';
+                for (var k = 0; k < KEYS.length; k++) {
+                    var text = verseData[KEYS[k]] || '';
+                    if (text) {
+                        h += '<div class="xref-panel-verse">'
+                           + '<span class="xref-panel-label">' + LABELS[k] + vLabel + '</span>'
+                           + esc(text) + '</div>';
+                    }
+                }
+            }
+        }
+
+        h += '<a class="xref-panel-link" href="' + lookupUrl(ref)
+           + '">Open full page &rarr;</a></div>';
+
+        xrefPanel.innerHTML = h;
+        xrefPanel.classList.add('visible');
+        xrefPanel.style.maxHeight = xrefPanel.scrollHeight + 'px';
+    }
+
+    /* Attach click handlers to all cross-ref links */
+    for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();  /* Don't trigger the verse-cell interlinear */
+            var ref = this.getAttribute('data-ref');
+            if (ref) showPanel(ref);
+        });
+    }
+})();
+
+/* Global close function (called by the ✕ button in the panel) */
+function closeXref() {
+    var p = document.getElementById('xref-panel');
+    if (p) {
+        p.classList.remove('visible');
+        p.style.maxHeight = '';
+    }
+}
+
+/* ── Topics / Themes overflow toggle ────────────── */
+(function() {
+    var toggles = document.querySelectorAll('.topics-toggle');
+    for (var i = 0; i < toggles.length; i++) {
+        var btn = toggles[i];
+        var row = btn.parentElement;
+        if (!row) continue;
+
+        /* Show button only if content overflows the 2-line cap */
+        if (row.scrollHeight > row.clientHeight + 2) {
+            btn.classList.add('visible');
+        }
+
+        btn.addEventListener('click', (function(b, r) {
+            return function() {
+                if (r.classList.contains('expanded')) {
+                    r.style.maxHeight = '';
+                    r.classList.remove('expanded');
+                    b.textContent = 'more';
+                } else {
+                    r.classList.add('expanded');
+                    r.style.maxHeight = r.scrollHeight + 'px';
+                    b.textContent = 'less';
+                }
+            };
+        })(btn, row));
+    }
+})();
+</script>
+
+<nav class="chapter-nav">
+  <a href="lookup_Romans_7.html" class="nav-prev">Romans 7</a>
+  <span class="nav-current">Romans 8</span>
+  <a href="lookup_Romans_9.html" class="nav-next">Romans 9</a>
+</nav>
+
+<script>
+(function() {
+    var PAGE_KEY = "lookup_Rom_8.html";
+    var PAGE_TITLE = "Romans 8";
+
+    /* ── Bookmark toggle ─────────────────────────── */
+    var bmBtn = document.getElementById('bookmark-btn');
+    if (bmBtn) {
+        var bookmarks = [];
+        try { bookmarks = JSON.parse(localStorage.getItem('bible-bookmarks') || '[]'); }
+        catch(e) { bookmarks = []; }
+
+        function isBookmarked() {
+            for (var i = 0; i < bookmarks.length; i++) {
+                if (bookmarks[i].href === PAGE_KEY) return true;
+            }
+            return false;
+        }
+
+        function updateBtn() {
+            if (isBookmarked()) {
+                bmBtn.textContent = 'Bookmarked';
+                bmBtn.classList.add('active');
+            } else {
+                bmBtn.textContent = 'Bookmark';
+                bmBtn.classList.remove('active');
+            }
+        }
+
+        bmBtn.addEventListener('click', function() {
+            if (isBookmarked()) {
+                bookmarks = bookmarks.filter(function(b) { return b.href !== PAGE_KEY; });
+            } else {
+                var d = new Date();
+                bookmarks.push({
+                    href: PAGE_KEY,
+                    title: PAGE_TITLE,
+                    date: d.toISOString().slice(0,10)
+                });
+            }
+            localStorage.setItem('bible-bookmarks', JSON.stringify(bookmarks));
+            updateBtn();
+        });
+
+        updateBtn();
+    }
+
+    /* ── Verse highlight toggle ──────────────────── */
+    var highlights = [];
+    try {
+        var allHL = JSON.parse(localStorage.getItem('bible-highlights') || '{}');
+        highlights = allHL[PAGE_KEY] || [];
+    } catch(e) { highlights = []; }
+
+    function saveHighlights() {
+        var allHL = {};
+        try { allHL = JSON.parse(localStorage.getItem('bible-highlights') || '{}'); }
+        catch(e) { allHL = {}; }
+        if (highlights.length > 0) {
+            allHL[PAGE_KEY] = highlights;
+        } else {
+            delete allHL[PAGE_KEY];
+        }
+        localStorage.setItem('bible-highlights', JSON.stringify(allHL));
+    }
+
+    function applyHighlights() {
+        for (var i = 0; i < highlights.length; i++) {
+            var row = document.getElementById('v-' + highlights[i]);
+            if (row) row.classList.add('verse-row-highlighted');
+        }
+    }
+
+    /* Click handler on verse number cells */
+    document.addEventListener('click', function(e) {
+        var cell = e.target.closest('.verse-num-cell[data-vnum]');
+        if (!cell) return;
+        var vnum = cell.getAttribute('data-vnum');
+        var row = document.getElementById('v-' + vnum);
+        if (!row) return;
+
+        var idx = highlights.indexOf(vnum);
+        if (idx === -1) {
+            highlights.push(vnum);
+            row.classList.add('verse-row-highlighted');
+        } else {
+            highlights.splice(idx, 1);
+            row.classList.remove('verse-row-highlighted');
+        }
+        saveHighlights();
+    });
+
+    applyHighlights();
+})();
+</script>
 
 </body>
 </html>
