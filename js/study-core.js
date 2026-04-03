@@ -1,11 +1,18 @@
 /* study-core.js — Shared utilities for Bible study tool pages */
 
-/* Cache for fetched JSON files */
+/* Cache for fetched JSON files.
+   Pages opened from file:// can pre-populate this via _inlineData
+   so that fetch() (which is blocked on file://) is never called. */
 var _fetchCache = {};
+var _inlineData = window._inlineData || {};
 
 /* Fetch JSON with caching and error handling */
 function fetchJSON(url) {
     if (_fetchCache[url]) return _fetchCache[url];
+    if (_inlineData[url]) {
+        _fetchCache[url] = Promise.resolve(_inlineData[url]);
+        return _fetchCache[url];
+    }
     _fetchCache[url] = fetch(url)
         .then(function(r) {
             if (!r.ok) throw new Error('HTTP ' + r.status);

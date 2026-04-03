@@ -451,6 +451,7 @@ function closeXref() {
         questions:    '?',
         places:       '⚑',
         hymns:        '♫',
+        liturgical:   '☼',
         commentary:   '✎',
         original:     'α'
     };
@@ -594,6 +595,25 @@ function closeXref() {
         });
     });
 
+    /* ── 3b. Expandable hymn cards (lyrics only) ──────────── */
+
+    /* Click-to-expand only on cards that have lyrics */
+    document.querySelectorAll('.hymn-card[data-has-lyrics]').forEach(function(card) {
+        var header = card.querySelector('.hymn-card-header');
+        var body = card.querySelector('.hymn-card-body');
+        if (!header || !body) return;
+
+        header.addEventListener('click', function(e) {
+            if (e.target.closest('a') || e.target.closest('button')) return;
+
+            card.classList.toggle('hymn-card-open');
+            var wrapper = card.closest('.section-content');
+            if (wrapper && !wrapper.classList.contains('collapsed')) {
+                wrapper.style.maxHeight = 'none';
+            }
+        });
+    });
+
     /* ── 4. Back-to-top button ───────────────────────────── */
     var topBtn = document.getElementById('back-to-top');
     if (topBtn) {
@@ -645,5 +665,351 @@ function closeXref() {
                 track.appendChild(tick);
             });
         }
+    }
+})();
+
+/* ── Script block 5: Liturgical Season section ── */
+
+(function() {
+    var sec = document.getElementById('liturgical-section');
+    if (!sec) {
+        sec = document.querySelector('section[data-nav="liturgical"]');
+    }
+    if (!sec) return;
+
+    var bookAbbrev = sec.getAttribute('data-book-abbrev') || '';
+    var chapter = parseInt(sec.getAttribute('data-chapter'), 10) || 0;
+
+    var COLOR_MAP = {
+        advent: 'purple', christmas: 'gold', epiphany: 'gold',
+        lent: 'purple', holy_week: 'red', easter: 'gold',
+        ascension: 'gold', pentecost: 'red', ordinary: 'green'
+    };
+
+    /* ── Helpers ── */
+    function esc(s) {
+        var d = document.createElement('div');
+        d.textContent = s || '';
+        return d.innerHTML;
+    }
+
+    function litLookupUrl(ref) {
+        var p = ref.split('-')[0].split('.');
+        if (p.length >= 2) return 'lookup_' + p[0] + '_' + p[1] + '.html';
+        return '#';
+    }
+
+    /* ── Easter / liturgical season detection ── */
+    /* Duplicated from study-core.js — lookup pages don't load that file */
+    function getCurrentSeason() {
+        var today = new Date();
+        var y = today.getFullYear();
+        var m = today.getMonth() + 1;
+        var d = today.getDate();
+        var doy = dayOfYear(m, d, y);
+
+        function easterDoy(yr) {
+            var a = yr % 19, b = Math.floor(yr / 100), c = yr % 100;
+            var dd = Math.floor(b / 4), e = b % 4;
+            var f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3);
+            var h = (19 * a + b - dd - g + 15) % 30;
+            var i = Math.floor(c / 4), k = c % 4;
+            var l = (32 + 2 * e + 2 * i - h - k) % 7;
+            var mm = Math.floor((a + 11 * h + 22 * l) / 451);
+            var em = Math.floor((h + l - 7 * mm + 114) / 31);
+            var ed = ((h + l - 7 * mm + 114) % 31) + 1;
+            return dayOfYear(em, ed, yr);
+        }
+
+        function dayOfYear(mm, dd, yr) {
+            var days = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            if (yr % 4 === 0 && (yr % 100 !== 0 || yr % 400 === 0)) days[2] = 29;
+            var t = 0;
+            for (var i = 1; i < mm; i++) t += days[i];
+            return t + dd;
+        }
+
+        var dec25doy = dayOfYear(12, 25, y);
+        var dec24dow = new Date(y, 11, 24).getDay();
+        var daysBack = (dec24dow + 1) % 7;
+        var advent4 = dec25doy - 1 - daysBack;
+        var adventStart = advent4 - 21;
+
+        var easter = easterDoy(y);
+        var ashWed = easter - 46;
+        var palmSun = easter - 7;
+        var ascension = easter + 39;
+        var pentecost = easter + 49;
+
+        if (doy >= adventStart && doy <= dec25doy - 1) return 'advent';
+        if (doy >= dec25doy || doy <= 5) return 'christmas';
+        if (doy >= 6 && doy < ashWed) return 'epiphany';
+        if (doy >= ashWed && doy < palmSun) return 'lent';
+        if (doy >= palmSun && doy < easter) return 'holy_week';
+        if (doy >= easter && doy < ascension) return 'easter';
+        if (doy >= ascension && doy < pentecost) return 'ascension';
+        if (doy >= pentecost && doy < pentecost + 7) return 'pentecost';
+        return 'ordinary';
+    }
+
+    /* ── Date formatting ── */
+    var MONTHS = ['January','February','March','April','May','June',
+                  'July','August','September','October','November','December'];
+
+    function formatDate(d) {
+        return MONTHS[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+    }
+
+    function formatDateRange(seasonsData, seasonKey) {
+        var ranges = seasonsData._dateRanges;
+        if (!ranges || !ranges[seasonKey]) return '';
+        var now = new Date();
+        var year = now.getFullYear();
+        var entries = ranges[seasonKey];
+        for (var i = 0; i < entries.length; i++) {
+            if (entries[i].year === year || entries[i].year === year + 1) {
+                var start = new Date(entries[i].start + 'T00:00:00');
+                var end = new Date(entries[i].end + 'T00:00:00');
+                return formatDate(start) + ' \u2013 ' + formatDate(end);
+            }
+        }
+        if (entries.length > 0) {
+            var s = new Date(entries[0].start + 'T00:00:00');
+            var e = new Date(entries[0].end + 'T00:00:00');
+            return formatDate(s) + ' \u2013 ' + formatDate(e);
+        }
+        return '';
+    }
+
+    /* ── Check if a reading's OSIS ref covers our chapter ── */
+    function readingMatchesChapter(ref) {
+        var parts = ref.split('-');
+        var startParts = parts[0].split('.');
+        if (startParts.length < 2) return false;
+        var startBook = startParts[0];
+        var startCh = parseInt(startParts[1], 10);
+        if (startBook !== bookAbbrev) return false;
+        if (startCh === chapter) return true;
+        if (parts.length > 1) {
+            var endPart = parts[1].split('.');
+            var endCh;
+            if (endPart.length >= 2) {
+                endCh = parseInt(endPart[0], 10);
+            } else {
+                endCh = startCh;
+            }
+            if (chapter >= startCh && chapter <= endCh) return true;
+        }
+        return false;
+    }
+
+    /* ── Render: season banner ── */
+    function renderBanner(season, seasonKey, dateStr, isCurrent) {
+        var colorCls = 'lit-color-' + (COLOR_MAP[seasonKey] || 'green');
+        var h = '<div class="' + colorCls + '">';
+        h += '<div class="lit-banner">';
+        h += '<div class="lit-banner-top">';
+        h += '<span class="lit-banner-name">' + esc(season.name) + '</span>';
+        if (isCurrent) {
+            h += ' <span class="lit-banner-badge">Current Season</span>';
+        }
+        h += '</div>';
+        if (dateStr) {
+            h += '<div class="lit-banner-dates">' + esc(dateStr) + '</div>';
+        }
+        h += '<div class="lit-banner-desc">' + esc(season.description) + '</div>';
+        h += '</div></div>';
+        return h;
+    }
+
+    /* ── Render: chapter-season connection ── */
+    function renderConnection(season, readings) {
+        var matches = [];
+        for (var i = 0; i < readings.length; i++) {
+            if (readingMatchesChapter(readings[i].ref)) {
+                matches.push(readings[i]);
+            }
+        }
+        if (matches.length === 0) return '';
+        var h = '<div class="lit-connection">';
+        h += '<span class="lit-connection-icon">\u2731</span> ';
+        h += 'This chapter is a featured reading for <strong>'
+            + esc(season.name) + '</strong>: ';
+        for (var j = 0; j < matches.length; j++) {
+            if (j > 0) h += '; ';
+            h += '<strong>' + esc(matches[j].label) + '</strong>';
+            if (matches[j].note) {
+                h += ' \u2014 <em>' + esc(matches[j].note) + '</em>';
+            }
+        }
+        h += '</div>';
+        return h;
+    }
+
+    /* ── Render: scripture readings ── */
+    function renderReadings(season) {
+        var readings = season.readings || [];
+        if (readings.length === 0) return '';
+        var h = '<h3 class="lit-sub-header">Scripture Readings for '
+            + esc(season.name) + '</h3>';
+        h += '<ul class="lit-readings-list">';
+        for (var i = 0; i < readings.length; i++) {
+            var r = readings[i];
+            var isCurrent = readingMatchesChapter(r.ref);
+            h += '<li class="lit-reading'
+                + (isCurrent ? ' lit-reading-current' : '') + '">';
+            h += '<a href="' + litLookupUrl(r.ref) + '">'
+                + esc(r.label) + '</a>';
+            if (r.note) {
+                h += '<span class="lit-reading-note">'
+                    + esc(r.note) + '</span>';
+            }
+            h += '</li>';
+        }
+        h += '</ul>';
+        return h;
+    }
+
+    /* ── Render: prayers ── */
+    function renderPrayers(allPrayers, seasonKey) {
+        var filtered = [];
+        for (var i = 0; i < allPrayers.length; i++) {
+            var p = allPrayers[i];
+            if (p.s && p.s.indexOf(seasonKey) !== -1) {
+                filtered.push(p);
+            }
+        }
+        if (filtered.length === 0) return '';
+        filtered.sort(function(a, b) { return a.s.length - b.s.length; });
+
+        var MAX_SHOW = 5;
+        var showing = filtered.slice(0, MAX_SHOW);
+        var h = '<h3 class="lit-sub-header">Prayers &amp; Collects</h3>';
+        for (var j = 0; j < showing.length; j++) {
+            var pr = showing[j];
+            h += '<details class="lit-prayer">';
+            h += '<summary>' + esc(pr.ti);
+            if (pr.ty) {
+                h += '<span class="lit-prayer-type">'
+                    + esc(pr.ty) + '</span>';
+            }
+            h += '</summary>';
+            h += '<div class="lit-prayer-body">';
+            h += '<div class="lit-prayer-text">'
+                + esc(pr.tx) + '</div>';
+            if (pr.src) {
+                h += '<div class="lit-prayer-source">'
+                    + esc(pr.src) + '</div>';
+            }
+            h += '</div></details>';
+        }
+        if (filtered.length > MAX_SHOW) {
+            h += '<a class="lit-more" href="seasonal.html?s='
+                + seasonKey + '">View all ' + filtered.length
+                + ' prayers \u2192</a>';
+        }
+        return h;
+    }
+
+    /* ── Render: hymns (from embedded compact lookup) ── */
+    function renderHymns(hymnLookup, litData, seasonKey, seasonName) {
+        var seasonNums = (litData.index && litData.index[seasonKey]) || [];
+        if (seasonNums.length === 0) return '';
+
+        var MAX_SHOW = 6;
+        var showing = seasonNums.slice(0, MAX_SHOW);
+        var h = '<h3 class="lit-sub-header">Hymns for '
+            + esc(seasonName) + '</h3>';
+        h += '<ul class="lit-hymn-list">';
+        for (var j = 0; j < showing.length; j++) {
+            var hym = hymnLookup[showing[j]];
+            if (!hym) continue;
+            h += '<li class="lit-hymn-item">';
+            h += '<span class="lit-hymn-num">#' + showing[j] + '</span>';
+            h += '<a class="lit-hymn-title" href="hymn.html?n='
+                + showing[j] + '">' + esc(hym.fl) + '</a>';
+            if (hym.a) {
+                h += '<span class="lit-hymn-author">'
+                    + esc(hym.a) + '</span>';
+            }
+            h += '</li>';
+        }
+        h += '</ul>';
+        if (seasonNums.length > MAX_SHOW) {
+            h += '<a class="lit-more" href="seasonal.html?s='
+                + seasonKey + '">View all ' + seasonNums.length
+                + ' hymns \u2192</a>';
+        }
+        return h;
+    }
+
+    /* ── Render: related Bible themes ── */
+    function renderThemes(themeList) {
+        if (!themeList || themeList.length === 0) return '';
+        var h = '<h3 class="lit-sub-header">Related Bible Themes</h3>';
+        h += '<div class="lit-themes-wrap">';
+        for (var i = 0; i < themeList.length; i++) {
+            var t = themeList[i];
+            h += '<a class="lit-theme-tag" '
+                + 'href="theme.html?id=' + t.id + '">'
+                + esc(t.title)
+                + '<span class="lit-theme-count"> ('
+                + t.count + ')</span></a>';
+        }
+        h += '</div>';
+        return h;
+    }
+
+    /* ── Main: read embedded data and render ── */
+    var dataEl = document.getElementById('liturgical-data');
+    if (!dataEl) return;
+
+    var bundle;
+    try {
+        bundle = JSON.parse(dataEl.textContent);
+    } catch (e) {
+        return;
+    }
+
+    var seasonsData = bundle.seasons || {};
+    var prayers = bundle.prayers || [];
+    var litData = bundle.litIndex || {};
+    var hymnLookup = bundle.hymns || {};
+    var themeList = bundle.themes || [];
+
+    var seasonKey = getCurrentSeason();
+    var season = seasonsData[seasonKey];
+    if (!season) {
+        var el = sec.querySelector('.lit-loading');
+        if (el) el.textContent = 'Season data not found.';
+        return;
+    }
+
+    var dateStr = formatDateRange(seasonsData, seasonKey);
+
+    var html = '';
+    html += renderBanner(season, seasonKey, dateStr, true);
+    html += renderConnection(season, season.readings || []);
+    html += renderReadings(season);
+    html += renderPrayers(prayers, seasonKey);
+    html += renderHymns(hymnLookup, litData, seasonKey, season.name);
+    html += renderThemes(
+        (bundle.seasonThemes && bundle.seasonThemes[seasonKey]) || []);
+    html += '<a class="lit-explore" href="seasonal.html?s='
+        + seasonKey + '">Explore ' + esc(season.name)
+        + ' in depth \u2192</a>';
+
+    var wrapper = sec.querySelector('.section-content');
+    if (wrapper) {
+        wrapper.innerHTML = html;
+        if (!wrapper.classList.contains('collapsed')) {
+            wrapper.style.maxHeight = 'none';
+        }
+    } else {
+        var loading = sec.querySelector('.lit-loading');
+        if (loading) loading.remove();
+        var div = document.createElement('div');
+        div.innerHTML = html;
+        while (div.firstChild) sec.appendChild(div.firstChild);
     }
 })();

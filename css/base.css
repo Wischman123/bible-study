@@ -19,6 +19,24 @@
     --color-border: #eee;
     --color-hymn: #7a3b4e;
 
+    /* ── Surfaces & cards ─────────────────────────── */
+    --color-surface: #fff;
+    --color-surface-alt: #f7f3eb;
+    --color-surface-hover: #fdfcf8;
+    --color-shadow: rgba(0,0,0,0.06);
+
+    /* ── Text tiers ───────────────────────────────── */
+    --color-text-strong: #1a1a1a;
+    --color-text: #2c2c2c;
+    --color-text-secondary: #555;
+    --color-text-tertiary: #888;
+    --color-text-faint: #aaa;
+
+    /* ── Commentary ────────────────────────────────── */
+    --color-diff-bg: #fdf9f0;
+    --color-diff-text: #6b5b3e;
+    --color-diff-border: #c9a96e;
+
     /* ── Typography ────────────────────────────────── */
     --font-body: 'Georgia', 'Times New Roman', serif;
     --line-height: 1.7;

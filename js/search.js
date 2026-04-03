@@ -1,6 +1,5 @@
 (function() {
     var TRANSLATIONS = {kjv: 'KJV', bsb: 'BSB'};
-    var MAX_VISIBLE = 100;
     var BATCH_SIZE = 100;
 
     var contentEl = document.getElementById('content');
@@ -12,8 +11,9 @@
     for (var key in TRANSLATIONS) {
         formHtml += '<option value="' + key + '">' + TRANSLATIONS[key] + '</option>';
     }
-    formHtml += '</select>'
-        + '<input type="text" id="search-input" placeholder="Search the Bible...">'
+    formHtml += '<option value="hymns">Hymns</option>'
+        + '</select>'
+        + '<input type="text" id="search-input" placeholder="Search the Bible or hymns...">'
         + '<button id="search-btn">Search</button></div>';
 
     document.getElementById('info-card').innerHTML = formHtml;
@@ -26,7 +26,7 @@
     /* Read URL params if present */
     var qParam = getUrlParam('q');
     var tParam = getUrlParam('t');
-    if (tParam && TRANSLATIONS[tParam]) transSelect.value = tParam;
+    if (tParam && (TRANSLATIONS[tParam] || tParam === 'hymns')) transSelect.value = tParam;
     if (qParam) {
         input.value = qParam;
         doSearch();
@@ -42,11 +42,17 @@
         if (!query) return;
 
         var trans = transSelect.value;
-        var url = 'data/search/search-' + trans + '.json';
 
         /* Update URL without reload */
         var newUrl = 'search.html?q=' + encodeURIComponent(query) + '&t=' + trans;
         history.replaceState(null, '', newUrl);
+
+        if (trans === 'hymns') {
+            doHymnSearch(query);
+            return;
+        }
+
+        var url = 'data/search/search-' + trans + '.json';
 
         contentEl.innerHTML = '<p class="loading">Loading ' + TRANSLATIONS[trans]
             + ' text...</p>';
@@ -65,7 +71,7 @@
             if (results.length === 0) {
                 statusEl.textContent = 'No results for "' + query + '" in '
                     + TRANSLATIONS[trans];
-                contentEl.innerHTML = '<p style="color:#888;font-style:italic">'
+                contentEl.innerHTML = '<p style="color:var(--color-text-tertiary);font-style:italic">'
                     + 'No matching verses found.</p>';
                 return;
             }
@@ -78,6 +84,54 @@
 
         }).catch(function(err) {
             contentEl.innerHTML = '<p class="error">Error loading search data: '
+                + esc(String(err)) + '</p>';
+        });
+    }
+
+    function doHymnSearch(query) {
+        contentEl.innerHTML = '<p class="loading">Searching hymns...</p>';
+        statusEl.textContent = '';
+
+        fetchJSON('data/hymns.json').then(function(hymns) {
+            var qLower = query.toLowerCase();
+            var results = [];
+
+            for (var i = 0; i < hymns.length; i++) {
+                var h = hymns[i];
+                var searchable = [h.fl, h.t, h.a, h.tc, (h.tp || []).join(' '),
+                                  (h.l || []).join(' ')].join(' ').toLowerCase();
+                if (searchable.indexOf(qLower) !== -1) {
+                    results.push(h);
+                }
+            }
+
+            if (results.length === 0) {
+                statusEl.textContent = 'No hymns matching "' + query + '"';
+                contentEl.innerHTML = '<p style="color:var(--color-text-tertiary);font-style:italic">'
+                    + 'No matching hymns found.</p>';
+                return;
+            }
+
+            statusEl.textContent = results.length + ' hymn'
+                + (results.length !== 1 ? 's' : '') + ' matching "' + query + '"';
+
+            var html = '<ul class="hymn-list">';
+            for (var j = 0; j < results.length; j++) {
+                var h = results[j];
+                html += '<li class="hymn-list-item">'
+                    + '<span class="hymn-list-num">' + h.n + '</span>'
+                    + '<a class="hymn-list-title" href="hymn.html?n=' + h.n + '">'
+                    + highlightMatch(h.fl || '', query) + '</a>'
+                    + '<span class="hymn-list-meta">';
+                if (h.t) html += highlightMatch(h.t, query);
+                if (h.a) html += ' \u00b7 ' + highlightMatch(h.a, query);
+                html += '</span></li>';
+            }
+            html += '</ul>';
+            contentEl.innerHTML = html;
+
+        }).catch(function(err) {
+            contentEl.innerHTML = '<p class="error">Error loading hymn data: '
                 + esc(String(err)) + '</p>';
         });
     }

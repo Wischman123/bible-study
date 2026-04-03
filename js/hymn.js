@@ -6,6 +6,19 @@
     var infoEl = document.getElementById('info-card');
     var contentEl = document.getElementById('content');
 
+    /* Convert a scripture reference string like "Psalm 23:1-6" to a
+       lookup page URL. Best-effort — falls back to # if unparseable. */
+    function scriptureToLookupUrl(ref) {
+        var chapterPart = ref.replace(/:.*$/, '').trim();
+        var parts = chapterPart.split(' ');
+        var chNum = parts.pop();
+        if (!/^\d+$/.test(chNum)) return '#';
+        var bookName = parts.join(' ');
+        if (!bookName) return '#';
+        var slug = bookName.replace(/ /g, '_');
+        return 'lookup_' + slug + '_' + chNum + '.html';
+    }
+
     if (!hymnNum) {
         /* ── Browse mode: list all hymns ── */
         document.title = 'Hymn Explorer \u2014 The Sing! Hymnal';
@@ -57,19 +70,135 @@
                 var html = countHtml + '<ul class="hymn-list">';
                 for (var i = 0; i < sorted.length; i++) {
                     var h = sorted[i];
-                    html += '<li class="hymn-list-item">'
+                    html += '<li class="hymn-list-item-wrap" data-hymn-idx="' + i + '">'
+                        + '<div class="hymn-list-item">'
                         + '<span class="hymn-list-num">' + h.n + '</span>'
-                        + '<a class="hymn-list-title" href="hymn.html?n='
-                        + h.n + '">' + esc(h.fl) + '</a>'
+                        + '<span class="hymn-list-title">' + esc(h.fl) + '</span>'
                         + '<span class="hymn-list-meta">'
                         + esc(h.t || '');
                     if (h.a) {
                         html += ' \u00b7 ' + esc(h.a);
                     }
-                    html += '</span></li>';
+                    html += '</span>'
+                        + '<span class="hymn-list-arrow">\u25B6</span>'
+                        + '</div>'
+                        + '<div class="hymn-list-expand"></div>'
+                        + '</li>';
                 }
                 html += '</ul>';
                 contentEl.innerHTML = html;
+
+                /* Attach expand handlers */
+                contentEl.querySelectorAll('.hymn-list-item-wrap').forEach(function(wrap) {
+                    var header = wrap.querySelector('.hymn-list-item');
+                    header.addEventListener('click', function() {
+                        var wasOpen = wrap.classList.contains('open');
+                        if (wasOpen) {
+                            wrap.classList.remove('open');
+                            return;
+                        }
+                        wrap.classList.add('open');
+                        var panel = wrap.querySelector('.hymn-list-expand');
+                        if (panel.dataset.loaded) return;
+                        panel.dataset.loaded = '1';
+                        var idx = parseInt(wrap.dataset.hymnIdx);
+                        var h = sorted[idx];
+                        renderExpandPanel(panel, h);
+                    });
+                });
+            }
+
+            function renderExpandPanel(panel, h) {
+                var html = '<div class="hymn-expand-content">';
+
+                /* Info rows */
+                if (h.a) {
+                    html += '<div class="hymn-expand-row">'
+                        + '<span class="hymn-expand-label">Author</span>'
+                        + '<span>' + esc(h.a);
+                    if (h.y) html += ' (' + h.y + ')';
+                    html += '</span></div>';
+                }
+                if (h.t) {
+                    html += '<div class="hymn-expand-row">'
+                        + '<span class="hymn-expand-label">Tune</span>'
+                        + '<span>' + esc(h.t) + '</span></div>';
+                }
+                if (h.tc) {
+                    html += '<div class="hymn-expand-row">'
+                        + '<span class="hymn-expand-label">Composer</span>'
+                        + '<span>' + esc(h.tc) + '</span></div>';
+                }
+                if (h.m) {
+                    html += '<div class="hymn-expand-row">'
+                        + '<span class="hymn-expand-label">Meter</span>'
+                        + '<span>' + esc(h.m) + '</span></div>';
+                }
+
+                /* Scripture references */
+                if (h.sr && h.sr.length > 0) {
+                    html += '<div class="hymn-expand-row">'
+                        + '<span class="hymn-expand-label">Scripture</span>'
+                        + '<span>';
+                    for (var s = 0; s < h.sr.length; s++) {
+                        if (s > 0) html += ', ';
+                        html += '<a href="' + scriptureToLookupUrl(h.sr[s]) + '">'
+                            + esc(h.sr[s]) + '</a>';
+                    }
+                    html += '</span></div>';
+                }
+
+                /* Topics */
+                if (h.tp && h.tp.length > 0) {
+                    html += '<div class="hymn-expand-tags">';
+                    for (var t = 0; t < h.tp.length; t++) {
+                        html += '<span class="hymn-expand-tag">' + esc(h.tp[t]) + '</span>';
+                    }
+                    html += '</div>';
+                }
+
+                /* Audio placeholder */
+                html += '<div class="hymn-expand-audio" data-n="' + h.n + '"></div>';
+
+                /* Lyrics */
+                if (h.l && h.l.length > 0) {
+                    html += '<div class="hymn-expand-lyrics">';
+                    for (var v = 0; v < h.l.length; v++) {
+                        html += '<p><strong>' + (v + 1) + '.</strong> '
+                            + esc(h.l[v]) + '</p>';
+                    }
+                    html += '<div class="hymn-expand-src">Public domain text via Open Hymnal Project</div>';
+                    html += '</div>';
+                }
+
+                /* Links */
+                html += '<div class="hymn-expand-links">'
+                    + '<a href="hymn.html?n=' + h.n + '">Full details page</a>';
+                if (h.url) {
+                    html += ' \u00b7 <a href="' + esc(h.url)
+                        + '" target="_blank" rel="noopener">Hymnary.org</a>';
+                }
+                html += '</div>';
+
+                html += '</div>';
+                panel.innerHTML = html;
+
+                /* Load audio */
+                var audioEl = panel.querySelector('.hymn-expand-audio');
+                fetchJSON('data/hymn-audio.json').then(function(audioData) {
+                    var audio = audioData[String(h.n)];
+                    var ah = '';
+                    if (audio && audio.mid) {
+                        ah += '<midi-player src="data/' + esc(audio.mid)
+                            + '" sound-font></midi-player>';
+                    }
+                    var q = encodeURIComponent('hymn ' + (h.fl || '') + ' ' + (h.t || ''));
+                    ah += '<a class="hymn-audio-link' + (audio && audio.mid ? ' hymn-yt-secondary' : '')
+                        + '" href="https://www.youtube.com/results?search_query=' + q
+                        + '" target="_blank" rel="noopener">'
+                        + '\u25B6 Search YouTube</a>';
+                    audioEl.innerHTML = ah;
+                }).catch(function() {});
             }
 
             function applyFilter() {
@@ -139,6 +268,10 @@
                         + 'See all ' + seasonHymns.length + ' '
                         + esc(label) + ' hymns</a></li>';
                 }
+                html += '<li class="hymn-list-item" style="justify-content:center">'
+                    + '<a href="seasonal.html?s=' + season
+                    + '" style="font-size:0.85em;color:#5b7e9e;">'
+                    + 'See all seasonal content \u2192</a></li>';
                 html += '</ul></div>';
 
                 /* Insert before the main list */
@@ -300,6 +433,9 @@
             bodyHtml += '</div>';
         }
 
+        /* Audio playback (MIDI or YouTube fallback) */
+        bodyHtml += '<div id="hymn-audio-container"></div>';
+
         /* Lyrics (public domain only — included in JSON as "l" key) */
         if (hymn.l && hymn.l.length > 0) {
             bodyHtml += '<h2>Lyrics</h2>'
@@ -344,24 +480,48 @@
 
         contentEl.innerHTML = bodyHtml;
 
+        /* Load audio data and render player */
+        fetchJSON('data/hymn-audio.json').then(function(audioData) {
+            var container = document.getElementById('hymn-audio-container');
+            if (!container) return;
+            var audio = audioData[String(hymn.n)];
+            var html = '<h2>Listen</h2><div class="hymn-audio">';
+            if (audio && audio.mid) {
+                /* MIDI player (via html-midi-player web component) */
+                html += '<midi-player src="data/' + esc(audio.mid)
+                    + '" sound-font></midi-player>'
+                    + '<div class="hymn-audio-source">'
+                    + 'Public domain MIDI via Open Hymnal Project</div>';
+                /* Always show YouTube search alongside MIDI */
+                var mq = encodeURIComponent('hymn ' + (hymn.fl || '') + ' ' + (hymn.t || ''));
+                html += '<a class="hymn-audio-link hymn-yt-secondary" '
+                    + 'href="https://www.youtube.com/results?search_query=' + mq + '" '
+                    + 'target="_blank" rel="noopener">'
+                    + '\u25B6 Search YouTube for this hymn</a>';
+            } else if (audio && audio.yt) {
+                /* Curated YouTube embed */
+                html += '<iframe width="100%" height="200" '
+                    + 'src="https://www.youtube.com/embed/' + esc(audio.yt) + '" '
+                    + 'frameborder="0" allow="autoplay; encrypted-media" '
+                    + 'allowfullscreen style="border-radius:8px;max-width:500px;">'
+                    + '</iframe>';
+            } else {
+                /* YouTube search fallback */
+                var q = encodeURIComponent('hymn ' + (hymn.fl || '') + ' ' + (hymn.t || ''));
+                html += '<a class="hymn-audio-link" '
+                    + 'href="https://www.youtube.com/results?search_query=' + q + '" '
+                    + 'target="_blank" rel="noopener">'
+                    + '\u25B6 Search YouTube for this hymn</a>';
+            }
+            html += '</div>';
+            container.innerHTML = html;
+        }).catch(function() {
+            /* Silently ignore — audio data is optional */
+        });
+
     }).catch(function(err) {
         contentEl.innerHTML = '<p class="error">Error loading hymn data: '
             + esc(String(err)) + '</p>';
     });
 
-    /* Convert a scripture reference string like "Psalm 23:1-6" to a
-       lookup page URL. Best-effort — falls back to # if unparseable. */
-    function scriptureToLookupUrl(ref) {
-        /* Remove verse portion (everything after the colon) */
-        var chapterPart = ref.replace(/:.*$/, '').trim();
-        /* Handle numbered books: "1 Corinthians 13" */
-        var parts = chapterPart.split(' ');
-        var chNum = parts.pop();
-        if (!/^\d+$/.test(chNum)) return '#';
-        var bookName = parts.join(' ');
-        if (!bookName) return '#';
-        /* Normalize: "Psalm" -> "Psalms" etc. */
-        var slug = bookName.replace(/ /g, '_');
-        return 'lookup_' + slug + '_' + chNum + '.html';
-    }
 })();

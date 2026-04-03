@@ -23,7 +23,7 @@ h1 {
 
 .subtitle {
     font-size: 0.9em;
-    color: #888;
+    color: var(--color-text-tertiary);
     margin-bottom: 16px;
 }
 
@@ -50,7 +50,7 @@ a:hover { color: var(--color-link-hover); }
 /* ── Hierarchy breadcrumb ───────────────────────── */
 .breadcrumb {
     font-size: 0.85em;
-    color: #888;
+    color: var(--color-text-tertiary);
     margin-bottom: 16px;
 }
 .breadcrumb a { color: #8a9fae; text-decoration: none; }
@@ -68,13 +68,13 @@ a:hover { color: var(--color-link-hover); }
 .info-card .label {
     font-size: 0.8em;
     font-weight: 600;
-    color: #888;
+    color: var(--color-text-tertiary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 .info-card .value {
     font-size: 1.1em;
-    color: #3d5a73;
+    color: var(--color-heading);
     margin-top: 4px;
 }
 
@@ -109,7 +109,7 @@ a:hover { color: var(--color-link-hover); }
 
 .verse-ref {
     font-weight: 600;
-    color: #5b7e9e;
+    color: var(--color-link);
     text-decoration: none;
     font-size: 0.9em;
     margin-right: 8px;
@@ -117,7 +117,7 @@ a:hover { color: var(--color-link-hover); }
 .verse-ref:hover { text-decoration: underline; }
 
 .verse-text {
-    color: #444;
+    color: var(--color-text);
     line-height: 1.6;
 }
 
@@ -133,7 +133,7 @@ a:hover { color: var(--color-link-hover); }
 
 /* ── Loading / error states ─────────────────────── */
 .loading {
-    color: #888;
+    color: var(--color-text-tertiary);
     font-style: italic;
     padding: 20px 0;
 }
@@ -145,7 +145,7 @@ a:hover { color: var(--color-link-hover); }
 /* ── Section headers ────────────────────────────── */
 h2 {
     font-size: 1.2em;
-    color: #3d5a73;
+    color: var(--color-heading);
     margin: 24px 0 12px 0;
 }
 
@@ -158,26 +158,26 @@ h2 {
 }
 .word-translit {
     font-style: italic;
-    color: #666;
+    color: var(--color-text-secondary);
     font-size: 1.05em;
     margin-bottom: 8px;
 }
 .word-definition {
-    color: #444;
+    color: var(--color-text);
     line-height: 1.6;
     margin-bottom: 8px;
 }
 .word-count {
     font-size: 0.85em;
-    color: #888;
+    color: var(--color-text-tertiary);
 }
 .occ-original {
     font-size: 1.1em;
-    color: #666;
+    color: var(--color-text-secondary);
     margin-right: 4px;
 }
 .occ-text {
-    color: #444;
+    color: var(--color-text);
     font-style: italic;
 }
 
@@ -190,12 +190,12 @@ h2 {
     padding-top: 12px;
     border-top: 1px solid #eee;
     font-size: 0.9em;
-    color: #888;
+    color: var(--color-text-tertiary);
 }
 .pagination a {
     text-decoration: none;
     padding: 4px 12px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-border);
     border-radius: 4px;
     transition: background 0.15s;
 }
@@ -216,7 +216,7 @@ h2 {
     padding: 8px 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background: #fff;
+    background: var(--color-surface);
 }
 .search-form input[type="text"] {
     flex: 1;
@@ -229,7 +229,7 @@ h2 {
 }
 .search-form input[type="text"]:focus {
     outline: none;
-    border-color: #5b7e9e;
+    border-color: var(--color-link);
     box-shadow: 0 0 0 2px rgba(91,126,158,0.15);
 }
 .search-form button {
@@ -247,7 +247,7 @@ h2 {
 
 .search-status {
     font-size: 0.85em;
-    color: #888;
+    color: var(--color-text-tertiary);
     margin-bottom: 16px;
 }
 
@@ -263,10 +263,10 @@ h2 {
     padding: 8px 20px;
     font-family: inherit;
     font-size: 0.9em;
-    color: #5b7e9e;
-    border: 1px solid #ddd;
+    color: var(--color-link);
+    border: 1px solid var(--color-border);
     border-radius: 4px;
-    background: #fff;
+    background: var(--color-surface);
     cursor: pointer;
     transition: background 0.15s;
 }
@@ -290,7 +290,7 @@ h2 {
 }
 .hymn-search input[type="text"]:focus {
     outline: none;
-    border-color: #7a3b4e;
+    border-color: var(--color-hymn);
     box-shadow: 0 0 0 2px rgba(122,59,78,0.15);
 }
 .hymn-search select {
@@ -299,43 +299,131 @@ h2 {
     padding: 8px 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background: #fff;
+    background: var(--color-surface);
 }
 .hymn-browse-count {
     font-size: 0.85em;
-    color: #888;
+    color: var(--color-text-tertiary);
     margin-bottom: 12px;
 }
 .hymn-list {
     list-style: none;
 }
+.hymn-list-item-wrap {
+    border-bottom: 1px solid var(--color-border, #eee);
+}
+.hymn-list-item-wrap:last-child { border-bottom: none; }
 .hymn-list-item {
-    border-bottom: 1px solid #eee;
     padding: 10px 0;
     display: flex;
     align-items: baseline;
     gap: 12px;
+    cursor: pointer;
+    position: relative;
+    padding-right: 28px;
 }
-.hymn-list-item:last-child { border-bottom: none; }
+.hymn-list-item:hover { background: var(--color-surface-hover, #fdfcf8); }
 .hymn-list-num {
     font-weight: 700;
     font-size: 0.85em;
-    color: #7a3b4e;
+    color: var(--color-hymn);
     min-width: 36px;
     text-align: right;
 }
 .hymn-list-title {
-    color: #2c2c2c;
+    color: var(--color-text-strong, #2c2c2c);
     text-decoration: none;
     font-weight: 600;
 }
-.hymn-list-title:hover { color: #7a3b4e; }
 .hymn-list-meta {
     font-size: 0.82em;
-    color: #888;
+    color: var(--color-text-tertiary);
     margin-left: auto;
     white-space: nowrap;
 }
+.hymn-list-arrow {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.6em;
+    color: var(--color-text-faint, #aaa);
+    transition: transform 0.2s;
+}
+.hymn-list-item-wrap.open .hymn-list-arrow {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+/* Expandable panel */
+.hymn-list-expand {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+.hymn-list-item-wrap.open .hymn-list-expand {
+    max-height: 3000px;
+}
+.hymn-expand-content {
+    padding: 8px 0 16px 48px;
+}
+.hymn-expand-row {
+    font-size: 0.9em;
+    margin-bottom: 4px;
+    color: var(--color-text, #2c2c2c);
+}
+.hymn-expand-label {
+    font-weight: 600;
+    color: var(--color-text-tertiary, #888);
+    display: inline-block;
+    min-width: 75px;
+}
+.hymn-expand-row a {
+    color: var(--color-link);
+    text-decoration: none;
+}
+.hymn-expand-row a:hover { text-decoration: underline; }
+.hymn-expand-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0;
+}
+.hymn-expand-tag {
+    font-size: 0.78em;
+    padding: 2px 10px;
+    border-radius: 12px;
+    background: var(--color-surface-alt, #f0f0f0);
+    color: var(--color-text-secondary, #555);
+}
+.hymn-expand-audio {
+    margin: 10px 0;
+}
+.hymn-expand-audio midi-player {
+    max-width: 400px;
+    width: 100%;
+}
+.hymn-expand-lyrics {
+    margin: 10px 0;
+    font-size: 0.88em;
+    color: var(--color-text-secondary, #555);
+    line-height: 1.7;
+}
+.hymn-expand-lyrics p { margin: 0 0 6px 0; }
+.hymn-expand-src {
+    font-size: 0.8em;
+    color: var(--color-text-faint, #aaa);
+    font-style: italic;
+    margin-top: 6px;
+}
+.hymn-expand-links {
+    margin-top: 10px;
+    font-size: 0.85em;
+}
+.hymn-expand-links a {
+    color: var(--color-hymn);
+    text-decoration: none;
+}
+.hymn-expand-links a:hover { text-decoration: underline; }
 
 /* Hymn detail card */
 .hymn-detail-card {
@@ -349,7 +437,7 @@ h2 {
 .hymn-detail-number {
     font-size: 0.8em;
     font-weight: 700;
-    color: #7a3b4e;
+    color: var(--color-hymn);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 4px;
@@ -368,11 +456,11 @@ h2 {
 }
 .hymn-detail-label {
     font-weight: 600;
-    color: #888;
+    color: var(--color-text-tertiary);
     min-width: 80px;
 }
-.hymn-detail-value { color: #444; }
-.hymn-detail-value a { color: #5b7e9e; text-decoration: none; }
+.hymn-detail-value { color: var(--color-text); }
+.hymn-detail-value a { color: var(--color-link); text-decoration: none; }
 .hymn-detail-value a:hover { text-decoration: underline; }
 .hymn-scripture-links {
     margin-top: 16px;
@@ -381,7 +469,7 @@ h2 {
 }
 .hymn-scripture-links h3 {
     font-size: 0.9em;
-    color: #7a3b4e;
+    color: var(--color-hymn);
     margin-bottom: 8px;
 }
 .hymn-scripture-tag {
@@ -389,7 +477,7 @@ h2 {
     font-size: 0.82em;
     padding: 3px 12px;
     background: #f5e8ec;
-    color: #7a3b4e;
+    color: var(--color-hymn);
     border-radius: 12px;
     text-decoration: none;
     margin: 0 6px 6px 0;
@@ -404,17 +492,17 @@ h2 {
     border-top: 1px solid #eee;
     font-size: 0.9em;
 }
-.hymn-nav a { text-decoration: none; color: #7a3b4e; }
+.hymn-nav a { text-decoration: none; color: var(--color-hymn); }
 .hymn-nav a:hover { text-decoration: underline; }
 .hymn-external {
     margin-top: 16px;
     font-size: 0.85em;
 }
 .hymn-external a {
-    color: #888;
+    color: var(--color-text-tertiary);
     text-decoration: none;
 }
-.hymn-external a:hover { color: #5b7e9e; text-decoration: underline; }
+.hymn-external a:hover { color: var(--color-link); text-decoration: underline; }
 
 /* Hymn lyrics */
 .hymn-lyrics {
@@ -428,18 +516,18 @@ h2 {
 }
 .hymn-verse-num {
     font-weight: 700;
-    color: #7a3b4e;
+    color: var(--color-hymn);
     min-width: 20px;
     text-align: right;
     flex-shrink: 0;
 }
 .hymn-verse p {
-    color: #444;
+    color: var(--color-text);
     margin: 0;
 }
 .hymn-lyrics-source {
     font-size: 0.8em;
-    color: #aaa;
+    color: var(--color-text-faint);
     font-style: italic;
     margin-top: 8px;
     padding-top: 8px;
@@ -447,7 +535,7 @@ h2 {
 }
 .hymn-lyrics-note {
     font-size: 0.9em;
-    color: #888;
+    color: var(--color-text-tertiary);
     font-style: italic;
     margin: 16px 0;
     padding: 12px 16px;
@@ -465,12 +553,253 @@ h2 {
 }
 .hymn-season-title {
     font-size: 1.1em;
-    color: #7a3b4e;
+    color: var(--color-hymn);
     margin: 0 0 4px 0;
     border: none;
 }
 .hymn-season-count {
     font-size: 0.85em;
-    color: #888;
+    color: var(--color-text-tertiary);
     margin-bottom: 12px;
 }
+
+/* ── Seasonal page ─────────────────────────────── */
+
+/* Season selector pills */
+.season-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 24px;
+}
+.season-pill {
+    display: inline-block;
+    font-size: 0.82em;
+    padding: 5px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    background: var(--color-surface);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.season-pill:hover {
+    background: #f5f5f0;
+    border-color: #bbb;
+    color: var(--color-text);
+}
+.season-pill.active {
+    color: #fff;
+    border-color: transparent;
+    font-weight: 600;
+}
+
+/* Season banner */
+.season-banner {
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    border-left: 5px solid;
+}
+.season-banner-name {
+    font-size: 1.6em;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+.season-banner-dates {
+    font-size: 0.85em;
+    opacity: 0.75;
+    margin-bottom: 10px;
+}
+.season-banner-desc {
+    line-height: 1.7;
+    font-size: 0.95em;
+}
+
+/* Liturgical color themes */
+.season-color-purple .season-banner { background: #f3eef8; border-color: #4a2882; color: #2d1654; }
+.season-color-purple .season-pill.active { background: #4a2882; }
+.season-color-gold .season-banner { background: #fdf6e8; border-color: #c9a96e; color: #5a4520; }
+.season-color-gold .season-pill.active { background: #b8943e; }
+.season-color-red .season-banner { background: #fdf0f0; border-color: #b22222; color: #5a1111; }
+.season-color-red .season-pill.active { background: #b22222; }
+.season-color-green .season-banner { background: #f0f7f0; border-color: #2e7d32; color: #1a4a1d; }
+.season-color-green .season-pill.active { background: #2e7d32; }
+
+/* Season content sections */
+.season-section {
+    margin-bottom: 32px;
+}
+.season-section h2 {
+    font-size: 1.15em;
+    color: var(--color-heading);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Reading cards (within seasonal page) */
+.reading-card {
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.reading-card:last-child { border-bottom: none; }
+.reading-ref {
+    font-weight: 600;
+    color: var(--color-link);
+    text-decoration: none;
+    font-size: 0.9em;
+}
+.reading-ref:hover { text-decoration: underline; }
+.reading-note {
+    color: var(--color-text-secondary);
+    font-size: 0.88em;
+    font-style: italic;
+    margin-left: 8px;
+}
+
+/* Prayer cards */
+.prayer-card {
+    background: #faf8f4;
+    border: 1px solid #e8e0d0;
+    border-left: 3px solid var(--color-accent);
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+.prayer-card summary {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--color-heading);
+    font-size: 0.95em;
+    list-style: none;
+}
+.prayer-card summary::-webkit-details-marker { display: none; }
+.prayer-card summary::before {
+    content: "\25B6";
+    display: inline-block;
+    font-size: 0.65em;
+    margin-right: 8px;
+    transition: transform 0.15s;
+    color: #bbb;
+}
+.prayer-card[open] summary::before {
+    transform: rotate(90deg);
+}
+.prayer-card-body {
+    padding: 0 16px 14px 16px;
+}
+.prayer-text {
+    line-height: 1.8;
+    color: var(--color-text);
+    font-size: 0.93em;
+}
+.prayer-source {
+    font-size: 0.78em;
+    color: var(--color-text-faint);
+    font-style: italic;
+    margin-top: 8px;
+}
+.prayer-type-tag {
+    display: inline-block;
+    font-size: 0.72em;
+    padding: 2px 8px;
+    background: #f0eee8;
+    color: var(--color-text-tertiary);
+    border-radius: 8px;
+    margin-left: 8px;
+    font-weight: 400;
+    text-transform: capitalize;
+    vertical-align: middle;
+}
+
+/* Hymn audio player */
+.hymn-audio {
+    margin: 16px 0;
+}
+.hymn-audio midi-player {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+}
+.hymn-audio-source {
+    font-size: 0.78em;
+    color: var(--color-text-faint);
+    font-style: italic;
+    margin-top: 4px;
+}
+.hymn-audio-link {
+    display: inline-block;
+    font-size: 0.85em;
+    padding: 6px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: background 0.15s;
+}
+.hymn-audio-link:hover {
+    background: #f5f5f0;
+    color: var(--color-text);
+}
+.hymn-yt-secondary {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.8em;
+    color: var(--color-text-tertiary);
+    border: none;
+    padding: 0;
+}
+.hymn-yt-secondary:hover {
+    background: none;
+    color: var(--color-text-secondary);
+}
+
+/* Season hymn grid (compact cards for seasonal page) */
+.season-hymn-list {
+    list-style: none;
+}
+.season-hymn-item {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.season-hymn-item:last-child { border-bottom: none; }
+.season-hymn-num {
+    font-weight: 700;
+    font-size: 0.82em;
+    color: var(--color-hymn);
+    min-width: 32px;
+    text-align: right;
+}
+.season-hymn-title {
+    color: #2c2c2c;
+    text-decoration: none;
+    font-size: 0.92em;
+}
+.season-hymn-title:hover { color: var(--color-hymn); }
+.season-hymn-meta {
+    font-size: 0.78em;
+    color: var(--color-text-faint);
+    margin-left: auto;
+    white-space: nowrap;
+}
+.season-hymn-play {
+    font-size: 0.78em;
+    color: var(--color-hymn);
+    text-decoration: none;
+    padding: 2px 8px;
+    border: 1px solid #e8d0d6;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+.season-hymn-play:hover {
+    background: #fdf8f8;
+}
+
+/* ═══════════════════════════════════════════════════
+   DARK THEME OVERRIDES
+   ═══════════════════════════════════════════════════ */

@@ -19,7 +19,7 @@ body {
 h1 {
     font-size: 2.2em;
     font-weight: normal;
-    color: #1a1a1a;
+    color: var(--color-text-strong);
     text-align: center;
     margin-bottom: 0;
     letter-spacing: 0.5px;
@@ -27,7 +27,7 @@ h1 {
 
 .subtitle {
     text-align: center;
-    color: #888;
+    color: var(--color-text-tertiary);
     font-size: 0.95em;
     font-style: italic;
     margin-bottom: 8px;
@@ -37,7 +37,7 @@ h1 {
 h2 {
     font-size: 1.5em;
     font-weight: normal;
-    color: #444;
+    color: var(--color-text);
     border-bottom: 2px solid var(--color-accent);
     padding-bottom: 8px;
     margin: 30px 0 15px 0;
@@ -48,21 +48,21 @@ h2 {
 .parallel-table {
     width: 100%;
     border-collapse: collapse;
-    background: #fff;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    background: var(--color-surface);
+    box-shadow: 0 1px 4px var(--color-shadow);
     border-radius: 6px;
     overflow: hidden;
 }
 
 .parallel-table th {
-    background: #f7f3eb;
-    color: #6b5b3e;
+    background: var(--color-surface-alt);
+    color: var(--color-diff-text);
     font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 0.95em;
     font-weight: bold;
     padding: 14px 18px;
     text-align: left;
-    border-bottom: 2px solid #c9a96e;
+    border-bottom: 2px solid var(--color-accent);
     position: sticky;
     top: 0;
     z-index: 1;
@@ -71,19 +71,19 @@ h2 {
 .parallel-table th.verse-col {
     width: 40px;
     text-align: center;
-    color: #999;
+    color: var(--color-text-faint);
 }
 
 .parallel-table th .abbrev {
     font-weight: normal;
-    color: #999;
+    color: var(--color-text-faint);
     font-size: 0.85em;
 }
 
 .parallel-table td {
     padding: 12px 18px;
     vertical-align: top;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--color-border);
     font-size: 1em;
     line-height: 1.65;
 }
@@ -91,7 +91,7 @@ h2 {
 .parallel-table td.verse-num-cell {
     text-align: center;
     font-weight: bold;
-    color: #c9a96e;
+    color: var(--color-accent);
     font-size: 0.9em;
     width: 40px;
     vertical-align: top;
@@ -103,29 +103,29 @@ h2 {
 }
 
 .parallel-table tr:hover td {
-    background: #fdfcf8;
+    background: var(--color-surface-hover);
 }
 
 .parallel-table th.diff-col {
-    background: #f0ebe0;
-    color: #6b5b3e;
+    background: var(--color-surface-alt);
+    color: var(--color-diff-text);
     min-width: 200px;
 }
 
 .parallel-table td.diff-cell {
     font-size: 0.88em;
     line-height: 1.55;
-    color: #6b5b3e;
-    background: #fdf9f0;
+    color: var(--color-diff-text);
+    background: var(--color-diff-bg);
     font-style: italic;
-    border-left: 2px solid #c9a96e;
+    border-left: 2px solid var(--color-diff-border);
 }
 
 .parallel-table td.diff-cell-none {
     font-size: 0.85em;
-    color: #bbb;
-    background: #fdf9f0;
-    border-left: 2px solid #c9a96e;
+    color: var(--color-text-faint);
+    background: var(--color-diff-bg);
+    border-left: 2px solid var(--color-diff-border);
     text-align: center;
 }
 
@@ -133,7 +133,7 @@ h2 {
 .verse-crossrefs {
     font-style: italic;
     font-size: 0.8em;
-    color: #aaa;
+    color: var(--color-text-faint);
     margin-left: 6px;
     line-height: 1.5;
 }
@@ -144,7 +144,7 @@ h2 {
     transition: color 0.15s;
 }
 .xref-link:hover {
-    color: #5b7e9e;
+    color: var(--color-link);
     text-decoration: underline;
 }
 
@@ -153,8 +153,8 @@ h2 {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.35s ease;
-    background: #faf9f5;
-    border: 1px solid #e0d8c8;
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
     border-radius: 6px;
     margin: 10px 0;
 }
@@ -173,19 +173,19 @@ h2 {
 }
 .xref-panel-ref {
     font-weight: 600;
-    color: #3d5a73;
+    color: var(--color-heading);
     font-size: 1.05em;
 }
 .xref-panel-close {
     background: none;
     border: none;
     font-size: 1.3em;
-    color: #999;
+    color: var(--color-text-faint);
     cursor: pointer;
     padding: 2px 6px;
 }
 .xref-panel-close:hover {
-    color: #333;
+    color: var(--color-text-strong);
 }
 .xref-panel-verse {
     margin-bottom: 8px;
@@ -193,7 +193,7 @@ h2 {
 }
 .xref-panel-label {
     font-weight: 600;
-    color: #5b7e9e;
+    color: var(--color-link);
     font-size: 0.85em;
     margin-right: 6px;
 }
@@ -201,7 +201,7 @@ h2 {
     display: block;
     margin-top: 10px;
     font-size: 0.85em;
-    color: #5b7e9e;
+    color: var(--color-link);
 }
 
 /* ── Inline difference highlighting ─────────────── */
@@ -221,10 +221,10 @@ h2 {
 .commentary {
     margin-bottom: 40px;
     padding: 25px 30px;
-    background: #fff;
+    background: var(--color-surface);
     border-left: 4px solid #5b7e9e;
     border-radius: 0 6px 6px 0;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    box-shadow: 0 1px 4px var(--color-shadow);
 }
 
 .commentary-pair .commentary {
@@ -234,21 +234,21 @@ h2 {
 .commentary-name {
     font-size: 1.1em;
     font-weight: bold;
-    color: #3d5a73;
+    color: var(--color-heading);
     margin-bottom: 4px;
     font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
 .commentary-author {
     font-size: 0.85em;
-    color: #999;
+    color: var(--color-text-faint);
     font-style: italic;
     margin-bottom: 15px;
 }
 
 .commentary-intro {
     font-style: italic;
-    color: #666;
+    color: var(--color-text-secondary);
     margin-bottom: 15px;
     padding: 12px 16px;
     background: #f5f5f0;
@@ -262,7 +262,7 @@ h2 {
 
 .commentary-verse-ref {
     font-weight: bold;
-    color: #5b7e9e;
+    color: var(--color-link);
     font-size: 0.9em;
     margin-bottom: 4px;
 }
@@ -274,7 +274,7 @@ h2 {
 }
 
 .no-content {
-    color: #aaa;
+    color: var(--color-text-faint);
     font-style: italic;
     padding: 15px 0;
 }
@@ -289,16 +289,16 @@ h2 {
 
 .comparison-card {
     padding: 25px 30px;
-    background: #fff;
+    background: var(--color-surface);
     border-left: 4px solid #c9a96e;
     border-radius: 0 6px 6px 0;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    box-shadow: 0 1px 4px var(--color-shadow);
 }
 
 .comparison-card h3 {
     font-size: 1.15em;
     font-weight: bold;
-    color: #6b5b3e;
+    color: var(--color-diff-text);
     margin: 0 0 12px 0;
     font-family: 'Helvetica Neue', Arial, sans-serif;
 }
@@ -311,7 +311,7 @@ h2 {
 }
 
 .comparison-card strong {
-    color: #2c2c2c;
+    color: var(--color-text);
 }
 
 /* ── Interlinear section ────────────────────────── */
@@ -322,7 +322,7 @@ h2 {
 .interlinear-verse summary {
     cursor: pointer;
     font-weight: bold;
-    color: #5b7e9e;
+    color: var(--color-link);
     font-size: 0.95em;
     padding: 6px 0;
     list-style: none;
@@ -330,7 +330,7 @@ h2 {
 
 .interlinear-verse summary::before {
     content: "▸ ";
-    color: #c9a96e;
+    color: var(--color-accent);
 }
 
 .interlinear-verse[open] summary::before {
@@ -349,7 +349,7 @@ h2 {
     line-height: 1.75;
     color: #3a3a3a;
     padding: 10px 16px;
-    background: #fdfcf8;
+    background: var(--color-surface-hover);
     border-radius: 4px;
     border-left: 3px solid #c9a96e;
     align-self: start;
@@ -359,7 +359,7 @@ h2 {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 0.78em;
     font-weight: bold;
-    color: #999;
+    color: var(--color-text-faint);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 6px;
@@ -369,7 +369,7 @@ h2 {
     width: 100%;
     border-collapse: collapse;
     margin: 8px 0 16px 0;
-    background: #fff;
+    background: var(--color-surface);
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     border-radius: 4px;
     overflow: hidden;
@@ -377,8 +377,8 @@ h2 {
 }
 
 .interlinear-table th {
-    background: #f0ebe0;
-    color: #6b5b3e;
+    background: var(--color-surface-alt);
+    color: var(--color-diff-text);
     font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 0.85em;
     font-weight: bold;
@@ -398,7 +398,7 @@ h2 {
 }
 
 .interlinear-table tr:hover td {
-    background: #fdfcf8;
+    background: var(--color-surface-hover);
 }
 
 .original-text {
@@ -432,12 +432,12 @@ h2 {
 
 .strongs-def {
     font-size: 0.88em;
-    color: #666;
+    color: var(--color-text-secondary);
     font-style: italic;
 }
 
 .transliteration {
-    color: #888;
+    color: var(--color-text-tertiary);
     font-style: italic;
 }
 
@@ -474,8 +474,8 @@ h2 {
     cursor: pointer;
     font-size: 0.78em;
     padding: 2px 14px;
-    background: #fafaf7;
-    color: #999;
+    background: var(--color-bg);
+    color: var(--color-text-faint);
     border: 1px dashed #ccc;
     border-radius: 12px;
     font-style: italic;
@@ -487,8 +487,8 @@ h2 {
 }
 
 .topics-toggle:hover {
-    color: #6b5b3e;
-    border-color: #c9a96e;
+    color: var(--color-diff-text);
+    border-color: var(--color-accent);
 }
 
 .topics-toggle.visible {
@@ -503,7 +503,7 @@ h2 {
 .header-topics-label {
     font-size: 0.8em;
     font-weight: bold;
-    color: #999;
+    color: var(--color-text-faint);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-right: 2px;
@@ -549,10 +549,10 @@ h2 {
 
 .place-card {
     padding: 20px 24px;
-    background: #fff;
+    background: var(--color-surface);
     border-left: 4px solid #6a9b68;
     border-radius: 0 6px 6px 0;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    box-shadow: 0 1px 4px var(--color-shadow);
 }
 
 .place-name {
@@ -565,7 +565,7 @@ h2 {
 
 .place-type {
     font-size: 0.82em;
-    color: #888;
+    color: var(--color-text-tertiary);
     margin-bottom: 10px;
 }
 
@@ -578,7 +578,7 @@ h2 {
 
 .place-coords {
     font-size: 0.8em;
-    color: #aaa;
+    color: var(--color-text-faint);
     font-family: monospace;
 }
 
@@ -597,17 +597,119 @@ h2 {
 }
 
 .hymn-card {
-    padding: 20px 24px;
-    background: #fdf8f8;
-    border-left: 4px solid #7a3b4e;
+    padding: 0;
+    background: var(--color-surface);
+    border-left: 4px solid var(--color-hymn);
     border-radius: 0 6px 6px 0;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    box-shadow: 0 1px 4px var(--color-shadow);
+    transition: box-shadow 0.2s;
+}
+.hymn-card.hymn-card-open {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+}
+
+.hymn-card-header {
+    padding: 20px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 12px;
+    position: relative;
+    padding-right: 24px;
+}
+/* Only show pointer on expandable cards */
+.hymn-card[data-has-lyrics] .hymn-card-header {
+    cursor: pointer;
+    padding-right: 40px;
+}
+.hymn-card[data-has-lyrics] .hymn-card-header:hover {
+    background: rgba(122,59,78,0.04);
+}
+
+.hymn-card-arrow {
+    position: absolute;
+    right: 16px;
+    top: 20px;
+    font-size: 0.7em;
+    color: var(--color-hymn);
+    transition: transform 0.25s;
+}
+.hymn-card-open .hymn-card-arrow {
+    transform: rotate(90deg);
+}
+
+.hymn-card-header .hymn-number {
+    width: 100%;
+}
+.hymn-card-header .hymn-tune {
+    margin-bottom: 0;
+}
+
+/* Audio controls on hymn cards */
+.hymn-card-btns {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+}
+.hymn-card-btns midi-player {
+    width: 100%;
+    max-width: 350px;
+}
+.hymn-btn {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.78em;
+    padding: 3px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+    font-family: inherit;
+    transition: background 0.15s, border-color 0.15s;
+}
+.hymn-btn:hover {
+    background: #f5f0f2;
+    border-color: var(--color-text-faint);
+}
+.hymn-btn-yt {
+    color: #c0392b;
+}
+
+/* Expandable lyrics body (only on cards with lyrics) */
+.hymn-card-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 24px;
+}
+.hymn-card-open .hymn-card-body {
+    max-height: 2000px;
+    padding: 0 24px 20px 24px;
+    border-top: 1px solid rgba(122,59,78,0.12);
+}
+
+/* Links row for non-expandable cards */
+.hymn-card-links {
+    padding: 0 24px 16px 24px;
+}
+.hymn-card-links a {
+    font-size: 0.85em;
+    color: var(--color-hymn);
+    text-decoration: none;
+}
+.hymn-card-links a:hover {
+    text-decoration: underline;
 }
 
 .hymn-number {
     font-size: 0.82em;
     font-weight: bold;
-    color: #7a3b4e;
+    color: var(--color-hymn);
     margin-bottom: 2px;
 }
 
@@ -621,42 +723,34 @@ h2 {
 
 .hymn-author {
     font-size: 0.88em;
-    color: #666;
+    color: var(--color-text-secondary);
     margin-bottom: 4px;
 }
 
 .hymn-tune {
     font-size: 0.82em;
-    color: #888;
+    color: var(--color-text-tertiary);
     font-style: italic;
     margin-bottom: 8px;
 }
 
+.hymn-link {
+    margin-top: 10px;
+}
 .hymn-link a {
     font-size: 0.85em;
-    color: #7a3b4e;
+    color: var(--color-hymn);
     text-decoration: none;
 }
-
 .hymn-link a:hover {
     text-decoration: underline;
 }
 
-.hymn-lyrics-toggle {
-    margin-top: 8px;
-}
-.hymn-lyrics-toggle summary {
-    font-size: 0.82em;
-    color: #7a3b4e;
-    cursor: pointer;
-}
-.hymn-lyrics-toggle summary:hover {
-    text-decoration: underline;
-}
 .hymn-lyrics-preview {
     margin-top: 6px;
+    margin-bottom: 10px;
     font-size: 0.85em;
-    color: #555;
+    color: var(--color-text-secondary);
     line-height: 1.6;
 }
 .hymn-lyrics-preview p {
@@ -671,14 +765,14 @@ h2 {
 .crossrefs-verse {
     margin-bottom: 14px;
     padding: 12px 20px;
-    background: #fff;
+    background: var(--color-surface);
     border-radius: 6px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .crossrefs-verse-ref {
     font-weight: bold;
-    color: #5b7e9e;
+    color: var(--color-link);
     font-size: 0.9em;
     margin-bottom: 6px;
 }
@@ -696,7 +790,7 @@ h2 {
 
 /* ── Print styles ───────────────────────────────── */
 @media print {
-    body { background: #fff; padding: 15px; }
+    body { background: var(--color-surface); padding: 15px; }
     .parallel-table, .commentary, .comparison-card,
     .place-card, .topics-verse, .crossrefs-verse { box-shadow: none; }
     .parallel-table th { position: static; }
@@ -743,13 +837,13 @@ h2 {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 1.1em;
     font-weight: bold;
-    color: #6b5b3e;
+    color: var(--color-diff-text);
 }
 
 .expanded-close {
-    background: #f7f3eb;
+    background: var(--color-surface-alt);
     border: 1px solid #d4c9a8;
-    color: #6b5b3e;
+    color: var(--color-diff-text);
     font-size: 1.3em;
     width: 36px;
     height: 36px;
@@ -776,12 +870,12 @@ h2 {
 .expanded-text {
     font-size: 1.15em;
     line-height: 1.8;
-    color: #2c2c2c;
+    color: var(--color-text);
     padding: 20px 24px;
-    background: #fff;
+    background: var(--color-surface);
     border-left: 4px solid #c9a96e;
     border-radius: 0 6px 6px 0;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    box-shadow: 0 1px 4px var(--color-shadow);
     position: sticky;
     top: 20px;
 }
@@ -827,7 +921,7 @@ h2 {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 0.7em;
     font-weight: bold;
-    color: #999;
+    color: var(--color-text-faint);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 8px;
@@ -860,7 +954,7 @@ h2 {
 .click-hint {
     text-align: center;
     font-size: 0.82em;
-    color: #bbb;
+    color: var(--color-text-faint);
     font-style: italic;
     margin: 8px 0 0 0;
     transition: opacity 0.25s ease;
@@ -876,7 +970,7 @@ h2 {
 
 /* ── Chapter navigation (inside topics bar) ── */
 .nav-prev, .nav-next {
-    color: #5b7e9e;
+    color: var(--color-link);
     text-decoration: none;
     font-size: 0.9em;
     padding: 2px 8px;
@@ -919,7 +1013,7 @@ h2 {
     z-index: 10;
 }
 .page-tools a {
-    color: #5b7e9e;
+    color: var(--color-link);
     text-decoration: none;
     font-size: 0.85em;
     padding: 3px 8px;
@@ -929,18 +1023,18 @@ h2 {
 .page-tools a:hover { background: #f0f0f0; }
 .bookmark-btn {
     background: none;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-border);
     border-radius: 4px;
     padding: 3px 10px;
     font-size: 0.85em;
-    color: #5b7e9e;
+    color: var(--color-link);
     cursor: pointer;
     transition: background 0.15s, border-color 0.15s;
 }
 .bookmark-btn:hover { background: #f0f0f0; }
 .bookmark-btn.active {
     background: #fff3b0;
-    border-color: #c9a96e;
+    border-color: var(--color-accent);
     color: #8a6d3b;
 }
 .verse-num-cell {
@@ -963,17 +1057,17 @@ h2 {
 }
 .expand-chapter button {
     background: none;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-border);
     border-radius: 4px;
     padding: 6px 18px;
     font-size: 0.85em;
-    color: #5b7e9e;
+    color: var(--color-link);
     cursor: pointer;
     transition: background 0.15s, border-color 0.15s;
 }
 .expand-chapter button:hover {
     background: #f0f0f0;
-    border-color: #bbb;
+    border-color: var(--color-text-faint);
 }
 .expand-chapter .arrow {
     display: inline-block;
@@ -996,9 +1090,9 @@ h2 {
 }
 .context-table td {
     padding: 10px 14px;
-    border: 1px solid #e0d8c8;
+    border: 1px solid var(--color-border);
     vertical-align: top;
-    color: #777;
+    color: var(--color-text-tertiary);
     font-style: italic;
 }
 .context-table .verse-num-cell {
@@ -1017,20 +1111,20 @@ h2 {
     margin: 16px 0;
 }
 .sq-btn {
-    background: #fff;
+    background: var(--color-surface);
     border: 1px solid #d0c9b8;
     border-radius: 6px;
     padding: 8px 16px;
     font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 0.88em;
-    color: #6b5b3e;
+    color: var(--color-diff-text);
     cursor: pointer;
     transition: background 0.15s, border-color 0.15s, color 0.15s,
                 box-shadow 0.15s;
 }
 .sq-btn:hover {
     background: #faf5ea;
-    border-color: #c9a96e;
+    border-color: var(--color-accent);
 }
 .sq-btn.active {
     background: #c9a96e;
@@ -1041,7 +1135,7 @@ h2 {
 .sq-btn.disabled {
     background: #f0f0f0;
     border-color: #ddd;
-    color: #bbb;
+    color: var(--color-text-faint);
     cursor: not-allowed;
 }
 .sq-btn.disabled:hover {
@@ -1051,7 +1145,7 @@ h2 {
 .sq-method-desc {
     font-size: 0.88em;
     font-style: italic;
-    color: #888;
+    color: var(--color-text-tertiary);
     margin: 0 0 16px 0;
 }
 .sq-method-panel {
@@ -1067,7 +1161,7 @@ h2 {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 0.92em;
     font-weight: 600;
-    color: #6b5b3e;
+    color: var(--color-diff-text);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 8px;
@@ -1089,7 +1183,7 @@ h2 {
     border-bottom: none;
 }
 .sq-section li::marker {
-    color: #c9a96e;
+    color: var(--color-accent);
     font-size: 0.9em;
 }
 
@@ -1120,17 +1214,17 @@ h2 {
     border-left: 3px solid transparent;
     background: transparent;
     cursor: pointer;
-    color: #999;
+    color: var(--color-text-faint);
     transition: color 0.15s, background 0.15s, border-color 0.15s;
     font-family: Georgia, serif;
 }
 .section-nav-btn:hover {
-    background: #f0ebe0;
-    color: #5b7e9e;
+    background: var(--color-surface-alt);
+    color: var(--color-link);
 }
 .section-nav-btn.active {
-    color: #5b7e9e;
-    border-left-color: #c9a96e;
+    color: var(--color-link);
+    border-left-color: var(--color-accent);
     background: #faf5eb;
 }
 .section-nav-icon {
@@ -1157,7 +1251,7 @@ h2 {
     vertical-align: middle;
 }
 .section-collapse-btn:hover {
-    color: #888;
+    color: var(--color-text-tertiary);
 }
 .section-collapse-btn.collapsed {
     transform: rotate(-90deg);
@@ -1221,4 +1315,287 @@ h2 {
     height: 3px;
     width: 2px;
     background: rgba(91, 126, 158, 0.4);
+}
+
+/* ═══════════════════════════════════════════════
+   Liturgical Season section
+   ═══════════════════════════════════════════════ */
+
+.lit-loading {
+    color: var(--color-text-faint);
+    font-style: italic;
+    font-size: 0.9em;
+    padding: 12px 0;
+}
+.lit-error {
+    color: var(--color-text-faint);
+    font-style: italic;
+    font-size: 0.88em;
+    padding: 8px 0;
+}
+
+/* ── Season banner ── */
+.lit-banner {
+    padding: 18px 22px;
+    border-left: 4px solid;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 22px;
+    line-height: 1.6;
+}
+.lit-banner-top {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.lit-banner-name {
+    font-size: 1.2em;
+    font-weight: 700;
+}
+.lit-banner-badge {
+    display: inline-block;
+    font-size: 0.7em;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.6);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+.lit-banner-dates {
+    font-size: 0.85em;
+    opacity: 0.75;
+    margin-top: 2px;
+}
+.lit-banner-desc {
+    font-size: 0.92em;
+    margin-top: 8px;
+    line-height: 1.7;
+}
+
+/* ── Liturgical color variants ── */
+.lit-color-purple .lit-banner { background: #f3eef8; border-color: #4a2882; color: #2d1654; }
+.lit-color-purple .lit-banner-badge { color: #4a2882; }
+.lit-color-gold .lit-banner   { background: #fdf6e8; border-color: var(--color-accent); color: #5a4520; }
+.lit-color-gold .lit-banner-badge { color: #8a7030; }
+.lit-color-red .lit-banner    { background: #fdf0f0; border-color: #b22222; color: #5a1111; }
+.lit-color-red .lit-banner-badge { color: #b22222; }
+.lit-color-green .lit-banner  { background: #f0f7f0; border-color: #2e7d32; color: #1a4a1d; }
+.lit-color-green .lit-banner-badge { color: #2e7d32; }
+
+/* ── Chapter-season connection highlight ── */
+.lit-connection {
+    background: #fffde6;
+    border: 1px solid #e8dfa0;
+    border-left: 3px solid #c9a96e;
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+    margin-bottom: 18px;
+    font-size: 0.92em;
+    line-height: 1.6;
+}
+.lit-connection-icon {
+    font-weight: bold;
+    margin-right: 6px;
+}
+.lit-connection em {
+    font-style: italic;
+    color: var(--color-text-secondary);
+}
+
+/* ── Subsection headings ── */
+.lit-sub-header {
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 22px 0 10px 0;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--color-border);
+}
+.lit-sub-header:first-child {
+    margin-top: 0;
+}
+
+/* ── Scripture readings ── */
+.lit-readings-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.lit-reading {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.lit-reading:last-child { border-bottom: none; }
+.lit-reading a {
+    font-weight: 600;
+    color: var(--color-link);
+    text-decoration: none;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+.lit-reading a:hover { text-decoration: underline; }
+.lit-reading-note {
+    color: var(--color-text-tertiary);
+    font-size: 0.85em;
+    font-style: italic;
+}
+.lit-reading-current {
+    background: #fffde6;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border-left: 3px solid #c9a96e;
+    margin-left: -12px;
+    padding-left: 12px;
+}
+
+/* ── Prayer cards ── */
+.lit-prayer {
+    background: #faf8f4;
+    border: 1px solid #e8e0d0;
+    border-left: 3px solid #c9a96e;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 10px;
+}
+.lit-prayer summary {
+    padding: 10px 14px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--color-heading);
+    font-size: 0.9em;
+    list-style: none;
+}
+.lit-prayer summary::-webkit-details-marker { display: none; }
+.lit-prayer summary::before {
+    content: "\25B6";
+    display: inline-block;
+    font-size: 0.6em;
+    margin-right: 8px;
+    transition: transform 0.15s;
+    color: var(--color-text-faint);
+    vertical-align: middle;
+}
+.lit-prayer[open] summary::before {
+    transform: rotate(90deg);
+}
+.lit-prayer summary:hover {
+    background: rgba(201, 169, 110, 0.06);
+}
+.lit-prayer-type {
+    display: inline-block;
+    font-size: 0.7em;
+    padding: 1px 6px;
+    background: #f0eee8;
+    color: var(--color-text-tertiary);
+    border-radius: 8px;
+    margin-left: 6px;
+    font-weight: 400;
+    text-transform: capitalize;
+    vertical-align: middle;
+}
+.lit-prayer-body {
+    padding: 0 14px 14px 14px;
+    border-top: 1px solid #ece6d8;
+}
+.lit-prayer-text {
+    line-height: 1.85;
+    color: var(--color-text);
+    font-size: 0.88em;
+    white-space: pre-line;
+}
+.lit-prayer-source {
+    font-size: 0.75em;
+    color: var(--color-text-faint);
+    font-style: italic;
+    margin-top: 8px;
+}
+
+/* ── Hymn mini-list ── */
+.lit-hymn-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.lit-hymn-item {
+    padding: 7px 0;
+    border-bottom: 1px solid #f5f5f5;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 0.9em;
+}
+.lit-hymn-item:last-child { border-bottom: none; }
+.lit-hymn-num {
+    min-width: 34px;
+    text-align: right;
+    font-weight: 700;
+    font-size: 0.85em;
+    color: var(--color-hymn);
+}
+.lit-hymn-title {
+    color: var(--color-link);
+    text-decoration: none;
+}
+.lit-hymn-title:hover { text-decoration: underline; }
+.lit-hymn-author {
+    font-size: 0.8em;
+    color: var(--color-text-faint);
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+/* ── Theme tags ── */
+.lit-themes-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+.lit-theme-tag {
+    display: inline-block;
+    font-size: 0.8em;
+    padding: 3px 10px;
+    background: #f0f5e8;
+    color: #3d7317;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background 0.15s;
+}
+.lit-theme-tag:hover {
+    background: #e0ebd0;
+}
+.lit-theme-count {
+    font-size: 0.8em;
+    opacity: 0.65;
+    margin-left: 2px;
+}
+
+/* ── "View all" and "Explore" links ── */
+.lit-more {
+    display: inline-block;
+    font-size: 0.85em;
+    color: var(--color-link);
+    margin-top: 8px;
+}
+.lit-more:hover { text-decoration: underline; }
+.lit-explore {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 22px;
+    background: var(--color-surface-alt);
+    border: 1px solid #d4c9a8;
+    border-radius: 5px;
+    color: var(--color-diff-text);
+    text-decoration: none;
+    font-size: 0.92em;
+    font-weight: 500;
+    transition: background 0.15s, box-shadow 0.15s;
+}
+.lit-explore:hover {
+    background: #ebe3d1;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
