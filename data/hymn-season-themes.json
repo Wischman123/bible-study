@@ -1,0 +1,631 @@
+{
+  "advent": {
+    "label": "Advent",
+    "themes": [
+      {
+        "id": 2565,
+        "title": "Jesus Christ, second coming of",
+        "count": 29
+      },
+      {
+        "id": 2515,
+        "title": "Jesus Christ, birth of",
+        "count": 25
+      },
+      {
+        "id": 2312,
+        "title": "Jesus Christ, as king",
+        "count": 17
+      },
+      {
+        "id": 2027,
+        "title": "Jesus Christ, grace and mercy of",
+        "count": 12
+      },
+      {
+        "id": 9410,
+        "title": "heaven",
+        "count": 8
+      },
+      {
+        "id": 2324,
+        "title": "Jesus Christ, as Saviour",
+        "count": 7
+      },
+      {
+        "id": 1085,
+        "title": "God, love of",
+        "count": 6
+      },
+      {
+        "id": 6720,
+        "title": "redemption",
+        "count": 4
+      },
+      {
+        "id": 2366,
+        "title": "Jesus Christ, prophecies concerning",
+        "count": 4
+      },
+      {
+        "id": 2560,
+        "title": "Jesus Christ, resurrection of",
+        "count": 4
+      },
+      {
+        "id": 2203,
+        "title": "Jesus Christ, titles and names of",
+        "count": 4
+      },
+      {
+        "id": 4835,
+        "title": "light, spiritual",
+        "count": 4
+      },
+      {
+        "id": 6510,
+        "title": "salvation",
+        "count": 3
+      },
+      {
+        "id": 9610,
+        "title": "hope",
+        "count": 3
+      },
+      {
+        "id": 6669,
+        "title": "grace, and salvation",
+        "count": 3
+      }
+    ]
+  },
+  "christmas": {
+    "label": "Christmas",
+    "themes": [
+      {
+        "id": 2515,
+        "title": "Jesus Christ, birth of",
+        "count": 46
+      },
+      {
+        "id": 2027,
+        "title": "Jesus Christ, grace and mercy of",
+        "count": 20
+      },
+      {
+        "id": 2033,
+        "title": "Jesus Christ, humanity of",
+        "count": 13
+      },
+      {
+        "id": 4110,
+        "title": "angels",
+        "count": 9
+      },
+      {
+        "id": 1085,
+        "title": "God, love of",
+        "count": 8
+      },
+      {
+        "id": 2312,
+        "title": "Jesus Christ, as king",
+        "count": 8
+      },
+      {
+        "id": 8283,
+        "title": "joy",
+        "count": 7
+      },
+      {
+        "id": 8664,
+        "title": "praise",
+        "count": 7
+      },
+      {
+        "id": 8287,
+        "title": "joy, and human experience",
+        "count": 7
+      },
+      {
+        "id": 2324,
+        "title": "Jesus Christ, as Saviour",
+        "count": 6
+      },
+      {
+        "id": 2048,
+        "title": "Jesus Christ, love of",
+        "count": 5
+      },
+      {
+        "id": 2036,
+        "title": "Jesus Christ, humility of",
+        "count": 5
+      },
+      {
+        "id": 2203,
+        "title": "Jesus Christ, titles and names of",
+        "count": 4
+      },
+      {
+        "id": 4835,
+        "title": "light, spiritual",
+        "count": 4
+      },
+      {
+        "id": 2348,
+        "title": "Jesus Christ, life of",
+        "count": 3
+      }
+    ]
+  },
+  "epiphany": {
+    "label": "Epiphany",
+    "themes": [
+      {
+        "id": 2515,
+        "title": "Jesus Christ, birth of",
+        "count": 12
+      },
+      {
+        "id": 2324,
+        "title": "Jesus Christ, as Saviour",
+        "count": 7
+      },
+      {
+        "id": 2348,
+        "title": "Jesus Christ, life of",
+        "count": 7
+      },
+      {
+        "id": 2354,
+        "title": "Jesus Christ, mission of",
+        "count": 6
+      },
+      {
+        "id": 2525,
+        "title": "Jesus Christ, cross of",
+        "count": 4
+      },
+      {
+        "id": 2203,
+        "title": "Jesus Christ, titles and names of",
+        "count": 4
+      },
+      {
+        "id": 2570,
+        "title": "Jesus Christ, suffering of",
+        "count": 3
+      },
+      {
+        "id": 8297,
+        "title": "love, for God",
+        "count": 3
+      },
+      {
+        "id": 2048,
+        "title": "Jesus Christ, love of",
+        "count": 3
+      },
+      {
+        "id": 2033,
+        "title": "Jesus Christ, humanity of",
+        "count": 3
+      },
+      {
+        "id": 2312,
+        "title": "Jesus Christ, as king",
+        "count": 3
+      },
+      {
+        "id": 4281,
+        "title": "stars",
+        "count": 3
+      },
+      {
+        "id": 2565,
+        "title": "Jesus Christ, second coming of",
+        "count": 2
+      },
+      {
+        "id": 2036,
+        "title": "Jesus Christ, humility of",
+        "count": 2
+      },
+      {
+        "id": 8424,
+        "title": "evangelism",
+        "count": 2
+      }
+    ]
+  },
+  "lent": {
+    "label": "Lent",
+    "themes": [
+      {
+        "id": 5560,
+        "title": "suffering",
+        "count": 20
+      },
+      {
+        "id": 8805,
+        "title": "pride, results of",
+        "count": 20
+      },
+      {
+        "id": 6624,
+        "title": "confession, of sin",
+        "count": 19
+      },
+      {
+        "id": 6614,
+        "title": "atonement",
+        "count": 18
+      },
+      {
+        "id": 9610,
+        "title": "hope",
+        "count": 18
+      },
+      {
+        "id": 9612,
+        "title": "hope, in God",
+        "count": 18
+      },
+      {
+        "id": 5565,
+        "title": "suffering, of believers",
+        "count": 16
+      },
+      {
+        "id": 1055,
+        "title": "God, grace and mercy of",
+        "count": 15
+      },
+      {
+        "id": 5480,
+        "title": "protection",
+        "count": 14
+      },
+      {
+        "id": 2324,
+        "title": "Jesus Christ, as Saviour",
+        "count": 13
+      },
+      {
+        "id": 2530,
+        "title": "Jesus Christ, death of",
+        "count": 10
+      },
+      {
+        "id": 1085,
+        "title": "God, love of",
+        "count": 10
+      },
+      {
+        "id": 6510,
+        "title": "salvation",
+        "count": 10
+      },
+      {
+        "id": 8030,
+        "title": "trust",
+        "count": 10
+      },
+      {
+        "id": 6652,
+        "title": "forgiveness",
+        "count": 9
+      }
+    ]
+  },
+  "holy_week": {
+    "label": "Holy Week",
+    "themes": [
+      {
+        "id": 2530,
+        "title": "Jesus Christ, death of",
+        "count": 27
+      },
+      {
+        "id": 2525,
+        "title": "Jesus Christ, cross of",
+        "count": 26
+      },
+      {
+        "id": 2570,
+        "title": "Jesus Christ, suffering of",
+        "count": 19
+      },
+      {
+        "id": 6510,
+        "title": "salvation",
+        "count": 17
+      },
+      {
+        "id": 7317,
+        "title": "blood, of Jesus Christ",
+        "count": 16
+      },
+      {
+        "id": 2324,
+        "title": "Jesus Christ, as Saviour",
+        "count": 16
+      },
+      {
+        "id": 6614,
+        "title": "atonement",
+        "count": 14
+      },
+      {
+        "id": 2048,
+        "title": "Jesus Christ, love of",
+        "count": 10
+      },
+      {
+        "id": 2312,
+        "title": "Jesus Christ, as king",
+        "count": 9
+      },
+      {
+        "id": 6617,
+        "title": "atonement, in NT",
+        "count": 9
+      },
+      {
+        "id": 6720,
+        "title": "redemption",
+        "count": 8
+      },
+      {
+        "id": 8020,
+        "title": "faith",
+        "count": 8
+      },
+      {
+        "id": 2413,
+        "title": "cross, of Jesus Christ",
+        "count": 7
+      },
+      {
+        "id": 1085,
+        "title": "God, love of",
+        "count": 7
+      },
+      {
+        "id": 6626,
+        "title": "conversion",
+        "count": 7
+      }
+    ]
+  },
+  "easter": {
+    "label": "Easter",
+    "themes": [
+      {
+        "id": 2560,
+        "title": "Jesus Christ, resurrection of",
+        "count": 23
+      },
+      {
+        "id": 6510,
+        "title": "salvation",
+        "count": 8
+      },
+      {
+        "id": 8283,
+        "title": "joy",
+        "count": 6
+      },
+      {
+        "id": 9610,
+        "title": "hope",
+        "count": 6
+      },
+      {
+        "id": 2530,
+        "title": "Jesus Christ, death of",
+        "count": 5
+      },
+      {
+        "id": 2565,
+        "title": "Jesus Christ, second coming of",
+        "count": 5
+      },
+      {
+        "id": 2525,
+        "title": "Jesus Christ, cross of",
+        "count": 4
+      },
+      {
+        "id": 5596,
+        "title": "victory",
+        "count": 4
+      },
+      {
+        "id": 2312,
+        "title": "Jesus Christ, as king",
+        "count": 3
+      },
+      {
+        "id": 6644,
+        "title": "eternal life",
+        "count": 3
+      },
+      {
+        "id": 8104,
+        "title": "assurance",
+        "count": 2
+      },
+      {
+        "id": 1690,
+        "title": "word of God",
+        "count": 2
+      },
+      {
+        "id": 9021,
+        "title": "death, natural",
+        "count": 2
+      },
+      {
+        "id": 9410,
+        "title": "heaven",
+        "count": 2
+      },
+      {
+        "id": 5599,
+        "title": "victory, of Jesus Christ",
+        "count": 2
+      }
+    ]
+  },
+  "ascension": {
+    "label": "Ascension",
+    "themes": [
+      {
+        "id": 2312,
+        "title": "Jesus Christ, as king",
+        "count": 40
+      },
+      {
+        "id": 2051,
+        "title": "Jesus Christ, majesty of",
+        "count": 12
+      },
+      {
+        "id": 2324,
+        "title": "Jesus Christ, as Saviour",
+        "count": 9
+      },
+      {
+        "id": 2565,
+        "title": "Jesus Christ, second coming of",
+        "count": 9
+      },
+      {
+        "id": 2336,
+        "title": "Jesus Christ, exaltation of",
+        "count": 8
+      },
+      {
+        "id": 2505,
+        "title": "Jesus Christ, ascension of",
+        "count": 8
+      },
+      {
+        "id": 1090,
+        "title": "God, majesty of",
+        "count": 7
+      },
+      {
+        "id": 2203,
+        "title": "Jesus Christ, titles and names of",
+        "count": 7
+      },
+      {
+        "id": 2515,
+        "title": "Jesus Christ, birth of",
+        "count": 7
+      },
+      {
+        "id": 2224,
+        "title": "Jesus Christ, the Lord",
+        "count": 6
+      },
+      {
+        "id": 9410,
+        "title": "heaven",
+        "count": 6
+      },
+      {
+        "id": 8632,
+        "title": "adoration",
+        "count": 5
+      },
+      {
+        "id": 2525,
+        "title": "Jesus Christ, cross of",
+        "count": 5
+      },
+      {
+        "id": 2024,
+        "title": "Jesus Christ, glory of",
+        "count": 5
+      },
+      {
+        "id": 8622,
+        "title": "worship",
+        "count": 4
+      }
+    ]
+  },
+  "pentecost": {
+    "label": "Pentecost",
+    "themes": [
+      {
+        "id": 3257,
+        "title": "Holy Spirit, gift of",
+        "count": 7
+      },
+      {
+        "id": 3278,
+        "title": "Holy Spirit, indwelling of",
+        "count": 6
+      },
+      {
+        "id": 1085,
+        "title": "God, love of",
+        "count": 4
+      },
+      {
+        "id": 3281,
+        "title": "Holy Spirit, inspiration of",
+        "count": 4
+      },
+      {
+        "id": 1510,
+        "title": "Trinity, the",
+        "count": 3
+      },
+      {
+        "id": 3130,
+        "title": "Holy Spirit, as Counsellor",
+        "count": 3
+      },
+      {
+        "id": 1690,
+        "title": "word of God",
+        "count": 3
+      },
+      {
+        "id": 8602,
+        "title": "prayer",
+        "count": 3
+      },
+      {
+        "id": 3221,
+        "title": "Holy Spirit, and prayer",
+        "count": 3
+      },
+      {
+        "id": 3015,
+        "title": "Holy Spirit, divinity of",
+        "count": 2
+      },
+      {
+        "id": 3140,
+        "title": "Holy Spirit, as teacher",
+        "count": 2
+      },
+      {
+        "id": 8440,
+        "title": "glorifying God",
+        "count": 2
+      }
+    ]
+  },
+  "ordinary": {
+    "label": "Ordinary Time",
+    "themes": []
+  }
+}

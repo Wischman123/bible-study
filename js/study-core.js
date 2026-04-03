@@ -88,6 +88,63 @@ function fetchVerseText(ref) {
     });
 }
 
+/* Determine the current liturgical season.
+   Uses the Meeus/Jones/Butcher Easter algorithm to compute moveable dates.
+   Returns a season key: "advent", "christmas", "epiphany", "lent",
+   "holy_week", "easter", "ascension", "pentecost", or "ordinary". */
+function getCurrentSeason() {
+    var today = new Date();
+    var y = today.getFullYear();
+    var m = today.getMonth() + 1;
+    var d = today.getDate();
+    var doy = dayOfYear(m, d, y);
+
+    /* Easter computation (Meeus/Jones/Butcher) */
+    function easterDoy(yr) {
+        var a = yr % 19, b = Math.floor(yr / 100), c = yr % 100;
+        var dd = Math.floor(b / 4), e = b % 4;
+        var f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3);
+        var h = (19 * a + b - dd - g + 15) % 30;
+        var i = Math.floor(c / 4), k = c % 4;
+        var l = (32 + 2 * e + 2 * i - h - k) % 7;
+        var mm = Math.floor((a + 11 * h + 22 * l) / 451);
+        var em = Math.floor((h + l - 7 * mm + 114) / 31);
+        var ed = ((h + l - 7 * mm + 114) % 31) + 1;
+        return dayOfYear(em, ed, yr);
+    }
+
+    function dayOfYear(mm, dd, yr) {
+        var days = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        if (yr % 4 === 0 && (yr % 100 !== 0 || yr % 400 === 0)) days[2] = 29;
+        var t = 0;
+        for (var i = 1; i < mm; i++) t += days[i];
+        return t + dd;
+    }
+
+    /* Advent: 4th Sunday before Dec 25 */
+    var dec25doy = dayOfYear(12, 25, y);
+    var dec24dow = new Date(y, 11, 24).getDay(); /* 0=Sun */
+    var daysBack = (dec24dow + 1) % 7; /* days back to Sunday */
+    var advent4 = dec25doy - 1 - daysBack;
+    var adventStart = advent4 - 21;
+
+    var easter = easterDoy(y);
+    var ashWed = easter - 46;
+    var palmSun = easter - 7;
+    var ascension = easter + 39;
+    var pentecost = easter + 49;
+
+    if (doy >= adventStart && doy <= dec25doy - 1) return 'advent';
+    if (doy >= dec25doy || doy <= 5) return 'christmas';
+    if (doy >= 6 && doy < ashWed) return 'epiphany';
+    if (doy >= ashWed && doy < palmSun) return 'lent';
+    if (doy >= palmSun && doy < easter) return 'holy_week';
+    if (doy >= easter && doy < ascension) return 'easter';
+    if (doy >= ascension && doy < pentecost) return 'ascension';
+    if (doy >= pentecost && doy < pentecost + 7) return 'pentecost';
+    return 'ordinary';
+}
+
 /* Fetch text for multiple verse refs and render them as a list.
    Returns a promise that resolves when the container is filled. */
 function renderVerseList(container, refs, scores) {

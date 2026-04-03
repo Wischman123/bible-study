@@ -12,6 +12,7 @@
 <div class="nav-bar">
     <a href="index.html">&larr; All Lookups</a>
     <a href="search.html">Search</a>
+    <a href="hymn.html">Hymns</a>
     <a href="bookmarks.html">Bookmarks</a>
 </div>
 
@@ -141,7 +142,38 @@
             + (refs.length !== 1 ? 's' : '') + '</div></div>';
         infoEl.innerHTML = infoHtml;
 
-        renderVerseList(contentEl, refs);
+        renderVerseList(contentEl, refs).then(function() {
+            /* After verses render, check for related hymns */
+            fetchJSON('data/hymn-themes.json').then(function(themeHymns) {
+                var hymnNums = themeHymns[themeId];
+                if (!hymnNums || hymnNums.length === 0) return;
+
+                return fetchJSON('data/hymns.json').then(function(hymns) {
+                    var byNum = {};
+                    for (var i = 0; i < hymns.length; i++) byNum[hymns[i].n] = hymns[i];
+
+                    var html = '<h2 style="margin-top:24px;">Related Hymns</h2>'
+                        + '<div style="font-size:0.85em;color:#888;margin-bottom:12px;">'
+                        + 'From The Sing! Hymnal</div>'
+                        + '<ul class="hymn-list">';
+                    for (var h = 0; h < hymnNums.length; h++) {
+                        var hym = byNum[hymnNums[h]];
+                        if (!hym) continue;
+                        html += '<li class="hymn-list-item">'
+                            + '<span class="hymn-list-num">' + hym.n + '</span>'
+                            + '<a class="hymn-list-title" href="hymn.html?n='
+                            + hym.n + '">' + esc(hym.fl) + '</a>'
+                            + '<span class="hymn-list-meta">'
+                            + esc(hym.t || '') + '</span></li>';
+                    }
+                    html += '</ul>';
+
+                    var hymnSection = document.createElement('div');
+                    hymnSection.innerHTML = html;
+                    contentEl.parentNode.appendChild(hymnSection);
+                });
+            }).catch(function() { /* hymn-themes.json may not exist yet */ });
+        });
 
     }).catch(function(err) {
         contentEl.innerHTML = '<p class="error">Error loading theme data: '
