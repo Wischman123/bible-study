@@ -41,6 +41,125 @@
             var filterInput = document.getElementById('hymn-filter');
             var sortSelect = document.getElementById('hymn-sort');
 
+            /* ── Shared expandable-list helpers ── */
+
+            function buildExpandableList(items) {
+                var html = '<ul class="hymn-list">';
+                for (var i = 0; i < items.length; i++) {
+                    var h = items[i];
+                    html += '<li class="hymn-list-item-wrap" data-hymn-idx="' + i + '">'
+                        + '<div class="hymn-list-item">'
+                        + '<span class="hymn-list-num">' + h.n + '</span>'
+                        + '<span class="hymn-list-title">' + esc(h.fl) + '</span>'
+                        + '<span class="hymn-list-meta">'
+                        + esc(h.t || '');
+                    if (h.a) html += ' \u00b7 ' + esc(h.a);
+                    html += '</span>'
+                        + '<span class="hymn-list-arrow">\u25B6</span>'
+                        + '</div>'
+                        + '<div class="hymn-list-expand"></div>'
+                        + '</li>';
+                }
+                html += '</ul>';
+                return html;
+            }
+
+            function attachExpandHandlers(container, items) {
+                container.querySelectorAll('.hymn-list-item-wrap').forEach(function(wrap) {
+                    var header = wrap.querySelector('.hymn-list-item');
+                    header.addEventListener('click', function() {
+                        if (wrap.classList.contains('open')) {
+                            wrap.classList.remove('open');
+                            return;
+                        }
+                        wrap.classList.add('open');
+                        var panel = wrap.querySelector('.hymn-list-expand');
+                        if (panel.dataset.loaded) return;
+                        panel.dataset.loaded = '1';
+                        var idx = parseInt(wrap.dataset.hymnIdx);
+                        renderExpandPanel(panel, items[idx]);
+                    });
+                });
+            }
+
+            function renderExpandPanel(panel, h) {
+                var html = '<div class="hymn-expand-content">';
+                if (h.a) {
+                    html += '<div class="hymn-expand-row">'
+                        + '<span class="hymn-expand-label">Author</span>'
+                        + '<span>' + esc(h.a);
+                    if (h.y) html += ' (' + h.y + ')';
+                    html += '</span></div>';
+                }
+                if (h.t) {
+                    html += '<div class="hymn-expand-row">'
+                        + '<span class="hymn-expand-label">Tune</span>'
+                        + '<span>' + esc(h.t) + '</span></div>';
+                }
+                if (h.tc) {
+                    html += '<div class="hymn-expand-row">'
+                        + '<span class="hymn-expand-label">Composer</span>'
+                        + '<span>' + esc(h.tc) + '</span></div>';
+                }
+                if (h.m) {
+                    html += '<div class="hymn-expand-row">'
+                        + '<span class="hymn-expand-label">Meter</span>'
+                        + '<span>' + esc(h.m) + '</span></div>';
+                }
+                if (h.sr && h.sr.length > 0) {
+                    html += '<div class="hymn-expand-row">'
+                        + '<span class="hymn-expand-label">Scripture</span>'
+                        + '<span>';
+                    for (var s = 0; s < h.sr.length; s++) {
+                        if (s > 0) html += ', ';
+                        html += '<a href="' + scriptureToLookupUrl(h.sr[s]) + '">'
+                            + esc(h.sr[s]) + '</a>';
+                    }
+                    html += '</span></div>';
+                }
+                if (h.tp && h.tp.length > 0) {
+                    html += '<div class="hymn-expand-tags">';
+                    for (var t = 0; t < h.tp.length; t++) {
+                        html += '<span class="hymn-expand-tag">' + esc(h.tp[t]) + '</span>';
+                    }
+                    html += '</div>';
+                }
+                html += '<div class="hymn-expand-audio" data-n="' + h.n + '"></div>';
+                if (h.l && h.l.length > 0) {
+                    html += '<div class="hymn-expand-lyrics">';
+                    for (var v = 0; v < h.l.length; v++) {
+                        html += '<p><strong>' + (v + 1) + '.</strong> '
+                            + esc(h.l[v]) + '</p>';
+                    }
+                    html += '<div class="hymn-expand-src">Public domain text via Open Hymnal Project</div>';
+                    html += '</div>';
+                }
+                html += '<div class="hymn-expand-links">'
+                    + '<a href="hymn.html?n=' + h.n + '">Full details page</a>';
+                if (h.url) {
+                    html += ' \u00b7 <a href="' + esc(h.url)
+                        + '" target="_blank" rel="noopener">Hymnary.org</a>';
+                }
+                html += '</div></div>';
+                panel.innerHTML = html;
+
+                var audioEl = panel.querySelector('.hymn-expand-audio');
+                fetchJSON('data/hymn-audio.json').then(function(audioData) {
+                    var audio = audioData[String(h.n)];
+                    var ah = '';
+                    if (audio && audio.mid) {
+                        ah += '<midi-player src="data/' + esc(audio.mid)
+                            + '" sound-font></midi-player>';
+                    }
+                    var q = encodeURIComponent('hymn ' + (h.fl || '') + ' ' + (h.t || ''));
+                    ah += '<a class="hymn-audio-link' + (audio && audio.mid ? ' hymn-yt-secondary' : '')
+                        + '" href="https://www.youtube.com/results?search_query=' + q
+                        + '" target="_blank" rel="noopener">'
+                        + '\u25B6 Search YouTube</a>';
+                    audioEl.innerHTML = ah;
+                }).catch(function() {});
+            }
+
             function renderList(filtered, sortBy) {
                 /* Sort */
                 var sorted = filtered.slice();
@@ -67,138 +186,10 @@
                 }
                 countHtml += '</div>';
 
-                var html = countHtml + '<ul class="hymn-list">';
-                for (var i = 0; i < sorted.length; i++) {
-                    var h = sorted[i];
-                    html += '<li class="hymn-list-item-wrap" data-hymn-idx="' + i + '">'
-                        + '<div class="hymn-list-item">'
-                        + '<span class="hymn-list-num">' + h.n + '</span>'
-                        + '<span class="hymn-list-title">' + esc(h.fl) + '</span>'
-                        + '<span class="hymn-list-meta">'
-                        + esc(h.t || '');
-                    if (h.a) {
-                        html += ' \u00b7 ' + esc(h.a);
-                    }
-                    html += '</span>'
-                        + '<span class="hymn-list-arrow">\u25B6</span>'
-                        + '</div>'
-                        + '<div class="hymn-list-expand"></div>'
-                        + '</li>';
-                }
-                html += '</ul>';
+                var html = countHtml
+                    + buildExpandableList(sorted);
                 contentEl.innerHTML = html;
-
-                /* Attach expand handlers */
-                contentEl.querySelectorAll('.hymn-list-item-wrap').forEach(function(wrap) {
-                    var header = wrap.querySelector('.hymn-list-item');
-                    header.addEventListener('click', function() {
-                        var wasOpen = wrap.classList.contains('open');
-                        if (wasOpen) {
-                            wrap.classList.remove('open');
-                            return;
-                        }
-                        wrap.classList.add('open');
-                        var panel = wrap.querySelector('.hymn-list-expand');
-                        if (panel.dataset.loaded) return;
-                        panel.dataset.loaded = '1';
-                        var idx = parseInt(wrap.dataset.hymnIdx);
-                        var h = sorted[idx];
-                        renderExpandPanel(panel, h);
-                    });
-                });
-            }
-
-            function renderExpandPanel(panel, h) {
-                var html = '<div class="hymn-expand-content">';
-
-                /* Info rows */
-                if (h.a) {
-                    html += '<div class="hymn-expand-row">'
-                        + '<span class="hymn-expand-label">Author</span>'
-                        + '<span>' + esc(h.a);
-                    if (h.y) html += ' (' + h.y + ')';
-                    html += '</span></div>';
-                }
-                if (h.t) {
-                    html += '<div class="hymn-expand-row">'
-                        + '<span class="hymn-expand-label">Tune</span>'
-                        + '<span>' + esc(h.t) + '</span></div>';
-                }
-                if (h.tc) {
-                    html += '<div class="hymn-expand-row">'
-                        + '<span class="hymn-expand-label">Composer</span>'
-                        + '<span>' + esc(h.tc) + '</span></div>';
-                }
-                if (h.m) {
-                    html += '<div class="hymn-expand-row">'
-                        + '<span class="hymn-expand-label">Meter</span>'
-                        + '<span>' + esc(h.m) + '</span></div>';
-                }
-
-                /* Scripture references */
-                if (h.sr && h.sr.length > 0) {
-                    html += '<div class="hymn-expand-row">'
-                        + '<span class="hymn-expand-label">Scripture</span>'
-                        + '<span>';
-                    for (var s = 0; s < h.sr.length; s++) {
-                        if (s > 0) html += ', ';
-                        html += '<a href="' + scriptureToLookupUrl(h.sr[s]) + '">'
-                            + esc(h.sr[s]) + '</a>';
-                    }
-                    html += '</span></div>';
-                }
-
-                /* Topics */
-                if (h.tp && h.tp.length > 0) {
-                    html += '<div class="hymn-expand-tags">';
-                    for (var t = 0; t < h.tp.length; t++) {
-                        html += '<span class="hymn-expand-tag">' + esc(h.tp[t]) + '</span>';
-                    }
-                    html += '</div>';
-                }
-
-                /* Audio placeholder */
-                html += '<div class="hymn-expand-audio" data-n="' + h.n + '"></div>';
-
-                /* Lyrics */
-                if (h.l && h.l.length > 0) {
-                    html += '<div class="hymn-expand-lyrics">';
-                    for (var v = 0; v < h.l.length; v++) {
-                        html += '<p><strong>' + (v + 1) + '.</strong> '
-                            + esc(h.l[v]) + '</p>';
-                    }
-                    html += '<div class="hymn-expand-src">Public domain text via Open Hymnal Project</div>';
-                    html += '</div>';
-                }
-
-                /* Links */
-                html += '<div class="hymn-expand-links">'
-                    + '<a href="hymn.html?n=' + h.n + '">Full details page</a>';
-                if (h.url) {
-                    html += ' \u00b7 <a href="' + esc(h.url)
-                        + '" target="_blank" rel="noopener">Hymnary.org</a>';
-                }
-                html += '</div>';
-
-                html += '</div>';
-                panel.innerHTML = html;
-
-                /* Load audio */
-                var audioEl = panel.querySelector('.hymn-expand-audio');
-                fetchJSON('data/hymn-audio.json').then(function(audioData) {
-                    var audio = audioData[String(h.n)];
-                    var ah = '';
-                    if (audio && audio.mid) {
-                        ah += '<midi-player src="data/' + esc(audio.mid)
-                            + '" sound-font></midi-player>';
-                    }
-                    var q = encodeURIComponent('hymn ' + (h.fl || '') + ' ' + (h.t || ''));
-                    ah += '<a class="hymn-audio-link' + (audio && audio.mid ? ' hymn-yt-secondary' : '')
-                        + '" href="https://www.youtube.com/results?search_query=' + q
-                        + '" target="_blank" rel="noopener">'
-                        + '\u25B6 Search YouTube</a>';
-                    audioEl.innerHTML = ah;
-                }).catch(function() {});
+                attachExpandHandlers(contentEl, sorted);
             }
 
             function applyFilter() {
@@ -241,6 +232,7 @@
                 });
                 if (seasonHymns.length === 0) return;
 
+                var seasonShow = seasonHymns.slice(0, 20);
                 var html = '<div class="hymn-season-box">'
                     + '<h2 class="hymn-season-title">Hymns for '
                     + esc(label) + '</h2>'
@@ -248,36 +240,24 @@
                     + seasonHymns.length + ' hymn'
                     + (seasonHymns.length !== 1 ? 's' : '')
                     + ' for this season</div>'
-                    + '<ul class="hymn-list">';
-
-                /* Show up to 10, with a "show all" toggle */
-                var limit = Math.min(seasonHymns.length, 10);
-                for (var i = 0; i < limit; i++) {
-                    var h = seasonHymns[i];
-                    html += '<li class="hymn-list-item">'
-                        + '<span class="hymn-list-num">' + h.n + '</span>'
-                        + '<a class="hymn-list-title" href="hymn.html?n='
-                        + h.n + '">' + esc(h.fl) + '</a>'
-                        + '<span class="hymn-list-meta">'
-                        + esc(h.t || '') + '</span></li>';
+                    + buildExpandableList(seasonShow);
+                if (seasonHymns.length > 20) {
+                    html += '<div style="text-align:center;padding:8px 0;">'
+                        + '<a href="seasonal.html?s=' + season
+                        + '" style="font-size:0.9em;color:var(--color-hymn);">'
+                        + 'See all ' + seasonHymns.length + ' hymns</a></div>';
                 }
-                if (seasonHymns.length > 10) {
-                    html += '<li class="hymn-list-item" style="justify-content:center">'
-                        + '<a href="hymn.html?q=' + encodeURIComponent(label)
-                        + '" style="font-size:0.9em;color:#7a3b4e;">'
-                        + 'See all ' + seasonHymns.length + ' '
-                        + esc(label) + ' hymns</a></li>';
-                }
-                html += '<li class="hymn-list-item" style="justify-content:center">'
+                html += '<div style="text-align:center;padding:4px 0 8px;">'
                     + '<a href="seasonal.html?s=' + season
-                    + '" style="font-size:0.85em;color:#5b7e9e;">'
-                    + 'See all seasonal content \u2192</a></li>';
-                html += '</ul></div>';
+                    + '" style="font-size:0.85em;color:var(--color-link);">'
+                    + 'See all seasonal content \u2192</a></div>';
+                html += '</div>';
 
                 /* Insert before the main list */
                 var seasonEl = document.createElement('div');
                 seasonEl.innerHTML = html;
                 contentEl.parentNode.insertBefore(seasonEl, contentEl);
+                attachExpandHandlers(seasonEl, seasonShow);
             }).catch(function() {
                 /* Silently ignore — liturgical data is optional */
             });
