@@ -1,0 +1,82 @@
+(function() {
+    var contentEl = document.getElementById('content');
+    var subtitleEl = document.getElementById('page-subtitle');
+
+    /* Read bookmarks and highlights from localStorage */
+    var bookmarks = [];
+    var highlights = {};
+
+    try {
+        bookmarks = JSON.parse(localStorage.getItem('bible-bookmarks') || '[]');
+    } catch(e) { bookmarks = []; }
+
+    try {
+        highlights = JSON.parse(localStorage.getItem('bible-highlights') || '{}');
+    } catch(e) { highlights = {}; }
+
+    var totalHighlights = 0;
+    for (var page in highlights) {
+        totalHighlights += highlights[page].length;
+    }
+
+    subtitleEl.textContent = bookmarks.length + ' bookmarked page'
+        + (bookmarks.length !== 1 ? 's' : '') + ', '
+        + totalHighlights + ' highlighted verse'
+        + (totalHighlights !== 1 ? 's' : '');
+
+    if (bookmarks.length === 0 && totalHighlights === 0) {
+        contentEl.innerHTML = '<p style="color:#888;font-style:italic">'
+            + 'No bookmarks or highlights yet. Use the bookmark button on any '
+            + 'lookup page to save it here.</p>';
+        return;
+    }
+
+    var html = '';
+
+    /* Bookmarked pages */
+    if (bookmarks.length > 0) {
+        html += '<h2>Bookmarked Pages</h2><ul class="verse-list">';
+        for (var i = 0; i < bookmarks.length; i++) {
+            var bm = bookmarks[i];
+            html += '<li class="verse-item">'
+                  + '<a class="verse-ref" href="' + esc(bm.href) + '">'
+                  + esc(bm.title) + '</a>'
+                  + '<span style="font-size:0.8em;color:#aaa;margin-left:8px;">'
+                  + esc(bm.date || '') + '</span>'
+                  + ' <a href="#" class="remove-bm" data-idx="' + i
+                  + '" style="font-size:0.8em;color:#c44;margin-left:8px;">'
+                  + 'remove</a></li>';
+        }
+        html += '</ul>';
+    }
+
+    /* Highlighted verses grouped by page */
+    var hlPages = Object.keys(highlights).filter(function(k) {
+        return highlights[k].length > 0;
+    });
+    if (hlPages.length > 0) {
+        html += '<h2>Highlighted Verses</h2>';
+        for (var p = 0; p < hlPages.length; p++) {
+            var pageName = hlPages[p];
+            var verseNums = highlights[pageName];
+            html += '<h3 style="margin:16px 0 8px;color:#5b7e9e;font-size:1em;">'
+                  + '<a href="' + esc(pageName) + '">' + esc(pageName.replace(/\.html$/, '')
+                    .replace(/^lookup_/, '').replace(/_/g, ' ')) + '</a>'
+                  + ' (' + verseNums.length + ')</h3>';
+            html += '<div style="font-size:0.9em;color:#666;">Verses: '
+                  + verseNums.map(esc).join(', ') + '</div>';
+        }
+    }
+
+    contentEl.innerHTML = html;
+
+    /* Remove bookmark handler */
+    contentEl.addEventListener('click', function(e) {
+        if (!e.target.classList.contains('remove-bm')) return;
+        e.preventDefault();
+        var idx = parseInt(e.target.getAttribute('data-idx'));
+        bookmarks.splice(idx, 1);
+        localStorage.setItem('bible-bookmarks', JSON.stringify(bookmarks));
+        location.reload();
+    });
+})();

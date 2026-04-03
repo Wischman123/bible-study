@@ -1,0 +1,153 @@
+(function() {
+    var themeId = getUrlParam('id');
+    if (!themeId) {
+        document.getElementById('content').innerHTML =
+            '<p class="error">No theme ID specified. Use theme.html?id=1020</p>';
+        return;
+    }
+
+    var titleEl = document.getElementById('page-title');
+    var subtitleEl = document.getElementById('page-subtitle');
+    var breadcrumbEl = document.getElementById('breadcrumb');
+    var childrenEl = document.getElementById('children');
+    var contentEl = document.getElementById('content');
+    var infoEl = document.getElementById('info-card');
+
+    /* Load theme hierarchy and verse index in parallel */
+    Promise.all([
+        fetchJSON('data/themes.json'),
+        fetchJSON('data/theme-verses.json')
+    ]).then(function(results) {
+        var themes = results[0];
+        var themeVerses = results[1];
+
+        var theme = themes[themeId];
+        if (!theme) {
+            contentEl.innerHTML = '<p class="error">Theme ' + esc(themeId)
+                + ' not found.</p>';
+            return;
+        }
+
+        /* Update page title */
+        document.title = theme.title + ' — Bible Theme';
+        titleEl.textContent = theme.title;
+        subtitleEl.textContent = 'Theme #' + themeId + ' \u00b7 ' + theme.type;
+
+        /* Build breadcrumb by walking up the hierarchy */
+        var crumbs = [];
+        var visited = {};
+        function findParent(childId) {
+            for (var pid in themes) {
+                var ch = themes[pid].children || [];
+                for (var i = 0; i < ch.length; i++) {
+                    if (String(ch[i]) === String(childId)) return pid;
+                }
+            }
+            return null;
+        }
+        var current = themeId;
+        while (current && !visited[current]) {
+            visited[current] = true;
+            var parent = findParent(current);
+            if (parent && themes[parent]) {
+                crumbs.unshift({id: parent, title: themes[parent].title});
+            }
+            current = parent;
+        }
+        if (crumbs.length > 0) {
+            var bhtml = '<div class="breadcrumb">';
+            for (var i = 0; i < crumbs.length; i++) {
+                bhtml += '<a href="theme.html?id=' + crumbs[i].id + '">'
+                       + esc(crumbs[i].title) + '</a><span class="sep">&rsaquo;</span>';
+            }
+            bhtml += '<strong>' + esc(theme.title) + '</strong></div>';
+            breadcrumbEl.innerHTML = bhtml;
+        }
+
+        /* Show child themes */
+        var children = theme.children || [];
+        if (children.length > 0) {
+            var chtml = '<h2>Sub-themes</h2><div class="children-list">';
+            for (var i = 0; i < children.length; i++) {
+                var cid = String(children[i]);
+                var ct = themes[cid] ? themes[cid].title : 'Theme ' + cid;
+                chtml += '<a class="child-link" href="theme.html?id='
+                       + cid + '">' + esc(ct) + '</a>';
+            }
+            chtml += '</div>';
+            childrenEl.innerHTML = chtml;
+        }
+
+        /* Show see_also links */
+        var seeAlso = theme.see_also || [];
+        if (seeAlso.length > 0) {
+            var shtml = '<h2>See Also</h2><div class="children-list">';
+            for (var i = 0; i < seeAlso.length; i++) {
+                var sid = String(seeAlso[i]);
+                var st = themes[sid] ? themes[sid].title : 'Theme ' + sid;
+                shtml += '<a class="child-link" href="theme.html?id='
+                       + sid + '">' + esc(st) + '</a>';
+            }
+            shtml += '</div>';
+            childrenEl.innerHTML += shtml;
+        }
+
+        /* Load and display verses */
+        var refs = themeVerses[themeId] || [];
+        if (refs.length === 0) {
+            /* This theme may only have children, no direct verses */
+            if (children.length > 0) {
+                contentEl.innerHTML = '<p style="color:#888;font-style:italic">'
+                    + 'This is a category theme. Explore the sub-themes above '
+                    + 'to find verses.</p>';
+            } else {
+                contentEl.innerHTML = '<p style="color:#888;font-style:italic">'
+                    + 'No verses indexed for this theme.</p>';
+            }
+            return;
+        }
+
+        var infoHtml = '<div class="info-card">'
+            + '<span class="label">Verses</span>'
+            + '<div class="value">' + refs.length + ' passage'
+            + (refs.length !== 1 ? 's' : '') + '</div></div>';
+        infoEl.innerHTML = infoHtml;
+
+        renderVerseList(contentEl, refs).then(function() {
+            /* After verses render, check for related hymns */
+            fetchJSON('data/hymn-themes.json').then(function(themeHymns) {
+                var hymnNums = themeHymns[themeId];
+                if (!hymnNums || hymnNums.length === 0) return;
+
+                return fetchJSON('data/hymns.json').then(function(hymns) {
+                    var byNum = {};
+                    for (var i = 0; i < hymns.length; i++) byNum[hymns[i].n] = hymns[i];
+
+                    var html = '<h2 style="margin-top:24px;">Related Hymns</h2>'
+                        + '<div style="font-size:0.85em;color:#888;margin-bottom:12px;">'
+                        + 'From The Sing! Hymnal</div>'
+                        + '<ul class="hymn-list">';
+                    for (var h = 0; h < hymnNums.length; h++) {
+                        var hym = byNum[hymnNums[h]];
+                        if (!hym) continue;
+                        html += '<li class="hymn-list-item">'
+                            + '<span class="hymn-list-num">' + hym.n + '</span>'
+                            + '<a class="hymn-list-title" href="hymn.html?n='
+                            + hym.n + '">' + esc(hym.fl) + '</a>'
+                            + '<span class="hymn-list-meta">'
+                            + esc(hym.t || '') + '</span></li>';
+                    }
+                    html += '</ul>';
+
+                    var hymnSection = document.createElement('div');
+                    hymnSection.innerHTML = html;
+                    contentEl.parentNode.appendChild(hymnSection);
+                });
+            }).catch(function() { /* hymn-themes.json may not exist yet */ });
+        });
+
+    }).catch(function(err) {
+        contentEl.innerHTML = '<p class="error">Error loading theme data: '
+            + esc(String(err)) + '</p>';
+    });
+})();

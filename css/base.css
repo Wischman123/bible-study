@@ -1,0 +1,28 @@
+/*
+ * base.css — Shared design tokens for all Bible study pages.
+ *
+ * Both lookup.css and study.css import this file so that colors,
+ * fonts, and spacing are consistent across the two layouts.
+ * To change the accent color or font, change it here once.
+ */
+
+:root {
+    /* ── Colors ────────────────────────────────────── */
+    --color-body: #2c2c2c;
+    --color-bg: #fafaf7;
+    --color-heading: #3d5a73;
+    --color-heading-dark: #1a1a1a;
+    --color-accent: #c9a96e;
+    --color-link: #5b7e9e;
+    --color-link-hover: #3d5a73;
+    --color-muted: #888;
+    --color-border: #eee;
+    --color-hymn: #7a3b4e;
+
+    /* ── Typography ────────────────────────────────── */
+    --font-body: 'Georgia', 'Times New Roman', serif;
+    --line-height: 1.7;
+
+    /* ── Spacing ───────────────────────────────────── */
+    --section-gap: 20px;
+}

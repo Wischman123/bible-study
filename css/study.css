@@ -1,12 +1,13 @@
 /* study.css — Shared styles for Bible study tool pages */
+@import url('base.css');
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    font-family: 'Georgia', 'Times New Roman', serif;
-    line-height: 1.7;
-    color: #2c2c2c;
-    background: #fafaf7;
+    font-family: var(--font-body);
+    line-height: var(--line-height);
+    color: var(--color-body);
+    background: var(--color-bg);
     max-width: 1100px;
     margin: 0 auto;
     padding: 20px 30px 60px 30px;
@@ -14,8 +15,8 @@ body {
 
 h1 {
     font-size: 1.8em;
-    color: #3d5a73;
-    border-bottom: 2px solid #c9a96e;
+    color: var(--color-heading);
+    border-bottom: 2px solid var(--color-accent);
     padding-bottom: 8px;
     margin-bottom: 6px;
 }
@@ -26,8 +27,8 @@ h1 {
     margin-bottom: 16px;
 }
 
-a { color: #5b7e9e; }
-a:hover { color: #3d5a73; }
+a { color: var(--color-link); }
+a:hover { color: var(--color-link-hover); }
 
 /* ── Navigation ─────────────────────────────────── */
 .nav-bar {

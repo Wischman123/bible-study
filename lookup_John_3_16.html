@@ -4,878 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>John 3:16</title>
-    <style>
-        /* ── Base styles ────────────────────────────────── */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+    <link rel="stylesheet" href="css/lookup.css">
 
-        @page { size: landscape; margin: 0.5in; }
-
-        body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            line-height: 1.7;
-            color: #2c2c2c;
-            background: #fafaf7;
-            margin: 0 auto;
-            padding: 40px 30px;
-        }
-
-        /* ── Page title ─────────────────────────────────── */
-        h1 {
-            font-size: 2.2em;
-            font-weight: normal;
-            color: #1a1a1a;
-            text-align: center;
-            margin-bottom: 0;
-            letter-spacing: 0.5px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #888;
-            font-size: 0.95em;
-            font-style: italic;
-            margin-bottom: 8px;
-        }
-
-        /* ── Section headers ────────────────────────────── */
-        h2 {
-            font-size: 1.5em;
-            font-weight: normal;
-            color: #444;
-            border-bottom: 2px solid #c9a96e;
-            padding-bottom: 8px;
-            margin: 30px 0 15px 0;
-            letter-spacing: 0.3px;
-        }
-
-        /* ── Parallel verse table ───────────────────────── */
-        .parallel-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #fff;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .parallel-table th {
-            background: #f7f3eb;
-            color: #6b5b3e;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            font-size: 0.95em;
-            font-weight: bold;
-            padding: 14px 18px;
-            text-align: left;
-            border-bottom: 2px solid #c9a96e;
-            position: sticky;
-            top: 0;
-            z-index: 1;
-        }
-
-        .parallel-table th.verse-col {
-            width: 40px;
-            text-align: center;
-            color: #999;
-        }
-
-        .parallel-table th .abbrev {
-            font-weight: normal;
-            color: #999;
-            font-size: 0.85em;
-        }
-
-        .parallel-table td {
-            padding: 12px 18px;
-            vertical-align: top;
-            border-bottom: 1px solid #eee;
-            font-size: 1em;
-            line-height: 1.65;
-        }
-
-        .parallel-table td.verse-num-cell {
-            text-align: center;
-            font-weight: bold;
-            color: #c9a96e;
-            font-size: 0.9em;
-            width: 40px;
-            vertical-align: top;
-            padding-top: 14px;
-        }
-
-        .parallel-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .parallel-table tr:hover td {
-            background: #fdfcf8;
-        }
-
-        .parallel-table th.diff-col {
-            background: #f0ebe0;
-            color: #6b5b3e;
-            min-width: 200px;
-        }
-
-        .parallel-table td.diff-cell {
-            font-size: 0.88em;
-            line-height: 1.55;
-            color: #6b5b3e;
-            background: #fdf9f0;
-            font-style: italic;
-            border-left: 2px solid #c9a96e;
-        }
-
-        .parallel-table td.diff-cell-none {
-            font-size: 0.85em;
-            color: #bbb;
-            background: #fdf9f0;
-            border-left: 2px solid #c9a96e;
-            text-align: center;
-        }
-
-        /* ── Inline cross-references (inside verse cell) ── */
-        .verse-crossrefs {
-            font-style: italic;
-            font-size: 0.8em;
-            color: #aaa;
-            margin-left: 6px;
-            line-height: 1.5;
-        }
-        .xref-link {
-            color: #8a9fae;
-            text-decoration: none;
-            cursor: pointer;
-            transition: color 0.15s;
-        }
-        .xref-link:hover {
-            color: #5b7e9e;
-            text-decoration: underline;
-        }
-
-        /* ── Cross-reference preview panel ─────────────── */
-        .xref-panel {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.35s ease;
-            background: #faf9f5;
-            border: 1px solid #e0d8c8;
-            border-radius: 6px;
-            margin: 10px 0;
-        }
-        .xref-panel.visible {
-            max-height: 600px;
-            overflow-y: auto;
-        }
-        .xref-panel-inner {
-            padding: 16px 20px;
-        }
-        .xref-panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .xref-panel-ref {
-            font-weight: 600;
-            color: #3d5a73;
-            font-size: 1.05em;
-        }
-        .xref-panel-close {
-            background: none;
-            border: none;
-            font-size: 1.3em;
-            color: #999;
-            cursor: pointer;
-            padding: 2px 6px;
-        }
-        .xref-panel-close:hover {
-            color: #333;
-        }
-        .xref-panel-verse {
-            margin-bottom: 8px;
-            line-height: 1.6;
-        }
-        .xref-panel-label {
-            font-weight: 600;
-            color: #5b7e9e;
-            font-size: 0.85em;
-            margin-right: 6px;
-        }
-        .xref-panel-link {
-            display: block;
-            margin-top: 10px;
-            font-size: 0.85em;
-            color: #5b7e9e;
-        }
-
-        /* ── Inline difference highlighting ─────────────── */
-        .diff-word {
-            text-decoration: underline dotted #c9a96e;
-            text-underline-offset: 3px;
-        }
-
-        /* ── Commentary blocks ──────────────────────────── */
-        .commentary-pair {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .commentary {
-            margin-bottom: 40px;
-            padding: 25px 30px;
-            background: #fff;
-            border-left: 4px solid #5b7e9e;
-            border-radius: 0 6px 6px 0;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-        }
-
-        .commentary-pair .commentary {
-            margin-bottom: 0;
-        }
-
-        .commentary-name {
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #3d5a73;
-            margin-bottom: 4px;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-        }
-
-        .commentary-author {
-            font-size: 0.85em;
-            color: #999;
-            font-style: italic;
-            margin-bottom: 15px;
-        }
-
-        .commentary-intro {
-            font-style: italic;
-            color: #666;
-            margin-bottom: 15px;
-            padding: 12px 16px;
-            background: #f5f5f0;
-            border-radius: 4px;
-            font-size: 0.95em;
-        }
-
-        .commentary-verse {
-            margin-bottom: 18px;
-        }
-
-        .commentary-verse-ref {
-            font-weight: bold;
-            color: #5b7e9e;
-            font-size: 0.9em;
-            margin-bottom: 4px;
-        }
-
-        .commentary-text {
-            font-size: 0.98em;
-            line-height: 1.75;
-            color: #3a3a3a;
-        }
-
-        .no-content {
-            color: #aaa;
-            font-style: italic;
-            padding: 15px 0;
-        }
-
-        /* ── Comparison section ─────────────────────────── */
-        .comparison-pair {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .comparison-card {
-            padding: 25px 30px;
-            background: #fff;
-            border-left: 4px solid #c9a96e;
-            border-radius: 0 6px 6px 0;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-        }
-
-        .comparison-card h3 {
-            font-size: 1.15em;
-            font-weight: bold;
-            color: #6b5b3e;
-            margin: 0 0 12px 0;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-        }
-
-        .comparison-card p {
-            font-size: 0.98em;
-            line-height: 1.75;
-            color: #3a3a3a;
-            margin-bottom: 12px;
-        }
-
-        .comparison-card strong {
-            color: #2c2c2c;
-        }
-
-        /* ── Interlinear section ────────────────────────── */
-        .interlinear-verse {
-            margin-bottom: 8px;
-        }
-
-        .interlinear-verse summary {
-            cursor: pointer;
-            font-weight: bold;
-            color: #5b7e9e;
-            font-size: 0.95em;
-            padding: 6px 0;
-            list-style: none;
-        }
-
-        .interlinear-verse summary::before {
-            content: "▸ ";
-            color: #c9a96e;
-        }
-
-        .interlinear-verse[open] summary::before {
-            content: "▾ ";
-        }
-
-        .interlinear-layout {
-            display: grid;
-            grid-template-columns: 1fr 20fr;
-            gap: 20px;
-            margin: 8px 0 16px 0;
-        }
-
-        .interlinear-esv {
-            font-size: 0.95em;
-            line-height: 1.75;
-            color: #3a3a3a;
-            padding: 10px 16px;
-            background: #fdfcf8;
-            border-radius: 4px;
-            border-left: 3px solid #c9a96e;
-            align-self: start;
-        }
-
-        .interlinear-esv .esv-label {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            font-size: 0.78em;
-            font-weight: bold;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
-
-        .interlinear-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 8px 0 16px 0;
-            background: #fff;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            border-radius: 4px;
-            overflow: hidden;
-            font-size: 0.9em;
-        }
-
-        .interlinear-table th {
-            background: #f0ebe0;
-            color: #6b5b3e;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            font-size: 0.85em;
-            font-weight: bold;
-            padding: 8px 12px;
-            text-align: left;
-            border-bottom: 1px solid #d4c9a8;
-        }
-
-        .interlinear-table td {
-            padding: 6px 12px;
-            border-bottom: 1px solid #f0ece3;
-            vertical-align: top;
-        }
-
-        .interlinear-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .interlinear-table tr:hover td {
-            background: #fdfcf8;
-        }
-
-        .original-text {
-            font-size: 1.3em;
-            line-height: 1.4;
-        }
-
-        .original-text.hebrew {
-            direction: rtl;
-            font-family: 'SBL Hebrew', 'Ezra SIL', 'Times New Roman', serif;
-        }
-
-        .original-text.greek {
-            font-family: 'SBL Greek', 'Gentium Plus', 'Times New Roman', serif;
-        }
-
-        .strongs-num {
-            font-family: monospace;
-            font-size: 0.85em;
-            color: #8b6914;
-            background: #fdf6e3;
-            padding: 1px 5px;
-            border-radius: 3px;
-        }
-
-        .strongs-def {
-            font-size: 0.88em;
-            color: #666;
-            font-style: italic;
-        }
-
-        .transliteration {
-            color: #888;
-            font-style: italic;
-        }
-
-        /* ── Topics & themes (header-level) ────────────── */
-        .header-topics {
-            text-align: center;
-            margin: 0 auto 12px auto;
-        }
-
-        .header-topics-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 6px;
-            max-height: 58px;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            position: relative;
-            padding-right: 65px;
-        }
-
-        .header-topics-row.expanded {
-            overflow: visible;
-            padding-right: 0;
-        }
-
-        .topics-toggle {
-            display: none;
-            cursor: pointer;
-            font-size: 0.78em;
-            padding: 2px 14px;
-            background: #fafaf7;
-            color: #999;
-            border: 1px dashed #ccc;
-            border-radius: 12px;
-            font-style: italic;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            transition: color 0.2s, border-color 0.2s;
-            position: absolute;
-            bottom: 2px;
-            right: 0;
-        }
-
-        .topics-toggle:hover {
-            color: #6b5b3e;
-            border-color: #c9a96e;
-        }
-
-        .topics-toggle.visible {
-            display: inline-block;
-        }
-
-        .header-topics-row.expanded .topics-toggle {
-            position: static;
-            background: none;
-        }
-
-        .header-topics-label {
-            font-size: 0.8em;
-            font-weight: bold;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-right: 2px;
-        }
-
-        .theme-tag {
-            display: inline-block;
-            font-size: 0.78em;
-            padding: 2px 9px;
-            background: #e8f0fe;
-            color: #1a56db;
-            border-radius: 12px;
-            white-space: nowrap;
-            text-decoration: none;
-            transition: background 0.15s;
-        }
-        .theme-tag:hover {
-            background: #d0e2fc;
-        }
-
-        .topic-tag {
-            display: inline-block;
-            font-size: 0.78em;
-            padding: 2px 9px;
-            background: #f0f5e8;
-            color: #3d7317;
-            border-radius: 12px;
-            white-space: nowrap;
-            text-decoration: none;
-            transition: background 0.15s;
-        }
-        .topic-tag:hover {
-            background: #e0ebd0;
-        }
-
-        /* ── Places section ─────────────────────────────── */
-        .places-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
-            margin: 15px 0 30px 0;
-        }
-
-        .place-card {
-            padding: 20px 24px;
-            background: #fff;
-            border-left: 4px solid #6a9b68;
-            border-radius: 0 6px 6px 0;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-        }
-
-        .place-name {
-            font-size: 1.05em;
-            font-weight: bold;
-            color: #2d6a2d;
-            margin-bottom: 4px;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-        }
-
-        .place-type {
-            font-size: 0.82em;
-            color: #888;
-            margin-bottom: 10px;
-        }
-
-        .place-description {
-            font-size: 0.92em;
-            line-height: 1.65;
-            color: #3a3a3a;
-            margin-bottom: 8px;
-        }
-
-        .place-coords {
-            font-size: 0.8em;
-            color: #aaa;
-            font-family: monospace;
-        }
-
-        .place-refs {
-            font-size: 0.82em;
-            color: #6a9b68;
-            margin-top: 6px;
-        }
-
-        /* ── Cross-references section ──────────────────── */
-        .crossrefs-container {
-            margin: 15px 0 30px 0;
-        }
-
-        .crossrefs-verse {
-            margin-bottom: 14px;
-            padding: 12px 20px;
-            background: #fff;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        .crossrefs-verse-ref {
-            font-weight: bold;
-            color: #5b7e9e;
-            font-size: 0.9em;
-            margin-bottom: 6px;
-        }
-
-        .crossref-tag {
-            display: inline-block;
-            font-size: 0.84em;
-            padding: 3px 10px;
-            background: #f5f0e8;
-            color: #8b6914;
-            border-radius: 12px;
-            margin: 2px 4px 2px 0;
-            white-space: nowrap;
-        }
-
-        /* ── Print styles ───────────────────────────────── */
-        @media print {
-            body { background: #fff; padding: 15px; }
-            .parallel-table, .commentary, .comparison-card,
-            .place-card, .topics-verse, .crossrefs-verse { box-shadow: none; }
-            .parallel-table th { position: static; }
-            .page-break { page-break-before: always; }
-            h2 { margin-top: 20px; }
-            .interlinear-verse { break-inside: avoid; }
-        }
-
-        /* ── Interactive verse expansion ────────────── */
-        .verse-cell-clickable {
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .verse-cell-clickable:hover {
-            background: #f5f0e0 !important;
-        }
-
-        #expanded-view {
-            display: none;
-            margin: 20px 0;
-        }
-
-        #expanded-view.active {
-            display: block;
-        }
-
-        .expanded-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-        }
-
-        .expanded-title {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #6b5b3e;
-        }
-
-        .expanded-close {
-            background: #f7f3eb;
-            border: 1px solid #d4c9a8;
-            color: #6b5b3e;
-            font-size: 1.3em;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-        }
-
-        .expanded-close:hover {
-            background: #ebe3d1;
-        }
-
-        .expanded-panel {
-            display: grid;
-            grid-template-columns: 1fr 10fr;
-            gap: 24px;
-            align-items: start;
-        }
-
-        .expanded-text {
-            font-size: 1.15em;
-            line-height: 1.8;
-            color: #2c2c2c;
-            padding: 20px 24px;
-            background: #fff;
-            border-left: 4px solid #c9a96e;
-            border-radius: 0 6px 6px 0;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-            position: sticky;
-            top: 20px;
-        }
-
-        #expanded-view.active .expanded-text {
-            animation: slideInLeft 0.35s ease both;
-        }
-
-        #expanded-view.active .expanded-interlinear {
-            animation: slideInRight 0.35s ease both;
-            animation-delay: 0.08s;
-        }
-
-        #expanded-view.closing .expanded-text {
-            animation: slideOutLeft 0.25s ease both;
-        }
-
-        #expanded-view.closing .expanded-interlinear {
-            animation: slideOutRight 0.25s ease both;
-        }
-
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to   { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to   { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes slideOutLeft {
-            from { opacity: 1; transform: translateX(0); }
-            to   { opacity: 0; transform: translateX(-50px); }
-        }
-
-        @keyframes slideOutRight {
-            from { opacity: 1; transform: translateX(0); }
-            to   { opacity: 0; transform: translateX(50px); }
-        }
-
-        .expanded-text .text-label {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            font-size: 0.7em;
-            font-weight: bold;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-
-        /* Table exit / enter animations */
-        .parallel-table {
-            transition: opacity 0.25s ease, transform 0.25s ease;
-        }
-
-        .parallel-table.collapsing {
-            opacity: 0;
-            transform: translateY(-15px);
-            pointer-events: none;
-        }
-
-        .parallel-table.collapsed {
-            display: none;
-        }
-
-        .parallel-table.entering {
-            animation: tableEnter 0.3s ease both;
-        }
-
-        @keyframes tableEnter {
-            from { opacity: 0; transform: translateY(10px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .click-hint {
-            text-align: center;
-            font-size: 0.82em;
-            color: #bbb;
-            font-style: italic;
-            margin: 8px 0 0 0;
-            transition: opacity 0.25s ease;
-        }
-
-        .click-hint.collapsing {
-            opacity: 0;
-        }
-
-        .click-hint.collapsed {
-            display: none;
-        }
-
-        /* ── Chapter navigation ────────────────────── */
-        .chapter-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 12px 0 16px 0;
-            font-size: 0.9em;
-        }
-        .chapter-nav a {
-            color: #5b7e9e;
-            text-decoration: none;
-            padding: 4px 10px;
-            border-radius: 4px;
-            transition: background 0.15s;
-        }
-        .chapter-nav a:hover {
-            background: #f0f0f0;
-            text-decoration: underline;
-        }
-        .nav-prev::before { content: "\2190\00a0"; }
-        .nav-next::after  { content: "\00a0\2192"; }
-        .nav-current {
-            color: #888;
-            font-weight: 500;
-        }
-        .nav-spacer {
-            width: 120px;
-        }
-
-        /* ── Chapter context expansion ─────────────── */
-        .expand-chapter {
-            text-align: center;
-            margin: 4px 0 0 0;
-        }
-        .expand-chapter button {
-            background: none;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 6px 18px;
-            font-size: 0.85em;
-            color: #5b7e9e;
-            cursor: pointer;
-            transition: background 0.15s, border-color 0.15s;
-        }
-        .expand-chapter button:hover {
-            background: #f0f0f0;
-            border-color: #bbb;
-        }
-        .expand-chapter .arrow {
-            display: inline-block;
-            transition: transform 0.25s ease;
-        }
-        .expand-chapter.expanded .arrow {
-            transform: rotate(180deg);
-        }
-        .context-table {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-        }
-        .context-table.visible {
-            max-height: none;
-        }
-        .context-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .context-table td {
-            padding: 10px 14px;
-            border: 1px solid #e0d8c8;
-            vertical-align: top;
-            color: #777;
-            font-style: italic;
-        }
-        .context-table .verse-num-cell {
-            text-align: center;
-            font-style: normal;
-        }
-    </style>
 </head>
 <body>
 
+<div class="page-tools">
+    <a href="search.html">Search</a>
+    <a href="bookmarks.html">Bookmarks</a>
+    <button class="bookmark-btn" id="bookmark-btn"
+      title="Bookmark this page">Bookmark</button>
+</div>
+
 <h1>John 3:16</h1>
 <div class="subtitle">NT &middot; John (Book 43 of 66)</div>
-<nav class="chapter-nav">
-  <a href="lookup_John_2.html" class="nav-prev">John 2</a>
-  <span class="nav-current">John 3</span>
-  <a href="lookup_John_4.html" class="nav-next">John 4</a>
-</nav>
 <div class="header-topics">
+  <a href="lookup_John_2.html" class="nav-prev">John 2</a>
+  <a href="lookup_John_4.html" class="nav-next">John 4</a>
 <div class="header-topics-row">
   <span class="header-topics-label">Themes:</span>
   <a href="theme.html?id=5762" class="theme-tag">attitudes, God's to people</a>
@@ -1548,23 +693,28 @@
   <button class="topics-toggle">more</button>
 </div>
 </div>
+<div class="scroll-progress-track"><div class="scroll-progress" id="scroll-progress"></div></div>
+<nav class="section-nav" id="section-nav"></nav>
+<button class="back-to-top" id="back-to-top" title="Back to top" aria-label="Back to top">&#8593;</button>
 
+<section data-nav="translations" data-nav-label="Biblical Text">
 <!-- ═══════════ BIBLE TRANSLATIONS ═══════════ -->
+<h2>Biblical Text</h2>
 <table class="parallel-table">
 <thead>
     <tr>
         <th class="verse-col">v.</th>
-        <th>English Standard Version <span class="abbrev">(ESV)</span></th>
         <th>King James Version, Pure Cambridge Edition <span class="abbrev">(KJVPCE)</span></th>
         <th>Berean Standard Bible <span class="abbrev">(BSB)</span></th>
+        <th class="diff-col">Key Differences</th>
     </tr>
 </thead>
 <tbody>
-    <tr>
-        <td class="verse-num-cell">16</td>
-        <td class="verse-cell-clickable" data-verse="16" data-col="0">“For God so loved the world, that he gave his only Son, that <span class="diff-word">whoever believes</span> in him should not perish but have <span class="diff-word">eternal</span> life.<span class="verse-crossrefs">cf. <a class="xref-link" data-ref="Rom.5.8" href="#">Rom 5:8</a>, <a class="xref-link" data-ref="1Jn.4.9-1Jn.4.10" href="#">1Jn 4:9-10</a>, <a class="xref-link" data-ref="Rom.8.32" href="#">Rom 8:32</a>, <a class="xref-link" data-ref="Jhn.3.15" href="#">Jhn 3:15</a>, <a class="xref-link" data-ref="Jhn.11.25-Jhn.11.26" href="#">Jhn 11:25-26</a>, <a class="xref-link" data-ref="Jhn.6.40" href="#">Jhn 6:40</a>, <a class="xref-link" data-ref="Jhn.3.36" href="#">Jhn 3:36</a>, <a class="xref-link" data-ref="1Jn.4.19" href="#">1Jn 4:19</a> +15 more</span></td>
-        <td class="verse-cell-clickable" data-verse="16" data-col="1">¶ For God so loved the world, that he gave his only <span class="diff-word">begotten</span> Son, that <span class="diff-word">whosoever believeth</span> in him should not perish, but have <span class="diff-word">everlasting</span> life.<span class="verse-crossrefs">cf. <a class="xref-link" data-ref="Rom.5.8" href="#">Rom 5:8</a>, <a class="xref-link" data-ref="1Jn.4.9-1Jn.4.10" href="#">1Jn 4:9-10</a>, <a class="xref-link" data-ref="Rom.8.32" href="#">Rom 8:32</a>, <a class="xref-link" data-ref="Jhn.3.15" href="#">Jhn 3:15</a>, <a class="xref-link" data-ref="Jhn.11.25-Jhn.11.26" href="#">Jhn 11:25-26</a>, <a class="xref-link" data-ref="Jhn.6.40" href="#">Jhn 6:40</a>, <a class="xref-link" data-ref="Jhn.3.36" href="#">Jhn 3:36</a>, <a class="xref-link" data-ref="1Jn.4.19" href="#">1Jn 4:19</a> +15 more</span></td>
-        <td class="verse-cell-clickable" data-verse="16" data-col="2">For God so loved the world that He gave His <span class="diff-word">one</span> and only Son, that <span class="diff-word">everyone</span> who <span class="diff-word">believes</span> in Him shall not perish but have <span class="diff-word">eternal</span> life.<span class="verse-crossrefs">cf. <a class="xref-link" data-ref="Rom.5.8" href="#">Rom 5:8</a>, <a class="xref-link" data-ref="1Jn.4.9-1Jn.4.10" href="#">1Jn 4:9-10</a>, <a class="xref-link" data-ref="Rom.8.32" href="#">Rom 8:32</a>, <a class="xref-link" data-ref="Jhn.3.15" href="#">Jhn 3:15</a>, <a class="xref-link" data-ref="Jhn.11.25-Jhn.11.26" href="#">Jhn 11:25-26</a>, <a class="xref-link" data-ref="Jhn.6.40" href="#">Jhn 6:40</a>, <a class="xref-link" data-ref="Jhn.3.36" href="#">Jhn 3:36</a>, <a class="xref-link" data-ref="1Jn.4.19" href="#">1Jn 4:19</a> +15 more</span></td>
+    <tr id="v-16">
+        <td class="verse-num-cell" data-vnum="16">16</td>
+        <td class="verse-cell-clickable" data-verse="16" data-col="0">¶ For God so loved the world, that he gave his only <span class="diff-word">begotten</span> Son, that <span class="diff-word">whosoever believeth</span> in him should not perish, but have <span class="diff-word">everlasting</span> life.<span class="verse-crossrefs">cf. <a class="xref-link" data-ref="Rom.5.8" href="#">Rom 5:8</a>, <a class="xref-link" data-ref="1Jn.4.9-1Jn.4.10" href="#">1Jn 4:9-10</a>, <a class="xref-link" data-ref="Rom.8.32" href="#">Rom 8:32</a>, <a class="xref-link" data-ref="Jhn.3.15" href="#">Jhn 3:15</a>, <a class="xref-link" data-ref="Jhn.11.25-Jhn.11.26" href="#">Jhn 11:25-26</a>, <a class="xref-link" data-ref="Jhn.6.40" href="#">Jhn 6:40</a>, <a class="xref-link" data-ref="Jhn.3.36" href="#">Jhn 3:36</a>, <a class="xref-link" data-ref="1Jn.4.19" href="#">1Jn 4:19</a> +15 more</span></td>
+        <td class="verse-cell-clickable" data-verse="16" data-col="1">For God so loved the world that He gave His <span class="diff-word">one</span> and only Son, that <span class="diff-word">everyone</span> who <span class="diff-word">believes</span> in Him shall not perish but have <span class="diff-word">eternal</span> life.<span class="verse-crossrefs">cf. <a class="xref-link" data-ref="Rom.5.8" href="#">Rom 5:8</a>, <a class="xref-link" data-ref="1Jn.4.9-1Jn.4.10" href="#">1Jn 4:9-10</a>, <a class="xref-link" data-ref="Rom.8.32" href="#">Rom 8:32</a>, <a class="xref-link" data-ref="Jhn.3.15" href="#">Jhn 3:15</a>, <a class="xref-link" data-ref="Jhn.11.25-Jhn.11.26" href="#">Jhn 11:25-26</a>, <a class="xref-link" data-ref="Jhn.6.40" href="#">Jhn 6:40</a>, <a class="xref-link" data-ref="Jhn.3.36" href="#">Jhn 3:36</a>, <a class="xref-link" data-ref="1Jn.4.19" href="#">1Jn 4:19</a> +15 more</span></td>
+        <td class="diff-cell">Major difference: KJVPCE uses 'only begotten Son' while ESV uses 'only Son' and BSB uses 'one and only Son', reflecting different theological emphases on Christ's nature. KJVPCE also uses 'everlasting life' instead of 'eternal life'.</td>
     </tr>
 </tbody>
 </table>
@@ -1578,222 +728,807 @@
 <div class="context-table" id="context-verses">
 <table class="parallel-table">
 <tbody>
-    <tr>
-        <td class="verse-num-cell">1</td>
-        <td>Now there was a man of the Pharisees named Nicodemus, a ruler of the Jews.</td>
+    <tr id="v-1">
+        <td class="verse-num-cell" data-vnum="1">1</td>
         <td>THERE was a man of the Pharisees, named Nicodemus, a ruler of the Jews:</td>
         <td>Now there was a man of the Pharisees named Nicodemus, a leader of the Jews.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">2</td>
-        <td>This man came to Jesus by night and said to him, “Rabbi, we know that you are a teacher come from God, for no one can do these signs that you do unless God is with him.”</td>
+    <tr id="v-2">
+        <td class="verse-num-cell" data-vnum="2">2</td>
         <td>The same came to Jesus by night, and said unto him, Rabbi, we know that thou art a teacher come from God: for no man can do these miracles that thou doest, except God be with him.</td>
         <td>He came to Jesus at night and said, “Rabbi, we know that You are a teacher who has come from God. For no one could perform the signs You are doing if God were not with him.”</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">3</td>
-        <td>Jesus answered him, “Truly, truly, I say to you, unless one is born again he cannot see the kingdom of God.”</td>
+    <tr id="v-3">
+        <td class="verse-num-cell" data-vnum="3">3</td>
         <td>Jesus answered and said unto him, Verily, verily, I say unto thee, Except a man be born again, he cannot see the kingdom of God.</td>
         <td>Jesus replied, “Truly, truly, I tell you, no one can see the kingdom of God unless he is born again.”</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">4</td>
-        <td>Nicodemus said to him, “How can a man be born when he is old? Can he enter a second time into his mother's womb and be born?”</td>
+    <tr id="v-4">
+        <td class="verse-num-cell" data-vnum="4">4</td>
         <td>Nicodemus saith unto him, How can a man be born when he is old? can he enter the second time into his mother’s womb, and be born?</td>
         <td>“How can a man be born when he is old?” Nicodemus asked. “Can he enter his mother’s womb a second time to be born?”</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">5</td>
-        <td>Jesus answered, “Truly, truly, I say to you, unless one is born of water and the Spirit, he cannot enter the kingdom of God.</td>
+    <tr id="v-5">
+        <td class="verse-num-cell" data-vnum="5">5</td>
         <td>Jesus answered, Verily, verily, I say unto thee, Except a man be born of water and of the Spirit, he cannot enter into the kingdom of God.</td>
         <td>Jesus answered, “Truly, truly, I tell you, no one can enter the kingdom of God unless he is born of water and the Spirit.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">6</td>
-        <td>That which is born of the flesh is flesh, and that which is born of the Spirit is spirit.</td>
+    <tr id="v-6">
+        <td class="verse-num-cell" data-vnum="6">6</td>
         <td>That which is born of the flesh is flesh; and that which is born of the Spirit is spirit.</td>
         <td>Flesh is born of flesh, but spirit is born of the Spirit.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">7</td>
-        <td>Do not marvel that I said to you, ‘You must be born again.’</td>
+    <tr id="v-7">
+        <td class="verse-num-cell" data-vnum="7">7</td>
         <td>Marvel not that I said unto thee, Ye must be born again.</td>
         <td>Do not be amazed that I said, ‘You must be born again.’</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">8</td>
-        <td>The wind blows where it wishes, and you hear its sound, but you do not know where it comes from or where it goes. So it is with everyone who is born of the Spirit.”</td>
+    <tr id="v-8">
+        <td class="verse-num-cell" data-vnum="8">8</td>
         <td>The wind bloweth where it listeth, and thou hearest the sound thereof, but canst not tell whence it cometh, and whither it goeth: so is every one that is born of the Spirit.</td>
         <td>The wind blows where it wishes. You hear its sound, but you do not know where it comes from or where it is going. So it is with everyone born of the Spirit.”</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">9</td>
-        <td>Nicodemus said to him, “How can these things be?”</td>
+    <tr id="v-9">
+        <td class="verse-num-cell" data-vnum="9">9</td>
         <td>Nicodemus answered and said unto him, How can these things be?</td>
         <td>“How can this be?” Nicodemus asked.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">10</td>
-        <td>Jesus answered him, “Are you the teacher of Israel and yet you do not understand these things?</td>
+    <tr id="v-10">
+        <td class="verse-num-cell" data-vnum="10">10</td>
         <td>Jesus answered and said unto him, Art thou a master of Israel, and knowest not these things?</td>
         <td>“You are Israel’s teacher,” said Jesus, “and you do not understand these things?</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">11</td>
-        <td>Truly, truly, I say to you, we speak of what we know, and bear witness to what we have seen, but you do not receive our testimony.</td>
+    <tr id="v-11">
+        <td class="verse-num-cell" data-vnum="11">11</td>
         <td>Verily, verily, I say unto thee, We speak that we do know, and testify that we have seen; and ye receive not our witness.</td>
         <td>Truly, truly, I tell you, we speak of what we know, and we testify to what we have seen, and yet you people do not accept our testimony.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">12</td>
-        <td>If I have told you earthly things and you do not believe, how can you believe if I tell you heavenly things?</td>
+    <tr id="v-12">
+        <td class="verse-num-cell" data-vnum="12">12</td>
         <td>If I have told you earthly things, and ye believe not, how shall ye believe, if I tell you of heavenly things?</td>
         <td>If I have told you about earthly things and you do not believe, how will you believe if I tell you about heavenly things?</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">13</td>
-        <td>No one has ascended into heaven except he who descended from heaven, the Son of Man.</td>
+    <tr id="v-13">
+        <td class="verse-num-cell" data-vnum="13">13</td>
         <td>And no man hath ascended up to heaven, but he that came down from heaven, even the Son of man which is in heaven.</td>
         <td>No one has ascended into heaven except the One who descended from heaven—the Son of Man.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">14</td>
-        <td>And as Moses lifted up the serpent in the wilderness, so must the Son of Man be lifted up,</td>
+    <tr id="v-14">
+        <td class="verse-num-cell" data-vnum="14">14</td>
         <td>¶ And as Moses lifted up the serpent in the wilderness, even so must the Son of man be lifted up:</td>
         <td>Just as Moses lifted up the snake in the wilderness, so the Son of Man must be lifted up,</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">15</td>
-        <td>that whoever believes in him may have eternal life.</td>
+    <tr id="v-15">
+        <td class="verse-num-cell" data-vnum="15">15</td>
         <td>That whosoever believeth in him should not perish, but have eternal life.</td>
         <td>that everyone who believes in Him may have eternal life.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">17</td>
-        <td>For God did not send his Son into the world to condemn the world, but in order that the world might be saved through him.</td>
+    <tr id="v-17">
+        <td class="verse-num-cell" data-vnum="17">17</td>
         <td>For God sent not his Son into the world to condemn the world; but that the world through him might be saved.</td>
         <td>For God did not send His Son into the world to condemn the world, but to save the world through Him.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">18</td>
-        <td>Whoever believes in him is not condemned, but whoever does not believe is condemned already, because he has not believed in the name of the only Son of God.</td>
+    <tr id="v-18">
+        <td class="verse-num-cell" data-vnum="18">18</td>
         <td>¶ He that believeth on him is not condemned: but he that believeth not is condemned already, because he hath not believed in the name of the only begotten Son of God.</td>
         <td>Whoever believes in Him is not condemned, but whoever does not believe has already been condemned, because he has not believed in the name of God’s one and only Son.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">19</td>
-        <td>And this is the judgment: the light has come into the world, and people loved the darkness rather than the light because their works were evil.</td>
+    <tr id="v-19">
+        <td class="verse-num-cell" data-vnum="19">19</td>
         <td>And this is the condemnation, that light is come into the world, and men loved darkness rather than light, because their deeds were evil.</td>
         <td>And this is the verdict: The Light has come into the world, but men loved the darkness rather than the Light because their deeds were evil.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">20</td>
-        <td>For everyone who does wicked things hates the light and does not come to the light, lest his works should be exposed.</td>
+    <tr id="v-20">
+        <td class="verse-num-cell" data-vnum="20">20</td>
         <td>For every one that doeth evil hateth the light, neither cometh to the light, lest his deeds should be reproved.</td>
         <td>Everyone who does evil hates the Light, and does not come into the Light for fear that his deeds will be exposed.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">21</td>
-        <td>But whoever does what is true comes to the light, so that it may be clearly seen that his works have been carried out in God.”</td>
+    <tr id="v-21">
+        <td class="verse-num-cell" data-vnum="21">21</td>
         <td>But he that doeth truth cometh to the light, that his deeds may be made manifest, that they are wrought in God.</td>
         <td>But whoever practices the truth comes into the Light, so that it may be seen clearly that what he has done has been accomplished in God.”</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">22</td>
-        <td>After this Jesus and his disciples went into the Judean countryside, and he remained there with them and was baptizing.</td>
+    <tr id="v-22">
+        <td class="verse-num-cell" data-vnum="22">22</td>
         <td>¶ After these things came Jesus and his disciples into the land of Judæa; and there he tarried with them, and baptized.</td>
         <td>After this, Jesus and His disciples went into the Judean countryside, where He spent some time with them and baptized.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">23</td>
-        <td>John also was baptizing at Aenon near Salim, because water was plentiful there, and people were coming and being baptized</td>
+    <tr id="v-23">
+        <td class="verse-num-cell" data-vnum="23">23</td>
         <td>¶ And John also was baptizing in Ænon near to Salim, because there was much water there: and they came, and were baptized.</td>
         <td>Now John was also baptizing at Aenon near Salim, because the water was plentiful there, and people kept coming to be baptized.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">24</td>
-        <td>(for John had not yet been put in prison).</td>
+    <tr id="v-24">
+        <td class="verse-num-cell" data-vnum="24">24</td>
         <td>For John was not yet cast into prison.</td>
         <td>(For John had not yet been thrown into prison.)</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">25</td>
-        <td>Now a discussion arose between some of John's disciples and a Jew over purification.</td>
+    <tr id="v-25">
+        <td class="verse-num-cell" data-vnum="25">25</td>
         <td>¶ Then there arose a question between some of John’s disciples and the Jews about purifying.</td>
         <td>Then a dispute arose between John’s disciples and a certain Jew over the issue of ceremonial washing.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">26</td>
-        <td>And they came to John and said to him, “Rabbi, he who was with you across the Jordan, to whom you bore witness—look, he is baptizing, and all are going to him.”</td>
+    <tr id="v-26">
+        <td class="verse-num-cell" data-vnum="26">26</td>
         <td>And they came unto John, and said unto him, Rabbi, he that was with thee beyond Jordan, to whom thou barest witness, behold, the same baptizeth, and all men come to him.</td>
         <td>So John’s disciples came to him and said, “Look, Rabbi, the One who was with you beyond the Jordan, the One you testified about—He is baptizing, and everyone is going to Him.”</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">27</td>
-        <td>John answered, “A person cannot receive even one thing unless it is given him from heaven.</td>
+    <tr id="v-27">
+        <td class="verse-num-cell" data-vnum="27">27</td>
         <td>John answered and said, A man can receive nothing, except it be given him from heaven.</td>
         <td>John replied, “A man can receive only what is given him from heaven.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">28</td>
-        <td>You yourselves bear me witness, that I said, ‘I am not the Christ, but I have been sent before him.’</td>
+    <tr id="v-28">
+        <td class="verse-num-cell" data-vnum="28">28</td>
         <td>Ye yourselves bear me witness, that I said, I am not the Christ, but that I am sent before him.</td>
         <td>You yourselves can testify that I said, ‘I am not the Christ, but am sent ahead of Him.’</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">29</td>
-        <td>The one who has the bride is the bridegroom. The friend of the bridegroom, who stands and hears him, rejoices greatly at the bridegroom's voice. Therefore this joy of mine is now complete.</td>
+    <tr id="v-29">
+        <td class="verse-num-cell" data-vnum="29">29</td>
         <td>He that hath the bride is the bridegroom: but the friend of the bridegroom, which standeth and heareth him, rejoiceth greatly because of the bridegroom’s voice: this my joy therefore is fulfilled.</td>
         <td>The bride belongs to the bridegroom. The friend of the bridegroom stands and listens for him, and is overjoyed to hear the bridegroom’s voice. That joy is mine, and it is now complete.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">30</td>
-        <td>He must increase, but I must decrease.”</td>
+    <tr id="v-30">
+        <td class="verse-num-cell" data-vnum="30">30</td>
         <td>He must increase, but I must decrease.</td>
         <td>He must increase; I must decrease.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">31</td>
-        <td>He who comes from above is above all. He who is of the earth belongs to the earth and speaks in an earthly way. He who comes from heaven is above all.</td>
+    <tr id="v-31">
+        <td class="verse-num-cell" data-vnum="31">31</td>
         <td>He that cometh from above is above all: he that is of the earth is earthly, and speaketh of the earth: he that cometh from heaven is above all.</td>
         <td>The One who comes from above is above all. The one who is from the earth belongs to the earth and speaks as one from the earth. The One who comes from heaven is above all.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">32</td>
-        <td>He bears witness to what he has seen and heard, yet no one receives his testimony.</td>
+    <tr id="v-32">
+        <td class="verse-num-cell" data-vnum="32">32</td>
         <td>And what he hath seen and heard, that he testifieth; and no man receiveth his testimony.</td>
         <td>He testifies to what He has seen and heard, yet no one accepts His testimony.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">33</td>
-        <td>Whoever receives his testimony sets his seal to this, that God is true.</td>
+    <tr id="v-33">
+        <td class="verse-num-cell" data-vnum="33">33</td>
         <td>He that hath received his testimony hath set to his seal that God is true.</td>
         <td>Whoever accepts His testimony has certified that God is truthful.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">34</td>
-        <td>For he whom God has sent utters the words of God, for he gives the Spirit without measure.</td>
+    <tr id="v-34">
+        <td class="verse-num-cell" data-vnum="34">34</td>
         <td>For he whom God hath sent speaketh the words of God: for God giveth not the Spirit by measure unto him.</td>
         <td>For the One whom God has sent speaks the words of God, for God gives the Spirit without limit.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">35</td>
-        <td>The Father loves the Son and has given all things into his hand.</td>
+    <tr id="v-35">
+        <td class="verse-num-cell" data-vnum="35">35</td>
         <td>The Father loveth the Son, and hath given all things into his hand.</td>
         <td>The Father loves the Son and has placed all things in His hands.</td>
+        <td></td>
     </tr>
-    <tr>
-        <td class="verse-num-cell">36</td>
-        <td>Whoever believes in the Son has eternal life; whoever does not obey the Son shall not see life, but the wrath of God remains on him.</td>
+    <tr id="v-36">
+        <td class="verse-num-cell" data-vnum="36">36</td>
         <td>He that believeth on the Son hath everlasting life: and he that believeth not the Son shall not see life; but the wrath of God abideth on him.</td>
         <td>Whoever believes in the Son has eternal life. Whoever rejects the Son will not see life. Instead, the wrath of God remains on him.”</td>
+        <td></td>
     </tr>
 </tbody>
 </table>
 </div>
+</section>
+
+<section data-nav="comparison" data-nav-label="Comparison">
+<!-- ═══════════ COMPARISON ═══════════ -->
+<h2>Commentary Comparison</h2>
+<div class="subtitle">Tyndale Open Study Notes &middot; Jamieson-Fausset-Brown Bible Commentary &middot; John Gill's Exposition of the Whole Bible &middot; Matthew Henry's Complete Commentary</div>
+<div class="comparison-pair">
+<div class="comparison-card">
+<h3>Points of Agreement</h3>
+<p><strong>Tyndale</strong> establishes the foundational understanding that Nicodemus represents humanity's need for spiritual transformation despite religious knowledge and good works. The other commentators strongly agree on this central premise. <strong>Jamieson-Fausset-Brown</strong> describes Nicodemus as one of those "superficial believers" who needed his entire "edifice of religion" shaken to lay a proper foundation. <strong>Gill</strong> emphasizes that despite being "a man of the Pharisees" and "a ruler of the Jews," Nicodemus was spiritually ignorant of regeneration. <strong>Matthew Henry</strong> notes the irony that "not many of the rulers, or of the Pharisees" are called, "yet some are, and here was one."</p>
+
+<p>All commentators unanimously agree on the <strong>absolute necessity of the new birth</strong>. Tyndale states that "to experience spiritual rebirth, a person must be completely renewed through God's power." This aligns perfectly with Jamieson-Fausset-Brown's assertion that regeneration involves "his manner of thinking, feeling, and acting, with reference to spiritual things, undergoing a fundamental and permanent revolution." Gill concurs that without being "regenerated by the Spirit of God," one "cannot see the kingdom of God." Matthew Henry emphasizes that "regeneration is absolutely necessary to our happiness here and hereafter."</p>
+
+<p>The commentators also agree that <strong>Christ's sacrificial death</strong> was prefigured in Moses lifting up the bronze serpent. Tyndale explains that "Jesus was lifted up on the cross so that all people could understand the way of salvation." The historical commentaries provide extensive detail supporting this typological connection, with Gill offering the most comprehensive analysis of the parallels between the bronze serpent and Christ's crucifixion.</p>
+</div>
+<div class="comparison-card">
+<h3>Points of Difference</h3>
+<p><strong>Tyndale</strong> takes a more cautious approach to the meaning of "water and Spirit" in verse 5, simply noting that "John the Baptist baptized with water; Jesus baptizes with the Spirit," without definitively connecting this to baptismal water. In contrast, <strong>Matthew Henry</strong> explicitly discusses both interpretations: the symbolic meaning of water as spiritual cleansing and "the ordinance of baptism." <strong>Gill</strong> takes a stronger anti-sacramental stance, arguing extensively that "by 'water' is not meant material water, or baptismal water" but rather "the grace of God." <strong>Jamieson-Fausset-Brown</strong> sees water as representing "thorough spiritual purification by the operation of the Holy Ghost" while acknowledging baptism as "the great visible door of entrance."</p>
+
+<p>Regarding the scope of God's love in verse 16, <strong>Tyndale</strong> emphasizes that "God's love extends beyond the limits of race and nation" without limiting its extent. <strong>Matthew Henry</strong> and <strong>Jamieson-Fausset-Brown</strong> see "the world" as universal in scope. However, <strong>Gill</strong> provides a detailed argument that "the world" specifically refers to "the Gentiles particularly, and God's elect among them," offering extensive rabbinical sources to support his view that this was directed against Jewish exclusivism rather than affirming universal atonement.</p>
+
+<p>The commentators differ significantly in their treatment of <strong>historical and contextual details</strong>. Tyndale provides minimal historical background, focusing on theological significance. Gill offers extensive rabbinical parallels and detailed discussions of Jewish customs and locations. Matthew Henry emphasizes practical application and moral instruction. Jamieson-Fausset-Brown maintains a balance between theological exposition and historical context.</p>
+</div>
+</div>
+<div class="comparison-pair">
+<div class="comparison-card">
+<h3>Unique Contributions</h3>
+<p><strong>Tyndale</strong> uniquely provides a modern evangelical framework that emphasizes the literary structure and theological themes of John's Gospel. Its distinctive contribution lies in connecting individual passages to broader themes, such as noting that "night also symbolizes the realm of evil, untruth, and unbelief" and linking this to other passages (9:4; 11:10; 13:30). Tyndale also uniquely addresses textual and translation issues, such as clarifying that "born again: Or born from above" and explaining translator decisions about quotation marks in verses 16-21.</p>
+
+<p><strong>Jamieson-Fausset-Brown</strong> excels in providing psychological insights into the characters, particularly Nicodemus's mental state and Jesus's strategic teaching methods. Their analysis that Christ's "blunt and curt reply was plainly meant to shake the whole edifice of the man's religion" reveals sophisticated understanding of pedagogical technique. They also offer unique liturgical perspectives, noting how passages have been used in Christian worship and missions.</p>
+
+<p><strong>Gill</strong> provides unparalleled rabbinical scholarship, offering extensive quotations from Jewish sources that illuminate the cultural context. His detailed discussion of Jewish purification customs, his identification of potential connections between the biblical Nicodemus and Nicodemon ben Gorion from Jewish literature, and his comprehensive catalog of rabbinical views on the Messiah provide historical depth found nowhere else in these commentaries.</p>
+
+<p><strong>Matthew Henry</strong> uniquely emphasizes practical Christian living and pastoral application. His discussion of how believers should handle success and failure, his analysis of ministerial jealousy through John the Baptist's response, and his focus on moral instruction make his commentary distinctively devotional. He alone extensively addresses the practical implications of doctrine for daily Christian experience.</p>
+</div>
+<div class="comparison-card">
+<h3>Historical &amp; Theological Context</h3>
+<p><strong>Tyndale</strong> represents modern evangelical scholarship with its study Bible format designed for contemporary readers. It reflects 21st-century evangelical priorities: theological accuracy, practical application, and accessibility for lay readers. The notes are deliberately concise and focused on helping modern Christians understand ancient texts within their theological framework. This approach prioritizes clarity and practical understanding over comprehensive historical detail.</p>
+
+<p><strong>Jamieson-Fausset-Brown</strong> (19th century) reflects the Protestant Reformed tradition with its emphasis on systematic theology and careful exegesis. Writing in the era of higher criticism, they maintain conservative positions while engaging scholarly questions. Their work demonstrates the 19th-century evangelical emphasis on detailed verse-by-verse exposition combined with doctrinal precision.</p>
+
+<p><strong>Gill</strong> (18th century) represents Particular Baptist theology with its strong emphasis on divine sovereignty and election. Writing during the height of Protestant scholasticism, Gill demonstrates encyclopedic learning and reflects the 18th-century fascination with ancient languages and customs. His extensive rabbinical quotations reflect the period's belief that Jewish sources were essential for understanding the New Testament context.</p>
+
+<p><strong>Matthew Henry</strong> (late 17th/early 18th century) embodies Puritan practical theology with its focus on Christian living and pastoral care. Writing for ministers and educated laypeople, Henry emphasizes moral application and spiritual growth. His work reflects the Puritan integration of doctrinal precision with passionate devotional application, characteristic of post-Reformation English Protestantism.</p>
+</div>
+</div></section>
+
+<section data-nav="questions" data-nav-label="Study Questions">
+
+<!-- ═══════════ STUDY QUESTIONS ═══════════ -->
+<h2>Study Questions</h2>
+<div class="study-questions-section">
+<div class="sq-button-bar">
+  <button class="sq-btn active" data-method="Socratic">Socratic Method</button>
+  <button class="sq-btn" data-method="IBS">Inductive Bible Study</button>
+  <button class="sq-btn" data-method="Blooms">Bloom's Taxonomy</button>
+  <button class="sq-btn" data-method="HistGram">Historical-Grammatical</button>
+  <button class="sq-btn" data-method="Redemptive">Redemptive-Historical</button>
+  <button class="sq-btn" data-method="SOAP">SOAP</button>
+  <button class="sq-btn" data-method="Hybrid">Hybrid</button>
+  <button class="sq-btn disabled" disabled title="Coming soon — requires read-aloud capability">Lectio Divina</button>
+</div>
+<div class="sq-method-panel active" data-method="Socratic">
+<p class="sq-method-desc">Challenge assumptions, probe reasoning, expose tensions</p>
+<div class="sq-section">
+<div class="sq-section-title">Challenge Assumptions</div>
+<ol>
+  <li>Nicodemus assumes his religious status and recognition of Jesus' miracles qualify him for spiritual insight - what does Jesus' response reveal about the inadequacy of external religious credentials?</li>
+  <li>John's disciples assume that popularity and numbers indicate spiritual success - how does John the Baptist's response challenge this common assumption about ministry effectiveness?</li>
+  <li>Many assume that being born into a religious family or culture provides spiritual life - how does Jesus' teaching about the necessity of new birth challenge this presumption?</li>
+  <li>If God is love (v. 16), why isn't everyone automatically saved - what assumptions about divine love does this passage force us to reconsider?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Probe Reasoning</div>
+<ol>
+  <li>Jesus moves from Nicodemus' question about signs to teaching about new birth - what logical connection exists between miraculous works and spiritual transformation that Nicodemus missed?</li>
+  <li>If being born again is necessary to see God's kingdom (v. 3), how can someone who isn't yet born again even understand or desire this new birth - what does this suggest about human spiritual ability?</li>
+  <li>Jesus says people love darkness because their deeds are evil (v. 19) - but how can someone choose light if they naturally love darkness? What does this reveal about the nature of human choice and divine grace?</li>
+  <li>John the Baptist claims he can only receive what's given from heaven (v. 27) - how does this principle apply to both ministry success and spiritual transformation, and what does it imply about human responsibility?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Expose Tensions</div>
+<ol>
+  <li>How do we reconcile the universal scope of God's love for 'the world' (v. 16) with Jesus' earlier statement that 'you do not receive our testimony' (v. 11) - is God's love effective or merely offered?</li>
+  <li>What tension exists between the sovereign work of the Spirit (like wind that 'blows where it wishes' in v. 8) and human responsibility to believe and obey (implied throughout the passage)?</li>
+  <li>If Jesus came not to condemn but to save (v. 17), how can people be 'condemned already' (v. 18) - does this mean condemnation existed before Christ's coming, and if so, how is his mission truly salvific?</li>
+  <li>How do we balance the necessity of being born 'of water and Spirit' (v. 5) with salvation by faith alone - what role do external acts versus internal transformation play in entering God's kingdom?</li>
+</ol>
+</div>
+</div>
+<div class="sq-method-panel" data-method="IBS">
+<p class="sq-method-desc">Observe → Interpret → Apply</p>
+<div class="sq-section">
+<div class="sq-section-title">Observe</div>
+<ol>
+  <li>What specific titles and descriptions are given to Jesus by Nicodemus (v. 2), by Jesus himself (v. 13), and by John the Baptist (vv. 28-29)?</li>
+  <li>List all the metaphors and analogies Jesus uses in this passage (birth, wind, serpent, light/darkness, bridegroom) and note what each is meant to explain.</li>
+  <li>What questions does Nicodemus ask, and how do they reveal his level of understanding throughout the conversation?</li>
+  <li>Chart the geographic movements mentioned in verses 22-24 and explain what activities are taking place in each location.</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Interpret</div>
+<ol>
+  <li>Why does Jesus respond to Nicodemus' compliment about his miraculous signs (v. 2) by immediately talking about being born again (v. 3)?</li>
+  <li>What is the relationship between 'seeing' the kingdom (v. 3) and 'entering' the kingdom (v. 5), and why does Jesus make this distinction?</li>
+  <li>How does the wind analogy in verse 8 help explain the nature of spiritual rebirth to someone like Nicodemus?</li>
+  <li>What does the comparison between earthly and heavenly authority mean in verses 31-32, and how does it resolve the disciples' concern about Jesus' growing popularity?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Apply</div>
+<ol>
+  <li>Nicodemus came to Jesus 'by night' - what fears or social pressures might keep someone today from openly seeking spiritual truth?</li>
+  <li>How can Jesus' teaching about the necessity of spiritual rebirth inform how we share the gospel with religious people who think they're already right with God?</li>
+  <li>John the Baptist's joy in decreasing so Christ could increase (vv. 29-30) challenges our natural self-promotion - how can this attitude transform our relationships and service?</li>
+  <li>Given that people 'loved darkness rather than light because their works were evil' (v. 19), how should this affect our approach to evangelism and confronting sin?</li>
+</ol>
+</div>
+</div>
+<div class="sq-method-panel" data-method="Blooms">
+<p class="sq-method-desc">Six cognitive levels from recall to creation</p>
+<div class="sq-section">
+<div class="sq-section-title">Remember</div>
+<ol>
+  <li>What was Nicodemus' position among the Jews according to verse 1, and what time of day did he come to Jesus?</li>
+  <li>Recite the exact words of verse 16 and identify what John the Baptist said about his relationship to Christ in verse 28.</li>
+  <li>What Old Testament event does Jesus reference in verse 14, and what was John the Baptist doing in the Judean countryside according to verses 23-24?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Understand</div>
+<ol>
+  <li>Explain why Nicodemus was confused about being 'born again' and how Jesus' explanation about flesh and spirit addressed his misunderstanding.</li>
+  <li>Paraphrase Jesus' argument in verses 11-12 about earthly versus heavenly things and why Nicodemus struggled to accept his testimony.</li>
+  <li>Summarize the dispute that arose in verses 25-26 and how it led to John the Baptist's teaching about receiving gifts from heaven.</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Apply</div>
+<ol>
+  <li>How would you use Jesus' teaching about being born of water and Spirit (v. 5) to explain baptism and spiritual transformation to a new believer?</li>
+  <li>Apply John the Baptist's principle 'He must increase, but I must decrease' (v. 30) to a specific situation where you might struggle with pride or recognition.</li>
+  <li>Using the light and darkness imagery from verses 19-21, how would you help someone understand why they might be resistant to spiritual truth?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Analyze</div>
+<ol>
+  <li>Compare and contrast how Nicodemus approaches Jesus versus how John the Baptist's disciples approach him - what does this reveal about different types of spiritual seeking?</li>
+  <li>Analyze the progression of Jesus' revelation to Nicodemus from new birth (v. 3) to his cosmic mission (vv. 16-17) - why does Jesus build his argument this way?</li>
+  <li>Break down the elements of verse 36 and examine how belief, obedience, eternal life, and God's wrath interconnect in John's theology.</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Evaluate</div>
+<ol>
+  <li>Assess whether Jesus was being harsh or loving when he challenged Nicodemus as 'the teacher of Israel' in verse 10 - defend your position with evidence from the text.</li>
+  <li>Critique the assumption that God's love (v. 16) means universal salvation in light of the warnings about condemnation and wrath in verses 18 and 36.</li>
+  <li>Evaluate John the Baptist's response to his disciples' jealousy about Jesus' success - was his approach the most effective way to handle their concerns?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Create</div>
+<ol>
+  <li>Design a modern parable or analogy that could help someone today understand Jesus' teaching about spiritual birth as effectively as his wind metaphor in verse 8.</li>
+  <li>Compose a prayer that Nicodemus might have prayed after this encounter, incorporating the key concepts he learned about new birth, God's love, and eternal life.</li>
+  <li>Develop a brief dialogue between a contemporary religious leader and Jesus, modeling it after the Nicodemus conversation but addressing modern spiritual misconceptions.</li>
+</ol>
+</div>
+</div>
+<div class="sq-method-panel" data-method="HistGram">
+<p class="sq-method-desc">Academic approach: genre, history, language, structure</p>
+<div class="sq-section">
+<div class="sq-section-title">Genre &amp; Structure</div>
+<ol>
+  <li>How does John structure this chapter to move from private dialogue (vv. 1-21) to public ministry context (vv. 22-36), and what theological development does this progression create?</li>
+  <li>Analyze the chiastic or parallel structures in Jesus' discourse - how do concepts like birth, belief, and eternal life interconnect throughout the chapter?</li>
+  <li>What narrative techniques does John use to transition from the Nicodemus encounter to John the Baptist's testimony, and how do these two sections complement each other thematically?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Historical Context</div>
+<ol>
+  <li>What would Nicodemus' status as both a Pharisee and 'ruler of the Jews' (likely a Sanhedrin member) have meant in first-century Palestine, and why would this make his nighttime visit particularly significant?</li>
+  <li>How does the geographical setting of John and Jesus baptizing in different locations (vv. 22-24) reflect the historical transition from John's preparatory ministry to Jesus' messianic mission?</li>
+  <li>What historical background about Jewish purification debates (v. 25) and proselyte baptism practices would illuminate Jesus' teaching about being 'born of water and Spirit'?</li>
+  <li>How does the reference to John 'not yet being put in prison' (v. 24) help establish the chronological framework of Jesus' early ministry?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Word Studies</div>
+<ol>
+  <li>Examine the Greek word 'anothen' in verse 3 - how does its dual meaning ('again' and 'from above') create the misunderstanding that drives the conversation with Nicodemus?</li>
+  <li>Analyze the use of 'pneuma' (spirit/wind) in verse 8 - how does this wordplay in the original language enhance Jesus' teaching about spiritual rebirth?</li>
+  <li>Study the term 'monogenes' (only begotten/unique) in verse 16 - what does this word convey about Christ's relationship to the Father that other terms could not?</li>
+  <li>Investigate the verb tenses in John the Baptist's declaration 'He must increase, but I must decrease' (v. 30) - what do they suggest about the timing and nature of this transition?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Literary Features</div>
+<ol>
+  <li>How does John employ irony in Nicodemus' literal interpretation of spiritual rebirth, and what does this reveal about the gap between human wisdom and divine truth?</li>
+  <li>Analyze the symbolism of night and day, light and darkness throughout this passage - how does John develop these themes beyond mere temporal markers?</li>
+  <li>What function do Jesus' 'truly, truly' statements serve in the dialogue structure, and how do they mark theological escalation in his teaching?</li>
+  <li>Examine the metaphorical language (birth, wind, serpent, bridegroom) - how do these images work together to create a cohesive picture of salvation and spiritual transformation?</li>
+</ol>
+</div>
+</div>
+<div class="sq-method-panel" data-method="Redemptive">
+<p class="sq-method-desc">Where this fits in God's big story</p>
+<div class="sq-section">
+<div class="sq-section-title">Salvation Story</div>
+<ol>
+  <li>How does Jesus' teaching about being 'born again' (vv. 3-8) fulfill God's Old Testament promises about giving his people a new heart and spirit (Ezekiel 36:26-27)?</li>
+  <li>What does the bronze serpent typology (v. 14) reveal about how God's Old Testament acts of salvation foreshadowed Christ's work on the cross?</li>
+  <li>How does verse 16's declaration that 'God so loved the world' expand the scope of salvation beyond the Jewish covenant to encompass all humanity?</li>
+  <li>In what ways does John the Baptist's decreasing ministry (vv. 27-30) represent the transition from the old covenant preparation to new covenant fulfillment?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Christ Connection</div>
+<ol>
+  <li>How does Jesus' claim to be the one who 'descended from heaven' (v. 13) establish his unique role as the mediator between God and humanity throughout salvation history?</li>
+  <li>What does Jesus' statement about speaking 'what we know' and bearing witness to 'what we have seen' (v. 11) reveal about his pre-incarnate existence and divine knowledge?</li>
+  <li>How does the Father giving 'all things into his hand' (v. 35) connect to Christ's role as the ultimate heir and ruler promised throughout Scripture?</li>
+  <li>In what way does Jesus being 'lifted up' (v. 14) tie together his crucifixion, resurrection, and ascension as one redemptive act?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">God's Character</div>
+<ol>
+  <li>How does God's love motivating the gift of his Son (v. 16) reveal the character of divine love that has been consistent from creation through redemption?</li>
+  <li>What does the tension between God's desire to save the world (v. 17) and his wrath against unbelief (v. 36) teach us about divine justice and mercy?</li>
+  <li>How does the Spirit's sovereign work in regeneration, illustrated by the wind analogy (v. 8), demonstrate God's initiative in salvation throughout biblical history?</li>
+  <li>What does John the Baptist's recognition that gifts come 'from heaven' (v. 27) reveal about God as the ultimate source of all ministry and spiritual effectiveness?</li>
+</ol>
+</div>
+</div>
+<div class="sq-method-panel" data-method="SOAP">
+<p class="sq-method-desc">Scripture → Observation → Application → Prayer</p>
+<div class="sq-section">
+<div class="sq-section-title">Scripture</div>
+<ol>
+  <li>Which verse or phrase in this chapter most captures your attention, and what initially draws you to it?</li>
+  <li>What passage within John 3 feels most challenging or difficult to understand, and why does it create tension for you?</li>
+  <li>Which of Jesus' statements to Nicodemus resonates most personally with your own spiritual journey or current situation?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Observation</div>
+<ol>
+  <li>What do you notice about how Jesus responds differently to Nicodemus' intellectual approach versus John the Baptist's humble acceptance of God's will?</li>
+  <li>How does the progression from Nicodemus seeking Jesus privately to the public ministry context reveal something about spiritual growth and discipleship?</li>
+  <li>What patterns do you see in how Jesus uses concrete images (birth, wind, serpent, light) to explain spiritual realities, and why might this teaching method be effective?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Application</div>
+<ol>
+  <li>Like Nicodemus coming 'by night,' what fears or concerns might be keeping you from being more open about your faith or spiritual questions?</li>
+  <li>John the Baptist's willingness to decrease so Christ could increase challenges our natural self-promotion - in what specific area of your life do you need to apply this principle?</li>
+  <li>Jesus distinguishes between loving darkness and coming to the light (vv. 19-21) - what 'darkness' in your own life needs to be brought into God's light?</li>
+  <li>How does understanding that eternal life comes through believing in Christ (v. 16) rather than religious achievement change your daily approach to spiritual growth?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Prayer</div>
+<ol>
+  <li>How can you pray for the kind of spiritual humility that allows God to reveal truth, rather than approaching him with your own assumptions and agenda?</li>
+  <li>What would it look like to pray for those in your life who, like Nicodemus, are religious but may not yet understand the necessity of spiritual rebirth?</li>
+  <li>How might you pray for the courage to 'come to the light' in areas where you've been hiding or avoiding God's truth?</li>
+  <li>Based on John the Baptist's example, how can you pray for God to help you decrease so that Christ might increase in your relationships and service?</li>
+</ol>
+</div>
+</div>
+<div class="sq-method-panel" data-method="Hybrid">
+<p class="sq-method-desc">A balanced blend drawing from multiple study methods</p>
+<div class="sq-section">
+<div class="sq-section-title">Observe</div>
+<ol>
+  <li>What pattern do you notice in Jesus' three-fold use of 'Truly, truly' in verses 3, 5, and 11, and how does the content escalate each time?</li>
+  <li>How does the dialogue structure between Jesus and Nicodemus shift from verses 1-9 compared to Jesus' monologue in verses 10-21?</li>
+  <li>What contrasting pairs (light/darkness, belief/unbelief, flesh/spirit) appear throughout this chapter?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Context</div>
+<ol>
+  <li>Given that Nicodemus was 'a ruler of the Jews' (v. 1), what would his religious background have led him to expect about entering God's kingdom?</li>
+  <li>How does the timing 'by night' (v. 2) connect to the light/darkness theme that emerges later in verses 19-21?</li>
+  <li>What significance would the bronze serpent reference (v. 14) have held for a Pharisee like Nicodemus familiar with Numbers 21?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Interpret</div>
+<ol>
+  <li>When Jesus says 'born of water and the Spirit' (v. 5), how might this connect to both Jewish purification rituals and John the Baptist's ministry mentioned earlier?</li>
+  <li>What does Jesus mean by 'earthly things' versus 'heavenly things' in verse 12, and why is this distinction crucial for Nicodemus?</li>
+  <li>How does John the Baptist's statement 'He must increase, but I must decrease' (v. 30) capture the theological transition happening in this chapter?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Connect</div>
+<ol>
+  <li>How does verse 16's declaration of God's love connect to the broader biblical narrative of God's covenant relationship with humanity?</li>
+  <li>What parallels exist between the 'lifting up' of the serpent (v. 14) and Jesus' future crucifixion mentioned elsewhere in John's Gospel?</li>
+  <li>How does this chapter's emphasis on belief and eternal life relate to John's stated purpose for writing his Gospel (John 20:31)?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Evaluate</div>
+<ol>
+  <li>What tension exists between Jesus' harsh question 'Are you the teacher of Israel and yet you do not understand?' (v. 10) and his patient explanation that follows?</li>
+  <li>How do we reconcile God's love for the world (v. 16) with the warning about God's wrath remaining (v. 36)?</li>
+  <li>Is there a contradiction between 'God did not send his Son...to condemn' (v. 17) and the reality that some 'are condemned already' (v. 18)?</li>
+</ol>
+</div>
+<div class="sq-section">
+<div class="sq-section-title">Reflect</div>
+<ol>
+  <li>Like Nicodemus, what religious assumptions or achievements might prevent modern people from understanding spiritual rebirth?</li>
+  <li>How does John the Baptist's attitude toward decreasing (v. 30) challenge contemporary approaches to ministry and leadership?</li>
+  <li>In what ways do people today 'love darkness rather than light' (v. 19), and how does this passage address those tendencies?</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+
+<section data-nav="hymns" data-nav-label="Hymns">
+<!-- ═══════════ HYMNS ═══════════ -->
+<h2>Related Hymns</h2>
+<div class="subtitle">From The Sing! Hymnal (2025, Crossway)</div>
+<div class="hymns-grid">
+<div class="hymn-card">
+  <div class="hymn-number">#130</div>
+  <div class="hymn-title">Loved with everlasting love, led by grace that love to know</div>
+  <div class="hymn-author">George Wade Robinson · 1876</div>
+  <div class="hymn-tune">Tune: EVERLASTING LOVE</div>
+  <div class="hymn-link"><a href="hymn.html?n=130">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/130" target="_blank">Hymnary.org</a></div>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#139</div>
+  <div class="hymn-title">Blessed assurance: Jesus is mine!</div>
+  <div class="hymn-author">Fanny Crosby · 1873</div>
+  <div class="hymn-tune">Tune: ASSURANCE</div>
+  <div class="hymn-link"><a href="hymn.html?n=139">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/139" target="_blank">Hymnary.org</a></div>
+  <details class="hymn-lyrics-toggle">
+    <summary>Show lyrics (3 verses)</summary>
+    <div class="hymn-lyrics-preview">
+      <p><strong>1.</strong> Bless�d assurance, Jesus is mine! O what a foretaste of glory divine! Heir of salvation, purchase of God, Born of His Spirit, washed in His blood. This is my story, this is my song, Praising my Savior, all the day long; This is my story, this is my song, Praising my Savior, all the day long.</p>
+      <p><strong>2.</strong> Perfect submission, perfect delight, Visions of rapture now burst on my sight; Angels descending bring from above Echoes of mercy, whispers of love.</p>
+      <p><strong>3.</strong> Perfect submission, all is at rest I in my Savior am happy and blest, Watching and waiting, looking above, Filled with His goodness, lost in His love.</p>
+    </div>
+  </details>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#152</div>
+  <div class="hymn-title">To God be the glory, great things he hath done</div>
+  <div class="hymn-author">Fanny Crosby · 1875</div>
+  <div class="hymn-tune">Tune: TO GOD BE THE GLORY</div>
+  <div class="hymn-link"><a href="hymn.html?n=152">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/152" target="_blank">Hymnary.org</a></div>
+  <details class="hymn-lyrics-toggle">
+    <summary>Show lyrics (3 verses)</summary>
+    <div class="hymn-lyrics-preview">
+      <p><strong>1.</strong> To God be the glory, great things He has done; So loved He the world that He gave us His Son Who yielded His life an atonement for sin, And opened the life gate that all may go in. Praise the Lord, praise the Lord, Let the earth hear His voice! Praise the Lord, praise the Lord, Let the people rejoice! O come to the Father, through Jesus the Son, And give Him the glory, great things He has done.</p>
+      <p><strong>2.</strong> O perfect redemption, the purchase of blood, To every believer the promise of God; The vilest offender who truly believes, That moment from Jesus a pardon receives.</p>
+      <p><strong>3.</strong> Great things He has taught us, great things He has done, And great our rejoicing through Jesus the Son; But purer, and higher, and greater will be Our wonder, our transport, when Jesus we see.</p>
+    </div>
+  </details>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#153</div>
+  <div class="hymn-title">I heard an old, old story, how a Savior came to glory</div>
+  <div class="hymn-author">E. M. Bartlett</div>
+  <div class="hymn-tune">Tune: HARTFORD</div>
+  <div class="hymn-link"><a href="hymn.html?n=153">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/153" target="_blank">Hymnary.org</a></div>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#155</div>
+  <div class="hymn-title">Here is love, vast as the ocean, loving-kindness as the flood</div>
+  <div class="hymn-author">Kristyn Getty · 1847</div>
+  <div class="hymn-tune">Tune: DIM OND JESU</div>
+  <div class="hymn-link"><a href="hymn.html?n=155">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/155" target="_blank">Hymnary.org</a></div>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#162</div>
+  <div class="hymn-title">Marvelous grace of our loving Lord</div>
+  <div class="hymn-author">Julia H. Johnston · 1910</div>
+  <div class="hymn-tune">Tune: MOODY</div>
+  <div class="hymn-link"><a href="hymn.html?n=162">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/162" target="_blank">Hymnary.org</a></div>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#165</div>
+  <div class="hymn-title">It is a thing most wonderful</div>
+  <div class="hymn-author">William Walsham How · 1872</div>
+  <div class="hymn-tune">Tune: HERONGATE</div>
+  <div class="hymn-link"><a href="hymn.html?n=165">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/165" target="_blank">Hymnary.org</a></div>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#183</div>
+  <div class="hymn-title">What is our hope in life and death? Christ alone, Christ alone</div>
+  <div class="hymn-author">Matt Papa</div>
+  <div class="hymn-tune">Tune: CHRIST, OUR HOPE</div>
+  <div class="hymn-link"><a href="hymn.html?n=183">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/183" target="_blank">Hymnary.org</a></div>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#188</div>
+  <div class="hymn-title">I will sing the wondrous story of the Christ who died for me</div>
+  <div class="hymn-author">Francis H. Rowley · 1854</div>
+  <div class="hymn-tune">Tune: WONDROUS STORY</div>
+  <div class="hymn-link"><a href="hymn.html?n=188">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/188" target="_blank">Hymnary.org</a></div>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#223</div>
+  <div class="hymn-title">How deep the Father's love for us, how vast beyond all measure</div>
+  <div class="hymn-author">Stuart Townend</div>
+  <div class="hymn-tune">Tune: TOWNEND</div>
+  <div class="hymn-link"><a href="hymn.html?n=223">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/223" target="_blank">Hymnary.org</a></div>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#225</div>
+  <div class="hymn-title">And can it be that I should gain</div>
+  <div class="hymn-author">Charles Wesley · 1738</div>
+  <div class="hymn-tune">Tune: PLEW</div>
+  <div class="hymn-link"><a href="hymn.html?n=225">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/225" target="_blank">Hymnary.org</a></div>
+  <details class="hymn-lyrics-toggle">
+    <summary>Show lyrics (5 verses)</summary>
+    <div class="hymn-lyrics-preview">
+      <p><strong>1.</strong> And can it be that I should gain An interest in the Savior's blood? Died He for me, who caused His pain? For me, who Him to death pursued? Amazing love! How can it be, That Thou, my God, shouldst die for me?</p>
+      <p><strong>2.</strong> 'Tis mystery all: th'Immortal dies: Who can explore His strange design? In vain the firstborn seraph tries To sound the depths of love divine. 'Tis mercy all! Let earth adore, Let angel minds inquire no more.</p>
+      <p><strong>3.</strong> He left His Father's throne above So free, so infinite His grace? Emptied Himself of all but love, And bled for Adam's helpless race: 'Tis mercy all, immense and free, For O my God, it found out me!</p>
+      <p><strong>4.</strong> Long my imprisoned spirit lay, Fast bound in sin and nature's night; Thine eye diffused a quick'- ning ray? I woke, the dungeon flamed with light; My chains fell off, my heart was free, I rose, went forth, and followed Thee.</p>
+      <p><strong>5.</strong> Still the small inward voice I hear, That whispers all my sins forgiv'n; Still the atoning blood is near, That quenched the wrath of hostile Heav'n. I feel the life His wounds impart; I feel the Savior in my heart.</p>
+    </div>
+  </details>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#300</div>
+  <div class="hymn-title">Thou, whose almighty word chaos and darkness heard</div>
+  <div class="hymn-author">John Marriott</div>
+  <div class="hymn-tune">Tune: ITALIAN HYMN</div>
+  <div class="hymn-link"><a href="hymn.html?n=300">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/300" target="_blank">Hymnary.org</a></div>
+  <details class="hymn-lyrics-toggle">
+    <summary>Show lyrics (4 verses)</summary>
+    <div class="hymn-lyrics-preview">
+      <p><strong>1.</strong> God, whose almighty word Chaos and darkness heard And took their flight: Hear us, we humble pray, And where the Gospel day Sheds not its glorious ray, Let there be light!</p>
+      <p><strong>2.</strong> Lord, who once came to bring, On your redeeming wing, Healing and sight, Health to the sick in mind, Sight to the inly blind: Oh, now to humankind Let there be light!</p>
+      <p><strong>3.</strong> Spirit of truth and love, Life giving, holy dove, Speed forth your flight; Move on the water's face, Bearing the lamp of grace, And in earth's darkest place Let there be light!</p>
+      <p><strong>4.</strong> Holy and blessed three, Glorious Trinity, Wisdom, love, might! Boundless as ocean's tide, Rolling in fullest pride, Through the earth, far and wide, Let there be light!</p>
+    </div>
+  </details>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#360</div>
+  <div class="hymn-title">Jesus loves me, this I know</div>
+  <div class="hymn-author">Anna Bartlett Warner · 1860</div>
+  <div class="hymn-tune">Tune: CHINA</div>
+  <div class="hymn-link"><a href="hymn.html?n=360">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/360" target="_blank">Hymnary.org</a></div>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#361</div>
+  <div class="hymn-title">God so loved the world he gave his own Son to save us</div>
+  <div class="hymn-author">Keith Getty</div>
+  <div class="hymn-tune">Tune: GOD SO LOVED</div>
+  <div class="hymn-link"><a href="hymn.html?n=361">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/361" target="_blank">Hymnary.org</a></div>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#368</div>
+  <div class="hymn-title">Jesus, friend of little children</div>
+  <div class="hymn-author">William Bradbury · 1862</div>
+  <div class="hymn-tune">Tune: CUTTLE MILLS / CHINA</div>
+  <div class="hymn-link"><a href="hymn.html?n=368">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/368" target="_blank">Hymnary.org</a></div>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#396</div>
+  <div class="hymn-title">And can it be that I should gain</div>
+  <div class="hymn-author">Charles Wesley · 1738</div>
+  <div class="hymn-tune">Tune: SAGINA</div>
+  <div class="hymn-link"><a href="hymn.html?n=396">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/396" target="_blank">Hymnary.org</a></div>
+  <details class="hymn-lyrics-toggle">
+    <summary>Show lyrics (5 verses)</summary>
+    <div class="hymn-lyrics-preview">
+      <p><strong>1.</strong> And can it be that I should gain An interest in the Savior's blood? Died He for me, who caused His pain? For me, who Him to death pursued? Amazing love! How can it be, That Thou, my God, shouldst die for me?</p>
+      <p><strong>2.</strong> 'Tis mystery all: th'Immortal dies: Who can explore His strange design? In vain the firstborn seraph tries To sound the depths of love divine. 'Tis mercy all! Let earth adore, Let angel minds inquire no more.</p>
+      <p><strong>3.</strong> He left His Father's throne above So free, so infinite His grace? Emptied Himself of all but love, And bled for Adam's helpless race: 'Tis mercy all, immense and free, For O my God, it found out me!</p>
+      <p><strong>4.</strong> Long my imprisoned spirit lay, Fast bound in sin and nature's night; Thine eye diffused a quick'- ning ray? I woke, the dungeon flamed with light; My chains fell off, my heart was free, I rose, went forth, and followed Thee.</p>
+      <p><strong>5.</strong> Still the small inward voice I hear, That whispers all my sins forgiv'n; Still the atoning blood is near, That quenched the wrath of hostile Heav'n. I feel the life His wounds impart; I feel the Savior in my heart.</p>
+    </div>
+  </details>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#403</div>
+  <div class="hymn-title">My faith has found a resting place--not in device nor creed</div>
+  <div class="hymn-author">Eliza E. Hewitt · 1890</div>
+  <div class="hymn-tune">Tune: LANDAS</div>
+  <div class="hymn-link"><a href="hymn.html?n=403">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/403" target="_blank">Hymnary.org</a></div>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#405</div>
+  <div class="hymn-title">Rock of Ages, cleft for me, let me hide myself in thee</div>
+  <div class="hymn-author">Augustus Toplady · 1775</div>
+  <div class="hymn-tune">Tune: TOPLADY</div>
+  <div class="hymn-link"><a href="hymn.html?n=405">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/405" target="_blank">Hymnary.org</a></div>
+  <details class="hymn-lyrics-toggle">
+    <summary>Show lyrics (4 verses)</summary>
+    <div class="hymn-lyrics-preview">
+      <p><strong>1.</strong> Rock of Ages, cleft for me, Let me hide myself in Thee; Let the water and the blood, From Thy wounded side which flowed, Be of sin the double cure; Save from wrath and make me pure.</p>
+      <p><strong>2.</strong> Not the labor of my hands Can fulfill Thy law's demands; Could my zeal no respite know, Could my tears forever flow, All for sin could not atone; Thou must save, and Thou alone.</p>
+      <p><strong>3.</strong> Nothing in my hand I bring, Simply to the cross I cling; Naked, come to Thee for dress; Helpless look to Thee for grace; Foul, I to the fountain fly; Wash me, Savior, or I die.</p>
+      <p><strong>4.</strong> While I draw this fleeting breath, When mine eyes shall close in death, When I soar to worlds unknown, See Thee on Thy judgment throne, Rock of Ages, cleft for me, Let me hide myself in Thee.</p>
+    </div>
+  </details>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#484</div>
+  <div class="hymn-title">Go forth and tell! O church of God, awake!</div>
+  <div class="hymn-author">James E. Seddon</div>
+  <div class="hymn-tune">Tune: WOODLANDS</div>
+  <div class="hymn-link"><a href="hymn.html?n=484">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/484" target="_blank">Hymnary.org</a></div>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#716</div>
+  <div class="hymn-title">Of the Father's love begotten, ere the worlds began to be</div>
+  <div class="hymn-author">Aurelius Clemens Prudentius, c. 348-413</div>
+  <div class="hymn-tune">Tune: DIVINUM MYSTERIUM</div>
+  <div class="hymn-link"><a href="hymn.html?n=716">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/716" target="_blank">Hymnary.org</a></div>
+  <details class="hymn-lyrics-toggle">
+    <summary>Show lyrics (5 verses)</summary>
+    <div class="hymn-lyrics-preview">
+      <p><strong>1.</strong> Of the Father's love begotten Ere the worlds began to be, He is Alpha and Omega, He the source, the ending He, Of the things that are, that have been, And that future years shall see, Evermore and evermore!</p>
+      <p><strong>2.</strong> At His Word they were created; He commanded; it was done: Heav'n and earth and depths of ocean In their threefold order one; All that grows beneath the shining Of the moon and burning sun, Evermore and evermore!</p>
+      <p><strong>3.</strong> He is found in human fashion, Death and sorrow here to know, That the race of Adam's children, Doomed by law to endless woe, May not henceforth die and perish In the dreadful gulf below, Evermore and evermore!</p>
+      <p><strong>4.</strong> Oh that birth forever bless�d! When the virgin, full of grace, By the Holy Ghost conceiving, Bare the Savior of our race; And the Babe, the world's Redeemer, First revealed His sacred face, Evermore and evermore!</p>
+      <p><strong>5.</strong> O ye heights of heav'n adore Him; Angel hosts, His praises sing; Pow'rs, dominions, bow before Him, and extol our God and King: Let no tongue on earth be silent, Every voice in concert ring, Evermore and evermore!</p>
+    </div>
+  </details>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#751</div>
+  <div class="hymn-title">O little town of Bethlehem, how still we see thee lie</div>
+  <div class="hymn-author">Phillips Brooks · 1868</div>
+  <div class="hymn-tune">Tune: ST. LOUIS</div>
+  <div class="hymn-link"><a href="hymn.html?n=751">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/751" target="_blank">Hymnary.org</a></div>
+  <details class="hymn-lyrics-toggle">
+    <summary>Show lyrics (5 verses)</summary>
+    <div class="hymn-lyrics-preview">
+      <p><strong>1.</strong> O little town of Bethlehem, how still we see thee lie! Above thy deep and dreamless sleep the silent stars go by. Yet in thy dark streets shineth the everlasting Light; The hopes and fears of all the years are met in thee tonight.</p>
+      <p><strong>2.</strong> For Christ is born of Mary, and gathered all above, While mortals sleep, the angels keep their watch of wond'ring love. O morning stars together, proclaim the holy birth, And praises sing to God the King, and peace to men on earth!</p>
+      <p><strong>3.</strong> How silently, how silently, the wondrous Gift is giv'n; So God imparts to human hearts the blessings of His Heav'n. No ear may hear His coming, but in this world of sin, Where meek souls will receive Him still, the dear Christ enters in.</p>
+      <p><strong>4.</strong> Where children pure and happy pray to the bless�d Child, Where misery cries out to Thee, Son of the mother mild; Where charity stands watching and faith holds wide the door, The dark night wakes, the glory breaks, and Christmas comes once more.</p>
+      <p><strong>5.</strong> O holy Child of Bethlehem, descend to us, we pray; Cast out our sin, and enter in, be born in us today. We hear the Christmas angels the great glad tidings tell; O come to us, abide with us, our Lord Emmanuel!</p>
+    </div>
+  </details>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#752</div>
+  <div class="hymn-title">O little town of Bethlehem, how still we see thee lie</div>
+  <div class="hymn-author">Phillips Brooks · 1868</div>
+  <div class="hymn-tune">Tune: FOREST GREEN</div>
+  <div class="hymn-link"><a href="hymn.html?n=752">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/752" target="_blank">Hymnary.org</a></div>
+</div>
+<div class="hymn-card">
+  <div class="hymn-number">#848</div>
+  <div class="hymn-title">Hail the day that sees him rise, Alleluia!</div>
+  <div class="hymn-author">Charles Wesley · 1739</div>
+  <div class="hymn-tune">Tune: LLANFAIR</div>
+  <div class="hymn-link"><a href="hymn.html?n=848">View details</a> · <a href="https://hymnary.org/hymn/Sing2025/848" target="_blank">Hymnary.org</a></div>
+  <details class="hymn-lyrics-toggle">
+    <summary>Show lyrics (5 verses)</summary>
+    <div class="hymn-lyrics-preview">
+      <p><strong>1.</strong> Christ, the Lord, is risen today, Alleluia! Sons of men and angels say, Alleluia! Raise your joys and triumphs high, Alleluia! Sing, ye heavens, and earth, reply, Alleluia!</p>
+      <p><strong>2.</strong> Love's redeeming work is done, Alleluia! Fought the fight, the battle won, Alleluia! Lo! the Sun's eclipse is o'er, Alleluia! Lo! He sets in blood no more, Alleluia!</p>
+      <p><strong>3.</strong> Vain the stone, the watch, the seal, Alleluia! Christ hath burst the gates of hell, Alleluia! Death in vain forbids His rise, Alleluia! Christ hath opened paradise, Alleluia!</p>
+      <p><strong>4.</strong> Lives again our glorious King, Alleluia! Where, O death, is now thy sting? Alleluia! Once He died our souls to save, Alleluia! Where thy victory, O grave? Alleluia!</p>
+      <p><strong>5.</strong> Soar we now where Christ hath led, Alleluia! Following our exalted Head, Alleluia! Made like Him, like Him we rise, Alleluia! Ours the cross, the grave, the skies, Alleluia!</p>
+    </div>
+  </details>
+</div>
+</div>
+</section>
 
 <div class="page-break"></div>
 
+<section data-nav="commentary" data-nav-label="Commentary">
 <!-- ═══════════ COMMENTARY ═══════════ -->
 <h2>Commentary</h2>
 <div class="commentary-pair">
@@ -1852,386 +1587,78 @@ that the world through him might be saved; even the world of the elect in genera
     <div class="commentary-intro">In this chapter we have, I. Christ's discourse with Nicodemus, a Pharisee, concerning the great mysteries of the gospel, in which he here privately instructs him (v. 1-21). II. John Baptist's discourse with his disciples concerning Christ, upon occasion of his coming into the neighbourhood where John was (Joh 3:22-36), in which he fairly and faithfully resigns all his honour and interest to him.</div>
     <div class="no-content">No commentary available for this reference.</div>
 </div>
+</section>
 
+<section data-nav="original" data-nav-label="Original Language">
 <!-- ═══════════ ORIGINAL LANGUAGE ═══════════ -->
 <h2>Original Language</h2>
 <details class="interlinear-verse">
 <summary>Verse 16 (26 words)</summary>
 <div class="interlinear-layout">
 <div class="interlinear-esv">
-  <div class="esv-label">ESV</div>
-  “For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.
+  <div class="esv-label">KJV</div>
+  ¶ For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.
 </div>
 <table class="interlinear-table">
 <thead><tr><th>English</th><th>Greek</th><th>Transliteration</th><th>Strong's</th><th>Definition</th></tr></thead>
 <tbody>
-<tr><td>so</td><td class="original-text greek">Οὕτως</td><td class="transliteration">hoútō</td><td><span class="strongs-num">G3779</span></td><td class="strongs-def">in this way (referring to what precedes or follows)</td></tr>
-<tr><td>For</td><td class="original-text greek">γὰρ</td><td class="transliteration">gár</td><td><span class="strongs-num">G1063</span></td><td class="strongs-def">properly, assigning a reason (used in argument, explanation or intensification; often with other particles)</td></tr>
-<tr><td>loved</td><td class="original-text greek">ἠγάπησεν</td><td class="transliteration">agapáō</td><td><span class="strongs-num">G25</span></td><td class="strongs-def">to love (in a social or moral sense)</td></tr>
-<tr><td></td><td class="original-text greek">ὁ</td><td class="transliteration">ho</td><td><span class="strongs-num">G3588</span></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
-<tr><td>God</td><td class="original-text greek">θεὸς</td><td class="transliteration">theós</td><td><span class="strongs-num">G2316</span></td><td class="strongs-def">figuratively, a magistrate; by Hebraism, very</td></tr>
-<tr><td></td><td class="original-text greek">τὸν</td><td class="transliteration">ho</td><td><span class="strongs-num">G3588</span></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
-<tr><td>the world</td><td class="original-text greek">κόσμον</td><td class="transliteration">kósmos</td><td><span class="strongs-num">G2889</span></td><td class="strongs-def">orderly arrangement, i.e. decoration; by implication, the world (in a wide or narrow sense, including its inhabitants...</td></tr>
-<tr><td>that</td><td class="original-text greek">ὥστε</td><td class="transliteration">hṓste</td><td><span class="strongs-num">G5620</span></td><td class="strongs-def">so too, i.e. thus therefore (in various relations of consecution, as follow)</td></tr>
-<tr><td></td><td class="original-text greek">τὸν</td><td class="transliteration">ho</td><td><span class="strongs-num">G3588</span></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
-<tr><td>Son</td><td class="original-text greek">υἱὸν</td><td class="transliteration">huiós</td><td><span class="strongs-num">G5207</span></td><td class="strongs-def">a &quot;son&quot; (sometimes of animals), used very widely of immediate, remote or figuratively, kinship</td></tr>
-<tr><td>him</td><td class="original-text greek">αὐτὸν</td><td class="transliteration">autós</td><td><span class="strongs-num">G846</span></td><td class="strongs-def">the reflexive pronoun self, used (alone or in the comparative
+<tr><td>so</td><td class="original-text greek">Οὕτως</td><td class="transliteration">hoútō</td><td><a href="word.html?s=G3779" class="strongs-num">G3779</a></td><td class="strongs-def">in this way (referring to what precedes or follows)</td></tr>
+<tr><td>For</td><td class="original-text greek">γὰρ</td><td class="transliteration">gár</td><td><a href="word.html?s=G1063" class="strongs-num">G1063</a></td><td class="strongs-def">properly, assigning a reason (used in argument, explanation or intensification; often with other particles)</td></tr>
+<tr><td>loved</td><td class="original-text greek">ἠγάπησεν</td><td class="transliteration">agapáō</td><td><a href="word.html?s=G25" class="strongs-num">G25</a></td><td class="strongs-def">to love (in a social or moral sense)</td></tr>
+<tr><td></td><td class="original-text greek">ὁ</td><td class="transliteration">ho</td><td><a href="word.html?s=G3588" class="strongs-num">G3588</a></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
+<tr><td>God</td><td class="original-text greek">θεὸς</td><td class="transliteration">theós</td><td><a href="word.html?s=G2316" class="strongs-num">G2316</a></td><td class="strongs-def">figuratively, a magistrate; by Hebraism, very</td></tr>
+<tr><td></td><td class="original-text greek">τὸν</td><td class="transliteration">ho</td><td><a href="word.html?s=G3588" class="strongs-num">G3588</a></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
+<tr><td>the world</td><td class="original-text greek">κόσμον</td><td class="transliteration">kósmos</td><td><a href="word.html?s=G2889" class="strongs-num">G2889</a></td><td class="strongs-def">orderly arrangement, i.e. decoration; by implication, the world (in a wide or narrow sense, including its inhabitants...</td></tr>
+<tr><td>that</td><td class="original-text greek">ὥστε</td><td class="transliteration">hṓste</td><td><a href="word.html?s=G5620" class="strongs-num">G5620</a></td><td class="strongs-def">so too, i.e. thus therefore (in various relations of consecution, as follow)</td></tr>
+<tr><td></td><td class="original-text greek">τὸν</td><td class="transliteration">ho</td><td><a href="word.html?s=G3588" class="strongs-num">G3588</a></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
+<tr><td>Son</td><td class="original-text greek">υἱὸν</td><td class="transliteration">huiós</td><td><a href="word.html?s=G5207" class="strongs-num">G5207</a></td><td class="strongs-def">a &quot;son&quot; (sometimes of animals), used very widely of immediate, remote or figuratively, kinship</td></tr>
+<tr><td>him</td><td class="original-text greek">αὐτὸν</td><td class="transliteration">autós</td><td><a href="word.html?s=G846" class="strongs-num">G846</a></td><td class="strongs-def">the reflexive pronoun self, used (alone or in the comparative
 
 
 ) of the third person , and (with the proper personal...</td></tr>
-<tr><td></td><td class="original-text greek">τὸν</td><td class="transliteration">ho</td><td><span class="strongs-num">G3588</span></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
-<tr><td>only begotten</td><td class="original-text greek">μονογενῆ</td><td class="transliteration">monogenḗs</td><td><span class="strongs-num">G3439</span></td><td class="strongs-def">only-born, i.e. sole</td></tr>
-<tr><td>he gave</td><td class="original-text greek">ἔδωκεν</td><td class="transliteration">dídōmi</td><td><span class="strongs-num">G1325</span></td><td class="strongs-def">to give (used in a very wide application, properly, or by implication, literally or figuratively; greatly modified by...</td></tr>
-<tr><td>that</td><td class="original-text greek">ἵνα</td><td class="transliteration">hína</td><td><span class="strongs-num">G2443</span></td><td class="strongs-def">compare
+<tr><td></td><td class="original-text greek">τὸν</td><td class="transliteration">ho</td><td><a href="word.html?s=G3588" class="strongs-num">G3588</a></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
+<tr><td>only begotten</td><td class="original-text greek">μονογενῆ</td><td class="transliteration">monogenḗs</td><td><a href="word.html?s=G3439" class="strongs-num">G3439</a></td><td class="strongs-def">only-born, i.e. sole</td></tr>
+<tr><td>he gave</td><td class="original-text greek">ἔδωκεν</td><td class="transliteration">dídōmi</td><td><a href="word.html?s=G1325" class="strongs-num">G1325</a></td><td class="strongs-def">to give (used in a very wide application, properly, or by implication, literally or figuratively; greatly modified by...</td></tr>
+<tr><td>that</td><td class="original-text greek">ἵνα</td><td class="transliteration">hína</td><td><a href="word.html?s=G2443" class="strongs-num">G2443</a></td><td class="strongs-def">compare
 
 
 ); in order that (denoting the purpose or the result)</td></tr>
-<tr><td>whosoever</td><td class="original-text greek">πᾶς</td><td class="transliteration">pâs</td><td><span class="strongs-num">G3956</span></td><td class="strongs-def">all, any, every, the whole</td></tr>
-<tr><td></td><td class="original-text greek">ὁ</td><td class="transliteration">ho</td><td><span class="strongs-num">G3588</span></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
-<tr><td>believeth</td><td class="original-text greek">πιστεύων</td><td class="transliteration">pisteúō</td><td><span class="strongs-num">G4100</span></td><td class="strongs-def">to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially ...</td></tr>
-<tr><td>in</td><td class="original-text greek">εἰς</td><td class="transliteration">eis</td><td><span class="strongs-num">G1519</span></td><td class="strongs-def">to or into (indicating the point reached or entered), of place, time, or (figuratively) purpose (result, etc.); also ...</td></tr>
-<tr><td>him</td><td class="original-text greek">αὐτὸν</td><td class="transliteration">autós</td><td><span class="strongs-num">G846</span></td><td class="strongs-def">the reflexive pronoun self, used (alone or in the comparative
+<tr><td>whosoever</td><td class="original-text greek">πᾶς</td><td class="transliteration">pâs</td><td><a href="word.html?s=G3956" class="strongs-num">G3956</a></td><td class="strongs-def">all, any, every, the whole</td></tr>
+<tr><td></td><td class="original-text greek">ὁ</td><td class="transliteration">ho</td><td><a href="word.html?s=G3588" class="strongs-num">G3588</a></td><td class="strongs-def">the (sometimes to be supplied, at others omitted, in English idiom)</td></tr>
+<tr><td>believeth</td><td class="original-text greek">πιστεύων</td><td class="transliteration">pisteúō</td><td><a href="word.html?s=G4100" class="strongs-num">G4100</a></td><td class="strongs-def">to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially ...</td></tr>
+<tr><td>in</td><td class="original-text greek">εἰς</td><td class="transliteration">eis</td><td><a href="word.html?s=G1519" class="strongs-num">G1519</a></td><td class="strongs-def">to or into (indicating the point reached or entered), of place, time, or (figuratively) purpose (result, etc.); also ...</td></tr>
+<tr><td>him</td><td class="original-text greek">αὐτὸν</td><td class="transliteration">autós</td><td><a href="word.html?s=G846" class="strongs-num">G846</a></td><td class="strongs-def">the reflexive pronoun self, used (alone or in the comparative
 
 
 ) of the third person , and (with the proper personal...</td></tr>
-<tr><td>not</td><td class="original-text greek">μὴ</td><td class="transliteration">mḗ</td><td><span class="strongs-num">G3361</span></td><td class="strongs-def">(adverb) not, (conjunction) lest; also (as an interrogative implying a negative answer (whereas
+<tr><td>not</td><td class="original-text greek">μὴ</td><td class="transliteration">mḗ</td><td><a href="word.html?s=G3361" class="strongs-num">G3361</a></td><td class="strongs-def">(adverb) not, (conjunction) lest; also (as an interrogative implying a negative answer (whereas
 
 
 expects an affirmat...</td></tr>
-<tr><td>perish</td><td class="original-text greek">ἀπόληται</td><td class="transliteration">apóllymi</td><td><span class="strongs-num">G622</span></td><td class="strongs-def">to destroy fully (reflexively, to perish, or lose), literally or figuratively</td></tr>
-<tr><td>but</td><td class="original-text greek">ἀλλ'</td><td class="transliteration">allá</td><td><span class="strongs-num">G235</span></td><td class="strongs-def">properly, other things, i.e. (adverbially) contrariwise (in many relations)</td></tr>
-<tr><td>have</td><td class="original-text greek">ἔχῃ</td><td class="transliteration">échō</td><td><span class="strongs-num">G2192</span></td><td class="strongs-def">to hold (used in very various applications, literally or figuratively, direct or remote; such as possession; ability,...</td></tr>
-<tr><td>life</td><td class="original-text greek">ζωὴν</td><td class="transliteration">zōḗ</td><td><span class="strongs-num">G2222</span></td><td class="strongs-def">life (literally or figuratively)</td></tr>
-<tr><td>everlasting</td><td class="original-text greek">αἰώνιον</td><td class="transliteration">aiṓnios</td><td><span class="strongs-num">G166</span></td><td class="strongs-def">perpetual (also used of past time, or past and future as well)</td></tr>
+<tr><td>perish</td><td class="original-text greek">ἀπόληται</td><td class="transliteration">apóllymi</td><td><a href="word.html?s=G622" class="strongs-num">G622</a></td><td class="strongs-def">to destroy fully (reflexively, to perish, or lose), literally or figuratively</td></tr>
+<tr><td>but</td><td class="original-text greek">ἀλλ'</td><td class="transliteration">allá</td><td><a href="word.html?s=G235" class="strongs-num">G235</a></td><td class="strongs-def">properly, other things, i.e. (adverbially) contrariwise (in many relations)</td></tr>
+<tr><td>have</td><td class="original-text greek">ἔχῃ</td><td class="transliteration">échō</td><td><a href="word.html?s=G2192" class="strongs-num">G2192</a></td><td class="strongs-def">to hold (used in very various applications, literally or figuratively, direct or remote; such as possession; ability,...</td></tr>
+<tr><td>life</td><td class="original-text greek">ζωὴν</td><td class="transliteration">zōḗ</td><td><a href="word.html?s=G2222" class="strongs-num">G2222</a></td><td class="strongs-def">life (literally or figuratively)</td></tr>
+<tr><td>everlasting</td><td class="original-text greek">αἰώνιον</td><td class="transliteration">aiṓnios</td><td><a href="word.html?s=G166" class="strongs-num">G166</a></td><td class="strongs-def">perpetual (also used of past time, or past and future as well)</td></tr>
 </tbody>
 </table>
 </div>
 </details>
+</section>
 
-<script type="application/json" id="verse-app-data">{"verseTexts": {"0": {"16": "“For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life."}, "1": {"16": "¶ For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."}, "2": {"16": "For God so loved the world that He gave His one and only Son, that everyone who believes in Him shall not perish but have eternal life."}}, "translationNames": ["ESV", "KJVPCE", "BSB"], "interlinear": {"16": [{"text": "so", "original": "Οὕτως", "strongs": "G3779"}, {"text": "For", "original": "γὰρ", "strongs": "G1063"}, {"text": "loved", "original": "ἠγάπησεν", "strongs": "G25"}, {"text": "", "original": "ὁ", "strongs": "G3588"}, {"text": "God", "original": "θεὸς", "strongs": "G2316"}, {"text": "", "original": "τὸν", "strongs": "G3588"}, {"text": "the world", "original": "κόσμον", "strongs": "G2889"}, {"text": "that", "original": "ὥστε", "strongs": "G5620"}, {"text": "", "original": "τὸν", "strongs": "G3588"}, {"text": "Son", "original": "υἱὸν", "strongs": "G5207"}, {"text": "him", "original": "αὐτὸν", "strongs": "G846"}, {"text": "", "original": "τὸν", "strongs": "G3588"}, {"text": "only begotten", "original": "μονογενῆ", "strongs": "G3439"}, {"text": "he gave", "original": "ἔδωκεν", "strongs": "G1325"}, {"text": "that", "original": "ἵνα", "strongs": "G2443"}, {"text": "whosoever", "original": "πᾶς", "strongs": "G3956"}, {"text": "", "original": "ὁ", "strongs": "G3588"}, {"text": "believeth", "original": "πιστεύων", "strongs": "G4100"}, {"text": "in", "original": "εἰς", "strongs": "G1519"}, {"text": "him", "original": "αὐτὸν", "strongs": "G846"}, {"text": "not", "original": "μὴ", "strongs": "G3361"}, {"text": "perish", "original": "ἀπόληται", "strongs": "G622"}, {"text": "but", "original": "ἀλλ'", "strongs": "G235"}, {"text": "have", "original": "ἔχῃ", "strongs": "G2192"}, {"text": "life", "original": "ζωὴν", "strongs": "G2222"}, {"text": "everlasting", "original": "αἰώνιον", "strongs": "G166"}]}, "lexicon": {"G2316": {"translit": "theós", "definition": "figuratively, a magistrate; by Hebraism, very"}, "G622": {"translit": "apóllymi", "definition": "to destroy fully (reflexively, to perish, or lose), literally or figuratively"}, "G25": {"translit": "agapáō", "definition": "to love (in a social or moral sense)"}, "G3779": {"translit": "hoútō", "definition": "in this way (referring to what precedes or follows)"}, "G166": {"translit": "aiṓnios", "definition": "perpetual (also used of past time, or past and future as well)"}, "G5620": {"translit": "hṓste", "definition": "so too, i.e. thus therefore (in various relations of consecution, as follow)"}, "G3588": {"translit": "ho", "definition": "the (sometimes to be supplied, at others omitted, in English idiom)"}, "G1063": {"translit": "gár", "definition": "properly, assigning a reason (used in argument, explanation or intensification; often with other particles)"}, "G1325": {"translit": "dídōmi", "definition": "to give (used in a very wide application, properly, or by implication, literally or figuratively; greatly modified by..."}, "G2192": {"translit": "échō", "definition": "to hold (used in very various applications, literally or figuratively, direct or remote; such as possession; ability,..."}, "G4100": {"translit": "pisteúō", "definition": "to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially ..."}, "G3439": {"translit": "monogenḗs", "definition": "only-born, i.e. sole"}, "G1519": {"translit": "eis", "definition": "to or into (indicating the point reached or entered), of place, time, or (figuratively) purpose (result, etc.); also ..."}, "G2443": {"translit": "hína", "definition": "compare\n\n\n); in order that (denoting the purpose or the result)"}, "G3956": {"translit": "pâs", "definition": "all, any, every, the whole"}, "G5207": {"translit": "huiós", "definition": "a \"son\" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship"}, "G846": {"translit": "autós", "definition": "the reflexive pronoun self, used (alone or in the comparative\n\n\n) of the third person , and (with the proper personal..."}, "G2222": {"translit": "zōḗ", "definition": "life (literally or figuratively)"}, "G3361": {"translit": "mḗ", "definition": "(adverb) not, (conjunction) lest; also (as an interrogative implying a negative answer (whereas\n\n\nexpects an affirmat..."}, "G235": {"translit": "allá", "definition": "properly, other things, i.e. (adverbially) contrariwise (in many relations)"}, "G2889": {"translit": "kósmos", "definition": "orderly arrangement, i.e. decoration; by implication, the world (in a wide or narrow sense, including its inhabitants..."}}, "langClass": "greek", "langLabel": "Greek"}</script>
-
-<script>
-(function() {
-    var el = document.getElementById('verse-app-data');
-    if (!el) return;
-    var D = JSON.parse(el.textContent);
-
-    var table = document.querySelector('.parallel-table');
-    var expanded = document.getElementById('expanded-view');
-    var hint = document.querySelector('.click-hint');
-    if (!table || !expanded) return;
-
-    function esc(s) {
-        if (!s) return '';
-        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
-    table.addEventListener('click', function(e) {
-        var cell = e.target.closest('.verse-cell-clickable');
-        if (!cell) return;
-
-        var vnum  = cell.dataset.verse;
-        var col   = cell.dataset.col;
-        var name  = D.translationNames[col] || '';
-        var text  = (D.verseTexts[col] || {})[vnum] || '';
-        var words = D.interlinear[vnum] || [];
-
-        var h = '<div class="expanded-header">'
-              + '<div class="expanded-title">' + esc(name)
-              + ' &mdash; Verse ' + esc(vnum) + '</div>'
-              + '<button class="expanded-close" '
-              + 'title="Back to translations">'
-              + '&times;</button></div>'
-              + '<div class="expanded-panel">';
-
-        h += '<div class="expanded-text">'
-           + '<div class="text-label">' + esc(name) + '</div>'
-           + esc(text) + '</div>';
-
-        h += '<div class="expanded-interlinear">';
-        if (words.length) {
-            h += '<table class="interlinear-table"><thead><tr>'
-               + '<th>English</th><th>' + esc(D.langLabel) + '</th>'
-               + '<th>Transliteration</th><th>Strong\'s</th>'
-               + '<th>Definition</th></tr></thead><tbody>';
-            for (var i = 0; i < words.length; i++) {
-                var w = words[i];
-                var lx = D.lexicon[w.strongs] || {};
-                h += '<tr>'
-                   + '<td>' + esc(w.text) + '</td>'
-                   + '<td class="original-text ' + D.langClass + '">'
-                   + esc(w.original) + '</td>'
-                   + '<td class="transliteration">'
-                   + esc(lx.translit || '') + '</td>';
-                h += w.strongs
-                   ? '<td><span class="strongs-num">'
-                     + esc(w.strongs) + '</span></td>'
-                   : '<td></td>';
-                h += '<td class="strongs-def">'
-                   + esc(lx.definition || '') + '</td></tr>';
-            }
-            h += '</tbody></table>';
-        } else {
-            h += '<div class="no-content">'
-               + 'No interlinear data available for this verse.</div>';
-        }
-        h += '</div></div>';
-
-        expanded.innerHTML = h;
-
-        /* Animate: table slides out, then expanded view slides in */
-        table.classList.add('collapsing');
-        if (hint) hint.classList.add('collapsing');
-
-        setTimeout(function() {
-            table.classList.add('collapsed');
-            table.classList.remove('collapsing');
-            if (hint) { hint.classList.add('collapsed'); hint.classList.remove('collapsing'); }
-            expanded.classList.add('active');
-            expanded.querySelector('.expanded-close')
-                    .addEventListener('click', closeExpanded);
-            expanded.scrollIntoView({behavior: 'smooth', block: 'start'});
-        }, 250);
-    });
-
-    function closeExpanded() {
-        /* Animate: expanded panels slide out, then table slides back in */
-        expanded.classList.add('closing');
-
-        setTimeout(function() {
-            expanded.classList.remove('active');
-            expanded.classList.remove('closing');
-            expanded.innerHTML = '';
-            table.classList.remove('collapsed');
-            table.classList.add('entering');
-            if (hint) { hint.classList.remove('collapsed'); }
-            table.scrollIntoView({behavior: 'smooth', block: 'start'});
-            setTimeout(function() { table.classList.remove('entering'); }, 300);
-        }, 250);
-    }
-})();
-
-/* ── Chapter context expansion ─────────────────── */
-function toggleContext() {
-    var panel = document.getElementById('context-verses');
-    var wrap  = document.getElementById('expand-chapter');
-    if (!panel) return;
-    if (panel.classList.contains('visible')) {
-        panel.classList.remove('visible');
-        panel.style.maxHeight = '';
-        wrap.classList.remove('expanded');
-    } else {
-        panel.classList.add('visible');
-        panel.style.maxHeight = panel.scrollHeight + 'px';
-        wrap.classList.add('expanded');
-    }
-}
-
-/* ── Cross-reference inline preview ────────────── */
-(function() {
-    var xrefPanel = document.getElementById('xref-panel');
-    var links = document.querySelectorAll('.xref-link');
-    if (!xrefPanel || !links.length) return;
-
-    /* Cache fetched book data so we only download each book once */
-    var bookCache = {};
-    var isFileProtocol = location.protocol === 'file:';
-
-    /* Translation labels matching BIBLE_ORDER in the Python script */
-    var LABELS = ['ESV', 'KJV', 'BSB'];
-    var KEYS   = ['esv', 'kjv', 'bsb'];
-
-    /* Parse an OSIS ref like "Rom.5.8" into {abbrev, chapter, verse}.
-       For ranges like "Rom.5.8-Rom.5.10", returns start only. */
-    function parseRef(ref) {
-        var parts = ref.split('-')[0].split('.');
-        return {abbrev: parts[0], chapter: parseInt(parts[1]), verse: parseInt(parts[2])};
-    }
-
-    /* Build the lookup page filename for a reference */
-    function lookupUrl(ref) {
-        var p = parseRef(ref);
-        /* Find the book's full name from bible-meta if loaded,
-           otherwise use the abbreviation as-is */
-        return 'lookup_' + p.abbrev + '_' + p.chapter + '.html';
-    }
-
-    /* Convert OSIS ref to readable: "Rom.5.8" -> "Romans 5:8" */
-    function readableRef(ref) {
-        var parts = ref.split('.');
-        if (parts.length === 3) return parts[0] + ' ' + parts[1] + ':' + parts[2];
-        if (parts.length === 2) return parts[0] + ' ' + parts[1];
-        return ref;
-    }
-
-    function esc(s) {
-        var d = document.createElement('div');
-        d.textContent = s;
-        return d.innerHTML;
-    }
-
-    function showPanel(ref) {
-        var parsed = parseRef(ref);
-        var dataUrl = 'data/verses/' + parsed.abbrev + '.json';
-
-        /* If file:// protocol, fetch won't work — show link instead */
-        if (isFileProtocol) {
-            var h = '<div class="xref-panel-inner">'
-                  + '<div class="xref-panel-header">'
-                  + '<span class="xref-panel-ref">' + esc(readableRef(ref)) + '</span>'
-                  + '<button class="xref-panel-close" onclick="closeXref()">&times;</button>'
-                  + '</div>'
-                  + '<p style="color:#888;font-style:italic">Inline preview requires a '
-                  + 'web server. <a href="' + lookupUrl(ref) + '">Open full page &rarr;</a></p>'
-                  + '</div>';
-            xrefPanel.innerHTML = h;
-            xrefPanel.classList.add('visible');
-            xrefPanel.style.maxHeight = xrefPanel.scrollHeight + 'px';
-            return;
-        }
-
-        /* Check cache first */
-        if (bookCache[parsed.abbrev]) {
-            renderVerse(bookCache[parsed.abbrev], ref);
-            return;
-        }
-
-        /* Show loading state */
-        xrefPanel.innerHTML = '<div class="xref-panel-inner">'
-            + '<span style="color:#888;font-style:italic">Loading...</span></div>';
-        xrefPanel.classList.add('visible');
-        xrefPanel.style.maxHeight = '60px';
-
-        fetch(dataUrl)
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                bookCache[parsed.abbrev] = data;
-                renderVerse(data, ref);
-            })
-            .catch(function() {
-                xrefPanel.innerHTML = '<div class="xref-panel-inner">'
-                    + '<span style="color:#c44">Could not load verse data.</span>'
-                    + ' <a href="' + lookupUrl(ref) + '">Open full page &rarr;</a></div>';
-                xrefPanel.style.maxHeight = xrefPanel.scrollHeight + 'px';
-            });
-    }
-
-    function renderVerse(bookData, ref) {
-        var parsed = parseRef(ref);
-        /* Handle ranges: "Rom.5.8-Rom.5.10" means verses 8,9,10 */
-        var rangeParts = ref.split('-');
-        var startV = parsed.verse;
-        var endV = startV;
-        if (rangeParts.length > 1) {
-            var endParts = rangeParts[1].split('.');
-            endV = parseInt(endParts[endParts.length - 1]);
-        }
-
-        /* Find the chapter in the book data */
-        var chData = null;
-        for (var i = 0; i < bookData.chapters.length; i++) {
-            if (bookData.chapters[i].chapter === parsed.chapter) {
-                chData = bookData.chapters[i];
-                break;
-            }
-        }
-
-        var h = '<div class="xref-panel-inner">'
-              + '<div class="xref-panel-header">'
-              + '<span class="xref-panel-ref">' + esc(readableRef(ref)) + '</span>'
-              + '<button class="xref-panel-close" onclick="closeXref()">&times;</button>'
-              + '</div>';
-
-        if (!chData) {
-            h += '<p style="color:#888">Verse data not available.</p>';
-        } else {
-            for (var v = startV; v <= endV; v++) {
-                /* Find this verse in the chapter */
-                var verseData = null;
-                for (var j = 0; j < chData.verses.length; j++) {
-                    if (chData.verses[j].verse === v) {
-                        verseData = chData.verses[j];
-                        break;
-                    }
-                }
-                if (!verseData) continue;
-
-                var vLabel = (startV !== endV) ? ' (v' + v + ')' : '';
-                for (var k = 0; k < KEYS.length; k++) {
-                    var text = verseData[KEYS[k]] || '';
-                    if (text) {
-                        h += '<div class="xref-panel-verse">'
-                           + '<span class="xref-panel-label">' + LABELS[k] + vLabel + '</span>'
-                           + esc(text) + '</div>';
-                    }
-                }
-            }
-        }
-
-        h += '<a class="xref-panel-link" href="' + lookupUrl(ref)
-           + '">Open full page &rarr;</a></div>';
-
-        xrefPanel.innerHTML = h;
-        xrefPanel.classList.add('visible');
-        xrefPanel.style.maxHeight = xrefPanel.scrollHeight + 'px';
-    }
-
-    /* Attach click handlers to all cross-ref links */
-    for (var i = 0; i < links.length; i++) {
-        links[i].addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();  /* Don't trigger the verse-cell interlinear */
-            var ref = this.getAttribute('data-ref');
-            if (ref) showPanel(ref);
-        });
-    }
-})();
-
-/* Global close function (called by the ✕ button in the panel) */
-function closeXref() {
-    var p = document.getElementById('xref-panel');
-    if (p) {
-        p.classList.remove('visible');
-        p.style.maxHeight = '';
-    }
-}
-
-/* ── Topics / Themes overflow toggle ────────────── */
-(function() {
-    var toggles = document.querySelectorAll('.topics-toggle');
-    for (var i = 0; i < toggles.length; i++) {
-        var btn = toggles[i];
-        var row = btn.parentElement;
-        if (!row) continue;
-
-        /* Show button only if content overflows the 2-line cap */
-        if (row.scrollHeight > row.clientHeight + 2) {
-            btn.classList.add('visible');
-        }
-
-        btn.addEventListener('click', (function(b, r) {
-            return function() {
-                if (r.classList.contains('expanded')) {
-                    r.style.maxHeight = '';
-                    r.classList.remove('expanded');
-                    b.textContent = 'more';
-                } else {
-                    r.classList.add('expanded');
-                    r.style.maxHeight = r.scrollHeight + 'px';
-                    b.textContent = 'less';
-                }
-            };
-        })(btn, row));
-    }
-})();
-</script>
-
+<script type="application/json" id="verse-app-data">{"verseTexts": {"0": {"16": "¶ For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."}, "1": {"16": "For God so loved the world that He gave His one and only Son, that everyone who believes in Him shall not perish but have eternal life."}}, "translationNames": ["KJVPCE", "BSB"], "interlinear": {"16": [{"text": "so", "original": "Οὕτως", "strongs": "G3779"}, {"text": "For", "original": "γὰρ", "strongs": "G1063"}, {"text": "loved", "original": "ἠγάπησεν", "strongs": "G25"}, {"text": "", "original": "ὁ", "strongs": "G3588"}, {"text": "God", "original": "θεὸς", "strongs": "G2316"}, {"text": "", "original": "τὸν", "strongs": "G3588"}, {"text": "the world", "original": "κόσμον", "strongs": "G2889"}, {"text": "that", "original": "ὥστε", "strongs": "G5620"}, {"text": "", "original": "τὸν", "strongs": "G3588"}, {"text": "Son", "original": "υἱὸν", "strongs": "G5207"}, {"text": "him", "original": "αὐτὸν", "strongs": "G846"}, {"text": "", "original": "τὸν", "strongs": "G3588"}, {"text": "only begotten", "original": "μονογενῆ", "strongs": "G3439"}, {"text": "he gave", "original": "ἔδωκεν", "strongs": "G1325"}, {"text": "that", "original": "ἵνα", "strongs": "G2443"}, {"text": "whosoever", "original": "πᾶς", "strongs": "G3956"}, {"text": "", "original": "ὁ", "strongs": "G3588"}, {"text": "believeth", "original": "πιστεύων", "strongs": "G4100"}, {"text": "in", "original": "εἰς", "strongs": "G1519"}, {"text": "him", "original": "αὐτὸν", "strongs": "G846"}, {"text": "not", "original": "μὴ", "strongs": "G3361"}, {"text": "perish", "original": "ἀπόληται", "strongs": "G622"}, {"text": "but", "original": "ἀλλ'", "strongs": "G235"}, {"text": "have", "original": "ἔχῃ", "strongs": "G2192"}, {"text": "life", "original": "ζωὴν", "strongs": "G2222"}, {"text": "everlasting", "original": "αἰώνιον", "strongs": "G166"}]}, "lexicon": {"G4100": {"translit": "pisteúō", "definition": "to have faith (in, upon, or with respect to, a person or thing), i.e. credit; by implication, to entrust (especially ..."}, "G2192": {"translit": "échō", "definition": "to hold (used in very various applications, literally or figuratively, direct or remote; such as possession; ability,..."}, "G2316": {"translit": "theós", "definition": "figuratively, a magistrate; by Hebraism, very"}, "G3588": {"translit": "ho", "definition": "the (sometimes to be supplied, at others omitted, in English idiom)"}, "G1325": {"translit": "dídōmi", "definition": "to give (used in a very wide application, properly, or by implication, literally or figuratively; greatly modified by..."}, "G5620": {"translit": "hṓste", "definition": "so too, i.e. thus therefore (in various relations of consecution, as follow)"}, "G2443": {"translit": "hína", "definition": "compare\n\n\n); in order that (denoting the purpose or the result)"}, "G5207": {"translit": "huiós", "definition": "a \"son\" (sometimes of animals), used very widely of immediate, remote or figuratively, kinship"}, "G166": {"translit": "aiṓnios", "definition": "perpetual (also used of past time, or past and future as well)"}, "G2222": {"translit": "zōḗ", "definition": "life (literally or figuratively)"}, "G3956": {"translit": "pâs", "definition": "all, any, every, the whole"}, "G25": {"translit": "agapáō", "definition": "to love (in a social or moral sense)"}, "G3779": {"translit": "hoútō", "definition": "in this way (referring to what precedes or follows)"}, "G1063": {"translit": "gár", "definition": "properly, assigning a reason (used in argument, explanation or intensification; often with other particles)"}, "G2889": {"translit": "kósmos", "definition": "orderly arrangement, i.e. decoration; by implication, the world (in a wide or narrow sense, including its inhabitants..."}, "G846": {"translit": "autós", "definition": "the reflexive pronoun self, used (alone or in the comparative\n\n\n) of the third person , and (with the proper personal..."}, "G1519": {"translit": "eis", "definition": "to or into (indicating the point reached or entered), of place, time, or (figuratively) purpose (result, etc.); also ..."}, "G622": {"translit": "apóllymi", "definition": "to destroy fully (reflexively, to perish, or lose), literally or figuratively"}, "G3439": {"translit": "monogenḗs", "definition": "only-born, i.e. sole"}, "G3361": {"translit": "mḗ", "definition": "(adverb) not, (conjunction) lest; also (as an interrogative implying a negative answer (whereas\n\n\nexpects an affirmat..."}, "G235": {"translit": "allá", "definition": "properly, other things, i.e. (adverbially) contrariwise (in many relations)"}}, "langClass": "greek", "langLabel": "Greek"}</script>
 <nav class="chapter-nav">
   <a href="lookup_John_2.html" class="nav-prev">John 2</a>
-  <span class="nav-current">John 3</span>
   <a href="lookup_John_4.html" class="nav-next">John 4</a>
 </nav>
+
+<script>
+window.BIBLE_LABELS = ["KJV", "BSB"];
+window.BIBLE_KEYS = ["kjv", "bsb"];
+window.PAGE_KEY = "lookup_Jhn_3.html";
+window.PAGE_TITLE = "John 3";
+</script>
+<script src="js/lookup.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,148 @@
+(function() {
+    var TRANSLATIONS = {kjv: 'KJV', bsb: 'BSB'};
+    var MAX_VISIBLE = 100;
+    var BATCH_SIZE = 100;
+
+    var contentEl = document.getElementById('content');
+    var statusEl = document.getElementById('page-subtitle');
+
+    /* Build the search form */
+    var formHtml = '<div class="search-form">'
+        + '<select id="search-trans">';
+    for (var key in TRANSLATIONS) {
+        formHtml += '<option value="' + key + '">' + TRANSLATIONS[key] + '</option>';
+    }
+    formHtml += '</select>'
+        + '<input type="text" id="search-input" placeholder="Search the Bible...">'
+        + '<button id="search-btn">Search</button></div>';
+
+    document.getElementById('info-card').innerHTML = formHtml;
+    contentEl.innerHTML = '';
+
+    var input = document.getElementById('search-input');
+    var btn = document.getElementById('search-btn');
+    var transSelect = document.getElementById('search-trans');
+
+    /* Read URL params if present */
+    var qParam = getUrlParam('q');
+    var tParam = getUrlParam('t');
+    if (tParam && TRANSLATIONS[tParam]) transSelect.value = tParam;
+    if (qParam) {
+        input.value = qParam;
+        doSearch();
+    }
+
+    btn.addEventListener('click', doSearch);
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') doSearch();
+    });
+
+    function doSearch() {
+        var query = input.value.trim();
+        if (!query) return;
+
+        var trans = transSelect.value;
+        var url = 'data/search/search-' + trans + '.json';
+
+        /* Update URL without reload */
+        var newUrl = 'search.html?q=' + encodeURIComponent(query) + '&t=' + trans;
+        history.replaceState(null, '', newUrl);
+
+        contentEl.innerHTML = '<p class="loading">Loading ' + TRANSLATIONS[trans]
+            + ' text...</p>';
+        statusEl.textContent = '';
+
+        fetchJSON(url).then(function(index) {
+            var queryLower = query.toLowerCase();
+            var results = [];
+
+            for (var ref in index) {
+                if (index[ref].toLowerCase().indexOf(queryLower) !== -1) {
+                    results.push({ref: ref, text: index[ref]});
+                }
+            }
+
+            if (results.length === 0) {
+                statusEl.textContent = 'No results for "' + query + '" in '
+                    + TRANSLATIONS[trans];
+                contentEl.innerHTML = '<p style="color:#888;font-style:italic">'
+                    + 'No matching verses found.</p>';
+                return;
+            }
+
+            statusEl.textContent = results.length + ' result'
+                + (results.length !== 1 ? 's' : '') + ' for "' + query + '" in '
+                + TRANSLATIONS[trans];
+
+            renderResults(results, query, 0);
+
+        }).catch(function(err) {
+            contentEl.innerHTML = '<p class="error">Error loading search data: '
+                + esc(String(err)) + '</p>';
+        });
+    }
+
+    function highlightMatch(text, query) {
+        var lower = text.toLowerCase();
+        var qLower = query.toLowerCase();
+        var result = '';
+        var pos = 0;
+        var idx;
+        while ((idx = lower.indexOf(qLower, pos)) !== -1) {
+            result += esc(text.substring(pos, idx))
+                    + '<mark>' + esc(text.substring(idx, idx + query.length)) + '</mark>';
+            pos = idx + query.length;
+        }
+        result += esc(text.substring(pos));
+        return result;
+    }
+
+    function renderResults(results, query, showCount) {
+        var end = Math.min(showCount + BATCH_SIZE, results.length);
+
+        /* Group by book */
+        var byBook = {};
+        var bookOrder = [];
+        for (var i = 0; i < end; i++) {
+            var bookAbbr = results[i].ref.split('.')[0];
+            if (!byBook[bookAbbr]) {
+                byBook[bookAbbr] = [];
+                bookOrder.push(bookAbbr);
+            }
+            byBook[bookAbbr].push(results[i]);
+        }
+
+        var html = '';
+        for (var b = 0; b < bookOrder.length; b++) {
+            var bk = bookOrder[b];
+            var items = byBook[bk];
+            html += '<h3 style="margin:16px 0 8px;color:#5b7e9e;font-size:1em;">'
+                  + esc(bk) + ' (' + items.length + ')</h3>';
+            html += '<ul class="verse-list">';
+            for (var j = 0; j < items.length; j++) {
+                var r = items[j];
+                var readable = osisToReadable(r.ref);
+                html += '<li class="verse-item search-result">'
+                      + '<a class="verse-ref" href="' + lookupPageUrl(r.ref) + '">'
+                      + esc(readable) + '</a>'
+                      + '<div class="verse-text">'
+                      + highlightMatch(r.text, query) + '</div></li>';
+            }
+            html += '</ul>';
+        }
+
+        if (end < results.length) {
+            html += '<button class="show-more-btn" id="show-more">Show more ('
+                  + (results.length - end) + ' remaining)</button>';
+        }
+
+        contentEl.innerHTML = html;
+
+        var moreBtn = document.getElementById('show-more');
+        if (moreBtn) {
+            moreBtn.addEventListener('click', function() {
+                renderResults(results, query, end);
+            });
+        }
+    }
+})();

@@ -51,7 +51,7 @@ function esc(s) {
     return d.innerHTML;
 }
 
-/* Render a verse item: reference link + ESV text */
+/* Render a verse item: reference link + verse text */
 function renderVerseItem(ref, text, score) {
     var readable = osisToReadable(ref);
     var h = '<li class="verse-item">'
@@ -79,7 +79,7 @@ function fetchVerseText(ref) {
                 var verses = data.chapters[i].verses;
                 for (var j = 0; j < verses.length; j++) {
                     if (verses[j].verse === verse) {
-                        return verses[j].esv || verses[j].kjv || verses[j].bsb || '';
+                        return verses[j].kjv || verses[j].bsb || '';
                     }
                 }
             }
@@ -179,7 +179,7 @@ function renderVerseList(container, refs, scores) {
                 for (var v = 0; v < ch.verses.length; v++) {
                     var vd = ch.verses[v];
                     var key = bookData.abbrev + '.' + ch.chapter + '.' + vd.verse;
-                    textLookup[key] = vd.esv || vd.kjv || vd.bsb || '';
+                    textLookup[key] = vd.kjv || vd.bsb || '';
                 }
             }
         }
