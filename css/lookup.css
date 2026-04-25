@@ -1599,3 +1599,74 @@ h2 {
     background: #ebe3d1;
     box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
+
+/* ── Lectionary cross-reference ── */
+.lit-lect-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+.lit-lect-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 10px 14px;
+}
+.lit-lect-hidden { display: none; }
+.lit-lect-name {
+    font-weight: 600;
+    font-size: 0.92em;
+}
+.lit-lect-name a {
+    color: var(--color-text-strong);
+    text-decoration: none;
+}
+.lit-lect-name a:hover {
+    color: var(--color-link);
+    text-decoration: underline;
+}
+.lit-lect-readings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+.lit-lect-badge {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    font-size: 0.82em;
+    background: #f5f5f0;
+    border: 1px solid #e8e4d8;
+    border-radius: 4px;
+    padding: 3px 8px;
+    color: var(--color-text-secondary);
+}
+.lit-lect-current {
+    background: #eef5ff;
+    border-color: #b0c8e8;
+    color: #2a5a8a;
+}
+.lit-lect-year {
+    font-weight: 600;
+    font-size: 0.9em;
+}
+.lit-lect-type {
+    font-style: italic;
+    opacity: 0.8;
+}
+.lit-lect-toggle {
+    display: block;
+    margin: 0 auto 16px;
+    padding: 6px 16px;
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    color: var(--color-link);
+    font-size: 0.85em;
+    cursor: pointer;
+}
+.lit-lect-toggle:hover {
+    background: var(--color-surface-hover);
+}

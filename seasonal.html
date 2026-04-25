@@ -58,21 +58,23 @@
         fetchJSON('data/seasons.json'),
         fetchJSON('data/prayers.json'),
         fetchJSON('data/hymn-liturgical.json'),
-        fetchJSON('data/hymns.json')
+        fetchJSON('data/hymns.json'),
+        fetchJSON('data/lectionary.json')
     ]).then(function(results) {
         var seasonsData = results[0];
         var prayersData = results[1];
         var litData = results[2];
         var hymns = results[3];
+        var lectData = results[4];
 
-        renderPage(seasonsData, prayersData, litData, hymns, activeSeason);
+        renderPage(seasonsData, prayersData, litData, hymns, lectData, activeSeason);
     }).catch(function(err) {
         contentEl.innerHTML = '<p class="error">Error loading seasonal data: '
             + esc(String(err)) + '</p>';
     });
 
 
-    function renderPage(seasonsData, prayers, litData, hymns, seasonKey) {
+    function renderPage(seasonsData, prayers, litData, hymns, lectData, seasonKey) {
         /* Validate the season key */
         var season = seasonsData[seasonKey];
         if (!season) {
@@ -122,8 +124,15 @@
         /* Build all content sections */
         var html = bannerHtml;
 
+        /* Liturgical year calendar */
+        var now = new Date();
+        html += renderCalendar(now.getFullYear(), seasonKey);
+
         /* Section A: Scripture Readings */
         html += renderReadings(season);
+
+        /* Section A2: Lectionary Readings */
+        html += renderLectionary(lectData, seasonKey);
 
         /* Section B: Prayers */
         html += renderPrayers(prayers, seasonKey);
@@ -235,6 +244,173 @@
             html += '</li>';
         }
         html += '</ul></div>';
+        return html;
+    }
+
+
+    function renderLectionary(lectData, seasonKey) {
+        if (!lectData || !lectData.occasions) return '';
+
+        /* Filter to occasions for this season */
+        var occasions = [];
+        for (var i = 0; i < lectData.occasions.length; i++) {
+            if (lectData.occasions[i].s === seasonKey) {
+                occasions.push(lectData.occasions[i]);
+            }
+        }
+        if (occasions.length === 0) return '';
+
+        var yearLetter = lectData.year || 'A';
+
+        /* Find "this week" — the occasion whose date is closest to today
+           (within 3 days before through 6 days after) */
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var todayMs = today.getTime();
+        var thisWeekId = null;
+
+        for (var j = 0; j < occasions.length; j++) {
+            var dates = occasions[j].d;
+            if (!dates) continue;
+            for (var yr in dates) {
+                var occDate = new Date(dates[yr] + 'T00:00:00');
+                var diff = occDate.getTime() - todayMs;
+                /* Sunday is "this week" from 3 days before (Thu) to 6 days after (Sat) */
+                if (diff >= -3 * 86400000 && diff <= 6 * 86400000) {
+                    thisWeekId = occasions[j].id;
+                    break;
+                }
+            }
+            if (thisWeekId) break;
+        }
+
+        var html = '<div class="season-section">'
+            + '<h2>Lectionary Readings (Year ' + yearLetter + ')</h2>';
+
+        var typeLabels = {ot: 'OT', ps: 'Psalm', ep: 'Epistle', go: 'Gospel'};
+        var typeOrder = ['ot', 'ps', 'ep', 'go'];
+
+        for (var k = 0; k < occasions.length; k++) {
+            var occ = occasions[k];
+            var isThisWeek = (occ.id === thisWeekId);
+            var cls = 'lect-card' + (isThisWeek ? ' lect-this-week' : '');
+
+            html += '<div class="' + cls + '">';
+            html += '<div class="lect-card-header">'
+                + '<span class="lect-card-name">' + esc(occ.n) + '</span>';
+            if (isThisWeek) {
+                html += ' <span class="lect-this-week-badge">This Week</span>';
+            }
+            /* Show date if available */
+            var dateKey = String(today.getFullYear());
+            if (occ.d && occ.d[dateKey]) {
+                var dd = new Date(occ.d[dateKey] + 'T00:00:00');
+                html += '<span class="lect-card-date">' + formatDate(dd) + '</span>';
+            }
+            html += '</div>';
+
+            html += '<div class="lect-card-readings">';
+            for (var ti = 0; ti < typeOrder.length; ti++) {
+                var tkey = typeOrder[ti];
+                var rd = occ.r[tkey];
+                if (!rd) continue;
+                var url = lookupPageUrl(rd.ref);
+                html += '<div class="lect-reading">'
+                    + '<span class="lect-reading-type">' + typeLabels[tkey] + '</span>'
+                    + '<a class="lect-reading-ref" href="' + url + '">'
+                    + esc(rd.l) + '</a></div>';
+            }
+            html += '</div></div>';
+        }
+
+        html += '</div>';
+        return html;
+    }
+
+
+    function renderCalendar(year, activeSeason) {
+        var MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'];
+        var DAY_HEADERS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+
+        /* Season → CSS color class */
+        var SEASON_COLORS = {
+            advent: 'cal-purple', christmas: 'cal-gold', epiphany: 'cal-green',
+            lent: 'cal-purple', holy_week: 'cal-red', easter: 'cal-gold',
+            ascension: 'cal-gold', pentecost: 'cal-red', ordinary: 'cal-none'
+        };
+
+        /* Season display names for the legend */
+        var LEGEND = [
+            {key: 'advent', label: 'Advent', cls: 'cal-purple', desc: 'Awaiting Christ\u2019s coming'},
+            {key: 'christmas', label: 'Christmas', cls: 'cal-gold', desc: 'Celebrating the Incarnation'},
+            {key: 'epiphany', label: 'Epiphany', cls: 'cal-green', desc: 'Christ revealed to the world'},
+            {key: 'lent', label: 'Lent', cls: 'cal-purple', desc: '40 days of repentance'},
+            {key: 'holy_week', label: 'Holy Week', cls: 'cal-red', desc: 'Christ\u2019s passion and death'},
+            {key: 'easter', label: 'Easter', cls: 'cal-gold', desc: 'Resurrection and new life'},
+            {key: 'pentecost', label: 'Pentecost', cls: 'cal-red', desc: 'The Holy Spirit descends'},
+            {key: 'ordinary', label: 'Ordinary Time', cls: 'cal-none', desc: 'Growing in discipleship'}
+        ];
+
+        var today = new Date();
+        var todayY = today.getFullYear();
+        var todayM = today.getMonth(); /* 0-indexed */
+        var todayD = today.getDate();
+
+        var html = '<div class="season-section">'
+            + '<h2>Liturgical Year ' + year + '</h2>';
+
+        /* Legend */
+        html += '<div class="cal-legend">';
+        for (var li = 0; li < LEGEND.length; li++) {
+            var leg = LEGEND[li];
+            var legActive = (leg.key === activeSeason) ? ' cal-legend-active' : '';
+            html += '<a class="cal-legend-item' + legActive + '" href="seasonal.html?s='
+                + leg.key + '"><span class="cal-legend-swatch ' + leg.cls
+                + '"></span><span class="cal-legend-text"><span class="cal-legend-label">'
+                + leg.label + '</span><span class="cal-legend-desc">'
+                + leg.desc + '</span></span></a>';
+        }
+        html += '</div>';
+
+        /* Month grid */
+        html += '<div class="cal-grid">';
+        for (var mi = 0; mi < 12; mi++) {
+            html += '<div class="cal-month">';
+            html += '<div class="cal-month-name">' + MONTH_NAMES[mi] + '</div>';
+            html += '<table class="cal-table"><thead><tr>';
+            for (var di = 0; di < 7; di++) {
+                html += '<th>' + DAY_HEADERS[di] + '</th>';
+            }
+            html += '</tr></thead><tbody>';
+
+            /* First day of month: 0=Sun, 1=Mon, etc. */
+            var firstDow = new Date(year, mi, 1).getDay();
+            var daysInMonth = new Date(year, mi + 1, 0).getDate();
+
+            var dayNum = 1;
+            for (var week = 0; week < 6; week++) {
+                if (dayNum > daysInMonth) break;
+                html += '<tr>';
+                for (var dow = 0; dow < 7; dow++) {
+                    if ((week === 0 && dow < firstDow) || dayNum > daysInMonth) {
+                        html += '<td></td>';
+                    } else {
+                        var season = getSeasonForDate(year, mi + 1, dayNum);
+                        var cls = SEASON_COLORS[season] || 'cal-none';
+                        var isToday = (year === todayY && mi === todayM && dayNum === todayD);
+                        if (isToday) cls += ' cal-today';
+                        html += '<td class="' + cls + '">' + dayNum + '</td>';
+                        dayNum++;
+                    }
+                }
+                html += '</tr>';
+            }
+
+            html += '</tbody></table></div>';
+        }
+        html += '</div></div>';
+
         return html;
     }
 

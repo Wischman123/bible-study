@@ -659,6 +659,189 @@ h2 {
     margin-left: 8px;
 }
 
+/* ── Liturgical year calendar ── */
+.cal-legend {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 18px;
+}
+@media (max-width: 700px) {
+    .cal-legend { grid-template-columns: repeat(2, 1fr); }
+}
+.cal-legend-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    padding: 6px 8px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+}
+.cal-legend-item:hover {
+    background: var(--color-surface-alt);
+    border-color: var(--color-border);
+}
+.cal-legend-active {
+    background: var(--color-surface-alt);
+    border-color: var(--color-border);
+}
+.cal-legend-swatch {
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+.cal-legend-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+.cal-legend-label {
+    font-weight: 600;
+    font-size: 0.85em;
+    color: var(--color-text-strong);
+}
+.cal-legend-desc {
+    font-size: 0.75em;
+    color: var(--color-text-tertiary);
+    line-height: 1.3;
+}
+
+.cal-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px 20px;
+    margin-bottom: 8px;
+}
+@media (max-width: 900px) {
+    .cal-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+    .cal-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.cal-month {
+    min-width: 0;
+}
+.cal-month-name {
+    font-weight: 600;
+    font-size: 0.82em;
+    color: var(--color-text-strong);
+    text-align: center;
+    margin-bottom: 4px;
+}
+.cal-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 0.72em;
+    line-height: 1;
+}
+.cal-table th {
+    font-weight: 400;
+    color: var(--color-text-tertiary);
+    padding: 2px 0;
+    text-align: center;
+    font-size: 0.9em;
+}
+.cal-table td {
+    text-align: center;
+    padding: 3px 1px;
+    border-radius: 3px;
+    color: var(--color-text);
+    font-variant-numeric: tabular-nums;
+}
+.cal-table td:empty { background: none; }
+
+/* Season colors */
+.cal-purple { background: #ece0f5; }
+.cal-gold   { background: #f5ecd0; }
+.cal-red    { background: #f5d8d8; }
+.cal-green  { background: #dceede; }
+.cal-none   { background: transparent; }
+
+/* Swatches use the same colors */
+.cal-legend-swatch.cal-purple { background: #c9a4e0; }
+.cal-legend-swatch.cal-gold   { background: #dbc578; }
+.cal-legend-swatch.cal-red    { background: #d88888; }
+.cal-legend-swatch.cal-green  { background: #88bf8c; }
+.cal-legend-swatch.cal-none   { background: transparent; border: 1px solid var(--color-border); }
+
+/* Today highlight */
+.cal-today {
+    font-weight: 700;
+    box-shadow: inset 0 0 0 2px var(--color-text-strong);
+}
+
+/* Lectionary cards */
+.lect-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+}
+.lect-this-week {
+    background: #eef5ff;
+    border-color: #b0c8e8;
+    border-left: 3px solid #5b7e9e;
+}
+.lect-card-header {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+.lect-card-name {
+    font-weight: 600;
+    font-size: 0.95em;
+    color: var(--color-text-strong);
+}
+.lect-this-week-badge {
+    display: inline-block;
+    background: #5b7e9e;
+    color: #fff;
+    font-size: 0.72em;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+.lect-card-date {
+    font-size: 0.82em;
+    color: var(--color-text-tertiary);
+    margin-left: auto;
+}
+.lect-card-readings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+}
+.lect-reading {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 0.88em;
+}
+.lect-reading-type {
+    font-weight: 600;
+    font-size: 0.82em;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    min-width: 3.5em;
+}
+.lect-reading-ref {
+    color: var(--color-link);
+    text-decoration: none;
+}
+.lect-reading-ref:hover { text-decoration: underline; }
+
 /* Prayer cards */
 .prayer-card {
     background: #faf8f4;

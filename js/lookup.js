@@ -803,6 +803,84 @@ function closeXref() {
         return false;
     }
 
+    /* ── Lectionary year (A/B/C) ── */
+    function getLectionaryYear() {
+        var today = new Date();
+        var y = today.getFullYear();
+        // Check if we've crossed into the next lectionary year (Advent)
+        var dec24 = new Date(y, 11, 24);
+        var daysBack = (dec24.getDay() + 1) % 7;
+        var advent4 = new Date(dec24.getTime() - daysBack * 86400000);
+        var adventStart = new Date(advent4.getTime() - 21 * 86400000);
+        var effYear = today >= adventStart ? y + 1 : y;
+        var r = effYear % 3;
+        return r === 1 ? 'A' : r === 2 ? 'B' : 'C';
+    }
+
+    /* ── Render: lectionary cross-reference ── */
+    function renderLectionary(entries) {
+        if (!entries || entries.length === 0) return '';
+        var currentYear = getLectionaryYear();
+
+        // Group by occasion, then by year
+        var byOcc = {};
+        var occOrder = [];
+        for (var i = 0; i < entries.length; i++) {
+            var e = entries[i];
+            if (!byOcc[e.id]) {
+                byOcc[e.id] = {name: e.n, season: e.s, years: {}};
+                occOrder.push(e.id);
+            }
+            if (!byOcc[e.id].years[e.y]) {
+                byOcc[e.id].years[e.y] = [];
+            }
+            byOcc[e.id].years[e.y].push(e);
+        }
+
+        var h = '<h3 class="lit-sub-header">This Chapter in the Lectionary</h3>';
+        // Show up to 3 occasions by default, toggle for more
+        var showAll = occOrder.length <= 3;
+        var limit = showAll ? occOrder.length : 3;
+
+        h += '<div class="lit-lect-list">';
+        for (var j = 0; j < occOrder.length; j++) {
+            var occ = byOcc[occOrder[j]];
+            var hidden = (!showAll && j >= limit) ? ' lit-lect-hidden' : '';
+            h += '<div class="lit-lect-item' + hidden + '">';
+            h += '<div class="lit-lect-name"><a href="seasonal.html?s='
+                + (occ.season || 'ordinary') + '">' + esc(occ.name) + '</a></div>';
+            h += '<div class="lit-lect-readings">';
+            var years = ['A', 'B', 'C'];
+            for (var yi = 0; yi < years.length; yi++) {
+                var yr = years[yi];
+                var readings = occ.years[yr];
+                if (!readings) continue;
+                for (var ri = 0; ri < readings.length; ri++) {
+                    var rd = readings[ri];
+                    var isCurr = yr === currentYear;
+                    h += '<span class="lit-lect-badge'
+                        + (isCurr ? ' lit-lect-current' : '') + '">';
+                    h += '<span class="lit-lect-year">Year ' + yr + '</span> ';
+                    h += '<span class="lit-lect-type">' + esc(rd.t) + '</span>';
+                    h += ' \u2014 ' + esc(rd.l);
+                    h += '</span>';
+                }
+            }
+            h += '</div></div>';
+        }
+        h += '</div>';
+
+        if (!showAll) {
+            h += '<button class="lit-lect-toggle" onclick="'
+                + 'var items=this.parentNode.querySelectorAll(\'.lit-lect-hidden\');'
+                + 'for(var i=0;i<items.length;i++)items[i].classList.remove(\'lit-lect-hidden\');'
+                + 'this.remove();">'
+                + 'Show all ' + occOrder.length + ' lectionary readings</button>';
+        }
+
+        return h;
+    }
+
     /* ── Render: season banner ── */
     function renderBanner(season, seasonKey, dateStr, isCurrent) {
         var colorCls = 'lit-color-' + (COLOR_MAP[seasonKey] || 'green');
@@ -990,6 +1068,7 @@ function closeXref() {
     var html = '';
     html += renderBanner(season, seasonKey, dateStr, true);
     html += renderConnection(season, season.readings || []);
+    html += renderLectionary(bundle.lectIndex || []);
     html += renderReadings(season);
     html += renderPrayers(prayers, seasonKey);
     html += renderHymns(hymnLookup, litData, seasonKey, season.name);
