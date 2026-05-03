@@ -1670,3 +1670,21 @@ h2 {
 .lit-lect-toggle:hover {
     background: var(--color-surface-hover);
 }
+
+/* ── Non-canonical book badge (subtitle of lookup pages) ── */
+.non-canonical-badge .badge {
+    display: inline-block;
+    background: #6e4a8c;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    margin-right: 6px;
+    vertical-align: 1px;
+}
+@media (prefers-color-scheme: dark) {
+    .non-canonical-badge .badge { background: #8a64a8; }
+}

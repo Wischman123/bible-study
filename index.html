@@ -28,14 +28,51 @@
             color: #888;
             font-size: 0.95em;
             font-style: italic;
-            margin-bottom: 40px;
+            margin-bottom: 24px;
         }
-        .verse-list {
-            list-style: none;
+        .canon-toggle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 32px 0;
+            font-size: 0.95em;
+            color: #555;
         }
-        .verse-list li {
-            margin-bottom: 0;
+        .canon-toggle label {
+            cursor: pointer;
+            user-select: none;
         }
+        /* The switch: a 44x22 pill with a 18px knob that slides */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 22px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #c0c0c0;
+            transition: 0.2s;
+            border-radius: 22px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px; width: 18px;
+            left: 2px; bottom: 2px;
+            background-color: #fff;
+            transition: 0.2s;
+            border-radius: 50%;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        input:checked + .slider { background-color: #6b8e6b; }
+        input:checked + .slider:before { transform: translateX(22px); }
+        .verse-list { list-style: none; }
+        .verse-list li { margin-bottom: 0; }
         .verse-list a {
             display: block;
             padding: 14px 24px;
@@ -49,17 +86,47 @@
             background: #f7f3eb;
             padding-left: 32px;
         }
+        .verse-list li.non-canonical a { color: #6e4a8c; }
+        .verse-list li.non-canonical .canon-flag {
+            display: inline-block;
+            font-size: 0.78em;
+            font-style: italic;
+            color: #fff;
+            background: #6e4a8c;
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-right: 10px;
+            vertical-align: 2px;
+        }
+        body.hide-non-canonical .verse-list li.non-canonical { display: none; }
         .empty {
             text-align: center;
             color: #aaa;
             font-style: italic;
             margin-top: 60px;
         }
+        @media (prefers-color-scheme: dark) {
+            body { background: #1e1e1e; color: #e0e0e0; }
+            h1 { color: #f0f0f0; }
+            .subtitle, .canon-toggle { color: #a0a0a0; }
+            .verse-list a { color: #8eb0d0; border-bottom-color: #333; }
+            .verse-list a:hover { background: #2a2a2a; }
+            .verse-list li.non-canonical a { color: #c8a8e0; }
+            .slider { background-color: #555; }
+            input:checked + .slider { background-color: #8aaf8a; }
+        }
     </style>
 </head>
 <body>
     <h1>Bible &amp; Theology Study Pages</h1>
     <div class="subtitle">Verse lookups with parallel translations, commentary, and original language</div>
+    <div class="canon-toggle">
+        <label for="canon-switch">Show non-canonical books (Pseudepigrapha, Ethiopian, etc.)</label>
+        <span class="switch">
+            <input type="checkbox" id="canon-switch" checked>
+            <span class="slider"></span>
+        </span>
+    </div>
     <ul class="verse-list">
         <li><a href="lookup_Genesis_1.html">Genesis 1</a></li>
         <li><a href="lookup_Genesis_1_1.html">Genesis 1:1</a></li>
@@ -78,7 +145,24 @@
         <li><a href="lookup_1_Corinthians_15_1-8.html">1 Corinthians 15:1-8</a></li>
         <li><a href="lookup_1_Peter_2_24-25.html">1 Peter 2:24-25</a></li>
         <li><a href="lookup_Revelation_22.html">Revelation 22</a></li>
+        <li class="non-canonical"><a href="lookup_1_Enoch_1.html"><span class="canon-flag">Non-Canonical: Ethiopian Orthodox</span>1 Enoch 1</a></li>
+        <li class="non-canonical"><a href="lookup_1_Enoch_1_9.html"><span class="canon-flag">Non-Canonical: Ethiopian Orthodox</span>1 Enoch 1:9</a></li>
     </ul>
 
+    <script>
+    (function() {
+        const sw = document.getElementById('canon-switch');
+        const KEY = 'biblestudy.showNonCanonical';
+        // Restore previous preference (default true = show)
+        const stored = localStorage.getItem(KEY);
+        const show = stored === null ? true : stored === 'true';
+        sw.checked = show;
+        document.body.classList.toggle('hide-non-canonical', !show);
+        sw.addEventListener('change', function() {
+            document.body.classList.toggle('hide-non-canonical', !sw.checked);
+            localStorage.setItem(KEY, sw.checked);
+        });
+    })();
+    </script>
 </body>
 </html>
