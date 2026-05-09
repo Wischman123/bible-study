@@ -1688,3 +1688,78 @@ h2 {
 @media (prefers-color-scheme: dark) {
     .non-canonical-badge .badge { background: #8a64a8; }
 }
+
+/* ── Aramaic Qumran Witnesses (1 Enoch only) ─────────────── */
+.dss-witness-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 12px;
+}
+.dss-witness {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-accent);
+    border-radius: 4px;
+    padding: 14px 18px;
+    box-shadow: 0 1px 2px var(--color-shadow);
+}
+.dss-witness-unmapped {
+    border-left-style: dashed;
+    background: var(--color-surface-alt);
+}
+.dss-witness-head {
+    font-size: 1.05em;
+    margin-bottom: 6px;
+}
+.dss-witness-id {
+    font-weight: 700;
+    color: var(--color-heading);
+    margin-right: 4px;
+}
+.dss-witness-siglum {
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin-right: 10px;
+}
+.dss-witness-date {
+    color: var(--color-text-tertiary);
+    font-size: 0.92em;
+}
+.dss-witness-scope,
+.dss-witness-coverage,
+.dss-witness-notes {
+    margin: 4px 0;
+    line-height: var(--line-height);
+}
+.dss-witness-scope strong,
+.dss-witness-coverage strong {
+    color: var(--color-text-strong);
+}
+.dss-witness-notes {
+    color: var(--color-text-secondary);
+    font-size: 0.95em;
+    margin-top: 8px;
+}
+.dss-witness-link {
+    margin-top: 10px;
+    font-size: 0.95em;
+}
+.dss-witness-link a {
+    color: var(--color-link);
+    text-decoration: none;
+}
+.dss-witness-link a:hover {
+    color: var(--color-link-hover);
+    text-decoration: underline;
+}
+.dss-unmapped-intro {
+    background: var(--color-diff-bg);
+    border-left: 3px solid var(--color-diff-border);
+    color: var(--color-diff-text);
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 0.95em;
+    line-height: var(--line-height);
+    margin-top: 8px;
+}
